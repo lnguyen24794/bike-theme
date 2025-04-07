@@ -144,18 +144,10 @@ $tour_category = get_query_var('tour_category');
                                         <h5 class="mb-0"><a href="<?php the_permalink(); ?>" class="text-dark"><?php the_title(); ?></a></h5>
                                     </div>
                                     <div class="facts p-0 mb-3">
-                                        <div class="style touring">
-                                            <?php echo esc_html($difficulty); ?>
-                                        </div>
+                                        <div class="style touring"> <?php echo esc_html($difficulty); ?></div>
                                         <div class="duration"><?php echo esc_html($duration); ?> <?php esc_html_e('Days', 'bike-theme'); ?></div>
                                         <div class="destination"><?php echo esc_html($distance); ?> km</div>
-                                        <div class="price">
-                                            <span class="convertible-amount" data-display-amount="US$ 2,750" data-original-amount="US$ 2,750">
-                                                <span data-reactroot="" class="amount">
-                                                    <a href="" data-tooltip="Click to change currency"><?php echo bike_theme_format_price($price); ?></a>
-                                                </span>
-                                            </span>
-                                        </div>
+                                        <div class="price"><?php echo bike_theme_format_price($price); ?></div>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <a class="btn btn-sm btn-primary rounded py-2 px-4" href="<?php the_permalink(); ?>"><?php esc_html_e('View Details', 'bike-theme'); ?></a>
