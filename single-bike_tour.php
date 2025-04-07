@@ -765,10 +765,7 @@ jQuery(document).ready(function($) {
 }
 
 .itinerary-day-details {
-    background: #f8f9fa;
-    padding: 25px;
-    min-width: 280px;
-    width: 300px;
+    padding-left: 10px;
     border-left: 1px solid #eee;
 }
 
@@ -785,8 +782,6 @@ jQuery(document).ready(function($) {
 .detail-item i {
     font-size: 1.2rem;
     color: var(--primary-color);
-    margin-right: 15px;
-    margin-top: 3px;
 }
 
 .detail-content h5 {
