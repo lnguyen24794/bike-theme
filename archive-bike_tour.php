@@ -36,7 +36,7 @@ wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/ass
                 // Get all destinations
                 $destinations = get_terms(array(
                     'taxonomy' => 'destination',
-                    'hide_empty' => true,
+                    'hide_empty' => false,
                     'parent' => 0,
                     'orderby' => 'name',
                     'order' => 'ASC'
