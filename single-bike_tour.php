@@ -12,7 +12,7 @@ get_header();
 // Process booking form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking'])) {
     // Verify nonce
-    if (!isset($_POST['bike_tour_booking_nonce']) || 
+    if (!isset($_POST['bike_tour_booking_nonce']) ||
         !wp_verify_nonce($_POST['bike_tour_booking_nonce'], 'bike_tour_booking')) {
         wp_die(__('Invalid nonce specified', 'bike-theme'));
     }
@@ -28,11 +28,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
 
     // Validate required fields
     $errors = array();
-    if (empty($name)) $errors[] = __('Name is required', 'bike-theme');
-    if (empty($email)) $errors[] = __('Email is required', 'bike-theme');
-    if (empty($phone)) $errors[] = __('Phone is required', 'bike-theme');
-    if (empty($date)) $errors[] = __('Date is required', 'bike-theme');
-    if ($participants < 1) $errors[] = __('Number of participants must be at least 1', 'bike-theme');
+    if (empty($name)) {
+        $errors[] = __('Name is required', 'bike-theme');
+    }
+    if (empty($email)) {
+        $errors[] = __('Email is required', 'bike-theme');
+    }
+    if (empty($phone)) {
+        $errors[] = __('Phone is required', 'bike-theme');
+    }
+    if (empty($date)) {
+        $errors[] = __('Date is required', 'bike-theme');
+    }
+    if ($participants < 1) {
+        $errors[] = __('Number of participants must be at least 1', 'bike-theme');
+    }
 
     // If no errors, create booking
     if (empty($errors)) {
@@ -151,8 +161,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
             </div>
             <!-- Tour Basic Info Start -->
            <div class="tour-basic-info absolute">
-                <div class="row mb-5 bg-light shadow rounded p-4 align-items-center wrapper">
-                
+                <div class="container row mb-5 bg-light shadow rounded p-4 align-items-center wrapper">
                     <div class="col">
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
@@ -206,7 +215,6 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 
     <!-- Tour Detail Start -->
     <div class="container-xxl py-5">
-        <div class="container">
             <div class="row g-5">
                 <!-- Tour Description -->
                 <div class="col-lg-8">
@@ -310,11 +318,11 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                     <h3><?php esc_html_e('Tour Price', 'bike-theme'); ?></h3>
                                     <?php
                                     $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
-                                    $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
-                                    $standard_price = get_post_meta(get_the_ID(), '_tour_price', true);
+                                        $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
+                                        $standard_price = get_post_meta(get_the_ID(), '_tour_price', true);
 
-                                    if ($flexible_pricing_enabled && !empty($flexible_pricing)) {
-                                        ?>
+                                        if ($flexible_pricing_enabled && !empty($flexible_pricing)) {
+    ?>
                                         <div class="flexible-pricing-table">
                                             <table class="table">
                                                 <thead>
@@ -334,21 +342,21 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                             </table>
                                         </div>
                                         <?php
-                                    } else {
-                                        ?>
+                                        } else {
+                                            ?>
                                         <div class="standard-price">
                                             <p class="price-amount"><?php echo esc_html(number_format($standard_price, 0, '.', ',')); ?> VND</p>
                                             <p class="price-note"><?php esc_html_e('per person', 'bike-theme'); ?></p>
                                         </div>
                                         <?php
-                                    }
-                                    ?>
+                                        }
+                                        ?>
 
                                     <!-- Tour Additions Section -->
                                     <?php
-                                    $additions = get_post_meta(get_the_ID(), '_tour_additions', true);
-                                    if (!empty($additions)) {
-                                        ?>
+                                        $additions = get_post_meta(get_the_ID(), '_tour_additions', true);
+                                        if (!empty($additions)) {
+                                            ?>
                                         <div class="tour-additions mt-4">
                                             <h3><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h3>
                                             <div class="additions-table">
@@ -367,12 +375,12 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                                                 <td><?php echo esc_html($addition['description']); ?></td>
                                                                 <td>
                                                                     <?php
-                                                                    echo esc_html(number_format($addition['price'], 0, '.', ',')); ?> VND
+                                echo esc_html(number_format($addition['price'], 0, '.', ',')); ?> VND
                                                                     <?php
-                                                                    if (isset($addition['per_person']) && $addition['per_person']) {
-                                                                        echo ' <span class="per-person-note">' . esc_html__('per person', 'bike-theme') . '</span>';
-                                                                    }
-                                                                    ?>
+                                if (isset($addition['per_person']) && $addition['per_person']) {
+                                    echo ' <span class="per-person-note">' . esc_html__('per person', 'bike-theme') . '</span>';
+                                }
+                                                            ?>
                                                                 </td>
                                                             </tr>
                                                         <?php } ?>
@@ -380,65 +388,9 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                                 </table>
                                             </div>
                                         </div>
-
-                                        <style>
-                                        .tour-additions {
-                                            background: #f9f9f9;
-                                            padding: 20px;
-                                            border-radius: 8px;
-                                            margin-top: 30px;
-                                        }
-
-                                        .tour-additions h3 {
-                                            margin-bottom: 20px;
-                                            color: #333;
-                                            font-size: 1.5rem;
-                                        }
-
-                                        .additions-table table {
-                                            width: 100%;
-                                            border-collapse: collapse;
-                                            background: #fff;
-                                            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-                                        }
-
-                                        .additions-table th,
-                                        .additions-table td {
-                                            padding: 12px 15px;
-                                            text-align: left;
-                                            border-bottom: 1px solid #eee;
-                                        }
-
-                                        .additions-table th {
-                                            background: #f5f5f5;
-                                            font-weight: 600;
-                                            color: #333;
-                                        }
-
-                                        .additions-table tr:last-child td {
-                                            border-bottom: none;
-                                        }
-
-                                        .per-person-note {
-                                            font-size: 0.9em;
-                                            color: #666;
-                                            font-style: italic;
-                                        }
-
-                                        @media (max-width: 768px) {
-                                            .additions-table {
-                                                overflow-x: auto;
-                                                -webkit-overflow-scrolling: touch;
-                                            }
-                                            
-                                            .additions-table table {
-                                                min-width: 500px;
-                                            }
-                                        }
-                                        </style>
                                         <?php
-                                    }
-                                    ?>
+}
+?>
                                 </div>
                             </div>
                         </div>
@@ -460,7 +412,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 
                 <!-- Booking Form Start -->
                 <div class="col-lg-4">
-                    <div class="bg-light rounded p-4 mb-5 wow fadeInUp tour-booking-form" data-wow-delay="0.1s">
+                    <div class="bg-light rounded p-2 mb-5 wow fadeInUp tour-booking-form" data-wow-delay="0.1s">
                         <h4 class="mb-2 text-center"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></h4>
                         <div class="booking-response"></div>
                         <form id="tour-booking-form" method="post">
@@ -468,10 +420,16 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                             <input type="hidden" name="action" value="bike_theme_process_booking">
                             <input type="hidden" name="tour_id" value="<?php echo get_the_ID(); ?>">
                             <div class="row g-3">
-                                <div class="col-12">
+                                <div class="col-lg-6">
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="name" name="name" placeholder="<?php esc_attr_e('Your Name', 'bike-theme'); ?>" required>
                                         <label for="name"><?php esc_html_e('Your Name', 'bike-theme'); ?></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-floating">
+                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="<?php esc_attr_e('Your Phone', 'bike-theme'); ?>" required>
+                                        <label for="phone"><?php esc_html_e('Your Phone', 'bike-theme'); ?></label>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -480,32 +438,26 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                         <label for="email"><?php esc_html_e('Your Email', 'bike-theme'); ?></label>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="<?php esc_attr_e('Your Phone', 'bike-theme'); ?>" required>
-                                        <label for="phone"><?php esc_html_e('Your Phone', 'bike-theme'); ?></label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
+                                <div class="col-lg-6">
                                     <div class="form-floating">
                                         <input type="date" class="form-control" id="date" name="date" required min="<?php echo date('Y-m-d'); ?>">
                                         <label for="date"><?php esc_html_e('Preferred Date', 'bike-theme'); ?></label>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-lg-6">
                                     <div class="form-floating">
                                         <select class="form-select" id="participants" name="participants">
                                             <?php for ($i = 1; $i <= $max_participants; $i++) : ?>
                                                 <option value="<?php echo esc_attr($i); ?>"><?php echo esc_html($i); ?></option>
                                             <?php endfor; ?>
                                         </select>
-                                        <label for="participants"><?php esc_html_e('Number of Participants', 'bike-theme'); ?></label>
+                                        <label for="participants"><?php esc_html_e('Number of People', 'bike-theme'); ?></label>
                                     </div>
                                 </div>
                                 <?php
                                 $additions = bike_theme_get_tour_additions(get_the_ID());
-                                if (!empty($additions)) :
-                                ?>
+if (!empty($additions)) :
+    ?>
                                 <div class="col-12">
                                     <h5 class="mb-3"><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h5>
                                     <div class="additions-options">
@@ -519,7 +471,9 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                             <label class="form-check-label" for="addition_<?php echo esc_attr(sanitize_title($addition['name'])); ?>">
                                                 <?php echo esc_html($addition['name']); ?> 
                                                 (<?php echo esc_html(number_format($addition['price'], 0, '.', ',')); ?> VND
-                                                <?php if (isset($addition['per_person']) && $addition['per_person']) echo esc_html__('per person', 'bike-theme'); ?>)
+                                                <?php if (isset($addition['per_person']) && $addition['per_person']) {
+                                                    echo esc_html__('per person', 'bike-theme');
+                                                } ?>)
                                                 <?php if (!empty($addition['description'])) : ?>
                                                     <small class="text-muted d-block"><?php echo esc_html($addition['description']); ?></small>
                                                 <?php endif; ?>
@@ -573,7 +527,6 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                 </div>
                 <!-- Booking Form End -->
             </div>
-        </div>
     </div>
     <!-- Tour Detail End -->
 
