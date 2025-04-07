@@ -1663,7 +1663,7 @@ function bike_theme_display_destination_categories($destination_id, $destination
         $count = $data['count'];
         
         $output .= '<li>';
-        $output .= '<a href="/bike-tour?tour_category=' . $category->slug . '&destination=' . $destination_slug . '">';
+        $output .= '<a href="/bike-tour/'.$destination_slug.'?tour_category=' . $category->slug . '">';
         $output .= esc_html($category->name);
         $output .= ' <span class="badge bg-primary rounded-pill">' . $count . '</span>';
         $output .= '</a>';
