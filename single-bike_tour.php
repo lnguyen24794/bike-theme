@@ -322,7 +322,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                         $standard_price = get_post_meta(get_the_ID(), '_tour_price', true);
 
                                         if ($flexible_pricing_enabled && !empty($flexible_pricing)) {
-    ?>
+                                        ?>
                                         <div class="flexible-pricing-table">
                                             <table class="table">
                                                 <thead>
@@ -792,7 +792,7 @@ jQuery(document).ready(function($) {
 .detail-content h5 {
     margin: 0 0 5px;
     color: #333;
-    font-size: 1.11rem;
+    font-size: 1.19rem;
 }
 
 .detail-content p {

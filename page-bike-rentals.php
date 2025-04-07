@@ -27,11 +27,9 @@ get_header();
 
     <!-- Tours Start -->
     <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <?php the_content(); ?>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <?php the_content(); ?>
             </div>
         </div>
     </div>

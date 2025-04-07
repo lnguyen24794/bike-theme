@@ -57,7 +57,7 @@
 }
 
 .tour-basic-info h5 {
-    font-size: 1.11rem;
+    font-size: 1.19rem;
     margin-bottom: 0.25rem;
 }
 
@@ -94,7 +94,7 @@
     }
 
     .tour-tabs .nav-link{
-        font-size: 1.11rem !important;
+        font-size: 1.19rem !important;
     }
 }
 
@@ -244,7 +244,7 @@
 .tour-tabs .nav-link{
     height: 100%;
     font-weight: 600;
-    font-size: 1.11rem;
+    font-size: 1.19rem;
 }
 
 /* Destinations styling */

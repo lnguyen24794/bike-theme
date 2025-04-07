@@ -8,6 +8,7 @@
  */
 
 get_header();
+wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/assets/css/tour-archive.css', array(), '1.0.0');
 ?>
 
 <main id="primary" class="site-main">
@@ -63,13 +64,17 @@ get_header();
                                 <i class="fas fa-folder-open text-primary"></i>
                             </div>
                             <div class="folder-info">
-                                <h4 class="folder-title"><?php echo esc_html($destination->name); ?></h4>
-                                <span class="tour-count"><?php printf(esc_html(_n('%s Tour', '%s Tours', $tours_count, 'bike-theme')), number_format_i18n($tours_count)); ?></span>
+                                <a href="<?php echo esc_url(get_term_link($destination)); ?>">
+                                    <h2 class="folder-title"><?php echo esc_html($destination->name); ?></h2>
+                                    <span class="tour-count"><?php printf(esc_html(_n('%s Tour', '%s Tours', $tours_count, 'bike-theme')), number_format_i18n($tours_count)); ?></span>
+                                </a>
                             </div>
                         </div>
                         <div class="folder-content">
                             <div class="folder-image">
-                                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($destination->name); ?>" class="img-fluid rounded">
+                                <a href="<?php echo esc_url(get_term_link($destination)); ?>">
+                                    <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($destination->name); ?>" class="img-fluid rounded">
+                                </a>
                             </div>
                             <div class="folder-categories">
                                 <?php if (!empty($category_counts)) : ?>
@@ -90,7 +95,7 @@ get_header();
                                 <a href="<?php echo esc_url(get_term_link($destination)); ?>" class="btn btn-sm btn-primary">
                                     <i class="fas fa-eye me-2"></i><?php esc_html_e('View Tours', 'bike-theme'); ?>
                                 </a>
-                                <a href="<?php echo esc_url(get_term_link($destination)); ?>#book-now" class="btn btn-sm btn-dark">
+                                <a href="/booking" class="btn btn-sm btn-dark">
                                     <i class="fas fa-calendar-alt me-2"></i><?php esc_html_e('Book Now', 'bike-theme'); ?>
                                 </a>
                             </div>
@@ -103,117 +108,6 @@ get_header();
                 ?>
             </div>
             <!-- Destinations Grid End -->
-
-            <style>
-                .destination-folder {
-                    background: #fff;
-                    border-radius: 15px;
-                    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-                    transition: all 0.3s ease;
-                    overflow: hidden;
-                    height: 100%;
-                }
-
-                .destination-folder:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-                }
-
-                .folder-header {
-                    display: flex;
-                    align-items: center;
-                    padding: 20px;
-                    background: #f8f9fa;
-                    border-bottom: 1px solid #eee;
-                }
-
-                .folder-icon {
-                    font-size: 24px;
-                    margin-right: 15px;
-                }
-
-                .folder-info {
-                    flex: 1;
-                }
-
-                .folder-title {
-                    margin: 0;
-                    font-size: 18px;
-                    font-weight: 600;
-                }
-
-                .tour-count {
-                    font-size: 14px;
-                    color: #6c757d;
-                }
-
-                .folder-content {
-                    padding: 20px;
-                }
-
-                .folder-image {
-                    margin-bottom: 15px;
-                    border-radius: 10px;
-                    overflow: hidden;
-                }
-
-                .folder-image img {
-                    width: 100%;
-                    height: 200px;
-                    object-fit: cover;
-                }
-
-                .folder-categories {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 8px;
-                    margin-bottom: 15px;
-                }
-
-                .category-badge .badge {
-                    font-size: 12px;
-                    font-weight: 500;
-                    padding: 6px 12px;
-                }
-
-                .folder-description {
-                    font-size: 14px;
-                    color: #6c757d;
-                    margin-bottom: 15px;
-                    line-height: 1.5;
-                }
-
-                .folder-actions {
-                    display: flex;
-                    gap: 10px;
-                }
-
-                .folder-actions .btn {
-                    flex: 1;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 8px 15px;
-                }
-
-                .folder-actions .btn i {
-                    font-size: 14px;
-                }
-
-                @media (max-width: 768px) {
-                    .folder-header {
-                        padding: 15px;
-                    }
-
-                    .folder-title {
-                        font-size: 16px;
-                    }
-
-                    .folder-image img {
-                        height: 150px;
-                    }
-                }
-            </style>
     </div>
     <!-- Tours End -->
 </main>

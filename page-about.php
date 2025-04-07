@@ -27,7 +27,6 @@ get_header();
 
     <!-- About Start -->
     <div class="container-xxl py-5">
-        <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6">
                     <h6 class="section-title text-start text-primary text-uppercase"><?php esc_html_e('About Us', 'bike-theme'); ?></h6>
@@ -149,40 +148,35 @@ get_header();
                         </div>
                     </div>
             </div>
-        </div>
     </div>
     <!-- About End -->
 
     <!-- Team Start -->
     <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Reviews', 'bike-theme'); ?></h6>
-                <h1 class="mb-5"><?php esc_html_e('What Our Customers Say', 'bike-theme'); ?></h1>
-            </div>
-            <?php echo do_shortcode('[trustindex no-registration=google]'); ?>
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Reviews', 'bike-theme'); ?></h6>
+            <h1 class="mb-5"><?php esc_html_e('What Our Customers Say', 'bike-theme'); ?></h1>
         </div>
+        <?php echo do_shortcode('[trustindex no-registration=google]'); ?>
     </div>
     <!-- Team End -->
 
     <!-- Call to Action Start -->
     <div class="container-xxl py-5">
-        <div class="container">
-            <div class="bg-light rounded p-5 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="row g-4">
-                            <div class="col-12">
-                                <h1 class="mb-3"><?php esc_html_e('Ready to Experience Da Nang on Two Wheels?', 'bike-theme'); ?></h1>
-                                <p class="mb-4"><?php esc_html_e('Born from a love for cycling and a desire to share Da Nang\'s charm in the most eco-friendly way, BeeBikeHub is here for everyone – whether you\'re a seasoned rider or just looking to pedal at your own pace. We\'re proud to be your companion on the journey, helping you discover Da Nang in a way that\'s uniquely yours.', 'bike-theme'); ?></p>
-                            </div>
+        <div class="bg-light rounded p-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <h1 class="mb-3"><?php esc_html_e('Ready to Experience Da Nang on Two Wheels?', 'bike-theme'); ?></h1>
+                            <p class="mb-4"><?php esc_html_e('Born from a love for cycling and a desire to share Da Nang\'s charm in the most eco-friendly way, BeeBikeHub is here for everyone – whether you\'re a seasoned rider or just looking to pedal at your own pace. We\'re proud to be your companion on the journey, helping you discover Da Nang in a way that\'s uniquely yours.', 'bike-theme'); ?></p>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a class="btn btn-primary py-3 px-4 me-3" href="<?php echo esc_url(get_post_type_archive_link('bike_tour')); ?>"><?php esc_html_e('Book a Tour', 'bike-theme'); ?></a>
-                            <a class="btn btn-dark py-3 px-4" href="<?php echo esc_url(home_url('/bike-rentals')); ?>"><?php esc_html_e('Rent a Bike', 'bike-theme'); ?></a>
-                        </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <a class="btn btn-primary py-3 px-4 me-3" href="<?php echo esc_url(get_post_type_archive_link('bike_tour')); ?>"><?php esc_html_e('Book a Tour', 'bike-theme'); ?></a>
+                        <a class="btn btn-dark py-3 px-4" href="<?php echo esc_url(home_url('/bike-rentals')); ?>"><?php esc_html_e('Rent a Bike', 'bike-theme'); ?></a>
                     </div>
                 </div>
             </div>

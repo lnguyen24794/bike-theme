@@ -131,7 +131,6 @@ get_header();
 
         <!-- About Start -->
         <div class="container-xxl py-5">
-            <div class="container">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6">
                         <h6 class="section-title text-start text-primary text-uppercase"><?php esc_html_e('About Us', 'bike-theme'); ?></h6>
@@ -252,13 +251,11 @@ get_header();
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         <!-- About End -->
 
         <!-- Destinations Start -->
         <div class="container-xxl py-5">
-            <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Explore Destinations', 'bike-theme'); ?></h6>
                     <h1 class="mb-5"><?php esc_html_e('Popular Cycling Destinations', 'bike-theme'); ?></h1>
@@ -339,25 +336,21 @@ get_header();
                 <div class="text-center mt-5">
                     <a href="<?php echo esc_url(get_post_type_archive_link('bike_tour')); ?>" class="btn btn-primary py-3 px-5"><?php esc_html_e('View All Destinations', 'bike-theme'); ?></a>
                 </div>
-            </div>
         </div>
         <!-- Destinations End -->
 
          <!-- Featured Bikes Start -->
          <div class="container-xxl py-5">
-            <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Bikes', 'bike-theme'); ?></h6>
                     <h1 class="mb-5"><?php echo wp_kses_post(__('Explore Our <span class="text-primary text-uppercase">Bikes</span>', 'bike-theme')); ?></h1>
                 </div>
                 <?php include(get_template_directory() . '/template-parts/bikes.php'); ?>
-            </div>
         </div>
         <!-- Featured Bikes End -->
 
         <!-- Service Start -->
         <div class="container-xxl py-5">
-            <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Services', 'bike-theme'); ?></h6>
                     <h1 class="mb-5"><?php echo wp_kses_post(__('Explore Our <span class="text-primary text-uppercase">Services</span>', 'bike-theme')); ?></h1>
@@ -430,7 +423,6 @@ get_header();
                         </a>
                     </div>
                 </div>
-            </div>
         </div>
         <!-- Service End -->
 
