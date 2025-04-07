@@ -6,7 +6,7 @@
  */
 
 get_header();
-
+wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/assets/css/tour-archive.css', array(), '1.0.0');
 // Get current destination term
 $term = get_queried_object();
 
@@ -128,54 +128,41 @@ $tour_category = get_query_var('tour_category');
                     ?>
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="tour-item shadow rounded">
-                                    <div class="position-relative">
-                                        <?php if (has_post_thumbnail()) : ?>
-                                            <a href="<?php the_permalink(); ?>">
-                                                <?php the_post_thumbnail('large', array('class' => 'img-fluid')); ?>
-                                            </a>
-                                        <?php else : ?>
-                                            <a href="<?php the_permalink(); ?>">
-                                                <img class="img-fluid" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/placeholder-tour.jpg" alt="<?php the_title_attribute(); ?>">
-                                            </a>
-                                        <?php endif; ?>
-                                        <div class="tour-overlay p-4">
-                                            <span class="tour-price"><?php echo bike_theme_format_price($price); ?>
-                                                <?php if ($flexible_pricing) : ?>
-                                                    <small><?php esc_html_e('from', 'bike-theme'); ?></small>
-                                                <?php endif; ?>
+                                <div class="position-relative">
+                                    <?php if (has_post_thumbnail()) : ?>
+                                        <a href="<?php the_permalink(); ?>">
+                                            <?php the_post_thumbnail('large', array('class' => 'img-fluid')); ?>
+                                        </a>
+                                    <?php else : ?>
+                                        <a href="<?php the_permalink(); ?>">
+                                            <img class="img-fluid" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/placeholder-tour.jpg" alt="<?php the_title_attribute(); ?>">
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="p-4 mt-2">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0"><a href="<?php the_permalink(); ?>" class="text-dark"><?php the_title(); ?></a></h5>
+                                    </div>
+                                    <div class="facts p-0 mb-3">
+                                        <div class="style touring">
+                                            <?php echo esc_html($difficulty); ?>
+                                        </div>
+                                        <div class="duration"><?php echo esc_html($duration); ?> <?php esc_html_e('Days', 'bike-theme'); ?></div>
+                                        <div class="destination"><?php echo esc_html($distance); ?> km</div>
+                                        <div class="price">
+                                            <span class="convertible-amount" data-display-amount="US$ 2,750" data-original-amount="US$ 2,750">
+                                                <span data-reactroot="" class="amount">
+                                                    <a href="" data-tooltip="Click to change currency"><?php echo bike_theme_format_price($price); ?></a>
+                                                </span>
                                             </span>
-                                            <div class="tour-meta">
-                                                <?php if ($difficulty) : ?>
-                                                    <span><i class="fa fa-chart-line me-2"></i><?php echo esc_html($difficulty); ?></span>
-                                                <?php endif; ?>
-                                                <?php if ($duration) : ?>
-                                                    <span><i class="fa fa-clock me-2"></i><?php echo esc_html($duration); ?> <?php esc_html_e('Days', 'bike-theme'); ?></span>
-                                                <?php endif; ?>
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="p-4 mt-2">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <h5 class="mb-0"><a href="<?php the_permalink(); ?>" class="text-dark"><?php the_title(); ?></a></h5>
-                                        </div>
-                                        <div class="d-flex mb-3">
-                                            <?php if ($distance) : ?>
-                                                <small class="border-end me-3 pe-3"><i class="fa fa-road text-primary me-2"></i><?php echo esc_html($distance); ?></small>
-                                            <?php endif; ?>
-                                            <?php
-                                            $categories = get_the_terms(get_the_ID(), 'tour_category');
-                                            if ($categories && !is_wp_error($categories)) :
-                                                $category = reset($categories); // Get first category
-                                            ?>
-                                                <small><i class="fa fa-tag text-primary me-2"></i><?php echo esc_html($category->name); ?></small>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <a class="btn btn-sm btn-primary rounded py-2 px-4" href="<?php the_permalink(); ?>"><?php esc_html_e('View Details', 'bike-theme'); ?></a>
-                                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="<?php echo esc_url(get_permalink(get_option('bike_theme_booking_page'))); ?>?tour=<?php the_ID(); ?>"><?php esc_html_e('Book Now', 'bike-theme'); ?></a>
-                                        </div>
+                                    <div class="d-flex justify-content-between">
+                                        <a class="btn btn-sm btn-primary rounded py-2 px-4" href="<?php the_permalink(); ?>"><?php esc_html_e('View Details', 'bike-theme'); ?></a>
+                                        <a class="btn btn-sm btn-dark rounded py-2 px-4" href="<?php echo esc_url(get_permalink(get_option('bike_theme_booking_page'))); ?>?tour=<?php the_ID(); ?>"><?php esc_html_e('Book Now', 'bike-theme'); ?></a>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         <?php
                         endwhile;
