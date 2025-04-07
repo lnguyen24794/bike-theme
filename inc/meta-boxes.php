@@ -267,8 +267,19 @@ function bike_theme_tour_details_callback($post)
                                 
                                 <p>
                                     <label><?php esc_html_e('Description', 'bike-theme'); ?></label>
-                                    <textarea name="tour_itinerary[<?php echo $day_index; ?>][description]" 
-                                              class="widefat" rows="4"><?php echo esc_textarea($day['description']); ?></textarea>
+                                    <?php 
+                                    wp_editor(
+                                        $day['description'],
+                                        'tour_itinerary_' . $day_index . '_description',
+                                        array(
+                                            'textarea_name' => 'tour_itinerary[' . $day_index . '][description]',
+                                            'media_buttons' => true,
+                                            'textarea_rows' => 5,
+                                            'editor_class' => 'widefat',
+                                            'teeny' => true
+                                        )
+                                    ); 
+                                    ?>
                                 </p>
                                 
                                 <div class="day-details">
