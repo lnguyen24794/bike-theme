@@ -120,7 +120,7 @@ $tour_category = get_query_var('tour_category');
 
                     if ($tour_query->have_posts()) :
                         while ($tour_query->have_posts()) : $tour_query->the_post();
-                            $duration = get_post_meta(get_the_ID(), '_tour_duration', true);
+                            $duration = bike_theme_get_tour_duration(get_the_ID());
                             $distance = get_post_meta(get_the_ID(), '_tour_distance', true);
                             $difficulty = get_post_meta(get_the_ID(), '_tour_difficulty', true);
                             $price = bike_theme_get_tour_price(get_the_ID());
@@ -145,7 +145,7 @@ $tour_category = get_query_var('tour_category');
                                     </div>
                                     <div class="facts p-0 mb-3">
                                         <div class="style touring"> <?php echo esc_html($difficulty); ?></div>
-                                        <div class="duration"><?php echo esc_html($duration); ?> <?php esc_html_e('Days', 'bike-theme'); ?></div>
+                                        <div class="duration"><?php echo esc_html($duration); ?> </div>
                                         <div class="destination"><?php echo esc_html($distance); ?> km</div>
                                         <div class="price"><?php echo bike_theme_format_price($price); ?></div>
                                     </div>

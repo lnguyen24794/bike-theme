@@ -154,63 +154,60 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 
 <main id="primary" class="site-main">
     <!-- Page Header Start -->
-    <div class="container-fluid page-header tour-header mb-5 p-0" style="background-image: url(<?php echo has_post_thumbnail() ? esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')) : esc_url(get_template_directory_uri() . '/assets/images/bikes/tour-banner.jpg'); ?>);">
-        <div class="container-fluid page-header-inner tour-header py-5 relative">
+    <div class="page-header-inner tour-wrapper py-5 relative" style="background-image: url(<?php echo has_post_thumbnail() ? esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')) : esc_url(get_template_directory_uri() . '/assets/images/bikes/tour-banner.jpg'); ?>);">
             <div class="container text-center pb-5">
                 <h1 class="text-white mb-3 animated slideInDown"><?php the_title(); ?></h1>
             </div>
-            <!-- Tour Basic Info Start -->
-           <div class="tour-basic-info absolute">
-                <div class="container row mb-5 bg-light shadow rounded p-4 align-items-center wrapper">
-                    <div class="col">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
-                                <i class="fa fa-map-marker-alt text-white"></i>
-                            </div>
-                            <div class="ms-3 tour-basic-info-title">
-                                <h5 class="mb-1"><?php esc_html_e('Price', 'bike-theme'); ?></h5>
-                                <span><?php echo bike_theme_format_price(bike_theme_get_tour_price(get_the_ID())); ?></span>
-                            </div>
+        <!-- Tour  Basic Info End -->
+        </div>
+        <div class="tour-basic-info">
+            <div class="container row mb-5 bg-light shadow p-4 align-items-center wrapper">
+                <div class="col-lg-3 col-6">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
+                            <i class="fa fa-map-marker-alt text-white"></i>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
-                                <i class="fa fa-clock text-white"></i>
-                            </div>
-                            <div class="ms-3 tour-basic-info-title">
-                                <h5 class="mb-1"><?php esc_html_e('Duration', 'bike-theme'); ?></h5>
-                                <span><?php echo esc_html($duration); ?></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
-                                <i class="fa fa-route text-white"></i>
-                            </div>
-                            <div class="ms-3 tour-basic-info-title">
-                                <h5 class="mb-1"><?php esc_html_e('Distance', 'bike-theme'); ?></h5>
-                                <span><?php echo esc_html($distance); ?> km</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
-                                <i class="fa fa-mountain text-white"></i>
-                            </div>
-                            <div class="ms-3 tour-basic-info-title">
-                                <h5 class="mb-1"><?php esc_html_e('Difficulty', 'bike-theme'); ?></h5>
-                                <span class="<?php echo esc_attr($difficulty_class); ?>"><?php echo esc_html($difficulty_text); ?></span>
-                            </div>
+                        <div class="ms-3 tour-basic-info-title">
+                            <h5 class="mb-1"><?php esc_html_e('Price', 'bike-theme'); ?></h5>
+                            <span><?php echo bike_theme_format_price(bike_theme_get_tour_price(get_the_ID())); ?></span>
                         </div>
                     </div>
                 </div>
-           </div>
-        <!-- Tour  Basic Info End -->
+                <div class="col-lg-3 col-6">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
+                            <i class="fa fa-clock text-white"></i>
+                        </div>
+                        <div class="ms-3 tour-basic-info-title">
+                            <h5 class="mb-1"><?php esc_html_e('Duration', 'bike-theme'); ?></h5>
+                            <span><?php echo esc_html($duration); ?></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
+                            <i class="fa fa-route text-white"></i>
+                        </div>
+                        <div class="ms-3 tour-basic-info-title">
+                            <h5 class="mb-1"><?php esc_html_e('Distance', 'bike-theme'); ?></h5>
+                            <span><?php echo esc_html($distance); ?> km</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
+                            <i class="fa fa-mountain text-white"></i>
+                        </div>
+                        <div class="ms-3 tour-basic-info-title">
+                            <h5 class="mb-1"><?php esc_html_e('Difficulty', 'bike-theme'); ?></h5>
+                            <span class="<?php echo esc_attr($difficulty_class); ?>"><?php echo esc_html($difficulty_text); ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
     <!-- Page Header End -->
 
     <!-- Tour Detail Start -->
