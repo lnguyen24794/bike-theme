@@ -26,7 +26,7 @@
                                 <?php echo wpautop(wp_kses_post($day['description'])); ?>
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 border-left">
                                 <div class="itinerary-day-details">
                                     <div class="details-grid">
                                         <?php if (!empty($day['accommodation'])) : ?>

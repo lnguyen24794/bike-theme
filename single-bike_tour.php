@@ -764,7 +764,7 @@ jQuery(document).ready(function($) {
     line-height: 1.6;
 }
 
-.itinerary-day-details {
+.border-left {
     padding-left: 10px;
     border-left: 1px solid #eee;
 }
