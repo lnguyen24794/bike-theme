@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-md-6 mb-4">
         <h4><?php esc_html_e('What\'s Included', 'bike-theme'); ?></h4>
-        <?php if (!empty($included)) : ?>
+        <?php if (!empty($tour_included)) : ?>
             <div class="included-services">
-                <?php echo wp_kses_post($included); ?>
+                <?php echo wp_kses_post($tour_included); ?>
             </div>
         
         <?php endif; ?>

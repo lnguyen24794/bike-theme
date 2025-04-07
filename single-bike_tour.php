@@ -126,7 +126,7 @@ $difficulty = get_post_meta(get_the_ID(), '_tour_difficulty', true);
 $start_location = get_post_meta(get_the_ID(), '_tour_start_location', true);
 $end_location = get_post_meta(get_the_ID(), '_tour_end_location', true);
 $schedule = get_post_meta(get_the_ID(), '_tour_schedule', true);
-$included = get_post_meta(get_the_ID(), '_tour_included', true);
+$tour_included = get_post_meta(get_the_ID(), '_tour_included', true);
 $not_included = get_post_meta(get_the_ID(), '_tour_not_included', true);
 $gallery_ids = get_post_meta(get_the_ID(), '_tour_gallery', true);
 
