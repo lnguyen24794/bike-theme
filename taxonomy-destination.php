@@ -19,6 +19,8 @@ if (!$image_url) {
 
 // Get category counts for this destination
 $category_counts = bike_theme_count_tours_by_category_in_destination($term->term_id);
+
+$tour_category = get_query_var('tour_category');
 ?>
 
 <main id="primary" class="site-main">
@@ -99,6 +101,14 @@ $category_counts = bike_theme_count_tours_by_category_in_destination($term->term
                             'key' => '_tour_difficulty',
                             'value' => sanitize_text_field($_GET['difficulty']),
                             'compare' => '='
+                        );
+                    }
+
+                    if (!empty($tour_category)) {
+                        $args['tax_query'][] = array(
+                            'taxonomy' => 'tour_category',
+                            'field' => 'slug',
+                            'terms' => $tour_category,
                         );
                     }
 
