@@ -40,7 +40,7 @@ $category_counts = bike_theme_count_tours_by_category_in_destination($term->term
     <!-- Destination Information -->
     <div class="container-xxl py-5">
         <div class="row g-5">
-            <div class="col-lg-8">
+            <div class="col-lg-9">
 
                 <!-- Tours List Start -->
                 <div class="row g-4">
@@ -116,7 +116,7 @@ $category_counts = bike_theme_count_tours_by_category_in_destination($term->term
                             $price = bike_theme_get_tour_price(get_the_ID());
                             $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1';
                     ?>
-                            <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="tour-item shadow rounded">
                                     <div class="position-relative">
                                         <?php if (has_post_thumbnail()) : ?>
@@ -206,7 +206,7 @@ $category_counts = bike_theme_count_tours_by_category_in_destination($term->term
             </div>
             
             <!-- Sidebar -->
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body">
                         <h4 class="mb-3"><?php esc_html_e('Tour Available', 'bike-theme'); ?></h4>

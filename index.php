@@ -320,7 +320,7 @@ get_header();
                                     <a href="/booking" class="btn btn-light py-md-3 px-md-5"><?php esc_html_e('Book Now', 'bike-theme'); ?></a>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 d-none d-md-block">
                                 <div class="video position-relative">
                                     <img class="img-fluid w-100 h-100" src="<?php echo esc_url($image_url); ?>" alt="<?php echo $destination->name; ?>">
                                 </div>

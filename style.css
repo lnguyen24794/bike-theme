@@ -23,7 +23,7 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
     --secondary: #2C3E50;
     --light: #F5F5F5;
     --dark: #1E1E1E;
-    --primary-color: #ebde34; /*#0d6efd;*/
+    --primary-color: #ebde34; /*#ebde34;*/
     --secondary-color: #6c757d;
     --success-color: #198754;
     --info-color: #0dcaf0;
@@ -57,7 +57,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'FuturaCyrillic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-weight: 600;
     line-height: 1.2;
-    margin-bottom: 1.11rem;
+    margin-bottom: 1rem;
 }
 
 h1 { font-size: 2.5rem; }
@@ -68,7 +68,7 @@ h5 { font-size: 1.25rem; }
 h6 { font-size: 1.19rem; }
 
 p {
-    margin-bottom: 1.11rem;
+    margin-bottom: 1rem;
     font-size: 1.2rem;
 }
 
@@ -160,7 +160,7 @@ img {
 
 .destination-item .btn {
     font-size: 0.9rem;
-    padding: 0.5rem 1.11rem;
+    padding: 0.5rem 1rem;
 }
 
 .destination-item .btn-primary {
@@ -282,7 +282,7 @@ select,
 }
 
 .nav-link {
-    font-size: 1.1.11rem;
+    font-size: 1.1rem;
 }
 
 /* Cards */
@@ -315,6 +315,6 @@ select,
     h2 { font-size: 1.75rem; }
     h3 { font-size: 1.5rem; }
     h4 { font-size: 1.25rem; }
-    h5 { font-size: 1.1.11rem; }
+    h5 { font-size: 1.2rem; }
     h6 { font-size: 1.19rem; }
 }
