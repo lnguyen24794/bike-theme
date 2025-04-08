@@ -58,7 +58,7 @@
 }
 
 .tour-basic-info .wrapper {
-    border-radius: 0px 0px 20px 30px !important;
+    border-radius: 0px 0px 15px 15px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     width: 100%;
 }
@@ -116,36 +116,6 @@
     }
 }
 
-/* Tab Styles Enhancement */
-.nav-tabs {
-    border-bottom: 2px solid #f1f1f1;
-}
-
-.nav-tabs .nav-link {
-    margin-bottom: -2px;
-    border: none;
-    border-bottom: 2px solid transparent;
-    border-radius: 0;
-    color: #6c757d;
-    font-weight: 500;
-    padding: 0.75rem 1.25rem;
-    transition: all 0.3s ease;
-}
-
-.nav-tabs .nav-link:hover {
-    border-color: transparent;
-    color: var(--primary);
-}
-
-.nav-tabs .nav-link.active {
-    color: var(--primary);
-    background: none;
-    border-bottom: 2px solid var(--primary);
-}
-
-.tab-content {
-    padding: 30px 0;
-}
 
 /* Tour Content Styles */
 .tour-overview {
@@ -257,12 +227,6 @@
 
 .tour-tabs{
     flex-wrap: nowrap;
-}
-
-.tour-tabs .nav-link{
-    height: 100%;
-    font-weight: 600;
-    font-size: 1.19rem;
 }
 
 /* Destinations styling */
@@ -452,25 +416,6 @@
 }
 
 /* Tab Nav Styles */
-.nav-tabs .nav-link {
-    color: #6c757d;
-    font-weight: 500;
-    border-radius: 0;
-    padding: 12px 20px;
-    border: 1px solid transparent;
-    border-bottom: none;
-}
-
-.nav-tabs .nav-link.active {
-    color: var(--primary);
-    background-color: #fff;
-    border-color: #dee2e6 #dee2e6 #fff;
-}
-
-.nav-tabs .nav-link:hover {
-    color: var(--primary);
-    border-color: transparent;
-}
 
 .tab-content {
     border: 1px solid #dee2e6;
@@ -797,4 +742,43 @@
     .details-grid {
         grid-template-columns: 1fr;
     }
+}
+
+.additions-options {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.additions-options::-webkit-scrollbar {
+    width: 6px;
+}
+
+.additions-options::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.additions-options::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.additions-options::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.price-summary {
+    background: #f8f9fa;
+}
+
+.additions-list {
+    padding: 10px;
+    background: #fff;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.submit-button{
+    border-radius: 0px 0px 10px 10px !important;
 }

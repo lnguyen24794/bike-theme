@@ -8,7 +8,7 @@
  */
 
 get_header();
-
+wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), '1.0.0');
 // Process booking form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking'])) {
     // Verify nonce
@@ -115,7 +115,7 @@ Best regards,
 }
 
 // Enqueue the tour single CSS
-wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), '1.0.0');
+
 
 // Get tour meta data
 $duration = bike_theme_get_tour_duration(get_the_ID());
@@ -315,11 +315,11 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                     <h3><?php esc_html_e('Tour Price', 'bike-theme'); ?></h3>
                                     <?php
                                     $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
-                                        $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
-                                        $standard_price = get_post_meta(get_the_ID(), '_tour_price', true);
+$flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
+$standard_price = get_post_meta(get_the_ID(), '_tour_price', true);
 
-                                        if ($flexible_pricing_enabled && !empty($flexible_pricing)) {
-                                        ?>
+if ($flexible_pricing_enabled && !empty($flexible_pricing)) {
+    ?>
                                         <div class="flexible-pricing-table">
                                             <table class="table">
                                                 <thead>
@@ -339,21 +339,21 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                             </table>
                                         </div>
                                         <?php
-                                        } else {
-                                            ?>
+} else {
+    ?>
                                         <div class="standard-price">
                                             <p class="price-amount"><?php echo esc_html(number_format($standard_price, 0, '.', ',')); ?> VND</p>
                                             <p class="price-note"><?php esc_html_e('per person', 'bike-theme'); ?></p>
                                         </div>
                                         <?php
-                                        }
-                                        ?>
+}
+?>
 
                                     <!-- Tour Additions Section -->
                                     <?php
-                                        $additions = get_post_meta(get_the_ID(), '_tour_additions', true);
-                                        if (!empty($additions)) {
-                                            ?>
+$additions = get_post_meta(get_the_ID(), '_tour_additions', true);
+if (!empty($additions)) {
+    ?>
                                         <div class="tour-additions mt-4">
                                             <h3><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h3>
                                             <div class="additions-table">
@@ -453,8 +453,8 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                 </div>
                                 <?php
                                 $additions = bike_theme_get_tour_additions(get_the_ID());
-                                if (!empty($additions)) :
-                                    ?>
+if (!empty($additions)) :
+    ?>
                                 <div class="col-12">
                                     <h5 class="mb-3"><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h5>
                                     <div class="additions-options">
@@ -516,7 +516,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100" type="submit"><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
+                                    <button class="btn btn-primary w-100 submit-button" type="submit"><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
                                 </div>
                             </div>
                         </form>
@@ -797,43 +797,6 @@ jQuery(document).ready(function($) {
     updatePriceSummary();
 });
 </script>
-
-<style>
-.additions-options {
-    max-height: 200px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
-.additions-options::-webkit-scrollbar {
-    width: 6px;
-}
-
-.additions-options::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
-}
-
-.additions-options::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px;
-}
-
-.additions-options::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-.price-summary {
-    background: #f8f9fa;
-}
-
-.additions-list {
-    padding: 10px;
-    background: #fff;
-    border-radius: 4px;
-    margin: 10px 0;
-}
-</style>
 
 <?php
 get_footer();
