@@ -426,12 +426,6 @@ get_header();
         </div>
         <!-- Service End -->
 
-        <!-- Testimonial Start -->
-        
-        <!-- Testimonial End -->
-
-        
-
         <!-- Video Modal Start -->
         <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
