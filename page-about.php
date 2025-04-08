@@ -70,52 +70,52 @@ get_header();
                             // Get all about slides from options
                             $about_slides = get_option('bike_theme_about_slides', array());
 
-                            // If no slides found, create default ones
-                            if (empty($about_slides)) {
-                                $about_slides = array(
-                                    array(
-                                        'image_id' => 0,
-                                        'image_url' => get_template_directory_uri() . '/assets/images/bikes/about-1.jpg',
-                                        'active' => 1
-                                    ),
-                                    array(
-                                        'image_id' => 0,
-                                        'image_url' => get_template_directory_uri() . '/assets/images/bikes/about-2.jpg',
-                                        'active' => 1
-                                    ),
-                                    array(
-                                        'image_id' => 0,
-                                        'image_url' => get_template_directory_uri() . '/assets/images/bikes/about-3.jpg',
-                                        'active' => 1
-                                    ),
-                                    array(
-                                        'image_id' => 0,
-                                        'image_url' => get_template_directory_uri() . '/assets/images/bikes/about-4.jpg',
-                                        'active' => 1
-                                    )
-                                );
-                            }
+// If no slides found, create default ones
+if (empty($about_slides)) {
+    $about_slides = array(
+        array(
+            'image_id' => 0,
+            'image_url' => get_template_directory_uri() . '/assets/images/bikes/about-1.jpg',
+            'active' => 1
+        ),
+        array(
+            'image_id' => 0,
+            'image_url' => get_template_directory_uri() . '/assets/images/bikes/about-2.jpg',
+            'active' => 1
+        ),
+        array(
+            'image_id' => 0,
+            'image_url' => get_template_directory_uri() . '/assets/images/bikes/about-3.jpg',
+            'active' => 1
+        ),
+        array(
+            'image_id' => 0,
+            'image_url' => get_template_directory_uri() . '/assets/images/bikes/about-4.jpg',
+            'active' => 1
+        )
+    );
+}
 
-                            $active_slides = 0;
-                            $positions = array(
-                                array('text-end', 'w-75', '25%', '0.1s'),
-                                array('text-start', 'w-100', '0', '0.3s'),
-                                array('text-end', 'w-50', '0', '0.5s'),
-                                array('text-start', 'w-75', '0', '0.7s')
-                            );
+$active_slides = 0;
+$positions = array(
+    array('text-end', 'w-75', '25%', '0.1s'),
+    array('text-start', 'w-100', '0', '0.3s'),
+    array('text-end', 'w-50', '0', '0.5s'),
+    array('text-start', 'w-75', '0', '0.7s')
+);
 
-                            foreach ($about_slides as $index => $slide) :
-                                // Skip inactive slides
-                                if (empty($slide['active']) || $active_slides >= 4) {
-                                    continue;
-                                }
+foreach ($about_slides as $index => $slide) :
+    // Skip inactive slides
+    if (empty($slide['active']) || $active_slides >= 4) {
+        continue;
+    }
 
-                                // Set image URL (use default if empty)
-                                $image_url = !empty($slide['image_url']) ? $slide['image_url'] : get_template_directory_uri() . '/assets/images/bikes/about-' . ($index + 1) . '.jpg';
-                                
-                                // Get position settings
-                                $position = $positions[$active_slides];
-                            ?>
+    // Set image URL (use default if empty)
+    $image_url = !empty($slide['image_url']) ? $slide['image_url'] : get_template_directory_uri() . '/assets/images/bikes/about-' . ($index + 1) . '.jpg';
+
+    // Get position settings
+    $position = $positions[$active_slides];
+    ?>
                                 <div class="col-6 <?php echo $position[0]; ?>">
                                     <img class="img-fluid rounded <?php echo $position[1]; ?> wow zoomIn" 
                                         data-wow-delay="<?php echo $position[3]; ?>" 
@@ -125,14 +125,14 @@ get_header();
                                         <?php endif; ?>>
                                 </div>
                             <?php
-                                $active_slides++;
-                            endforeach;
+        $active_slides++;
+endforeach;
 
-                            // If no active slides were found, display defaults
-                            if ($active_slides == 0) :
-                                foreach ($positions as $index => $position) :
-                                    $default_image = get_template_directory_uri() . '/assets/images/bikes/about-' . ($index + 1) . '.jpg';
-                                ?>
+// If no active slides were found, display defaults
+if ($active_slides == 0) :
+    foreach ($positions as $index => $position) :
+        $default_image = get_template_directory_uri() . '/assets/images/bikes/about-' . ($index + 1) . '.jpg';
+        ?>
                                     <div class="col-6 <?php echo $position[0]; ?>">
                                         <img class="img-fluid rounded <?php echo $position[1]; ?> wow zoomIn" 
                                             data-wow-delay="<?php echo $position[3]; ?>" 
@@ -142,9 +142,9 @@ get_header();
                                             <?php endif; ?>>
                                     </div>
                                 <?php
-                                endforeach;
-                            endif;
-                            ?>
+    endforeach;
+endif;
+?>
                         </div>
                     </div>
             </div>
@@ -152,7 +152,7 @@ get_header();
     <!-- About End -->
 
     <!-- Team Start -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl py-5 unlazy">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Reviews', 'bike-theme'); ?></h6>
             <h1 class="mb-5"><?php esc_html_e('What Our Customers Say', 'bike-theme'); ?></h1>

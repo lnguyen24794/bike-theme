@@ -164,31 +164,70 @@
         format: 'LT'
     });
     
+    // Configure lazySizes
+    window.lazySizesConfig = window.lazySizesConfig || {};
+    window.lazySizesConfig.loadMode = 1;
+    window.lazySizesConfig.expand = 100;
+    window.lazySizesConfig.preloadAfterLoad = true;
+
     // Handle lazy-loaded images
     $(function() {
-        // Support for native lazy loading
-        if ('loading' in HTMLImageElement.prototype) {
-            // Browser supports native lazy loading
-            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-            lazyImages.forEach(img => {
-                // Add load event listener for each lazy image
-                img.addEventListener('load', function() {
-                    // Image has loaded
-                    $(this).addClass('loaded');
+        // Skip elements with unlazy class
+        window.lazySizesConfig.init = true;
+        window.lazySizesConfig.selector = '.lazyload:not(.unlazy)';
+
+        document.addEventListener('lazybeforeunveil', function(e) {
+            var bg = e.target.getAttribute('data-bg');
+            // Skip if element has unlazy class
+            if (e.target.classList.contains('unlazy')) {
+                return;
+            }
+            if (bg) {
+                e.target.style.backgroundImage = 'url(' + bg + ')';
+            }
+        });
+
+        // Handle error loading
+        document.addEventListener('lazyunveilread', function(e) {
+            var img = e.target;
+            // Skip if element has unlazy class
+            if (img.classList.contains('unlazy')) {
+                return;
+            }
+            if (img.tagName === 'IMG') {
+                img.addEventListener('error', function() {
+                    img.classList.add('lazyload-error');
                 });
-            });
-        } else {
-            // Fallback for browsers that don't support native lazy loading
-            // You can implement a JavaScript-based lazy loading here if needed
-            // or use existing libraries like lazysizes
+            }
+        });
+
+        // Handle iframe loading
+        $('.iframe-container iframe:not(.unlazy)').each(function() {
+            var iframe = $(this);
+            if (!iframe.attr('data-src')) {
+                var src = iframe.attr('src');
+                if (src) {
+                    iframe.attr('data-src', src).removeAttr('src');
+                    iframe.addClass('lazyload');
+                }
+            }
+        });
+
+        // Reinitialize lazy loading after dynamic content load
+        function reinitLazyLoad() {
+            if (window.lazySizes) {
+                window.lazySizes.autoInit();
+            }
         }
-        
-        // Handle images inside carousels specifically
-        $('.owl-carousel').on('changed.owl.carousel', function(event) {
-            setTimeout(function() {
-                // Force browser to evaluate if these images should be loaded
-                $(window).trigger('scroll');
-            }, 100);
+
+        // Hook into Owl Carousel events
+        $('.owl-carousel').on('initialized.owl.carousel translated.owl.carousel', function() {
+            reinitLazyLoad();
+        });
+
+        // Hook into any Ajax complete events
+        $(document).ajaxComplete(function() {
+            reinitLazyLoad();
         });
     });
     

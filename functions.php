@@ -244,7 +244,7 @@ function bike_theme_scripts()
 {
     // Enqueue custom fonts
     wp_enqueue_style('bike-theme-fonts', get_template_directory_uri() . '/assets/css/fonts.css', array(), '1.0.0');
-    
+
     // Google Fonts
     wp_enqueue_style('bike-theme-google-fonts', 'https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap', array(), null);
 
@@ -294,6 +294,10 @@ function bike_theme_scripts()
 
     // Main JS
     wp_enqueue_script('bike-theme-main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), BIKE_THEME_VERSION, true);
+
+    // Add lazysizes
+    wp_enqueue_script('lazysizes', get_template_directory_uri() . '/assets/js/lazysizes.min.js', array(), '5.3.2', true);
+    wp_enqueue_script('lazysizes-plugins', get_template_directory_uri() . '/assets/js/ls.unveilhooks.min.js', array('lazysizes'), '5.3.2', true);
 
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
@@ -1174,20 +1178,74 @@ function bike_theme_additional_options($wp_customize)
 add_action('customize_register', 'bike_theme_additional_options');
 
 /**
- * Add loading="lazy" attribute to all images in content
+ * Add lazyload classes and data attributes to images and iframes
  */
 function bike_theme_add_lazy_loading_attribute($content)
 {
-    // If not content or not on frontend, return
     if (!$content || is_admin()) {
         return $content;
     }
 
-    // Add loading="lazy" to all img tags
-    $content = preg_replace('/<img(.*?)>/', '<img$1 loading="lazy">', $content);
+    // Replace img tags
+    $content = preg_replace_callback('/<img([^>]+)>/i', function ($matches) {
+        $img_tag = $matches[0];
+        $attributes = $matches[1];
 
-    // Don't add it twice if already exists
-    $content = str_replace('loading="lazy" loading="lazy"', 'loading="lazy"', $content);
+        // Don't lazy load images in certain situations
+        if (strpos($attributes, 'data-no-lazy') !== false ||
+            strpos($attributes, 'skip-lazy') !== false ||
+            strpos($attributes, 'class="unlazy"') !== false ||
+            strpos($attributes, 'class="') !== false && strpos($attributes, 'unlazy') !== false) {
+            return $img_tag;
+        }
+
+        // Add lazyload class
+        if (strpos($attributes, 'class="') !== false) {
+            $attributes = preg_replace('/class="([^"]*)"/', 'class="$1 lazyload"', $attributes);
+        } else {
+            $attributes .= ' class="lazyload"';
+        }
+
+        // Convert src to data-src
+        $attributes = str_replace(' src=', ' data-src=', $attributes);
+
+        // Add blur-up effect with low quality placeholder
+        if (strpos($attributes, 'data-src="') !== false) {
+            preg_match('/data-src="([^"]*)"/', $attributes, $src_matches);
+            if (!empty($src_matches[1])) {
+                $low_quality = bike_theme_get_low_quality_placeholder($src_matches[1]);
+                $attributes .= ' src="' . $low_quality . '"';
+            }
+        }
+
+        return '<img' . $attributes . '>';
+    }, $content);
+
+    // Replace iframe tags
+    $content = preg_replace_callback('/<iframe([^>]+)>/i', function ($matches) {
+        $iframe_tag = $matches[0];
+        $attributes = $matches[1];
+
+        // Don't lazy load iframes in certain situations
+        if (strpos($attributes, 'data-no-lazy') !== false ||
+            strpos($attributes, 'skip-lazy') !== false ||
+            strpos($attributes, 'class="unlazy"') !== false ||
+            strpos($attributes, 'class="') !== false && strpos($attributes, 'unlazy') !== false) {
+            return $iframe_tag;
+        }
+
+        // Add lazyload class
+        if (strpos($attributes, 'class="') !== false) {
+            $attributes = preg_replace('/class="([^"]*)"/', 'class="$1 lazyload"', $attributes);
+        } else {
+            $attributes .= ' class="lazyload"';
+        }
+
+        // Convert src to data-src
+        $attributes = str_replace(' src=', ' data-src=', $attributes);
+
+        return '<iframe' . $attributes . '>';
+    }, $content);
 
     return $content;
 }
@@ -1341,12 +1399,24 @@ function bike_theme_submit_booking()
 
     // Validate required fields
     $errors = array();
-    if (empty($customer_name)) $errors[] = __('Name is required', 'bike-theme');
-    if (empty($customer_email)) $errors[] = __('Email is required', 'bike-theme');
-    if (empty($customer_phone)) $errors[] = __('Phone is required', 'bike-theme');
-    if (empty($booking_date)) $errors[] = __('Date is required', 'bike-theme');
-    if ($number_of_participants < 1) $errors[] = __('Number of participants must be at least 1', 'bike-theme');
-    if (!$tour_id && !$bike_id) $errors[] = __('Please select either a tour or a bike', 'bike-theme');
+    if (empty($customer_name)) {
+        $errors[] = __('Name is required', 'bike-theme');
+    }
+    if (empty($customer_email)) {
+        $errors[] = __('Email is required', 'bike-theme');
+    }
+    if (empty($customer_phone)) {
+        $errors[] = __('Phone is required', 'bike-theme');
+    }
+    if (empty($booking_date)) {
+        $errors[] = __('Date is required', 'bike-theme');
+    }
+    if ($number_of_participants < 1) {
+        $errors[] = __('Number of participants must be at least 1', 'bike-theme');
+    }
+    if (!$tour_id && !$bike_id) {
+        $errors[] = __('Please select either a tour or a bike', 'bike-theme');
+    }
 
     if (!empty($errors)) {
         $error_message = implode('<br>', $errors);
@@ -1375,7 +1445,7 @@ function bike_theme_submit_booking()
             $number_of_participants,
             $booking_date
         );
-    } 
+    }
     // else if ($bike_id > 0) {
     //     $booking_title = sprintf(
     //         __('%s - %s - %s', 'bike-theme'),
@@ -1428,32 +1498,32 @@ function bike_theme_submit_booking()
         $message .= sprintf(__("Booking ID: #%d\n", 'bike-theme'), $booking_id);
         $message .= sprintf(__("Booking Type: %s\n", 'bike-theme'), ($tour_id > 0 ? 'Tour' : 'Bike'));
         $message .= sprintf(__("Status: %s\n\n", 'bike-theme'), __('Pending', 'bike-theme'));
-        
+
         $message .= __("Customer Details:\n", 'bike-theme');
         $message .= sprintf(__("Name: %s\n", 'bike-theme'), $customer_name);
         $message .= sprintf(__("Email: %s\n", 'bike-theme'), $customer_email);
         $message .= sprintf(__("Phone: %s\n\n", 'bike-theme'), $customer_phone);
-        
+
         $message .= __("Booking Details:\n", 'bike-theme');
         $message .= sprintf(__("Date: %s\n", 'bike-theme'), $booking_date);
-        
+
         if ($tour_id > 0) {
             $message .= sprintf(__("Tour: %s\n", 'bike-theme'), get_the_title($tour_id));
             $message .= sprintf(__("Participants: %d\n", 'bike-theme'), $number_of_participants);
             $message .= sprintf(__("Price per Person: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person));
             $message .= sprintf(__("Total Price: %s\n", 'bike-theme'), bike_theme_format_price($total_price));
         }
-        
+
         if ($bike_id > 0) {
             $message .= sprintf(__("Bike: %s\n", 'bike-theme'), get_the_title($bike_id));
         }
-        
+
         $message .= sprintf(__("Payment Method: %s\n", 'bike-theme'), $payment_method);
-        
+
         if (!empty($message)) {
             $message .= sprintf(__("\nSpecial Requests:\n%s\n", 'bike-theme'), $message);
         }
-        
+
         $message .= sprintf(__("\nManage this booking: %s", 'bike-theme'), admin_url('post.php?post=' . $booking_id . '&action=edit'));
 
         wp_mail($admin_email, $subject, $message);
@@ -1463,7 +1533,7 @@ function bike_theme_submit_booking()
 
         $customer_message = sprintf(__("Dear %s,\n\n", 'bike-theme'), $customer_name);
         $customer_message .= sprintf(__("Thank you for your booking (ID: #%d). Below are your booking details:\n\n", 'bike-theme'), $booking_id);
-        
+
         if ($tour_id > 0) {
             $customer_message .= sprintf(__("Tour: %s\n", 'bike-theme'), get_the_title($tour_id));
             $customer_message .= sprintf(__("Date: %s\n", 'bike-theme'), $booking_date);
@@ -1471,18 +1541,18 @@ function bike_theme_submit_booking()
             $customer_message .= sprintf(__("Price per Person: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person));
             $customer_message .= sprintf(__("Total Price: %s\n", 'bike-theme'), bike_theme_format_price($total_price));
         }
-        
+
         if ($bike_id > 0) {
             $customer_message .= sprintf(__("Bike: %s\n", 'bike-theme'), get_the_title($bike_id));
             $customer_message .= sprintf(__("Date: %s\n", 'bike-theme'), $booking_date);
         }
-        
+
         $customer_message .= sprintf(__("Payment Method: %s\n", 'bike-theme'), $payment_method);
-        
+
         if (!empty($message)) {
             $customer_message .= sprintf(__("\nYour Special Requests:\n%s\n", 'bike-theme'), $message);
         }
-        
+
         $customer_message .= __("\nBooking Status: Pending\n", 'bike-theme');
         $customer_message .= __("We will review your booking and contact you shortly for confirmation.\n\n", 'bike-theme');
         $customer_message .= sprintf(__("Thank you for choosing %s!\n\n", 'bike-theme'), $site_name);
@@ -1590,19 +1660,20 @@ add_action('admin_enqueue_scripts', 'bike_theme_tour_admin_scripts');
 
 /**
  * Count tours by category within a destination
- * 
+ *
  * @param int $destination_id The destination term ID
  * @return array Array of category counts with category term objects as keys
  */
-function bike_theme_count_tours_by_category_in_destination($destination_id) {
+function bike_theme_count_tours_by_category_in_destination($destination_id)
+{
     $category_counts = array();
-    
+
     // Get all categories
     $categories = get_terms(array(
         'taxonomy' => 'tour_category',
         'hide_empty' => false,
     ));
-    
+
     if (!empty($categories) && !is_wp_error($categories)) {
         foreach ($categories as $category) {
             // Query posts that belong to both the destination and this category
@@ -1624,10 +1695,10 @@ function bike_theme_count_tours_by_category_in_destination($destination_id) {
                     ),
                 ),
             );
-            
+
             $query = new WP_Query($args);
             $count = $query->found_posts;
-            
+
             if ($count > 0) {
                 $category_counts[$category->term_id] = array(
                     'category' => $category,
@@ -1636,32 +1707,33 @@ function bike_theme_count_tours_by_category_in_destination($destination_id) {
             }
         }
     }
-    
+
     return $category_counts;
 }
 
 /**
  * Display categories with counts for a destination
- * 
+ *
  * @param int $destination_id The destination term ID
  * @param string $destination_slug The destination slug
  * @param bool $show_empty Whether to show categories with zero tours
  * @return string HTML output of categories with counts
  */
-function bike_theme_display_destination_categories($destination_id, $destination_slug, $show_empty = false) {
+function bike_theme_display_destination_categories($destination_id, $destination_slug, $show_empty = false)
+{
     $category_counts = bike_theme_count_tours_by_category_in_destination($destination_id);
-    
+
     if (empty($category_counts)) {
         return '';
     }
-    
+
     $output = '<div class="destination-categories">';
     $output .= '<ul class="list-unstyled">';
-    
+
     foreach ($category_counts as $data) {
         $category = $data['category'];
         $count = $data['count'];
-        
+
         $output .= '<li>';
         $output .= '<a href="/destination/'.$destination_slug.'?tour_category=' . $category->slug . '">';
         $output .= esc_html($category->name);
@@ -1669,17 +1741,18 @@ function bike_theme_display_destination_categories($destination_id, $destination
         $output .= '</a>';
         $output .= '</li>';
     }
-    
+
     $output .= '</ul>';
     $output .= '</div>';
-    
+
     return $output;
 }
 
 /**
  * Enqueue booking scripts
  */
-function bike_theme_enqueue_booking_scripts() {
+function bike_theme_enqueue_booking_scripts()
+{
     if (is_singular('bike_tour')) {
         wp_enqueue_script('bike-theme-booking', get_template_directory_uri() . '/assets/js/booking.js', array('jquery'), '1.0.0', true);
         wp_localize_script('bike-theme-booking', 'bike_booking', array(
@@ -1696,9 +1769,10 @@ add_action('wp_enqueue_scripts', 'bike_theme_enqueue_booking_scripts');
 /**
  * Process booking Ajax request
  */
-function bike_theme_process_booking() {
+function bike_theme_process_booking()
+{
     // Verify nonce
-    if (!isset($_POST['bike_tour_booking_nonce']) || 
+    if (!isset($_POST['bike_tour_booking_nonce']) ||
         !wp_verify_nonce($_POST['bike_tour_booking_nonce'], 'bike_tour_booking')) {
         wp_send_json_error(array('message' => __('Invalid security token.', 'bike-theme')));
     }
@@ -1714,12 +1788,24 @@ function bike_theme_process_booking() {
 
     // Validate required fields
     $errors = array();
-    if (empty($name)) $errors[] = __('Name is required', 'bike-theme');
-    if (empty($email)) $errors[] = __('Email is required', 'bike-theme');
-    if (empty($phone)) $errors[] = __('Phone is required', 'bike-theme');
-    if (empty($date)) $errors[] = __('Date is required', 'bike-theme');
-    if ($participants < 1) $errors[] = __('Number of participants must be at least 1', 'bike-theme');
-    if (!$tour_id) $errors[] = __('Invalid tour selected', 'bike-theme');
+    if (empty($name)) {
+        $errors[] = __('Name is required', 'bike-theme');
+    }
+    if (empty($email)) {
+        $errors[] = __('Email is required', 'bike-theme');
+    }
+    if (empty($phone)) {
+        $errors[] = __('Phone is required', 'bike-theme');
+    }
+    if (empty($date)) {
+        $errors[] = __('Date is required', 'bike-theme');
+    }
+    if ($participants < 1) {
+        $errors[] = __('Number of participants must be at least 1', 'bike-theme');
+    }
+    if (!$tour_id) {
+        $errors[] = __('Invalid tour selected', 'bike-theme');
+    }
 
     if (!empty($errors)) {
         wp_send_json_error(array('message' => implode('<br>', $errors)));
@@ -1800,11 +1886,12 @@ add_action('wp_ajax_nopriv_bike_theme_process_booking', 'bike_theme_process_book
 
 /**
  * Get formatted tour duration
- * 
+ *
  * @param int $tour_id Tour post ID
  * @return string Formatted duration string
  */
-function bike_theme_get_tour_duration($tour_id) {
+function bike_theme_get_tour_duration($tour_id)
+{
     // Get saved display string
     $duration = get_post_meta($tour_id, '_tour_duration_display', true);
     if (!empty($duration)) {
@@ -1813,15 +1900,15 @@ function bike_theme_get_tour_duration($tour_id) {
 
     // If no display string, format based on type
     $duration_type = get_post_meta($tour_id, '_tour_duration_type', true) ?: 'days_nights';
-    
+
     if ($duration_type === 'days_nights') {
         $days = get_post_meta($tour_id, '_tour_duration_days', true);
         $nights = get_post_meta($tour_id, '_tour_duration_nights', true);
-        
+
         if (empty($days) && empty($nights)) {
             return '';
         }
-        
+
         $duration = '';
         if (!empty($days)) {
             $duration = sprintf(
@@ -1829,7 +1916,7 @@ function bike_theme_get_tour_duration($tour_id) {
                 $days
             );
         }
-        
+
         if (!empty($nights)) {
             if (!empty($duration)) {
                 $duration .= ' ';
@@ -1839,14 +1926,14 @@ function bike_theme_get_tour_duration($tour_id) {
                 $nights
             );
         }
-        
+
         return $duration;
     } else {
         $hours = get_post_meta($tour_id, '_tour_duration_hours', true);
         if (empty($hours)) {
             return '';
         }
-        
+
         return sprintf(
             _n('%g hour', '%g hours', ceil($hours), 'bike-theme'),
             $hours
@@ -1857,7 +1944,8 @@ function bike_theme_get_tour_duration($tour_id) {
 /**
  * Get tour additions
  */
-function bike_theme_get_tour_additions($tour_id) {
+function bike_theme_get_tour_additions($tour_id)
+{
     $additions = get_post_meta($tour_id, '_tour_additions', true);
     return is_array($additions) ? $additions : array();
 }
@@ -1865,10 +1953,11 @@ function bike_theme_get_tour_additions($tour_id) {
 /**
  * Calculate additions total price
  */
-function bike_theme_calculate_additions_price($tour_id, $selected_additions, $participants = 1) {
+function bike_theme_calculate_additions_price($tour_id, $selected_additions, $participants = 1)
+{
     $total = 0;
     $additions = bike_theme_get_tour_additions($tour_id);
-    
+
     foreach ($additions as $addition) {
         if (in_array($addition['name'], $selected_additions)) {
             if (isset($addition['per_person']) && $addition['per_person']) {
@@ -1878,16 +1967,35 @@ function bike_theme_calculate_additions_price($tour_id, $selected_additions, $pa
             }
         }
     }
-    
+
     return $total;
 }
 
 /**
  * Get total booking price including additions
  */
-function bike_theme_get_booking_total_price($tour_id, $participants = 1, $selected_additions = array()) {
+function bike_theme_get_booking_total_price($tour_id, $participants = 1, $selected_additions = array())
+{
     $tour_price = bike_theme_get_tour_total_price($tour_id, $participants);
     $additions_price = bike_theme_calculate_additions_price($tour_id, $selected_additions, $participants);
-    
+
     return $tour_price + $additions_price;
+}
+
+/**
+ * Generate low quality placeholder image
+ */
+function bike_theme_get_low_quality_placeholder($image_url)
+{
+    if (empty($image_url)) {
+        return '';
+    }
+
+    $image_id = attachment_url_to_postid($image_url);
+    if (!$image_id) {
+        return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E";
+    }
+
+    $thumb = wp_get_attachment_image_src($image_id, array(60, 60));
+    return !empty($thumb[0]) ? $thumb[0] : '';
 }
