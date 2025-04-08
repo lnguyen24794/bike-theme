@@ -81,17 +81,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
             $message = sprintf(
                 __('Thank you for booking %s. Your booking details:
 
-Name: %s
-Email: %s
-Phone: %s
-Date: %s
-Participants: %d
-Total Price: %s
+                Name: %s
+                Email: %s
+                Phone: %s
+                Date: %s
+                Participants: %d
+                Total Price: %s
 
-We will contact you shortly to confirm your booking.
+                We will contact you shortly to confirm your booking.
 
-Best regards,
-%s', 'bike-theme'),
+                Best regards,
+                %s', 'bike-theme'),
                 get_the_title($tour_id),
                 $name,
                 $email,
@@ -453,8 +453,8 @@ if (!empty($additions)) {
                                 </div>
                                 <?php
                                 $additions = bike_theme_get_tour_additions(get_the_ID());
-if (!empty($additions)) :
-    ?>
+                                if (!empty($additions)) :
+                                ?>
                                 <div class="col-12">
                                     <h5 class="mb-3"><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h5>
                                     <div class="additions-options">
@@ -479,7 +479,7 @@ if (!empty($additions)) :
                                         <?php endforeach; ?>
                                     </div>
                                 </div>
-
+                                <?php endif; ?>
                                 <div class="col-12 mt-3">
                                     <div class="price-summary bg-white p-3 rounded border">
                                         <h5 class="mb-3"><?php esc_html_e('Price Summary', 'bike-theme'); ?></h5>
@@ -495,20 +495,21 @@ if (!empty($additions)) :
                                             <span><?php esc_html_e('Tour subtotal:', 'bike-theme'); ?></span>
                                             <span id="tour-subtotal"><?php echo esc_html(number_format(bike_theme_get_tour_total_price(get_the_ID(), 1), 0, '.', ',')); ?> VND</span>
                                         </div>
-                                        <div id="additions-summary" style="display: none;">
-                                            <div class="additions-list my-2"></div>
-                                            <div class="d-flex justify-content-between mb-2">
-                                                <span><?php esc_html_e('Additions subtotal:', 'bike-theme'); ?></span>
-                                                <span id="additions-subtotal">0 VND</span>
+                                        <?php if (!empty($additions)) : ?>
+                                            <div id="additions-summary" style="display: none;">
+                                                <div class="additions-list my-2"></div>
+                                                <div class="d-flex justify-content-between mb-2">
+                                                    <span><?php esc_html_e('Additions subtotal:', 'bike-theme'); ?></span>
+                                                    <span id="additions-subtotal">0 VND</span>
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php endif; ?>
                                         <div class="d-flex justify-content-between fw-bold pt-2 border-top">
                                             <span><?php esc_html_e('Total:', 'bike-theme'); ?></span>
                                             <span id="total-price"><?php echo esc_html(number_format(bike_theme_get_tour_total_price(get_the_ID(), 1), 0, '.', ',')); ?> VND</span>
                                         </div>
                                     </div>
                                 </div>
-                                <?php endif; ?>
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <textarea class="form-control" placeholder="<?php esc_attr_e('Special Request', 'bike-theme'); ?>" id="message" name="message" style="height: 100px"></textarea>
@@ -535,30 +536,39 @@ if (get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1')
     ?>
 <script>
 jQuery(document).ready(function($) {
-    // Tour pricing data
+    // Get tour pricing data
     var pricingData = <?php
-        $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
-    if (empty($pricing_data) || !is_array($pricing_data)) {
-        $pricing_data = array(
-            array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
-        );
-    }
-    echo json_encode($pricing_data);
+        $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
+        $pricing_data = array();
+        
+        if ($flexible_pricing_enabled === '1') {
+            $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
+            if (empty($pricing_data) || !is_array($pricing_data)) {
+                $pricing_data = array(
+                    array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
+                );
+            }
+        } else {
+            $pricing_data = array(
+                array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
+            );
+        }
+        echo json_encode($pricing_data);
     ?>;
-    
-    // Currency settings
-    var currency = '<?php echo esc_js(get_theme_mod('bike_theme_currency', '$')); ?>';
-    var currencyPosition = '<?php echo esc_js(get_theme_mod('bike_theme_currency_position', 'after')); ?>';
-    
-    // Sort pricing data by number of participants (ascending)
-    pricingData.sort(function(a, b) {
-        return a.participants - b.participants;
-    });
-    
-    // Get price for a specific number of participants
-    function getPriceForParticipants(participants) {
+
+    function formatNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function getPricePerPerson(participants) {
+        // Sort pricing data by number of participants (ascending)
+        pricingData.sort(function(a, b) {
+            return a.participants - b.participants;
+        });
+        
         var applicablePrice = null;
         
+        // Find applicable price level
         for (var i = 0; i < pricingData.length; i++) {
             if (participants >= pricingData[i].participants) {
                 applicablePrice = pricingData[i].price;
@@ -574,37 +584,51 @@ jQuery(document).ready(function($) {
         
         return applicablePrice || <?php echo (int)get_post_meta(get_the_ID(), '_tour_price', true); ?>;
     }
-    
-    // Format number with thousand separator and currency
-    function formatNumber(number) {
-        var formattedNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        
-        if (currencyPosition === 'before') {
-            return currency + formattedNumber;
-        } else {
-            return formattedNumber + ' ' + currency;
-        }
-    }
-    
-    // Update price display
-    function updatePriceDisplay() {
-        var participants = parseInt($('#participants').val(), 10);
-        var pricePerPerson = getPriceForParticipants(participants);
-        var totalPrice = pricePerPerson * participants;
-        
-        $('#price-per-person').text(formatNumber(pricePerPerson));
+
+    function updatePriceSummary() {
+        var participants = parseInt($('#participants').val());
+        var pricePerPerson = getPricePerPerson(participants);
+        var tourSubtotal = pricePerPerson * participants;
+        var additionsTotal = 0;
+        var additionsList = [];
+
+        // Calculate additions total
+        $('.addition-checkbox:checked').each(function() {
+            var price = parseFloat($(this).data('price'));
+            var perPerson = $(this).data('per-person') === 1;
+            var additionTotal = perPerson ? price * participants : price;
+            additionsTotal += additionTotal;
+            
+            additionsList.push(
+                '<div class="d-flex justify-content-between mb-1">' +
+                '<small>' + $(this).next('label').text().split('(')[0].trim() + '</small>' +
+                '<small>' + formatNumber(additionTotal) + ' VND</small>' +
+                '</div>'
+            );
+        });
+
+        // Update display
+        $('#tour-price-per-person').text(formatNumber(pricePerPerson) + ' VND');
         $('#participant-count').text(participants);
-        $('#total-price').text(formatNumber(totalPrice));
-        $('#tour-price-display').text(formatNumber(pricePerPerson));
+        $('#tour-subtotal').text(formatNumber(tourSubtotal) + ' VND');
+        
+        if (additionsList.length > 0) {
+            $('.additions-list').html(additionsList.join(''));
+            $('#additions-subtotal').text(formatNumber(additionsTotal) + ' VND');
+            $('#additions-summary').slideDown();
+        } else {
+            $('#additions-summary').slideUp();
+        }
+
+        $('#total-price').text(formatNumber(tourSubtotal + additionsTotal) + ' VND');
     }
-    
-    // Update price when number of participants changes
-    $('#participants').change(function() {
-        updatePriceDisplay();
-    });
-    
+
+    // Update price when participants change or additions are selected
+    $('#participants').change(updatePriceSummary);
+    $('.addition-checkbox').change(updatePriceSummary);
+
     // Initial price update
-    updatePriceDisplay();
+    updatePriceSummary();
 });
 </script>
 <?php endif; ?>
@@ -725,7 +749,7 @@ jQuery(document).ready(function($) {
                     
                     // Reset price display if flexible pricing is enabled
                     if ($('#price-per-person').length) {
-                        updatePriceDisplay();
+                        updatePriceSummary();
                     }
                 } else {
                     // Show error message
@@ -742,59 +766,6 @@ jQuery(document).ready(function($) {
             }
         });
     });
-});
-</script>
-
-<script>
-jQuery(document).ready(function($) {
-    function formatNumber(number) {
-        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-
-    function updatePriceSummary() {
-        var participants = parseInt($('#participants').val());
-        var tourPricePerPerson = <?php echo bike_theme_get_tour_price(get_the_ID()); ?>;
-        var tourSubtotal = tourPricePerPerson * participants;
-        var additionsTotal = 0;
-        var additionsList = [];
-
-        // Calculate additions total
-        $('.addition-checkbox:checked').each(function() {
-            var price = parseFloat($(this).data('price'));
-            var perPerson = $(this).data('per-person') === 1;
-            var additionTotal = perPerson ? price * participants : price;
-            additionsTotal += additionTotal;
-            
-            additionsList.push(
-                '<div class="d-flex justify-content-between mb-1">' +
-                '<small>' + $(this).next('label').text().split('(')[0].trim() + '</small>' +
-                '<small>' + formatNumber(additionTotal) + ' VND</small>' +
-                '</div>'
-            );
-        });
-
-        // Update display
-        $('#tour-price-per-person').text(formatNumber(tourPricePerPerson) + ' VND');
-        $('#participant-count').text(participants);
-        $('#tour-subtotal').text(formatNumber(tourSubtotal) + ' VND');
-        
-        if (additionsList.length > 0) {
-            $('#additions-summary').show();
-            $('.additions-list').html(additionsList.join(''));
-            $('#additions-subtotal').text(formatNumber(additionsTotal) + ' VND');
-        } else {
-            $('#additions-summary').hide();
-        }
-
-        $('#total-price').text(formatNumber(tourSubtotal + additionsTotal) + ' VND');
-    }
-
-    // Update price when participants change or additions are selected
-    $('#participants').change(updatePriceSummary);
-    $('.addition-checkbox').change(updatePriceSummary);
-
-    // Initial price update
-    updatePriceSummary();
 });
 </script>
 
