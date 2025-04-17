@@ -1,18 +1,25 @@
 jQuery(document).ready(function($) {
-    $('#tour-booking-form').on('submit', function(e) {
+    // Change from form submit to button click
+    $('.submit-button').on('click', function(e) {
         e.preventDefault();
-
-        var $form = $(this);
-        var $submitButton = $form.find('button[type="submit"]');
+        
+        var $button = $(this);
+        var $form = $button.closest('form');
         var $responseDiv = $('.booking-response');
 
-        // Disable submit button and show loading state
-        $submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ' + bike_booking.submitting_text);
+        // Validate form
+        if (!$form[0].checkValidity()) {
+            $form[0].reportValidity();
+            return;
+        }
+
+        // Disable button and show loading state
+        $button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ' + bike_booking.submitting_text);
 
         // Get form data
-        var formData = new FormData(this);
+        var formData = new FormData($form[0]);
         formData.append('action', 'bike_theme_process_booking');
-        formData.append('security', bike_booking.nonce);
+        formData.append('csrf_token', bike_booking.csrf_token);
 
         // Send Ajax request
         $.ajax({
@@ -33,6 +40,14 @@ jQuery(document).ready(function($) {
                     if (typeof updatePriceDisplay === 'function') {
                         updatePriceDisplay();
                     }
+
+                    // Refresh CSRF token
+                    bike_booking.csrf_token = response.data.new_csrf_token;
+
+                    // Scroll to response message
+                    $('html, body').animate({
+                        scrollTop: $responseDiv.offset().top - 100
+                    }, 500);
                 } else {
                     // Show error message
                     var errorHtml = '<div class="alert alert-danger"><ul class="mb-0">';
@@ -41,19 +56,29 @@ jQuery(document).ready(function($) {
                             errorHtml += '<li>' + error + '</li>';
                         });
                     } else {
-                        errorHtml += '<li>' + response.data + '</li>';
+                        errorHtml += '<li>' + response.data.message + '</li>';
                     }
                     errorHtml += '</ul></div>';
                     $responseDiv.html(errorHtml);
+
+                    // Scroll to error message
+                    $('html, body').animate({
+                        scrollTop: $responseDiv.offset().top - 100
+                    }, 500);
                 }
             },
             error: function() {
                 // Show error message
                 $responseDiv.html('<div class="alert alert-danger">' + bike_booking.error_message + '</div>');
+                
+                // Scroll to error message
+                $('html, body').animate({
+                    scrollTop: $responseDiv.offset().top - 100
+                }, 500);
             },
             complete: function() {
-                // Re-enable submit button
-                $submitButton.prop('disabled', false).text(bike_booking.submit_text);
+                // Re-enable button
+                $button.prop('disabled', false).text(bike_booking.submit_text);
             }
         });
     });

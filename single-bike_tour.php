@@ -405,7 +405,6 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                         <div class="booking-response"></div>
                         <form id="tour-booking-form" method="post">
                             <?php wp_nonce_field('bike_tour_booking', 'bike_tour_booking_nonce'); ?>
-                            <input type="hidden" name="action" value="bike_theme_process_booking">
                             <input type="hidden" name="tour_id" value="<?php echo get_the_ID(); ?>">
                             <div class="row g-3">
                                 <div class="col-lg-6">
@@ -444,8 +443,8 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                 </div>
                                 <?php
                                 $additions = bike_theme_get_tour_additions(get_the_ID());
-if (!empty($additions)) :
-    ?>
+                                if (!empty($additions)) :
+                                    ?>
                                 <div class="col-12">
                                     <h5 class="mb-3"><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h5>
                                     <div class="additions-options">
@@ -508,7 +507,7 @@ if (!empty($additions)) :
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100 submit-button" type="submit"><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
+                                    <button class="btn btn-primary w-100 submit-button" type="button" ><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
                                 </div>
                             </div>
                         </form>
@@ -521,31 +520,28 @@ if (!empty($additions)) :
 
 </main><!-- #main -->
 
-<?php
-// Add JavaScript for dynamic price calculation
-if (get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1') :
-    ?>
+<?php if (get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1') : ?>
 <script>
 jQuery(document).ready(function($) {
     // Get tour pricing data
     var pricingData = <?php
         $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
-    $pricing_data = array();
+        $pricing_data = array();
 
-    if ($flexible_pricing_enabled === '1') {
-        $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
-        if (empty($pricing_data) || !is_array($pricing_data)) {
+        if ($flexible_pricing_enabled === '1') {
+            $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
+            if (empty($pricing_data) || !is_array($pricing_data)) {
+                $pricing_data = array(
+                    array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
+                );
+            }
+        } else {
             $pricing_data = array(
                 array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
             );
         }
-    } else {
-        $pricing_data = array(
-            array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
-        );
-    }
-echo json_encode($pricing_data);
-?>;
+        echo json_encode($pricing_data);
+    ?>;
 
     function formatNumber(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -623,6 +619,7 @@ echo json_encode($pricing_data);
 });
 </script>
 <?php endif; ?>
+
 <script>
 jQuery(document).ready(function($) {
     // Initialize lightbox for gallery images

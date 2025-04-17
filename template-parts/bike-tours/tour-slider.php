@@ -2,11 +2,10 @@
     wp_enqueue_style('owl-carousel', get_template_directory_uri() . '/assets/css/owl.carousel.min.css', array(), '2.3.4');
     wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/assets/js/owl.carousel.min.js', array('jquery'), '2.3.4', true);
 ?>
-
-<div class="container-fluid pt-5 pb-4 bg-light">
-    <?php if (!empty($gallery_ids)) :
-        $gallery_ids_array = explode(',', $gallery_ids);
-    ?>
+ <?php if (!empty($gallery_ids)) :
+    $gallery_ids_array = explode(',', $gallery_ids);
+?>
+<div class="container-fluid pt-5 pb-4 bg-light">   
     <div class="owl-carousel tour-slider">
         <?php foreach($gallery_ids_array as $image_id):
             if (!empty($image_id)) :
@@ -56,5 +55,5 @@
             });
         });
     </script>
-    <?php endif; ?>
 </div>
+<?php endif; ?>

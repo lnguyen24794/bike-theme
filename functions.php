@@ -1751,13 +1751,13 @@ function bike_theme_display_destination_categories($destination_id, $destination
 /**
  * Enqueue booking scripts
  */
-function bike_theme_enqueue_booking_scripts()
-{
+function bike_theme_enqueue_booking_scripts() {
     if (is_singular('bike_tour')) {
         wp_enqueue_script('bike-theme-booking', get_template_directory_uri() . '/assets/js/booking.js', array('jquery'), '1.0.0', true);
         wp_localize_script('bike-theme-booking', 'bike_booking', array(
             'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('bike_booking_nonce'),
+            'nonce' => wp_create_nonce('bike_theme_booking_nonce'),
+            'csrf_token' => wp_create_nonce('bike_theme_csrf'),
             'submitting_text' => __('Submitting...', 'bike-theme'),
             'submit_text' => __('Book Now', 'bike-theme'),
             'error_message' => __('An error occurred. Please try again.', 'bike-theme')
@@ -1769,12 +1769,30 @@ add_action('wp_enqueue_scripts', 'bike_theme_enqueue_booking_scripts');
 /**
  * Process booking Ajax request
  */
-function bike_theme_process_booking()
-{
+function bike_theme_process_booking() {
+    // Verify CSRF token
+    if (!check_ajax_referer('bike_theme_csrf', 'csrf_token', false)) {
+        wp_send_json_error(array('message' => __('Invalid security token. Please refresh the page and try again.', 'bike-theme')));
+    }
+
     // Verify nonce
     if (!isset($_POST['bike_tour_booking_nonce']) ||
         !wp_verify_nonce($_POST['bike_tour_booking_nonce'], 'bike_tour_booking')) {
         wp_send_json_error(array('message' => __('Invalid security token.', 'bike-theme')));
+    }
+
+    // Add rate limiting
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+    $transient_key = 'booking_attempt_' . md5($ip_address);
+    $attempt_count = get_transient($transient_key);
+    
+    if ($attempt_count === false) {
+        set_transient($transient_key, 1, HOUR_IN_SECONDS);
+    } else {
+        if ($attempt_count >= 5) { // Limit to 5 attempts per hour
+            wp_send_json_error(array('message' => __('Too many booking attempts. Please try again later.', 'bike-theme')));
+        }
+        set_transient($transient_key, $attempt_count + 1, HOUR_IN_SECONDS);
     }
 
     // Sanitize and validate form data
@@ -1882,7 +1900,6 @@ function bike_theme_process_booking()
     }
 }
 add_action('wp_ajax_bike_theme_process_booking', 'bike_theme_process_booking');
-add_action('wp_ajax_nopriv_bike_theme_process_booking', 'bike_theme_process_booking');
 
 /**
  * Get formatted tour duration
