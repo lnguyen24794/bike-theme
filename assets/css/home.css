@@ -1,0 +1,43 @@
+.home-header {
+    background: transparent;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.text-size-large {
+    font-size: 2rem !important;
+}
+
+.text-size-medium {
+    font-size: 1.5rem !important;
+}
+
+@media screen and (max-width: 991px) {
+    .hide-mobile {
+        display: none !important;
+    }
+
+    .hide-desktop {
+        display: block !important;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .hide-mobile {
+        display: block !important;
+    }
+
+    .hide-desktop {
+        display: none !important;
+    }
+}
+
+.header-sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}

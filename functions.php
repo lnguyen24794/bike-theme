@@ -135,7 +135,7 @@ function bike_theme_destination_edit_image_field($term)
             <input type="hidden" id="destination_image" name="destination_image" class="custom_media_url" value="<?php echo esc_attr($image_id); ?>">
             <div id="destination-image-wrapper">
                 <?php if ($image_url) : ?>
-                    <img src="<?php echo esc_url($image_url); ?>" style="max-width: 100%; height: auto; margin: 10px 0;">
+                    <img src="<?php echo esc_url($image_url); ?>" style="max-width: 50%; height: auto; margin: 10px 0;">
                 <?php endif; ?>
             </div>
             <p>
@@ -423,46 +423,56 @@ add_action('save_post', 'bike_theme_save_meta_boxes');
 /**
  * Register Theme Options Page
  */
-function bike_theme_register_options_page()
-{
-    add_theme_page(
+function bike_theme_register_options_page() {
+    add_menu_page(
         __('Bike Theme Options', 'bike-theme'),
         __('Bike Theme Options', 'bike-theme'),
         'manage_options',
         'bike-theme-options',
-        'bike_theme_options_page_callback'
+        'bike_theme_options_page_callback',
+        'dashicons-admin-generic', // Add an icon
+        3 // Position after Dashboard (2)
     );
 }
 add_action('admin_menu', 'bike_theme_register_options_page');
 
 /**
- * Enqueue scripts for theme options page
+ * Enqueue scripts for theme options page and wp-admin
  */
-function bike_theme_admin_scripts($hook)
-{
-    if ('appearance_page_bike-theme-options' !== $hook) {
-        return;
-    }
-
-    // Enqueue WordPress media scripts
+function bike_theme_admin_scripts($hook) {
+    // Get current screen
+    $screen = get_current_screen();
+    
+    // Enqueue media scripts
     wp_enqueue_media();
 
-    // Enqueue custom admin script
+    // Enqueue admin script for all admin pages
     wp_enqueue_script(
         'bike-theme-admin-js',
         get_template_directory_uri() . '/assets/js/admin.js',
-        array('jquery'),
+        array('jquery', 'jquery-ui-sortable'),
         BIKE_THEME_VERSION,
         true
     );
 
-    // Enqueue admin styles
+    // Enqueue admin styles for all admin pages
     wp_enqueue_style(
         'bike-theme-admin-css',
         get_template_directory_uri() . '/assets/css/admin.css',
         array(),
         BIKE_THEME_VERSION
     );
+
+    // Localize script
+    wp_localize_script('bike-theme-admin-js', 'bikeThemeAdmin', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('bike_theme_admin_nonce'),
+        'strings' => array(
+            'confirmDelete' => __('Are you sure you want to delete this item?', 'bike-theme'),
+            'uploadImage' => __('Choose Image', 'bike-theme'),
+            'useImage' => __('Use this image', 'bike-theme')
+        )
+    ));
 }
 add_action('admin_enqueue_scripts', 'bike_theme_admin_scripts');
 
@@ -516,7 +526,7 @@ function bike_theme_options_page_callback()
                             'image_id' => isset($slide_data['image_id']) ? absint($slide_data['image_id']) : 0,
                             'image_url' => isset($slide_data['image_url']) ? esc_url_raw($slide_data['image_url']) : '',
                             'alt' => isset($slide_data['alt']) ? sanitize_text_field($slide_data['alt']) : '',
-                            'active' => isset($slide_data['active']) ? 1 : 0
+                            'active' => isset($slide_data['active']) ? 1 : 0,
                         );
                     }
                 }
@@ -536,6 +546,7 @@ function bike_theme_options_page_callback()
                             'image_id' => isset($slide_data['image_id']) ? absint($slide_data['image_id']) : 0,
                             'image_url' => isset($slide_data['image_url']) ? esc_url_raw($slide_data['image_url']) : '',
                             'subtitle' => isset($slide_data['subtitle']) ? sanitize_text_field($slide_data['subtitle']) : '',
+                            'slogan' => isset($slide_data['slogan']) ? sanitize_text_field($slide_data['slogan']) : '',
                             'title' => isset($slide_data['title']) ? sanitize_text_field($slide_data['title']) : '',
                             'btn1_text' => isset($slide_data['btn1_text']) ? sanitize_text_field($slide_data['btn1_text']) : '',
                             'btn1_url' => isset($slide_data['btn1_url']) ? esc_url_raw($slide_data['btn1_url']) : '',
@@ -595,6 +606,7 @@ function bike_theme_options_page_callback()
             'image_url' => '',
             'subtitle' => __('Tour Xe Đạp Việt Nam', 'bike-theme'),
             'title' => __('Khám Phá Việt Nam Trên Hai Bánh', 'bike-theme'),
+            'slogan' => __('Khám phá Việt Nam trên hai bánh xe', 'bike-theme'),
             'btn1_text' => __('Xem Tour', 'bike-theme'),
             'btn1_url' => '',
             'btn2_text' => __('Đặt Xe Ngay', 'bike-theme'),
@@ -676,7 +688,7 @@ function bike_theme_options_page_callback()
                                         <input type="hidden" name="bike_theme_about_slide[<?php echo $index; ?>][image_url]" class="bike-media-url" value="<?php echo esc_url($slide['image_url']); ?>">
                                         <div class="bike-media-preview">
                                             <?php if (!empty($slide['image_url'])) : ?>
-                                                <img src="<?php echo esc_url($slide['image_url']); ?>" alt="">
+                                                <img style="width: 50%;" src="<?php echo esc_url($slide['image_url']); ?>" alt="">
                                             <?php endif; ?>
                                         </div>
                                         <input type="button" class="button bike-media-upload-btn" value="<?php esc_attr_e('Upload Image', 'bike-theme'); ?>">
@@ -754,7 +766,7 @@ function bike_theme_options_page_callback()
                                         <input type="hidden" name="bike_theme_slide[<?php echo $index; ?>][image_url]" class="bike-media-url" value="<?php echo esc_url($slide['image_url']); ?>">
                                         <div class="bike-media-preview">
                                             <?php if (!empty($slide['image_url'])) : ?>
-                                                <img src="<?php echo esc_url($slide['image_url']); ?>" alt="">
+                                                <img style="width: 50%;" src="<?php echo esc_url($slide['image_url']); ?>" alt="">
                                             <?php endif; ?>
                                         </div>
                                         <input type="button" class="button bike-media-upload-btn" value="<?php esc_attr_e('Upload Image', 'bike-theme'); ?>">
@@ -763,12 +775,16 @@ function bike_theme_options_page_callback()
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"><label for="bike_theme_slide_<?php echo $index; ?>_subtitle"><?php esc_html_e('Subtitle', 'bike-theme'); ?></label></th>
-                                <td><input name="bike_theme_slide[<?php echo $index; ?>][subtitle]" type="text" id="bike_theme_slide_<?php echo $index; ?>_subtitle" value="<?php echo esc_attr($slide['subtitle']); ?>" class="regular-text"></td>
-                            </tr>
-                            <tr>
                                 <th scope="row"><label for="bike_theme_slide_<?php echo $index; ?>_title"><?php esc_html_e('Title', 'bike-theme'); ?></label></th>
                                 <td><input name="bike_theme_slide[<?php echo $index; ?>][title]" type="text" id="bike_theme_slide_<?php echo $index; ?>_title" value="<?php echo esc_attr($slide['title']); ?>" class="regular-text"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="bike_theme_slide_<?php echo $index; ?>_subtitle"><?php esc_html_e('Subtitle', 'bike-theme'); ?></label></th>
+                                <td><textarea name="bike_theme_slide[<?php echo $index; ?>][subtitle]"  rows="5" id="bike_theme_slide_<?php echo $index; ?>_subtitle"  class="regular-text"><?php echo esc_attr($slide['subtitle']); ?></textarea></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="bike_theme_slide_<?php echo $index; ?>_slogan"><?php esc_html_e('Slogan', 'bike-theme'); ?></label></th>
+                                <td><input name="bike_theme_slide[<?php echo $index; ?>][slogan]" type="text" id="bike_theme_slide_<?php echo $index; ?>_slogan" value="<?php echo esc_attr($slide['slogan']); ?>" class="regular-text"></td>
                             </tr>
                             <tr>
                                 <th scope="row"><label for="bike_theme_slide_<?php echo $index; ?>_btn1_text"><?php esc_html_e('Button 1 Text', 'bike-theme'); ?></label></th>
@@ -822,12 +838,16 @@ function bike_theme_options_page_callback()
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"><label for="bike_theme_slide_{{index}}_subtitle"><?php esc_html_e('Subtitle', 'bike-theme'); ?></label></th>
-                                <td><input name="bike_theme_slide[{{index}}][subtitle]" type="text" id="bike_theme_slide_{{index}}_subtitle" value="" class="regular-text"></td>
-                            </tr>
-                            <tr>
                                 <th scope="row"><label for="bike_theme_slide_{{index}}_title"><?php esc_html_e('Title', 'bike-theme'); ?></label></th>
                                 <td><input name="bike_theme_slide[{{index}}][title]" type="text" id="bike_theme_slide_{{index}}_title" value="" class="regular-text"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="bike_theme_slide_{{index}}_subtitle"><?php esc_html_e('Subtitle', 'bike-theme'); ?></label></th>
+                                <td><textarea name="bike_theme_slide[{{index}}][subtitle]"  rows="5" id="bike_theme_slide_{{index}}_subtitle"  class="regular-text"></textarea></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="bike_theme_slide_{{index}}_slogan"><?php esc_html_e('Slogan', 'bike-theme'); ?></label></th>
+                                <td><input name="bike_theme_slide[{{index}}][slogan]" type="text" id="bike_theme_slide_{{index}}_slogan" value="" class="regular-text"></td>
                             </tr>
                             <tr>
                                 <th scope="row"><label for="bike_theme_slide_{{index}}_btn1_text"><?php esc_html_e('Button 1 Text', 'bike-theme'); ?></label></th>
