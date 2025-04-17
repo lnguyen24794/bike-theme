@@ -4,14 +4,8 @@
 
 /* Tour Header Styles */
 
-.tour-wrapper:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
+.tour-heading{
+    font-weight: 700;
 }
 
 .tour-wrapper{
@@ -28,17 +22,17 @@
     flex-direction: column;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-    justify-content: center;
+    justify-content: end;
     -ms-flex-line-pack: center;
     align-content: center;
-    min-height: 45vw;
+    min-height: 84vh;
     background-color: #bdbbbc;
     background-blend-mode: multiply;
 }
 
 @media (max-width: 899px) {
     .tour-wrapper {
-        min-height: 65vw !important;
+        min-height: 65vh !important;
     }
 }
 
@@ -50,22 +44,16 @@
     width: 100%;
 }
 
-.tour-basic-info{
+.tour-basic-info {
     width: 100%;
-    padding: 0 30px;
-    bottom: -106px;
+    padding: 0;
     text-align: center;
+    background-color: rgba(255, 255, 255, .9);
 }
 
 .tour-basic-info .wrapper {
     border-radius: 0px 0px 15px 15px !important;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     width: 100%;
-}
-
-/* Tour Basic Info Styles */
-.tour-basic-info .wrapper {
-    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
@@ -82,13 +70,24 @@
     margin-bottom: 0.25rem;
 }
 
-.tour-basic-info span {
-    font-size: 0.875rem;
-    color: #6c757d;
-}
-
 .tour-basic-info .col {
     padding: 10px;
+}
+
+.tour-basic-info-title {
+    text-align: center;
+}
+
+.tour-basic-info-title h5{
+    font-size: 1.19rem;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.tour-basic-info-title span{
+    font-size: 1.875rem;
+    color: var(--primary);
+    font-weight: 600;
 }
 
 @media (max-width: 1024px) {
@@ -781,4 +780,42 @@
 
 .submit-button{
     border-radius: 0px 0px 10px 10px !important;
+}
+
+.tour-slider{
+    position: relative;
+}
+.owl-nav .owl-prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: left !important;
+}
+.owl-nav .owl-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: right !important;
+}
+.owl-nav button>i {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    color: #fff;
+}
+.owl-dots{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.box-shadow{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.box-shadow:hover{
+    transform: scale(1.2);
+    transition: all 0.5s ease;
 }

@@ -15,6 +15,6 @@
     <?php endif; ?>
     
     <div class="mt-4">
-        <a href="#book-now" class="btn btn-primary py-3 px-5"><?php esc_html_e('Book Now', 'bike-theme'); ?></a>
+        <a href="#tour-booking-form" class="btn btn-primary py-3 px-5"><?php esc_html_e('Book Now', 'bike-theme'); ?></a>
     </div>
 </div>

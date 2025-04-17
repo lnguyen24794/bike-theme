@@ -9,6 +9,7 @@
 
 get_header();
 wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), '1.0.0');
+
 // Process booking form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking'])) {
     // Verify nonce
@@ -154,61 +155,51 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 
 <main id="primary" class="site-main">
     <!-- Page Header Start -->
-    <div class="page-header-inner tour-wrapper py-5 relative" style="background-image: url(<?php echo has_post_thumbnail() ? esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')) : esc_url(get_template_directory_uri() . '/assets/images/bikes/tour-banner.jpg'); ?>);">
-            <div class="container text-center pb-5">
-                <h1 class="text-white mb-3 animated slideInDown"><?php the_title(); ?></h1>
+    <div class="page-header-inner tour-wrapper py-0" style="background-image: url(<?php echo has_post_thumbnail() ? esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')) : esc_url(get_template_directory_uri() . '/assets/images/bikes/tour-banner.jpg'); ?>);">
+            <div class="container pb-2" style="z-index: 1111;">
+                <div class="row align-items-center">
+                    <div class="col-lg-9">
+                        <h1 class="tour-heading text-white mb-3 animated slideInDown"><?php the_title(); ?></h1>     
+                    </div>
+                    <div class="col-lg-3">
+                        <a class="btn btn-primary cursor-pointer" href="#tour-booking-form"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></a>
+                    </div>
+                </div>
             </div>
-        <!-- Tour  Basic Info End -->
-        </div>
-        <div class="tour-basic-info">
-            <div class="container row mb-5 bg-light shadow p-4 align-items-center wrapper">
-                <div class="col-lg-3 col-6">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
-                            <i class="fa fa-map-marker-alt text-white"></i>
-                        </div>
+            <div class="tour-basic-info">
+                <div class="container row p-4 align-items-center wrapper">
+                    <div class="col-lg-3 col-6">
                         <div class="ms-3 tour-basic-info-title">
-                            <h5 class="mb-1"><?php esc_html_e('Price', 'bike-theme'); ?></h5>
+                            <h5 class="mb-1"><?php esc_html_e('Price from', 'bike-theme'); ?></h5>
                             <span><?php echo bike_theme_format_price(bike_theme_get_tour_price(get_the_ID())); ?></span>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
-                            <i class="fa fa-clock text-white"></i>
-                        </div>
+                    <div class="col-lg-3 col-6">
                         <div class="ms-3 tour-basic-info-title">
                             <h5 class="mb-1"><?php esc_html_e('Duration', 'bike-theme'); ?></h5>
                             <span><?php echo esc_html($duration); ?></span>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
-                            <i class="fa fa-route text-white"></i>
-                        </div>
+                    <div class="col-lg-3 col-6">
                         <div class="ms-3 tour-basic-info-title">
                             <h5 class="mb-1"><?php esc_html_e('Distance', 'bike-theme'); ?></h5>
                             <span><?php echo esc_html($distance); ?> km</span>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
-                            <i class="fa fa-mountain text-white"></i>
-                        </div>
+                    <div class="col-lg-3 col-6">
                         <div class="ms-3 tour-basic-info-title">
                             <h5 class="mb-1"><?php esc_html_e('Difficulty', 'bike-theme'); ?></h5>
-                            <span class="<?php echo esc_attr($difficulty_class); ?>"><?php echo esc_html($difficulty_text); ?></span>
+                            <span><?php echo esc_html($difficulty_text); ?></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     <!-- Page Header End -->
+    <!-- Tour Slider Start -->
+    <?php include(get_template_directory() . '/template-parts/bike-tours/tour-slider.php'); ?>
+    <!-- Tour Slider End -->
 
     <!-- Tour Detail Start -->
     <div class="container-xxl py-5">
@@ -315,11 +306,11 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                     <h3><?php esc_html_e('Tour Price', 'bike-theme'); ?></h3>
                                     <?php
                                     $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
-$flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
-$standard_price = get_post_meta(get_the_ID(), '_tour_price', true);
+                                        $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
+                                        $standard_price = get_post_meta(get_the_ID(), '_tour_price', true);
 
-if ($flexible_pricing_enabled && !empty($flexible_pricing)) {
-    ?>
+                                        if ($flexible_pricing_enabled && !empty($flexible_pricing)) {
+                                            ?>
                                         <div class="flexible-pricing-table">
                                             <table class="table">
                                                 <thead>
@@ -339,21 +330,21 @@ if ($flexible_pricing_enabled && !empty($flexible_pricing)) {
                                             </table>
                                         </div>
                                         <?php
-} else {
-    ?>
+                                        } else {
+                                            ?>
                                         <div class="standard-price">
                                             <p class="price-amount"><?php echo esc_html(number_format($standard_price, 0, '.', ',')); ?> VND</p>
                                             <p class="price-note"><?php esc_html_e('per person', 'bike-theme'); ?></p>
                                         </div>
                                         <?php
-}
-?>
+                                            }
+                                        ?>
 
                                     <!-- Tour Additions Section -->
                                     <?php
-$additions = get_post_meta(get_the_ID(), '_tour_additions', true);
-if (!empty($additions)) {
-    ?>
+                                        $additions = get_post_meta(get_the_ID(), '_tour_additions', true);
+                                        if (!empty($additions)) {
+                                            ?>
                                         <div class="tour-additions mt-4">
                                             <h3><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h3>
                                             <div class="additions-table">
@@ -372,12 +363,12 @@ if (!empty($additions)) {
                                                                 <td><?php echo esc_html($addition['description']); ?></td>
                                                                 <td>
                                                                     <?php
-                                echo esc_html(number_format($addition['price'], 0, '.', ',')); ?> VND
-                                                                    <?php
-                                if (isset($addition['per_person']) && $addition['per_person']) {
-                                    echo ' <span class="per-person-note">' . esc_html__('per person', 'bike-theme') . '</span>';
-                                }
-                                                            ?>
+                                                                        echo esc_html(number_format($addition['price'], 0, '.', ',')); ?> VND
+                                                                                                            <?php
+                                                                        if (isset($addition['per_person']) && $addition['per_person']) {
+                                                                            echo ' <span class="per-person-note">' . esc_html__('per person', 'bike-theme') . '</span>';
+                                                                        }
+                                                                    ?>
                                                                 </td>
                                                             </tr>
                                                         <?php } ?>
@@ -386,8 +377,8 @@ if (!empty($additions)) {
                                             </div>
                                         </div>
                                         <?php
-}
-?>
+                                        }
+                                        ?>
                                 </div>
                             </div>
                         </div>
@@ -453,8 +444,8 @@ if (!empty($additions)) {
                                 </div>
                                 <?php
                                 $additions = bike_theme_get_tour_additions(get_the_ID());
-                                if (!empty($additions)) :
-                                ?>
+if (!empty($additions)) :
+    ?>
                                 <div class="col-12">
                                     <h5 class="mb-3"><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h5>
                                     <div class="additions-options">
@@ -539,22 +530,22 @@ jQuery(document).ready(function($) {
     // Get tour pricing data
     var pricingData = <?php
         $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
-        $pricing_data = array();
-        
-        if ($flexible_pricing_enabled === '1') {
-            $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
-            if (empty($pricing_data) || !is_array($pricing_data)) {
-                $pricing_data = array(
-                    array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
-                );
-            }
-        } else {
+    $pricing_data = array();
+
+    if ($flexible_pricing_enabled === '1') {
+        $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
+        if (empty($pricing_data) || !is_array($pricing_data)) {
             $pricing_data = array(
                 array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
             );
         }
-        echo json_encode($pricing_data);
-    ?>;
+    } else {
+        $pricing_data = array(
+            array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
+        );
+    }
+echo json_encode($pricing_data);
+?>;
 
     function formatNumber(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

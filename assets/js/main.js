@@ -216,7 +216,7 @@
         // Reinitialize lazy loading after dynamic content load
         function reinitLazyLoad() {
             if (window.lazySizes) {
-                window.lazySizes.autoInit();
+                // window.lazySizes.autoInit();
             }
         }
 
