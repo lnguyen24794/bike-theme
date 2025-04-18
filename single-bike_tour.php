@@ -202,7 +202,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
     <!-- Tour Slider End -->
 
     <!-- Tour Detail Start -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl py-5" id="tour-detail">
             <div class="row g-5">
                 <!-- Tour Description -->
                 <div class="col-lg-8">
@@ -246,7 +246,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                             </li>
                         </ul>
                         
-                        <div class="tab-content p-3" style="border: none;" id="tourTabContent">
+                        <div class="tab-content p-3" style="border: none; min-height: 100vh;" id="tourTabContent">
                             <!-- Overview Tab -->
                             <div class="tab-pane fade <?php echo $active_tab === 'overview' ? 'show active' : ''; ?>" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                 <?php include(get_template_directory() . '/template-parts/bike-tours/overview.php'); ?>
@@ -677,6 +677,15 @@ jQuery(document).ready(function($) {
                 // Re-enable submit button
                 $submitButton.prop('disabled', false).html('<?php esc_html_e('Book Now', 'bike-theme'); ?>');
             }
+        });
+    });
+
+    $('#tourTab .nav-link').click(function() {
+        var $this = $(this);
+        console.log($this.offset().top);
+        window.scrollTo({
+            top: $('#tour-detail').offset().top,
+            behavior: 'smooth'
         });
     });
 });

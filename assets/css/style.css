@@ -772,8 +772,12 @@
     border-radius: 15px !important;
 }
 
-.tour-tabs{
+.tour-tabs {
     flex-wrap: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
 }
 
 /* Destinations styling */
