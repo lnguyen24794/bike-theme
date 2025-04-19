@@ -13,7 +13,7 @@
                 <a href="<?php echo esc_url($image_url); ?>" class="gallery-lightbox">
                     <?php echo wp_get_attachment_image($slide['image_id'], 'large', false, array(
                         'class' => 'img-fluid shadow rounded',
-                        'alt' => $slide['image_alt'],
+                        'alt' => $slide['image_alt'] ?? '',
                         'style' => 'width: 100%; height: 100%; object-fit: cover;'
                     )); ?>
                 </a>

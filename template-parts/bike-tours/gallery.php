@@ -1,6 +1,6 @@
 <div class="tour-media">
     <?php if (!empty($gallery_ids)) :
-        $gallery_ids_array = explode(',', $gallery_ids);
+        $gallery_ids_array = is_array($gallery_ids) ? $gallery_ids : explode(',', $gallery_ids);
         ?>
         <div class="row g-3 gallery-container">
             <?php foreach ($gallery_ids_array as $image_id) :

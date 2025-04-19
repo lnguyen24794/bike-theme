@@ -3,7 +3,8 @@
     wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/assets/js/owl.carousel.min.js', array('jquery'), '2.3.4', true);
 ?>
  <?php if (!empty($gallery_ids)) :
-    $gallery_ids_array = explode(',', $gallery_ids);
+    // Kiểm tra kiểu dữ liệu và chuyển đổi nếu cần
+    $gallery_ids_array = is_array($gallery_ids) ? $gallery_ids : explode(',', $gallery_ids);
 ?>
 <div class="container-fluid pt-5 pb-4 bg-light">   
     <div class="owl-carousel tour-slider">
