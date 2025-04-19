@@ -61,7 +61,7 @@ wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/ass
                     <div class="destination-folder">
                         <div class="folder-header">
                             <div class="folder-icon">
-                                <i class="fas fa-folder-open text-primary"></i>
+                                <i class="fas fa-map-marker-alt text-primary"></i>
                             </div>
                             <div class="folder-info">
                                 <a href="<?php echo esc_url(get_term_link($destination)); ?>">
