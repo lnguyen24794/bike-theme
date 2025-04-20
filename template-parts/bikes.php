@@ -36,19 +36,6 @@
                     <div class="p-4 mt-2">
                         <div class="bikes-item mb-2">
                             <h5 class="mb-0"><?php the_title(); ?></h5>
-                            <div class="ps-2">
-                                <?php
-                                $rating = get_post_meta(get_the_ID(), 'bike_rating', true);
-                                $rating = $rating ? $rating : 5;
-                                for ($i = 0; $i < 5; $i++) {
-                                    if ($i < $rating) {
-                                        echo '<small class="fa fa-star text-primary"></small>';
-                                    } else {
-                                        echo '<small class="fa fa-star text-secondary"></small>';
-                                    }
-                                }
-                                ?>
-                            </div>
                         </div>
                         <div class="d-flex mb-3">
                             <?php if ($bike_brand) : ?>
