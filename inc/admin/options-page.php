@@ -1093,9 +1093,7 @@ function bike_theme_hero_slides_callback($args)
                         <td>
                             <textarea name="bike_theme_options[slides][<?php echo $index; ?>][subtitle]" 
                                 id="bike_theme_options_slides_<?php echo $index; ?>_subtitle" 
-                                class="regular-text" style="height: 100px;">
-                                <?php echo esc_attr(isset($slide['subtitle']) ? $slide['subtitle'] : ''); ?>
-                            </textarea>
+                                class="regular-text" rows="5"><?php echo esc_attr(isset($slide['subtitle']) ? $slide['subtitle'] : ''); ?></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -1257,9 +1255,7 @@ function bike_theme_hero_slides_callback($args)
                         <td>
                             <textarea name="bike_theme_options[slides][{{index}}][subtitle]" 
                                 id="bike_theme_options_slides_{{index}}_subtitle" 
-                                class="regular-text" style="height: 100px;">
-                                <?php echo esc_attr__('Tour Xe Đạp Việt Nam', 'bike-theme'); ?>
-                            </textarea>
+                                class="regular-text" rows="5"> <?php echo esc_attr__('Tour Xe Đạp Việt Nam', 'bike-theme'); ?> </textarea>
                         </td>
                     </tr>
                     <tr>
