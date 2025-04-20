@@ -3,6 +3,8 @@
         $args = array(
             'post_type' => 'bike',
             'posts_per_page' => 3,
+            'orderby' => 'date',
+            'order' => 'ASC',
         );
 
         $bikes_query = new WP_Query($args);
