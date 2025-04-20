@@ -991,7 +991,7 @@ function bike_theme_hero_slides_callback($args)
     // If no slides exist, create default ones
     if (empty($slides)) {
         // Thử lấy từ cài đặt cũ trước
-        $old_slides = get_option('bike_theme_slides', array());
+        $old_slides = get_option('slides', array());
         if (!empty($old_slides)) {
             $slides = $old_slides;
         } else {
@@ -1091,11 +1091,11 @@ function bike_theme_hero_slides_callback($args)
                             </label>
                         </th>
                         <td>
-                            <input name="bike_theme_options[slides][<?php echo $index; ?>][subtitle]" 
-                                type="text" 
+                            <textarea name="bike_theme_options[slides][<?php echo $index; ?>][subtitle]" 
                                 id="bike_theme_options_slides_<?php echo $index; ?>_subtitle" 
-                                value="<?php echo esc_attr(isset($slide['subtitle']) ? $slide['subtitle'] : ''); ?>" 
-                                class="regular-text">
+                                class="regular-text" style="height: 100px;">
+                                <?php echo esc_attr(isset($slide['subtitle']) ? $slide['subtitle'] : ''); ?>
+                            </textarea>
                         </td>
                     </tr>
                     <tr>
@@ -1255,11 +1255,11 @@ function bike_theme_hero_slides_callback($args)
                             </label>
                         </th>
                         <td>
-                            <input name="bike_theme_options[slides][{{index}}][subtitle]" 
-                                type="text" 
+                            <textarea name="bike_theme_options[slides][{{index}}][subtitle]" 
                                 id="bike_theme_options_slides_{{index}}_subtitle" 
-                                value="<?php echo esc_attr__('Tour Xe Đạp Việt Nam', 'bike-theme'); ?>" 
-                                class="regular-text">
+                                class="regular-text" style="height: 100px;">
+                                <?php echo esc_attr__('Tour Xe Đạp Việt Nam', 'bike-theme'); ?>
+                            </textarea>
                         </td>
                     </tr>
                     <tr>
