@@ -18,7 +18,7 @@ if (empty($why_choose_us_content)) {
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Why Choose Us', 'bike-theme'); ?></h6>
-            <h2 class="mb-5"><?php esc_html_e('Discover the Bike Tour Experience', 'bike-theme'); ?></h2>
+            <h2 class="mb-3"><?php esc_html_e('Discover the Bike Tour Experience', 'bike-theme'); ?></h2>
         </div>
         
         <?php echo wp_kses_post($why_choose_us_content); ?>

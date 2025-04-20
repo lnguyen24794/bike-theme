@@ -53,7 +53,7 @@
                             <a href="<?php echo esc_url($btn2_url); ?>" class="btn btn-light py-md-2 px-md-4 animated slideInRight"><?php echo esc_html($btn2_text); ?></a>
                             <?php endif; ?>
                             <?php if (!empty($slogan)) : ?>
-                                <p class="text-primary p-4 text-size-large"><i class="fa fa-quote-left pr-2"></i> <i><?php echo esc_html($slogan); ?></i> <i class="fa fa-quote-right pl-2"></i>   </p>
+                                <p class="text-primary p-4"><i class="fa fa-quote-left"></i> <i class="text-size-large" style="margin: 0 10px;"><?php echo esc_html($slogan); ?></i> <i class="fa fa-quote-right"></i>   </p>
                             <?php endif; ?>
                         </div>
                     </div>
