@@ -652,6 +652,10 @@
     margin-bottom: 1rem;
 }
 
+.tour-overview figure {
+    max-width: 100% !important;
+}
+
 .tour-overview img {
     max-width: 100%;
     height: auto;
