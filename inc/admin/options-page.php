@@ -326,19 +326,6 @@ function bike_theme_register_settings()
         )
     );
     
-    // About Slides setting
-    add_settings_field(
-        'about_slides',
-        __('About Slides', 'bike-theme'),
-        'bike_theme_about_slides_callback',
-        'bike-theme-options',
-        'bike_theme_about_slides_section',
-        array(
-            'id' => 'about_slides',
-            'default' => array()
-        )
-    );
-    
     // Hero Banner Slides setting
     add_settings_field(
         'slides',
@@ -375,6 +362,19 @@ function bike_theme_register_settings()
         array(
             'id' => 'why_choose_us_content',
             'default' => ''
+        )
+    );
+
+    // About Slides setting
+     add_settings_field(
+        'about_slides',
+        __('About Slides', 'bike-theme'),
+        'bike_theme_about_slides_callback',
+        'bike-theme-options',
+        'bike_theme_about_slides_section',
+        array(
+            'id' => 'about_slides',
+            'default' => array()
         )
     );
 }

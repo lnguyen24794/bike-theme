@@ -567,8 +567,8 @@ function bike_theme_options_page_callback()
 
     // Get current values
     $email = get_option('bike_theme_email', 'info@beebikehub.com');
-    $phone = get_option('bike_theme_phone', '+012 345 6789');
-    $whatsapp_phone = get_option('bike_theme_whatsapp_phone', '+012 345 6789');
+    $phone = get_option('bike_theme_phone', '+84985455727');
+    $whatsapp_phone = get_option('bike_theme_whatsapp_phone', '+84985455727');
     $facebook = get_option('bike_theme_facebook', '');
     $twitter = get_option('bike_theme_twitter', '');
     $instagram = get_option('bike_theme_instagram', '');

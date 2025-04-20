@@ -211,7 +211,7 @@ $tour_category = get_query_var('tour_category');
                         <p><?php esc_html_e('Contact our tour experts for personalized tour recommendations or special requirements.', 'bike-theme'); ?></p>
                         <div class="d-flex align-items-center mb-2">
                             <i class="fa fa-phone-alt text-primary me-2"></i>
-                            <p class="mb-0"><?php echo bike_theme_get_option('phone', '+012 345 6789'); ?></p>
+                            <p class="mb-0"><?php echo bike_theme_get_option('phone', '+84985455727'); ?></p>
                         </div>
                         <div class="d-flex align-items-center">
                             <i class="fa fa-envelope-open text-primary me-2"></i>

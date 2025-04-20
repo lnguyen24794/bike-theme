@@ -86,11 +86,11 @@
                         </div>
                         <div class="h-100 d-inline-flex align-items-center py-2">
                             <i class="fa fa-phone-alt text-primary me-2"></i>
-                            <p class="mb-0"><a href="tel:<?php echo esc_attr(bike_theme_get_option('contact_phone', '+012 345 6789')); ?>"><?php echo esc_html(bike_theme_get_option('contact_phone', '+012 345 6789')); ?></a></p>
+                            <p class="mb-0"><a href="tel:<?php echo esc_attr(bike_theme_get_option('contact_phone', '+84985455727')); ?>"><?php echo esc_html(bike_theme_get_option('contact_phone', '+84985455727')); ?></a></p>
                         </div>
                         <div class="h-100 d-inline-flex align-items-center py-2">
                             <i class="fa fa-whatsapp text-primary me-2"></i>
-                            <p class="mb-0"><a href="https://wa.me/<?php echo esc_attr(bike_theme_get_option('whatsapp_phone', '+012 345 6789')); ?>"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+012 345 6789')); ?></a></p>
+                            <p class="mb-0"><a href="https://api.whatsapp.com/send/?phone=<?php echo esc_attr(bike_theme_get_option('whatsapp_phone', '84985455727')); ?>&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+84985455727')); ?></a></p>
                         </div>
                     </div>
                     <div class="col-lg-5 px-5 text-end">
@@ -179,7 +179,7 @@
                         </div>
                         <div class="h-100 d-inline-flex align-items-center py-2">
                             <i class="fa fa-phone-alt text-primary me-2"></i>
-                            <p class="mb-0"><?php echo esc_html(bike_theme_get_option('phone', '+012 345 6789')); ?></p>
+                            <p class="mb-0"><?php echo esc_html(bike_theme_get_option('phone', '+84985455727')); ?></p>
                         </div>
                     </div>
                     <div class="col-lg-5 px-5 text-end">
