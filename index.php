@@ -90,19 +90,6 @@ wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/assets/js/owl
                     ?>
                 </div>
                 
-                <?php
-                // Only show controls if we have more than one active slide
-                if ($active_slides > 1) :
-                    ?>
-                <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden"><?php esc_html_e('Previous', 'bike-theme'); ?></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden"><?php esc_html_e('Next', 'bike-theme'); ?></span>
-                </button>
-                <?php endif; ?>
             </div>
         </div>
         <!-- Hero Banner End -->
