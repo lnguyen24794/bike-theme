@@ -57,7 +57,6 @@
                         <p class="text-body mb-3"><?php echo wp_trim_words(get_the_content(), 20, '...'); ?></p>
                         <div class="d-flex justify-content-between">
                             <a class="btn btn-sm btn-primary rounded py-2 px-4" href="<?php the_permalink(); ?>"><?php esc_html_e('View Details', 'bike-theme'); ?></a>
-                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="/bike-rentals"><?php esc_html_e('Rent Now', 'bike-theme'); ?></a>
                         </div>
                     </div>
                 </div>
