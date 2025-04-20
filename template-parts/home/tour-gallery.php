@@ -78,23 +78,27 @@
     .photos-modal {
         display: none;
         position: fixed;
-        top: 0;
+        top: 0px;
         left: 0;
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.9);
         z-index: 9999;
         overflow: hidden;
+        padding: 30px;
     }
     
     .modal-close {
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: 50px;
+        right: 50px;
         color: white;
-        font-size: 30px;
+        font-size: 20px;
         cursor: pointer;
         z-index: 10000;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 0px 15px;
+        border-radius: 10px;
     }
     .tour-gallery .item-gallery:nth-child(1) {
         height: 630px;
@@ -190,7 +194,7 @@
                 $image_url = !empty($gallery_item['image_url']) ? $gallery_item['image_url'] : '';
                 if (!empty($image_url)) :
             ?>
-                <div class="gallery-item" style="height: 80vh;">
+                <div class="gallery-item" style="height: 85vh;">
                     <?php 
                     echo wp_get_attachment_image($gallery_item['image_id'], 'large', false, array(
                         'class' => 'img-fluid shadow rounded',
