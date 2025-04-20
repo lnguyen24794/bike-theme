@@ -23,7 +23,7 @@
                         <?php if (has_post_thumbnail()) : ?>
                             <?php the_post_thumbnail('large', array('class' => 'img-fluid')); ?>
                         <?php else : ?>
-                            <img class="img-fluid" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/bikes/bike-default.jpg" alt="<?php the_title_attribute(); ?>">
+                            <img class="img-fluid" style="height: 200px; object-fit: cover;" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/bikes/bike-default.jpg" alt="<?php the_title_attribute(); ?>">
                         <?php endif; ?>
                         <small class="position-absolute bike-label translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
                             <?php if ($is_available === 'yes') : ?>
