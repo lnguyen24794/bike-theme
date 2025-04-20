@@ -1,7 +1,3 @@
-<?php 
-    wp_enqueue_style('owl-carousel', get_template_directory_uri() . '/assets/css/owl.carousel.min.css', array(), '2.3.4');
-    wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/assets/js/owl.carousel.min.js', array('jquery'), '2.3.4', true);
-?>
  <?php if (!empty($gallery_ids)) :
     // Kiểm tra kiểu dữ liệu và chuyển đổi nếu cần
     $gallery_ids_array = is_array($gallery_ids) ? $gallery_ids : explode(',', $gallery_ids);

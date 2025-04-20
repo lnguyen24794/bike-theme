@@ -12,9 +12,6 @@
  */
 
 get_header();
-wp_enqueue_style('owl-carousel', get_template_directory_uri() . '/assets/css/owl.carousel.min.css', array(), '2.3.4');
-wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/assets/js/owl.carousel.min.js', array('jquery'), '2.3.4', true);
-
 ?>
 
 <main id="primary" class="site-main">
