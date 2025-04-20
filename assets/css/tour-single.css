@@ -1,3 +1,11 @@
 #tour-detail image {
     max-width: 100% !important;
 }
+
+.tour-overview figure {
+    max-width: 100% !important;
+}
+
+#tour-detail figure {
+    max-width: 100%;
+}
