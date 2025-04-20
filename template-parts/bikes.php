@@ -13,6 +13,7 @@
                 $bike_brand = get_post_meta(get_the_ID(), 'bike_brand', true);
                 $bike_type = get_post_meta(get_the_ID(), 'bike_type', true);
                 $duration = get_post_meta(get_the_ID(), 'bike_duration', true);
+                $is_available = get_post_meta(get_the_ID(), '_bike_available', true);
             ?>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="room-item shadow rounded">
@@ -22,8 +23,12 @@
                         <?php else : ?>
                             <img class="img-fluid" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/bikes/bike-default.jpg" alt="<?php the_title_attribute(); ?>">
                         <?php endif; ?>
-                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
-                            <?php echo esc_html(number_format($bike_price, 2, ',', '.')); ?> $<?php echo ($bike_price > 0) ? '/day' : ''; ?>
+                        <small class="position-absolute bike-label translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
+                            <?php if ($is_available === 'yes') : ?>
+                                <?php echo esc_html(number_format($bike_price, 2, ',', '.')); ?> $<?php echo ($bike_price > 0) ? '/day' : ''; ?>
+                            <?php else : ?>
+                                <?php esc_html_e('Coming Soon', 'bike-theme'); ?>
+                            <?php endif; ?>
                         </small>
                     </div>
                     <div class="p-4 mt-2">

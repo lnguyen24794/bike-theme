@@ -36,9 +36,6 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
                                 <?php else : ?>
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/default-bike.jpg" alt="<?php the_title_attribute(); ?>" class="img-fluid">
                                 <?php endif; ?>
-                                <button class="btn-360" data-bs-toggle="modal" data-bs-target="#view360Modal">
-                                    <i class="fas fa-sync-alt"></i> <?php esc_html_e('View 360°', 'bike-theme'); ?>
-                                </button>
                             </div>
                             <?php if (!empty($gallery_images)) : ?>
                             <div class="bike-thumbnails">

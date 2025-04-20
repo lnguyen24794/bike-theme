@@ -1333,3 +1333,8 @@
 .submit-button{
     border-radius: 0px 0px 10px 10px !important;
 }
+
+.bike-label{
+    top: 25px !important;
+    left: -10px !important;
+}

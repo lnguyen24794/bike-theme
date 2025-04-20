@@ -129,6 +129,15 @@ function bike_theme_add_bike_meta_boxes()
         'side',
         'default'
     );
+    
+    add_meta_box(
+        'bike_available',
+        __('Bike Availability', 'bike-theme'),
+        'bike_theme_bike_availability_callback',
+        'bike',
+        'side',
+        'default'
+    );
 }
 add_action('add_meta_boxes', 'bike_theme_add_bike_meta_boxes');
 
@@ -234,18 +243,47 @@ function bike_theme_bike_featured_callback($post)
 }
 
 /**
+ * Bike availability meta box callback
+ */
+function bike_theme_bike_availability_callback($post)
+{
+    wp_nonce_field('bike_theme_bike_availability_nonce', 'bike_theme_bike_availability_nonce');
+
+    // Get stored value
+    $is_available = get_post_meta($post->ID, '_bike_available', true);
+    // Default to 'yes' if not set
+    if (empty($is_available)) {
+        $is_available = 'yes';
+    }
+    
+    ?>
+    <p>
+        <label>
+            <input type="checkbox" name="bike_available" value="yes" <?php checked($is_available, 'yes'); ?>>
+            <?php _e('This bike is available for rent/sale', 'bike-theme'); ?>
+        </label>
+    </p>
+    <p class="description">
+        <?php _e('Unavailable bikes will be marked as "Out of Stock" and cannot be booked.', 'bike-theme'); ?>
+    </p>
+    <?php
+}
+
+/**
  * Save bike meta boxes data
  */
 function bike_theme_save_bike_meta_boxes_data($post_id)
 {
     // Check if our nonces are set and verify them
     if (!isset($_POST['bike_theme_bike_details_nonce']) || 
-        !isset($_POST['bike_theme_bike_featured_nonce'])) {
+        !isset($_POST['bike_theme_bike_featured_nonce']) ||
+        !isset($_POST['bike_theme_bike_availability_nonce'])) {
         return;
     }
 
     if (!wp_verify_nonce($_POST['bike_theme_bike_details_nonce'], 'bike_theme_bike_details_nonce') ||
-        !wp_verify_nonce($_POST['bike_theme_bike_featured_nonce'], 'bike_theme_bike_featured_nonce')) {
+        !wp_verify_nonce($_POST['bike_theme_bike_featured_nonce'], 'bike_theme_bike_featured_nonce') ||
+        !wp_verify_nonce($_POST['bike_theme_bike_availability_nonce'], 'bike_theme_bike_availability_nonce')) {
         return;
     }
 
@@ -295,6 +333,10 @@ function bike_theme_save_bike_meta_boxes_data($post_id)
     // Save featured status
     $is_featured = isset($_POST['bike_featured']) ? 'yes' : 'no';
     update_post_meta($post_id, '_bike_featured', $is_featured);
+    
+    // Save availability status
+    $is_available = isset($_POST['bike_available']) ? 'yes' : 'no';
+    update_post_meta($post_id, '_bike_available', $is_available);
 }
 add_action('save_post_bike', 'bike_theme_save_bike_meta_boxes_data');
 
@@ -305,4 +347,14 @@ function bike_theme_get_bike_rental_price($bike_id)
 {
     $price = get_post_meta($bike_id, '_bike_rental_price', true);
     return !empty($price) ? floatval($price) : 0;
+}
+
+/**
+ * Check if bike is available
+ */
+function bike_theme_is_bike_available($bike_id)
+{
+    $is_available = get_post_meta($bike_id, '_bike_available', true);
+    // Default to 'yes' if not set
+    return empty($is_available) || $is_available === 'yes';
 } 
