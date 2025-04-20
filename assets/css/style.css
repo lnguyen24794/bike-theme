@@ -510,31 +510,6 @@
 .tour-slider{
     position: relative;
 }
-.owl-nav .owl-prev {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
-    text-align: left !important;
-}
-.owl-nav .owl-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
-    text-align: right !important;
-}
-.owl-nav button>i {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    color: #fff;
-}
-.owl-dots{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
 
 .box-shadow{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
