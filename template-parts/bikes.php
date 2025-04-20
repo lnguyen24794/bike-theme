@@ -25,7 +25,7 @@
                         <?php else : ?>
                             <img class="img-fluid" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/bikes/bike-default.jpg" alt="<?php the_title_attribute(); ?>">
                         <?php endif; ?>
-                        <small class="position-absolute bike-label translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
+                        <small style="top: 25px !important; left: -10px !important;" class="position-absolute bike-label bg-primary text-white rounded py-1 px-3 ms-4">
                             <?php if ($is_available === 'yes') : ?>
                                 <?php echo esc_html(number_format($bike_price, 2, ',', '.')); ?> $<?php echo ($bike_price > 0) ? '/day' : ''; ?>
                             <?php else : ?>

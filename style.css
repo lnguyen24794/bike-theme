@@ -323,13 +323,7 @@ select,
     h6 { font-size: 1.19rem; }
 }
 
-/* Bike specific styles not in assets/css/style.css */
-.bike-label{
-    top: 25px !important;
-    left: -10px !important;
-}
-
-.bike-image img{
+.bike-image img {
     height: 240px !important;
     max-height: 240px !important;
     object-fit: cover !important;
