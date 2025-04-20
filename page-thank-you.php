@@ -6,12 +6,13 @@
  */
 
 get_header();
+$featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 ?>
 
 <main id="primary" class="site-main">
 
     <!-- Page Header Start -->
-    <div class="container-fluid page-header mb-5 p-0" style="background-image: url(<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/bikes/booking-header.jpg);">
+    <div class="container-fluid page-header mb-5 p-0" style="background-image: url(<?php echo esc_url($featured_image); ?>);">
         <div class="container-fluid page-header-inner py-5">
             <div class="container text-center pb-5">
                 <h1 class="display-3 text-white mb-3 animated slideInDown"><?php esc_html_e('Thank You', 'bike-theme'); ?></h1>
