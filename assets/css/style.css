@@ -640,6 +640,10 @@
 
 
 /* Tour Content Styles */
+#tour-detail img {
+    max-width: 100% !important;
+}
+
 .tour-overview {
     line-height: 1.7;
 }
