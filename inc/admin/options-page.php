@@ -16,12 +16,12 @@ function bike_theme_add_options_page()
 {
     add_menu_page(
         __('Bike Theme Options', 'bike-theme'),
-        __('Bike Theme', 'bike-theme'),
+        __('Bike Theme Options', 'bike-theme'),
         'manage_options',
         'bike-theme-options',
         'bike_theme_render_options_page',
         'dashicons-admin-generic',
-        59
+        3 // Position after Dashboard (2)
     );
 }
 add_action('admin_menu', 'bike_theme_add_options_page');
@@ -51,6 +51,46 @@ function bike_theme_register_settings()
         'bike_theme_contact_section',
         __('Contact Information', 'bike-theme'),
         'bike_theme_contact_section_callback',
+        'bike-theme-options'
+    );
+
+    // Social Media Section
+    add_settings_section(
+        'bike_theme_social_section',
+        __('Social Media Links', 'bike-theme'),
+        'bike_theme_social_section_callback',
+        'bike-theme-options'
+    );
+    
+    // About Slides Section
+    add_settings_section(
+        'bike_theme_about_slides_section',
+        __('About Slides', 'bike-theme'),
+        'bike_theme_about_slides_section_callback',
+        'bike-theme-options'
+    );
+
+    // Hero Banner Slides Section
+    add_settings_section(
+        'bike_theme_hero_slides_section',
+        __('Hero Banner Slides', 'bike-theme'),
+        'bike_theme_hero_slides_section_callback',
+        'bike-theme-options'
+    );
+
+    // Tour Gallery Section
+    add_settings_section(
+        'bike_theme_tour_gallery_section',
+        __('Tour Gallery', 'bike-theme'),
+        'bike_theme_tour_gallery_section_callback',
+        'bike-theme-options'
+    );
+
+    // Why Choose Us Section
+    add_settings_section(
+        'bike_theme_why_choose_us_section',
+        __('Why Choose Us', 'bike-theme'),
+        'bike_theme_why_choose_us_section_callback',
         'bike-theme-options'
     );
 
@@ -128,6 +168,18 @@ function bike_theme_register_settings()
     );
 
     add_settings_field(
+        "whatsapp_phone",
+        __('Whatsapp Phone', 'bike-theme'),
+        'bike_theme_text_field_callback',
+        'bike-theme-options',
+        'bike_theme_contact_section',
+        array(
+            'id' => 'whatsapp_phone',
+            'default' => ''
+        )
+    );
+
+    add_settings_field(
         'contact_address',
         __('Address', 'bike-theme'),
         'bike_theme_textarea_field_callback',
@@ -135,6 +187,30 @@ function bike_theme_register_settings()
         'bike_theme_contact_section',
         array(
             'id' => 'contact_address',
+            'default' => ''
+        )
+    );
+
+    add_settings_field(
+        'address_link',
+        __('Address Link', 'bike-theme'),
+        'bike_theme_text_field_callback',
+        'bike-theme-options',
+        'bike_theme_contact_section',
+        array(
+            'id' => 'address_link',
+            'default' => ''
+        )
+    );
+
+    add_settings_field(
+        'google_map',
+        __('Google Map', 'bike-theme'),
+        'bike_theme_textarea_field_callback',
+        'bike-theme-options',
+        'bike_theme_contact_section',
+        array(
+            'id' => 'google_map',
             'default' => ''
         )
     );
@@ -176,6 +252,131 @@ function bike_theme_register_settings()
             'description' => __('This text will appear at the bottom of all emails sent to customers.', 'bike-theme')
         )
     );
+
+    // Add Social Media fields
+    add_settings_field(
+        'facebook',
+        __('Facebook', 'bike-theme'),
+        'bike_theme_text_field_callback',
+        'bike-theme-options',
+        'bike_theme_social_section',
+        array(
+            'id' => 'facebook',
+            'default' => ''
+        )
+    );
+    
+    add_settings_field(
+        'twitter',
+        __('Twitter', 'bike-theme'),
+        'bike_theme_text_field_callback',
+        'bike-theme-options',
+        'bike_theme_social_section',
+        array(
+            'id' => 'twitter',
+            'default' => ''
+        )
+    );
+    
+    add_settings_field(
+        'instagram',
+        __('Instagram', 'bike-theme'),
+        'bike_theme_text_field_callback',
+        'bike-theme-options',
+        'bike_theme_social_section',
+        array(
+            'id' => 'instagram',
+            'default' => ''
+        )
+    );
+    
+    add_settings_field(
+        'linkedin',
+        __('LinkedIn', 'bike-theme'),
+        'bike_theme_text_field_callback',
+        'bike-theme-options',
+        'bike_theme_social_section',
+        array(
+            'id' => 'linkedin',
+            'default' => ''
+        )
+    );
+    
+    add_settings_field(
+        'youtube',
+        __('YouTube', 'bike-theme'),
+        'bike_theme_text_field_callback',
+        'bike-theme-options',
+        'bike_theme_social_section',
+        array(
+            'id' => 'youtube',
+            'default' => ''
+        )
+    );
+    
+    add_settings_field(
+        'copyright',
+        __('Copyright Text', 'bike-theme'),
+        'bike_theme_text_field_callback',
+        'bike-theme-options',
+        'bike_theme_social_section',
+        array(
+            'id' => 'copyright',
+            'default' => '© ' . date('Y') . ' Bike Theme. All Rights Reserved.'
+        )
+    );
+    
+    // About Slides setting
+    add_settings_field(
+        'about_slides',
+        __('About Slides', 'bike-theme'),
+        'bike_theme_about_slides_callback',
+        'bike-theme-options',
+        'bike_theme_about_slides_section',
+        array(
+            'id' => 'about_slides',
+            'default' => array()
+        )
+    );
+    
+    // Hero Banner Slides setting
+    add_settings_field(
+        'slides',
+        __('Hero Banner Slides', 'bike-theme'),
+        'bike_theme_hero_slides_callback',
+        'bike-theme-options',
+        'bike_theme_hero_slides_section',
+        array(
+            'id' => 'slides',
+            'default' => array()
+        )
+    );
+    
+    // Tour Gallery setting
+    add_settings_field(
+        'tour_gallery',
+        __('Tour Gallery Images', 'bike-theme'),
+        'bike_theme_tour_gallery_callback',
+        'bike-theme-options',
+        'bike_theme_tour_gallery_section',
+        array(
+            'id' => 'tour_gallery',
+            'default' => array()
+        )
+    );
+
+    // Why Choose Us setting
+    add_settings_field(
+        'why_choose_us_content',
+        __('Content', 'bike-theme'),
+        'bike_theme_why_choose_us_callback',
+        'bike-theme-options',
+        'bike_theme_why_choose_us_section',
+        array(
+            'id' => 'why_choose_us_content',
+            'default' => ''
+        )
+    );
 }
 add_action('admin_init', 'bike_theme_register_settings');
 
@@ -190,6 +391,31 @@ function bike_theme_general_section_callback()
 function bike_theme_contact_section_callback()
 {
     echo '<p>' . __('Add your contact information that will be displayed on the website.', 'bike-theme') . '</p>';
+}
+
+function bike_theme_social_section_callback()
+{
+    echo '<p>' . __('Configure your social media links and footer information.', 'bike-theme') . '</p>';
+}
+
+function bike_theme_about_slides_section_callback()
+{
+    echo '<p>' . __('Manage images for the about section slider.', 'bike-theme') . '</p>';
+}
+
+function bike_theme_hero_slides_section_callback()
+{
+    echo '<p>' . __('Manage slides for the home page banner/carousel.', 'bike-theme') . '</p>';
+}
+
+function bike_theme_tour_gallery_section_callback()
+{
+    echo '<p>' . __('Manage images for the tour gallery display.', 'bike-theme') . '</p>';
+}
+
+function bike_theme_why_choose_us_section_callback()
+{
+    echo '<p>' . __('Manage the Why Choose Us section content on the homepage.', 'bike-theme') . '</p>';
 }
 
 function bike_theme_booking_section_callback()
@@ -297,8 +523,59 @@ function bike_theme_validate_options($input)
         if (isset($input[$key])) {
             if ($key === 'contact_email') {
                 $output[$key] = sanitize_email($input[$key]);
-            } elseif (in_array($key, array('contact_address', 'bank_account_info', 'email_footer'))) {
+            } elseif (in_array($key, array('contact_address', 'bank_account_info', 'email_footer', 'why_choose_us_content'))) {
                 $output[$key] = wp_kses_post($input[$key]);
+            } elseif ($key === 'about_slides' && is_array($value)) {
+                // Process about slides
+                $output[$key] = array();
+                foreach ($value as $index => $slide_data) {
+                    if (!isset($slide_data['delete']) || $slide_data['delete'] != 'yes') {
+                        $output[$key][] = array(
+                            'image_id' => isset($slide_data['image_id']) ? absint($slide_data['image_id']) : 0,
+                            'image_url' => isset($slide_data['image_url']) ? esc_url_raw($slide_data['image_url']) : '',
+                            'image_alt' => isset($slide_data['image_alt']) ? sanitize_text_field($slide_data['image_alt']) : '',
+                            'active' => isset($slide_data['active']) ? 1 : 0,
+                        );
+                    }
+                }
+            } elseif ($key === 'slides' && is_array($value)) {
+                // Process hero slides
+                $output[$key] = array();
+                foreach ($value as $index => $slide_data) {
+                    if (!isset($slide_data['delete']) || $slide_data['delete'] != 'yes') {
+                        $output[$key][] = array(
+                            'image_id' => isset($slide_data['image_id']) ? absint($slide_data['image_id']) : 0,
+                            'image_url' => isset($slide_data['image_url']) ? esc_url_raw($slide_data['image_url']) : '',
+                            'title' => isset($slide_data['title']) ? sanitize_text_field($slide_data['title']) : '',
+                            'subtitle' => isset($slide_data['subtitle']) ? sanitize_text_field($slide_data['subtitle']) : '',
+                            'slogan' => isset($slide_data['slogan']) ? sanitize_text_field($slide_data['slogan']) : '',
+                            'btn1_text' => isset($slide_data['btn1_text']) ? sanitize_text_field($slide_data['btn1_text']) : '',
+                            'btn1_url' => isset($slide_data['btn1_url']) ? esc_url_raw($slide_data['btn1_url']) : '',
+                            'btn2_text' => isset($slide_data['btn2_text']) ? sanitize_text_field($slide_data['btn2_text']) : '',
+                            'btn2_url' => isset($slide_data['btn2_url']) ? esc_url_raw($slide_data['btn2_url']) : '',
+                            'active' => isset($slide_data['active']) ? 1 : 0,
+                        );
+                    }
+                }
+            } elseif ($key === 'tour_gallery' && is_array($value)) {
+                // Process tour gallery
+                $output[$key] = array();
+                $gallery_index = 0;
+                
+                foreach ($value as $index => $gallery_data) {
+                    if ((!isset($gallery_data['delete']) || $gallery_data['delete'] != 'yes') && 
+                        !empty($gallery_data['image_url']) && !empty($gallery_data['image_id'])) {
+                        // Save with sequential indexes to avoid gaps
+                        $output[$key][$gallery_index] = array(
+                            'image_id' => absint($gallery_data['image_id']),
+                            'image_url' => esc_url_raw($gallery_data['image_url']),
+                        );
+                        $gallery_index++;
+                    }
+                }
+            } elseif (in_array($key, array('facebook', 'twitter', 'instagram', 'linkedin', 'youtube'))) {
+                // Validate URLs for social media
+                $output[$key] = esc_url_raw($input[$key]);
             } else {
                 $output[$key] = sanitize_text_field($input[$key]);
             }
@@ -328,7 +605,125 @@ function bike_theme_render_options_page()
     
     <script>
         jQuery(document).ready(function($) {
+            // Color picker
             $('.bike-theme-color-field').wpColorPicker();
+            
+            // Media uploaders for slides
+            var frame;
+            
+            // Toggle slide content
+            $(document).on('click', '.slide-toggle', function(e) {
+                e.preventDefault();
+                var $item = $(this).closest('.bike-slide-item');
+                $item.find('.slide-content').slideToggle();
+            });
+            
+            // Remove slide
+            $(document).on('click', '.slide-remove', function(e) {
+                e.preventDefault();
+                if (confirm('<?php echo esc_js(__('Are you sure you want to remove this item?', 'bike-theme')); ?>')) {
+                    var $item = $(this).closest('.bike-slide-item');
+                    $item.find('.slide-delete-field').val('yes');
+                    $item.slideUp();
+                }
+            });
+            
+            // Add new About slide
+            var aboutSlideIndex = $('#bike-about-slides-container .bike-slide-item').length;
+            $('#add-about-slide-button').on('click', function() {
+                var template = $('#about-slide-template').html();
+                var newSlide = template.replace(/\{\{index\}\}/g, aboutSlideIndex).replace(/\{\{number\}\}/g, aboutSlideIndex + 1);
+                $('#bike-about-slides-container').append(newSlide);
+                aboutSlideIndex++;
+            });
+            
+            // Add new Hero slide
+            var heroSlideIndex = $('#bike-hero-slides-container .bike-slide-item').length;
+            $('#add-hero-slide-button').on('click', function() {
+                var template = $('#hero-slide-template').html();
+                var newSlide = template.replace(/\{\{index\}\}/g, heroSlideIndex).replace(/\{\{number\}\}/g, heroSlideIndex + 1);
+                $('#bike-hero-slides-container').append(newSlide);
+                heroSlideIndex++;
+            });
+            
+            // Media upload buttons (for slides)
+            $(document).on('click', '.bike-media-upload-btn', function(e) {
+                e.preventDefault();
+                
+                var $button = $(this);
+                var $uploadDiv = $button.closest('.bike-media-upload');
+                var $idField = $uploadDiv.find('.bike-media-id');
+                var $urlField = $uploadDiv.find('.bike-media-url');
+                var $preview = $uploadDiv.find('.bike-media-preview');
+                var $removeButton = $uploadDiv.find('.bike-media-remove-btn');
+                
+                // If the media frame already exists, reopen it
+                if (frame) {
+                    frame.open();
+                    return;
+                }
+                
+                // Create the media frame
+                frame = wp.media({
+                    title: '<?php echo esc_js(__('Select or Upload Image', 'bike-theme')); ?>',
+                    button: {
+                        text: '<?php echo esc_js(__('Use this image', 'bike-theme')); ?>'
+                    },
+                    multiple: false
+                });
+                
+                // When an image is selected in the media frame
+                frame.on('select', function() {
+                    // Get media attachment details
+                    var attachment = frame.state().get('selection').first().toJSON();
+                    
+                    // Set the field values
+                    $idField.val(attachment.id);
+                    $urlField.val(attachment.url);
+                    
+                    // Update the preview
+                    $preview.html('<img src="' + attachment.url + '" alt="" style="max-width: 300px;">');
+                    
+                    // Show the remove button
+                    $removeButton.removeClass('hidden');
+                });
+                
+                // Open the modal
+                frame.open();
+            });
+            
+            // Remove image
+            $(document).on('click', '.bike-media-remove-btn', function(e) {
+                e.preventDefault();
+                
+                var $button = $(this);
+                var $uploadDiv = $button.closest('.bike-media-upload');
+                var $idField = $uploadDiv.find('.bike-media-id');
+                var $urlField = $uploadDiv.find('.bike-media-url');
+                var $preview = $uploadDiv.find('.bike-media-preview');
+                
+                // Clear the fields
+                $idField.val('');
+                $urlField.val('');
+                $preview.html('');
+                
+                // Hide the remove button
+                $button.addClass('hidden');
+            });
+            
+            // Make slides sortable
+            if ($.fn.sortable) {
+                $('#bike-about-slides-container, #bike-hero-slides-container').sortable({
+                    handle: 'h3',
+                    cursor: 'move',
+                    update: function(event, ui) {
+                        // Update slide numbers after sorting
+                        $(this).find('.bike-slide-item').each(function(index) {
+                            $(this).find('.slide-number').text(index + 1);
+                        });
+                    }
+                });
+            }
         });
     </script>
     <?php
@@ -345,6 +740,32 @@ function bike_theme_options_scripts($hook)
     
     wp_enqueue_style('wp-color-picker');
     wp_enqueue_script('wp-color-picker');
+    
+    // Add media scripts
+    wp_enqueue_media();
+    
+    // Add custom admin styles
+    wp_enqueue_style(
+        'bike-theme-admin-css',
+        get_template_directory_uri() . '/assets/css/admin.css',
+        array(),
+        '1.0.0'
+    );
+    
+    // Add custom script to handle media uploads and slide management
+    wp_enqueue_script(
+        'bike-theme-admin-js',
+        get_template_directory_uri() . '/assets/js/admin.js',
+        array('jquery', 'jquery-ui-sortable', 'wp-color-picker'),
+        '1.0.0',
+        true
+    );
+    
+    wp_localize_script('bike-theme-admin-js', 'bikeThemeAdmin', array(
+        'i18n' => array(
+            'confirmDelete' => __('Are you sure you want to delete this item?', 'bike-theme'),
+        )
+    ));
 }
 add_action('admin_enqueue_scripts', 'bike_theme_options_scripts');
 
@@ -354,5 +775,850 @@ add_action('admin_enqueue_scripts', 'bike_theme_options_scripts');
 function bike_theme_get_option($key, $default = '')
 {
     $options = get_option('bike_theme_options');
-    return isset($options[$key]) ? $options[$key] : $default;
+    
+    // First try looking in the options array
+    if (isset($options[$key])) {
+        return $options[$key];
+    }
+    
+    // For backwards compatibility, also check individual options
+    $legacy_value = get_option('bike_theme_' . $key, null);
+    if ($legacy_value !== null) {
+        return $legacy_value;
+    }
+    
+    return $default;
+}
+
+/**
+ * About slides field callback
+ */
+function bike_theme_about_slides_callback($args)
+{
+    $options = get_option('bike_theme_options');
+    $id = $args['id'];
+    $default = isset($args['default']) ? $args['default'] : array();
+    $about_slides = isset($options[$id]) ? $options[$id] : $default;
+    
+    // If no slides exist, create default ones
+    if (empty($about_slides)) {
+        $about_slides = array(
+            array(
+                'image_id' => 0,
+                'image_url' => '',
+                'image_alt' => __('About Us Image 1', 'bike-theme'),
+                'active' => 1
+            ),
+            array(
+                'image_id' => 0,
+                'image_url' => '',
+                'image_alt' => __('About Us Image 2', 'bike-theme'),
+                'active' => 1
+            )
+        );
+    }
+    
+    // Output field
+    echo '<div id="bike-about-slides-container">';
+    
+    foreach ($about_slides as $index => $slide) {
+        ?>
+        <div class="bike-slide-item" data-index="<?php echo $index; ?>">
+            <h3><?php esc_html_e('About Slide', 'bike-theme'); ?> <span class="slide-number"><?php echo $index + 1; ?></span> 
+                <span class="slide-controls">
+                    <a href="#" class="slide-toggle"><?php esc_html_e('Toggle', 'bike-theme'); ?></a> | 
+                    <a href="#" class="slide-remove"><?php esc_html_e('Remove', 'bike-theme'); ?></a>
+                </span>
+            </h3>
+            <div class="slide-content">
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_about_slides_<?php echo $index; ?>_active">
+                                <?php esc_html_e('Active', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[about_slides][<?php echo $index; ?>][active]" 
+                                type="checkbox" 
+                                id="bike_theme_options_about_slides_<?php echo $index; ?>_active" 
+                                <?php checked(isset($slide['active']) ? $slide['active'] : 0, 1); ?>>
+                            <input type="hidden" 
+                                name="bike_theme_options[about_slides][<?php echo $index; ?>][delete]" 
+                                class="slide-delete-field" value="no">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_about_slides_<?php echo $index; ?>_image">
+                                <?php esc_html_e('Image', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <div class="bike-media-upload">
+                                <input type="hidden" 
+                                    name="bike_theme_options[about_slides][<?php echo $index; ?>][image_id]" 
+                                    class="bike-media-id" 
+                                    value="<?php echo esc_attr(isset($slide['image_id']) ? $slide['image_id'] : 0); ?>">
+                                <input type="hidden" 
+                                    name="bike_theme_options[about_slides][<?php echo $index; ?>][image_url]" 
+                                    class="bike-media-url" 
+                                    value="<?php echo esc_url(isset($slide['image_url']) ? $slide['image_url'] : ''); ?>">
+                                <div class="bike-media-preview">
+                                    <?php if (!empty($slide['image_url'])) : ?>
+                                        <img src="<?php echo esc_url($slide['image_url']); ?>" alt="" style="max-width: 300px;">
+                                    <?php endif; ?>
+                                </div>
+                                <input type="button" class="button bike-media-upload-btn" 
+                                    value="<?php esc_attr_e('Upload Image', 'bike-theme'); ?>">
+                                <input type="button" 
+                                    class="button bike-media-remove-btn <?php echo empty($slide['image_url']) ? 'hidden' : ''; ?>" 
+                                    value="<?php esc_attr_e('Remove Image', 'bike-theme'); ?>">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_about_slides_<?php echo $index; ?>_alt">
+                                <?php esc_html_e('Image Alt Text', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[about_slides][<?php echo $index; ?>][image_alt]" 
+                                type="text" 
+                                id="bike_theme_options_about_slides_<?php echo $index; ?>_alt" 
+                                value="<?php echo esc_attr(isset($slide['image_alt']) ? $slide['image_alt'] : ''); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <?php
+    }
+    
+    echo '</div>';
+    
+    echo '<p><button type="button" id="add-about-slide-button" class="button button-secondary">' . 
+        __('Add New About Slide', 'bike-theme') . '</button></p>';
+    
+    // Template for new about slides
+    ?>
+    <script type="text/template" id="about-slide-template">
+        <div class="bike-slide-item" data-index="{{index}}">
+            <h3><?php esc_html_e('About Slide', 'bike-theme'); ?> <span class="slide-number">{{number}}</span> 
+                <span class="slide-controls">
+                    <a href="#" class="slide-toggle"><?php esc_html_e('Toggle', 'bike-theme'); ?></a> | 
+                    <a href="#" class="slide-remove"><?php esc_html_e('Remove', 'bike-theme'); ?></a>
+                </span>
+            </h3>
+            <div class="slide-content">
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_about_slides_{{index}}_active">
+                                <?php esc_html_e('Active', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[about_slides][{{index}}][active]" 
+                                type="checkbox" 
+                                id="bike_theme_options_about_slides_{{index}}_active" 
+                                checked>
+                            <input type="hidden" 
+                                name="bike_theme_options[about_slides][{{index}}][delete]" 
+                                class="slide-delete-field" 
+                                value="no">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_about_slides_{{index}}_image">
+                                <?php esc_html_e('Image', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <div class="bike-media-upload">
+                                <input type="hidden" 
+                                    name="bike_theme_options[about_slides][{{index}}][image_id]" 
+                                    class="bike-media-id" 
+                                    value="">
+                                <input type="hidden" 
+                                    name="bike_theme_options[about_slides][{{index}}][image_url]" 
+                                    class="bike-media-url" 
+                                    value="">
+                                <div class="bike-media-preview"></div>
+                                <input type="button" 
+                                    class="button bike-media-upload-btn" 
+                                    value="<?php esc_attr_e('Upload Image', 'bike-theme'); ?>">
+                                <input type="button" 
+                                    class="button bike-media-remove-btn hidden" 
+                                    value="<?php esc_attr_e('Remove Image', 'bike-theme'); ?>">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_about_slides_{{index}}_alt">
+                                <?php esc_html_e('Image Alt Text', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[about_slides][{{index}}][image_alt]" 
+                                type="text" 
+                                id="bike_theme_options_about_slides_{{index}}_alt" 
+                                value="" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </script>
+    <?php
+}
+
+/**
+ * Hero slides field callback
+ */
+function bike_theme_hero_slides_callback($args)
+{
+    $options = get_option('bike_theme_options');
+    $id = $args['id'];
+    $default = isset($args['default']) ? $args['default'] : array();
+    $slides = isset($options[$id]) ? $options[$id] : $default;
+    
+    // If no slides exist, create default ones
+    if (empty($slides)) {
+        // Thử lấy từ cài đặt cũ trước
+        $old_slides = get_option('bike_theme_slides', array());
+        if (!empty($old_slides)) {
+            $slides = $old_slides;
+        } else {
+            // Nếu không có thì tạo mới
+            $slides[] = array(
+                'image_id' => 0,
+                'image_url' => '',
+                'subtitle' => __('Tour Xe Đạp Việt Nam', 'bike-theme'),
+                'title' => __('Khám Phá Việt Nam Trên Hai Bánh', 'bike-theme'),
+                'slogan' => __('Khám phá Việt Nam trên hai bánh xe', 'bike-theme'),
+                'btn1_text' => __('Xem Tour', 'bike-theme'),
+                'btn1_url' => '',
+                'btn2_text' => __('Đặt Xe Ngay', 'bike-theme'),
+                'btn2_url' => '',
+                'active' => 1
+            );
+        }
+    }
+    
+    // Output field
+    echo '<div id="bike-hero-slides-container">';
+    
+    foreach ($slides as $index => $slide) {
+        ?>
+        <div class="bike-slide-item" data-index="<?php echo $index; ?>">
+            <h3><?php esc_html_e('Hero Slide', 'bike-theme'); ?> <span class="slide-number"><?php echo $index + 1; ?></span> 
+                <span class="slide-controls">
+                    <a href="#" class="slide-toggle"><?php esc_html_e('Toggle', 'bike-theme'); ?></a> | 
+                    <a href="#" class="slide-remove"><?php esc_html_e('Remove', 'bike-theme'); ?></a>
+                </span>
+            </h3>
+            <div class="slide-content">
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_<?php echo $index; ?>_active">
+                                <?php esc_html_e('Active', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][<?php echo $index; ?>][active]" 
+                                type="checkbox" 
+                                id="bike_theme_options_slides_<?php echo $index; ?>_active" 
+                                <?php checked(isset($slide['active']) ? $slide['active'] : 0, 1); ?>>
+                            <input type="hidden" 
+                                name="bike_theme_options[slides][<?php echo $index; ?>][delete]" 
+                                class="slide-delete-field" value="no">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_<?php echo $index; ?>_image">
+                                <?php esc_html_e('Image', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <div class="bike-media-upload">
+                                <input type="hidden" 
+                                    name="bike_theme_options[slides][<?php echo $index; ?>][image_id]" 
+                                    class="bike-media-id" 
+                                    value="<?php echo esc_attr(isset($slide['image_id']) ? $slide['image_id'] : 0); ?>">
+                                <input type="hidden" 
+                                    name="bike_theme_options[slides][<?php echo $index; ?>][image_url]" 
+                                    class="bike-media-url" 
+                                    value="<?php echo esc_url(isset($slide['image_url']) ? $slide['image_url'] : ''); ?>">
+                                <div class="bike-media-preview">
+                                    <?php if (!empty($slide['image_url'])) : ?>
+                                        <img src="<?php echo esc_url($slide['image_url']); ?>" alt="" style="max-width: 300px;">
+                                    <?php endif; ?>
+                                </div>
+                                <input type="button" class="button bike-media-upload-btn" 
+                                    value="<?php esc_attr_e('Upload Image', 'bike-theme'); ?>">
+                                <input type="button" 
+                                    class="button bike-media-remove-btn <?php echo empty($slide['image_url']) ? 'hidden' : ''; ?>" 
+                                    value="<?php esc_attr_e('Remove Image', 'bike-theme'); ?>">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_<?php echo $index; ?>_title">
+                                <?php esc_html_e('Title', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][<?php echo $index; ?>][title]" 
+                                type="text" 
+                                id="bike_theme_options_slides_<?php echo $index; ?>_title" 
+                                value="<?php echo esc_attr(isset($slide['title']) ? $slide['title'] : ''); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_<?php echo $index; ?>_subtitle">
+                                <?php esc_html_e('Subtitle', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][<?php echo $index; ?>][subtitle]" 
+                                type="text" 
+                                id="bike_theme_options_slides_<?php echo $index; ?>_subtitle" 
+                                value="<?php echo esc_attr(isset($slide['subtitle']) ? $slide['subtitle'] : ''); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_<?php echo $index; ?>_slogan">
+                                <?php esc_html_e('Slogan', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][<?php echo $index; ?>][slogan]" 
+                                type="text" 
+                                id="bike_theme_options_slides_<?php echo $index; ?>_slogan" 
+                                value="<?php echo esc_attr(isset($slide['slogan']) ? $slide['slogan'] : ''); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_<?php echo $index; ?>_btn1_text">
+                                <?php esc_html_e('Button 1 Text', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][<?php echo $index; ?>][btn1_text]" 
+                                type="text" 
+                                id="bike_theme_options_slides_<?php echo $index; ?>_btn1_text" 
+                                value="<?php echo esc_attr(isset($slide['btn1_text']) ? $slide['btn1_text'] : ''); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_<?php echo $index; ?>_btn1_url">
+                                <?php esc_html_e('Button 1 URL', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][<?php echo $index; ?>][btn1_url]" 
+                                type="url" 
+                                id="bike_theme_options_slides_<?php echo $index; ?>_btn1_url" 
+                                value="<?php echo esc_url(isset($slide['btn1_url']) ? $slide['btn1_url'] : ''); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_<?php echo $index; ?>_btn2_text">
+                                <?php esc_html_e('Button 2 Text', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][<?php echo $index; ?>][btn2_text]" 
+                                type="text" 
+                                id="bike_theme_options_slides_<?php echo $index; ?>_btn2_text" 
+                                value="<?php echo esc_attr(isset($slide['btn2_text']) ? $slide['btn2_text'] : ''); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_<?php echo $index; ?>_btn2_url">
+                                <?php esc_html_e('Button 2 URL', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][<?php echo $index; ?>][btn2_url]" 
+                                type="url" 
+                                id="bike_theme_options_slides_<?php echo $index; ?>_btn2_url" 
+                                value="<?php echo esc_url(isset($slide['btn2_url']) ? $slide['btn2_url'] : ''); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <?php
+    }
+    
+    echo '</div>';
+    
+    echo '<p><button type="button" id="add-hero-slide-button" class="button button-secondary">' . 
+        __('Add New Hero Slide', 'bike-theme') . '</button></p>';
+    
+    // Template for new hero slides
+    ?>
+    <script type="text/template" id="hero-slide-template">
+        <div class="bike-slide-item" data-index="{{index}}">
+            <h3><?php esc_html_e('Hero Slide', 'bike-theme'); ?> <span class="slide-number">{{number}}</span> 
+                <span class="slide-controls">
+                    <a href="#" class="slide-toggle"><?php esc_html_e('Toggle', 'bike-theme'); ?></a> | 
+                    <a href="#" class="slide-remove"><?php esc_html_e('Remove', 'bike-theme'); ?></a>
+                </span>
+            </h3>
+            <div class="slide-content">
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_{{index}}_active">
+                                <?php esc_html_e('Active', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][{{index}}][active]" 
+                                type="checkbox" 
+                                id="bike_theme_options_slides_{{index}}_active" 
+                                checked>
+                            <input type="hidden" 
+                                name="bike_theme_options[slides][{{index}}][delete]" 
+                                class="slide-delete-field" 
+                                value="no">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_{{index}}_image">
+                                <?php esc_html_e('Image', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <div class="bike-media-upload">
+                                <input type="hidden" 
+                                    name="bike_theme_options[slides][{{index}}][image_id]" 
+                                    class="bike-media-id" 
+                                    value="">
+                                <input type="hidden" 
+                                    name="bike_theme_options[slides][{{index}}][image_url]" 
+                                    class="bike-media-url" 
+                                    value="">
+                                <div class="bike-media-preview"></div>
+                                <input type="button" 
+                                    class="button bike-media-upload-btn" 
+                                    value="<?php esc_attr_e('Upload Image', 'bike-theme'); ?>">
+                                <input type="button" 
+                                    class="button bike-media-remove-btn hidden" 
+                                    value="<?php esc_attr_e('Remove Image', 'bike-theme'); ?>">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_{{index}}_title">
+                                <?php esc_html_e('Title', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][{{index}}][title]" 
+                                type="text" 
+                                id="bike_theme_options_slides_{{index}}_title" 
+                                value="<?php echo esc_attr__('Khám Phá Việt Nam Trên Hai Bánh', 'bike-theme'); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_{{index}}_subtitle">
+                                <?php esc_html_e('Subtitle', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][{{index}}][subtitle]" 
+                                type="text" 
+                                id="bike_theme_options_slides_{{index}}_subtitle" 
+                                value="<?php echo esc_attr__('Tour Xe Đạp Việt Nam', 'bike-theme'); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_{{index}}_slogan">
+                                <?php esc_html_e('Slogan', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][{{index}}][slogan]" 
+                                type="text" 
+                                id="bike_theme_options_slides_{{index}}_slogan" 
+                                value="<?php echo esc_attr__('Khám phá Việt Nam trên hai bánh xe', 'bike-theme'); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_{{index}}_btn1_text">
+                                <?php esc_html_e('Button 1 Text', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][{{index}}][btn1_text]" 
+                                type="text" 
+                                id="bike_theme_options_slides_{{index}}_btn1_text" 
+                                value="<?php echo esc_attr__('Xem Tour', 'bike-theme'); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_{{index}}_btn1_url">
+                                <?php esc_html_e('Button 1 URL', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][{{index}}][btn1_url]" 
+                                type="url" 
+                                id="bike_theme_options_slides_{{index}}_btn1_url" 
+                                value="" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_{{index}}_btn2_text">
+                                <?php esc_html_e('Button 2 Text', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][{{index}}][btn2_text]" 
+                                type="text" 
+                                id="bike_theme_options_slides_{{index}}_btn2_text" 
+                                value="<?php echo esc_attr__('Đặt Xe Ngay', 'bike-theme'); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_slides_{{index}}_btn2_url">
+                                <?php esc_html_e('Button 2 URL', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[slides][{{index}}][btn2_url]" 
+                                type="url" 
+                                id="bike_theme_options_slides_{{index}}_btn2_url" 
+                                value="" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </script>
+    <?php
+}
+
+/**
+ * Tour gallery field callback
+ */
+function bike_theme_tour_gallery_callback($args)
+{
+    $options = get_option('bike_theme_options');
+    $id = $args['id'];
+    $default = isset($args['default']) ? $args['default'] : array();
+    $tour_gallery = isset($options[$id]) ? $options[$id] : $default;
+    
+    // Output field
+    ?>
+    <div class="tour-gallery-wrapper">
+        <div id="bike-tour-gallery-container" class="gallery-grid">
+            <?php 
+            if (!empty($tour_gallery)) {
+                foreach ($tour_gallery as $index => $gallery_data) {
+                    if (empty($gallery_data['image_url'])) continue;
+                    ?>
+                    <div class="gallery-item" data-id="<?php echo esc_attr($gallery_data['image_id']); ?>">
+                        <img src="<?php echo esc_url($gallery_data['image_url']); ?>" alt="">
+                        <div class="gallery-item-actions">
+                            <a href="#" class="gallery-item-remove" title="<?php esc_attr_e('Remove Image', 'bike-theme'); ?>">
+                                <span class="dashicons dashicons-trash"></span>
+                            </a>
+                        </div>
+                        <input type="hidden" name="bike_theme_options[tour_gallery][<?php echo $index; ?>][image_id]" value="<?php echo esc_attr($gallery_data['image_id']); ?>">
+                        <input type="hidden" name="bike_theme_options[tour_gallery][<?php echo $index; ?>][image_url]" value="<?php echo esc_url($gallery_data['image_url']); ?>">
+                        <input type="hidden" name="bike_theme_options[tour_gallery][<?php echo $index; ?>][delete]" class="gallery-delete-field" value="no">
+                    </div>
+                    <?php
+                }
+            }
+            ?>
+        </div>
+        
+        <div class="tour-gallery-actions">
+            <input type="hidden" id="tour-gallery-images" name="tour_gallery_images">
+            <button type="button" id="tour-gallery-upload-button" class="button button-primary">
+                <span class="dashicons dashicons-upload"></span> <?php esc_html_e('Upload Images', 'bike-theme'); ?>
+            </button>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            // Tour Gallery - Multiple Upload
+            var tour_gallery_frame;
+            var $gallery_container = $('#bike-tour-gallery-container');
+            var $upload_button = $('#tour-gallery-upload-button');
+            var gallery_item_count = $gallery_container.find('.gallery-item').length;
+            
+            // Open media library
+            $upload_button.on('click', function(e) {
+                e.preventDefault();
+                
+                // If frame exists, reopen it
+                if (tour_gallery_frame) {
+                    tour_gallery_frame.open();
+                    return;
+                }
+                
+                // Create the frame
+                tour_gallery_frame = wp.media({
+                    title: '<?php echo esc_js(__('Select Tour Gallery Images', 'bike-theme')); ?>',
+                    button: {
+                        text: '<?php echo esc_js(__('Add to Gallery', 'bike-theme')); ?>'
+                    },
+                    multiple: true,
+                    library: {
+                        type: 'image'
+                    }
+                });
+                
+                // When images are selected
+                tour_gallery_frame.on('select', function() {
+                    var selection = tour_gallery_frame.state().get('selection');
+                    
+                    // Loop through selected images
+                    selection.map(function(attachment) {
+                        attachment = attachment.toJSON();
+                        
+                        // Check if image already exists in gallery
+                        if ($gallery_container.find('.gallery-item[data-id="' + attachment.id + '"]').length === 0) {
+                            var index = gallery_item_count++;
+                            var template = 
+                                '<div class="gallery-item" data-id="' + attachment.id + '">' +
+                                    '<img src="' + attachment.url + '" alt="">' +
+                                    '<div class="gallery-item-actions">' +
+                                        '<a href="#" class="gallery-item-remove" title="<?php esc_attr_e('Remove Image', 'bike-theme'); ?>">' +
+                                            '<span class="dashicons dashicons-trash"></span>' +
+                                        '</a>' +
+                                    '</div>' +
+                                    '<input type="hidden" name="bike_theme_options[tour_gallery][' + index + '][image_id]" value="' + attachment.id + '">' +
+                                    '<input type="hidden" name="bike_theme_options[tour_gallery][' + index + '][image_url]" value="' + attachment.url + '">' +
+                                    '<input type="hidden" name="bike_theme_options[tour_gallery][' + index + '][delete]" class="gallery-delete-field" value="no">' +
+                                '</div>';
+                            
+                            $gallery_container.append(template);
+                        }
+                    });
+                    
+                    // Update layout
+                    updateGalleryLayout();
+                });
+                
+                // Open media frame
+                tour_gallery_frame.open();
+            });
+            
+            // Remove gallery item
+            $gallery_container.on('click', '.gallery-item-remove', function(e) {
+                e.preventDefault();
+                var $item = $(this).closest('.gallery-item');
+                $item.find('.gallery-delete-field').val('yes');
+                $item.fadeOut(300, function() {
+                    $(this).addClass('removed');
+                    updateGalleryLayout();
+                });
+            });
+            
+            // Update gallery layout
+            function updateGalleryLayout() {
+                if ($gallery_container.find('.gallery-item:not(.removed)').length === 0) {
+                    $gallery_container.addClass('empty');
+                } else {
+                    $gallery_container.removeClass('empty');
+                }
+            }
+            
+            // Initialize layout
+            updateGalleryLayout();
+            
+            // Make gallery sortable
+            if ($.fn.sortable) {
+                $gallery_container.sortable({
+                    items: '.gallery-item:not(.removed)',
+                    cursor: 'move',
+                    opacity: 0.7,
+                    update: function() {
+                        // Re-index items after sorting (not implementing this fully as it's complex to reindex inputs)
+                        // This would need to update all hidden input names with new indexes
+                    }
+                });
+            }
+        });
+    </script>
+    
+    <style type="text/css">
+        .tour-gallery-wrapper {
+            margin-bottom: 20px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 15px;
+            margin-bottom: 15px;
+            min-height: 100px;
+        }
+        .gallery-grid.empty {
+            border: 2px dashed #ddd;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .gallery-grid.empty:before {
+            content: '<?php echo esc_js(__('No images selected. Click "Upload Images" to add.', 'bike-theme')); ?>';
+            color: #999;
+        }
+        .gallery-item {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            overflow: hidden;
+            height: 150px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-item-actions {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0 0 0 3px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .gallery-item:hover .gallery-item-actions {
+            opacity: 1;
+        }
+        .gallery-item-remove {
+            display: block;
+            color: #fff;
+            padding: 5px;
+            line-height: 1;
+        }
+        .gallery-item-remove:hover {
+            color: #f55;
+        }
+        .tour-gallery-actions {
+            margin-top: 10px;
+        }
+        #tour-gallery-upload-button .dashicons {
+            line-height: 1.4;
+            margin-right: 5px;
+        }
+    </style>
+    <?php
+}
+
+/**
+ * Why Choose Us field callback
+ */
+function bike_theme_why_choose_us_callback($args)
+{
+    $options = get_option('bike_theme_options');
+    $id = $args['id'];
+    $default = isset($args['default']) ? $args['default'] : '';
+    $content = isset($options[$id]) ? $options[$id] : $default;
+    
+    // If content is empty, provide a default template
+    if (empty($content)) {
+        $content = '
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="feature-item text-center px-4">
+                    <div class="p-4">
+                        <i class="fa fa-bicycle fa-3x text-primary mb-4"></i>
+                        <h5 class="mb-3">Quality Bikes</h5>
+                        <p>We provide top-quality bicycles for your journey through Vietnam\'s stunning landscapes</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="feature-item text-center px-4">
+                    <div class="p-4">
+                        <i class="fa fa-map-marked-alt fa-3x text-primary mb-4"></i>
+                        <h5 class="mb-3">Curated Routes</h5>
+                        <p>Our carefully designed routes showcase the best of Vietnam\'s natural beauty and local culture</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="feature-item text-center px-4">
+                    <div class="p-4">
+                        <i class="fa fa-user-tie fa-3x text-primary mb-4"></i>
+                        <h5 class="mb-3">Expert Guides</h5>
+                        <p>Experienced local guides with deep knowledge of Vietnam\'s history, culture and terrain</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="feature-item text-center px-4">
+                    <div class="p-4">
+                        <i class="fa fa-heartbeat fa-3x text-primary mb-4"></i>
+                        <h5 class="mb-3">Safety First</h5>
+                        <p>Your safety is our priority with professional equipment and comprehensive support</p>
+                    </div>
+                </div>
+            </div>
+        </div>';
+    }
+    
+    // Output the WordPress editor
+    wp_editor(
+        $content,
+        'bike_theme_options_why_choose_us',
+        array(
+            'textarea_name' => 'bike_theme_options[why_choose_us_content]',
+            'media_buttons' => true,
+            'textarea_rows' => 15,
+            'editor_class'  => 'widefat',
+            'teeny'         => false,
+            'quicktags'     => true,
+        )
+    );
+    
+    echo '<p class="description">' . __('Use the editor above to create the content for the Why Choose Us section.', 'bike-theme') . '</p>';
 } 

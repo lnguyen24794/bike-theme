@@ -566,8 +566,9 @@ function bike_theme_options_page_callback()
     }
 
     // Get current values
-    $email = get_option('bike_theme_email', 'info@example.com');
+    $email = get_option('bike_theme_email', 'info@beebikehub.com');
     $phone = get_option('bike_theme_phone', '+012 345 6789');
+    $whatsapp_phone = get_option('bike_theme_whatsapp_phone', '+012 345 6789');
     $facebook = get_option('bike_theme_facebook', '');
     $twitter = get_option('bike_theme_twitter', '');
     $instagram = get_option('bike_theme_instagram', '');
@@ -631,6 +632,10 @@ function bike_theme_options_page_callback()
                 <tr>
                     <th scope="row"><label for="bike_theme_phone"><?php esc_html_e('Phone Number', 'bike-theme'); ?></label></th>
                     <td><input name="bike_theme_phone" type="text" id="bike_theme_phone" value="<?php echo esc_attr($phone); ?>" class="regular-text"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="bike_theme_whatsapp_phone"><?php esc_html_e('WhatsApp Phone Number', 'bike-theme'); ?></label></th>
+                    <td><input name="bike_theme_whatsapp_phone" type="text" id="bike_theme_whatsapp_phone" value="<?php echo esc_attr($whatsapp_phone); ?>" class="regular-text"></td>
                 </tr>
             </table>
             

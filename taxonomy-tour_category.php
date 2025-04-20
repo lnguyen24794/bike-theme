@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying destination taxonomy archives
+ * The template for displaying tour category taxonomy archives
  *
  * @package Bike_Theme
  */
@@ -11,14 +11,14 @@ wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/ass
 $term = get_queried_object();
 
 // Get destination image
-$image_id = get_term_meta($term->term_id, 'destination_image', true);
+$image_id = get_term_meta($term->term_id, 'tour_category_image', true);
 $image_url = wp_get_attachment_url($image_id);
 if (!$image_url) {
     $image_url = get_template_directory_uri() . '/assets/images/bikes/destination-default.jpg';
 }
 
 // Get category counts for this destination
-$category_counts = bike_theme_count_tours_by_category_in_destination($term->term_id);
+$category_counts = bike_theme_count_tours_by_tour_category($term->term_id);
 
 $tour_category = get_query_var('tour_category');
 ?>
@@ -55,7 +55,7 @@ $tour_category = get_query_var('tour_category');
                         'paged' => $paged,
                         'tax_query' => array(
                             array(
-                                'taxonomy' => 'destination',
+                                'taxonomy' => 'tour_category',
                                 'field' => 'term_id',
                                 'terms' => $term->term_id,
                             ),
@@ -200,7 +200,7 @@ $tour_category = get_query_var('tour_category');
                     <div class="card-body">
                         <h4 class="mb-3"><?php esc_html_e('Tour Available', 'bike-theme'); ?></h4>
                         <div class="destination-category-list">
-                            <?php echo bike_theme_display_destination_categories($term->term_id, $term->slug); ?>
+                            <?php echo bike_theme_display_tour_categories($term->term_id, $term->slug); ?>
                         </div>
                     </div>
                 </div>
@@ -211,18 +211,18 @@ $tour_category = get_query_var('tour_category');
                         <p><?php esc_html_e('Contact our tour experts for personalized tour recommendations or special requirements.', 'bike-theme'); ?></p>
                         <div class="d-flex align-items-center mb-2">
                             <i class="fa fa-phone-alt text-primary me-2"></i>
-                            <p class="mb-0"><a href="tel:<?php echo bike_theme_get_option('contact_phone', '+012 345 6789'); ?>"><?php echo bike_theme_get_option('contact_phone', '+012 345 6789'); ?></a></p>
+                            <p class="mb-0"><?php echo bike_theme_get_option('phone', '+012 345 6789'); ?></p>
                         </div>
                         <div class="d-flex align-items-center">
                             <i class="fa fa-envelope-open text-primary me-2"></i>
-                            <p class="mb-0"><a href="mailto:<?php echo bike_theme_get_option('contact_email', 'info@beebikehub.com'); ?>"><?php echo bike_theme_get_option('contact_email', 'info@beebikehub.com'); ?></a></p>
+                            <p class="mb-0"><?php echo bike_theme_get_option('email', 'info@beebikehub.com'); ?></p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        <h4 class="mb-3"><?php esc_html_e('Other Destinations', 'bike-theme'); ?></h4>
+                        <h4 class="mb-3"><?php esc_html_e('Tour Destinations', 'bike-theme'); ?></h4>
                         <div class="destination-category-list">
                             <div class="destination-categories">
                             <ul class="list-unstyled">
@@ -231,7 +231,6 @@ $tour_category = get_query_var('tour_category');
                             $other_destinations = get_terms(array(
                                 'taxonomy' => 'destination',
                                 'hide_empty' => false,
-                                'exclude' => array($term->term_id),
                                 'number' => 6
                             ));
                             

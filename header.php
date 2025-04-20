@@ -82,11 +82,15 @@
                     <div class="col-lg-7 px-5 text-start">
                         <div class="h-100 d-inline-flex align-items-center py-2 me-4">
                             <i class="fa fa-envelope text-primary me-2"></i>
-                            <p class="mb-0"><?php echo esc_html(bike_theme_get_option('email', 'info@example.com')); ?></p>
+                            <p class="mb-0"><a href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
                         </div>
                         <div class="h-100 d-inline-flex align-items-center py-2">
                             <i class="fa fa-phone-alt text-primary me-2"></i>
-                            <p class="mb-0"><?php echo esc_html(bike_theme_get_option('phone', '+012 345 6789')); ?></p>
+                            <p class="mb-0"><a href="tel:<?php echo esc_attr(bike_theme_get_option('contact_phone', '+012 345 6789')); ?>"><?php echo esc_html(bike_theme_get_option('contact_phone', '+012 345 6789')); ?></a></p>
+                        </div>
+                        <div class="h-100 d-inline-flex align-items-center py-2">
+                            <i class="fa fa-whatsapp text-primary me-2"></i>
+                            <p class="mb-0"><a href="https://wa.me/<?php echo esc_attr(bike_theme_get_option('whatsapp_phone', '+012 345 6789')); ?>"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+012 345 6789')); ?></a></p>
                         </div>
                     </div>
                     <div class="col-lg-5 px-5 text-end">
@@ -171,7 +175,7 @@
                     <div class="col-lg-7 px-5 text-start">
                         <div class="h-100 d-inline-flex align-items-center py-2 me-4">
                             <i class="fa fa-envelope text-primary me-2"></i>
-                            <p class="mb-0"><?php echo esc_html(bike_theme_get_option('email', 'info@example.com')); ?></p>
+                            <p class="mb-0"><?php echo esc_html(bike_theme_get_option('email', 'info@beebikehub.com')); ?></p>
                         </div>
                         <div class="h-100 d-inline-flex align-items-center py-2">
                             <i class="fa fa-phone-alt text-primary me-2"></i>

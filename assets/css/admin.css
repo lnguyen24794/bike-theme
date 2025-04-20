@@ -3,12 +3,16 @@
  */
 
 /* Slides Container */
-#bike-slides-container {
+#bike-slides-container,
+#bike-about-slides-container,
+#bike-hero-slides-container,
+#bike-tour-gallery-container {
     margin-bottom: 20px;
 }
 
 /* Slide Item */
-.bike-slide-item {
+.bike-slide-item,
+.bike-gallery-item {
     background: #fff;
     border: 1px solid #e5e5e5;
     box-shadow: 0 1px 1px rgba(0,0,0,.04);
@@ -16,7 +20,8 @@
 }
 
 /* Slide Header */
-.bike-slide-item h3 {
+.bike-slide-item h3,
+.bike-gallery-item h3 {
     border-bottom: 1px solid #eee;
     font-size: 14px;
     padding: 8px 12px;
@@ -28,19 +33,22 @@
 }
 
 /* Slide Controls */
-.slide-controls {
+.slide-controls,
+.gallery-controls {
     position: absolute;
     right: 12px;
     font-weight: normal;
     font-size: 12px;
 }
 
-.slide-controls a {
+.slide-controls a,
+.gallery-controls a {
     text-decoration: none;
 }
 
 /* Slide Content */
-.slide-content {
+.slide-content,
+.gallery-content {
     padding: 0 12px;
 }
 
@@ -76,18 +84,23 @@
 }
 
 /* Add Slide Button */
-#add-slide-button {
+#add-slide-button,
+#add-about-slide-button,
+#add-hero-slide-button,
+#add-tour-gallery-item-button {
     margin-top: 10px;
     margin-bottom: 20px;
 }
 
 /* Slide Animation */
-.bike-slide-item {
-    transition: all 0.3s ease;
+.bike-slide-item,
+.bike-gallery-item {
+    transition: all 0.55s ease;
 }
 
 /* Sortable */
-.bike-slide-item.ui-sortable-helper {
+.bike-slide-item.ui-sortable-helper,
+.bike-gallery-item.ui-sortable-helper {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     border: 1px solid #999;
 }
@@ -99,4 +112,31 @@
     margin-bottom: 15px;
     box-sizing: border-box;
     height: 50px;
+}
+
+/* About slides specific styling */
+.bike-slide-item .form-table th,
+.bike-gallery-item .form-table th {
+    width: 150px;
+    padding: 15px 10px;
+}
+
+.bike-slide-item .form-table td,
+.bike-gallery-item .form-table td {
+    padding: 15px 10px;
+}
+
+.slide-content,
+.gallery-content {
+    display: none;
+}
+
+.bike-slide-item:first-child .slide-content,
+.bike-gallery-item:first-child .gallery-content {
+    display: block;
+}
+
+.slide-number,
+.gallery-number {
+    font-weight: bold;
 } 

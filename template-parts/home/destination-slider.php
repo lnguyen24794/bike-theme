@@ -12,38 +12,40 @@
  <?php if (!empty($destinations)) :
 ?>
 <style>
-    .destination-slider .gallery-item {
+    .destination-slider .destination-item {
         position: relative;
-        border-radius: 120px;
-        height: 300px;
+        overflow:hidden;
+        display:block;
+        border-radius: 50px;
     }
-    .destination-slider .gallery-item img {
-        border-radius: 120px;
+    .destination-slider .destination-item img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         height: 300px;
     }
+    .destination-slider .destination-slider-title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(15, 23, 43, .4);
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+        width: 100%;
+        height: 100%;
+    }
 </style>
-<div class="container-fluid pt-5 pb-4 bg-light destination-slider">   
+<div class="container-fluid pt-5 pb-4 destination-slider">   
     <div class="owl-carousel tour-slider">
         <?php foreach($destinations as $key => $destination):
             if (!empty($destination)) :
                 $image_id = get_term_meta($destination->term_id, 'destination_image', true);
                 $image_url = wp_get_attachment_url($image_id);
                 ?>
-                <a class="gallery-item" href="<?php echo get_term_link($destination); ?>">
+                <a class="destination-item" href="<?php echo get_term_link($destination); ?>">
                     <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($destination->name); ?>">
-                    <div class="d-flex align-items-center justify-content-center"  
-                        style="
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                            background: rgba(15, 23, 43, .4);
-                            position: absolute;
-                            border-radius: 120px;
-                            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);">
+                    <div class="destination-slider-title d-flex align-items-center justify-content-center">
                         <h1 class="text-white mb-4"><?php echo esc_html($destination->name); ?></h1>
                     </div>
                 </a>

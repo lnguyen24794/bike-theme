@@ -204,3 +204,88 @@ function bike_theme_display_destination_categories($destination_id, $destination
 
     return $output;
 } 
+
+/**
+ * Count tours by category within a destination
+ *
+ * @param int $destination_id The destination term ID
+ * @return array Array of category counts with category term objects as keys
+ */
+function bike_theme_count_tours_by_tour_category($tour_category_id)
+{
+    $category_counts = array();
+
+    // Get all categories
+    $categories = get_terms(array(
+        'taxonomy' => 'tour_category',
+        'hide_empty' => false,
+    ));
+
+    if (!empty($categories) && !is_wp_error($categories)) {
+        foreach ($categories as $category) {
+            // Query posts that belong to both the destination and this category
+            $args = array(
+                'post_type' => 'bike_tour',
+                'post_status' => 'publish',
+                'posts_per_page' => -1, // Get all posts
+                'tax_query' => array(
+                    'relation' => 'AND',
+                    array(
+                        'taxonomy' => 'tour_category',
+                        'field' => 'term_id',
+                        'terms' => $tour_category_id,
+                    ),
+                ),
+            );
+
+            $query = new WP_Query($args);
+            $count = $query->found_posts;
+
+            if ($count > 0) {
+                $category_counts[$category->term_id] = array(
+                    'category' => $category,
+                    'count' => $count
+                );
+            }
+        }
+    }
+
+    return $category_counts;
+}
+
+/**
+ * Display categories with counts for a destination
+ *
+ * @param int $destination_id The destination term ID
+ * @param string $tour_category_slug The tour category slug
+ * @param bool $show_empty Whether to show categories with zero tours
+ * @return string HTML output of categories with counts
+ */
+function bike_theme_display_tour_categories($tour_category_id, $tour_category_slug, $show_empty = false)
+{
+    $category_counts = bike_theme_count_tours_by_tour_category($tour_category_id);
+
+    if (empty($category_counts)) {
+        return '';
+    }
+
+    $output = '<div class="destination-categories">';
+    $output .= '<ul class="list-unstyled">';
+
+    foreach ($category_counts as $data) {
+        $category = $data['category'];
+        $count = $data['count'];
+
+        $output .= '<li>';
+        $output .= '<a href="/tour-category/'.$tour_category_slug.'?tour_category=' . $category->slug . '">';
+        $output .= esc_html($category->name);
+        $output .= ' <span class="badge bg-primary rounded-pill">' . $count . '</span>';
+        $output .= '</a>';
+        $output .= '</li>';
+    }
+
+    $output .= '</ul>';
+    $output .= '</div>';
+
+    return $output;
+} 

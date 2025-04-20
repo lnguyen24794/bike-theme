@@ -4,7 +4,6 @@
  *
  * @package Bike_Theme
  */
-
 ?>
 
     </div><!-- #page -->
@@ -18,9 +17,10 @@
                     <?php if (is_active_sidebar('footer-1')) : ?>
                         <?php dynamic_sidebar('footer-1'); ?>
                     <?php else : ?>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><?php echo esc_html(get_option('bike_theme_address', '123 Street, New York, USA')); ?></p>
-                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><?php echo esc_html(bike_theme_get_option('phone', '+012 345 67890')); ?></p>
-                        <p class="mb-2"><i class="fa fa-envelope me-3"></i><?php echo esc_html(bike_theme_get_option('email', 'info@example.com')); ?></p>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><a href="<?php echo esc_url(bike_theme_get_option('address_link', '#')); ?>" target="_blank"><?php echo esc_html(bike_theme_get_option('contact_address', '123 Street, New York, USA')); ?></a></p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a href="tel:<?php echo esc_attr(bike_theme_get_option('contact_phone', '+012 345 67890')); ?>"><?php echo esc_html(bike_theme_get_option('contact_phone', '+012 345 67890')); ?></a></p>
+                        <p class="mb-2"><i class="fab fa-whatsapp me-3"></i><a href="https://wa.me/<?php echo esc_attr(bike_theme_get_option('whatsapp_phone', '+012 345 67890')); ?>"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+012 345 67890')); ?></a></p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i><a href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
                         <div class="d-flex pt-2">
                             <?php if ($twitter = bike_theme_get_option('twitter')) : ?>
                                 <a class="btn btn-outline-light btn-social" href="<?php echo esc_url($twitter); ?>"><i class="fab fa-twitter"></i></a>
@@ -42,11 +42,11 @@
                     <?php if (is_active_sidebar('footer-2')) : ?>
                         <?php dynamic_sidebar('footer-2'); ?>
                     <?php else : ?>
-                        <a class="btn btn-link" href=""><?php esc_html_e('About Us', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href=""><?php esc_html_e('Contact Us', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href=""><?php esc_html_e('Privacy Policy', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href=""><?php esc_html_e('Terms & Condition', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href=""><?php esc_html_e('Support', 'bike-theme'); ?></a>
+                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/about-us')); ?>"><?php esc_html_e('About Us', 'bike-theme'); ?></a>
+                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/contact')); ?>"><?php esc_html_e('Contact Us', 'bike-theme'); ?></a>
+                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/privacy-policy')); ?>"><?php esc_html_e('Privacy Policy', 'bike-theme'); ?></a>
+                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/terms-and-conditions')); ?>"><?php esc_html_e('Terms & Condition', 'bike-theme'); ?></a>
+                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/support')); ?>"><?php esc_html_e('Support', 'bike-theme'); ?></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -54,11 +54,11 @@
                     <?php if (is_active_sidebar('footer-3')) : ?>
                         <?php dynamic_sidebar('footer-3'); ?>
                     <?php else : ?>
-                        <a class="btn btn-link" href=""><?php esc_html_e('Bike Repair', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href=""><?php esc_html_e('Bike Rental', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href=""><?php esc_html_e('Custom Builds', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href=""><?php esc_html_e('Bike Accessories', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href=""><?php esc_html_e('Guided Tours', 'bike-theme'); ?></a>
+                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/bike-repair')); ?>"><?php esc_html_e('Bike Repair', 'bike-theme'); ?></a>
+                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/bike-rental')); ?>"><?php esc_html_e('Bike Rental', 'bike-theme'); ?></a>
+                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/custom-builds')); ?>"><?php esc_html_e('Custom Builds', 'bike-theme'); ?></a>
+                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/bike-accessories')); ?>"><?php esc_html_e('Bike Accessories', 'bike-theme'); ?></a>
+                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/guided-tours')); ?>"><?php esc_html_e('Guided Tours', 'bike-theme'); ?></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-lg-3 col-md-6">

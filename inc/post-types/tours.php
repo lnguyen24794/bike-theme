@@ -77,6 +77,79 @@ function bike_theme_register_tour_post_type()
 add_action('init', 'bike_theme_register_tour_post_type');
 
 /**
+ * Add image field to destination taxonomy
+ */
+function bike_theme_tour_category_add_image_field()
+{
+    ?>
+    <div class="form-field">
+        <label for="tour_category_image"><?php _e('Tour Category Image', 'bike-theme'); ?></label>
+        <input type="hidden" id="tour_category_image" name="tour_category_image" class="custom_media_url" value="">
+        <div id="tour_category_image-wrapper"></div>
+        <p>
+            <input type="button" class="button button-secondary tour_category_tax_media_button" id="tour_category_tax_media_button" name="tour_category_tax_media_button" value="<?php _e('Add Image', 'bike-theme'); ?>" />
+            <input type="button" class="button button-secondary tour_category_tax_media_remove" id="tour_category_tax_media_remove" name="tour_category_tax_media_remove" value="<?php _e('Remove Image', 'bike-theme'); ?>" />
+        </p>
+    </div>
+    <?php
+}
+add_action('tour_category_add_form_fields', 'bike_theme_tour_category_add_image_field', 10, 2);
+
+/**
+ * Edit image field in destination taxonomy
+ */
+function bike_theme_tour_category_edit_image_field($term)
+{
+    $image_id = get_term_meta($term->term_id, 'tour_category_image', true);
+    $image_url = wp_get_attachment_url($image_id);
+    ?>
+    <tr class="form-field">
+        <th scope="row" valign="top">
+            <label for="tour_category_image"><?php _e('Tour Category Image', 'bike-theme'); ?></label>
+        </th>
+        <td>
+            <input type="hidden" id="tour_category_image" name="tour_category_image" class="custom_media_url" value="<?php echo esc_attr($image_id); ?>">
+            <div id="tour_category_image-wrapper">
+                <?php if ($image_url) : ?>
+                    <img src="<?php echo esc_url($image_url); ?>" style="max-width: 50%; height: auto; margin: 10px 0;">
+                <?php endif; ?>
+            </div>
+            <p>
+                <input type="button" class="button button-secondary tour_category_tax_media_button" id="tour_category_tax_media_button" name="tour_category_tax_media_button" value="<?php _e('Add Image', 'bike-theme'); ?>" />
+                <input type="button" class="button button-secondary tour_category_tax_media_remove" id="tour_category_tax_media_remove" name="tour_category_tax_media_remove" value="<?php _e('Remove Image', 'bike-theme'); ?>" />
+            </p>
+        </td>
+    </tr>
+    <?php
+}
+add_action('tour_category_edit_form_fields', 'bike_theme_tour_category_edit_image_field', 10, 2);
+
+/**
+ * Save destination image
+ */
+function bike_theme_save_tour_category_image($term_id)
+{
+    if (isset($_POST['tour_category_image'])) {
+        update_term_meta($term_id, 'tour_category_image', absint($_POST['tour_category_image']));
+    }
+}
+add_action('created_tour_category', 'bike_theme_save_tour_category_image', 10, 2);
+add_action('edited_tour_category', 'bike_theme_save_tour_category_image', 10, 2);
+
+/**
+ * Enqueue media uploader scripts
+ */
+function bike_theme_tour_category_media_scripts()
+{
+    if (!isset($_GET['taxonomy']) || $_GET['taxonomy'] != 'tour_category') {
+        return;
+    }
+    wp_enqueue_media();
+    wp_enqueue_script('tour_category-media-uploader', get_template_directory_uri() . '/assets/js/tour_category-media.js', array('jquery'), BIKE_THEME_VERSION, true);
+}
+add_action('admin_enqueue_scripts', 'bike_theme_tour_category_media_scripts');
+
+/**
  * Add meta boxes for Tour post type
  */
 function bike_theme_add_tour_meta_boxes()

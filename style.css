@@ -102,7 +102,7 @@ img {
 /* Destination Styles */
 .destination-item {
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.55s ease;
 }
 
 .destination-item:hover {
@@ -129,7 +129,7 @@ img {
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: all 0.55s ease;
     z-index: 1;
 }
 
@@ -187,7 +187,7 @@ img {
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
     opacity: 1;
-    transition: all 0.3s ease;
+    transition: all 0.55s ease;
 }
 
 .overlay-dark:hover {
@@ -213,7 +213,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.3s ease;
+    transition: all 0.55s ease;
 }
 
 .destination-category-list ul li a:hover {
@@ -239,7 +239,7 @@ img {
 /* Tour item enhancements */
 .tour-item {
     margin-bottom: 20px;
-    transition: all 0.3s ease;
+    transition: all 0.55s ease;
 }
 
 .tour-item:hover {
@@ -264,7 +264,7 @@ img {
     font-weight: 500;
     padding: 0.75rem 1.5rem;
     border-radius: 0.25rem;
-    transition: all 0.3s ease;
+    transition: all 0.55s ease;
 }
 
 /* Forms */

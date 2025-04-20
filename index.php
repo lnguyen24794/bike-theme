@@ -111,17 +111,27 @@ wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/assets/js/owl
         <div class="container-fluid p-0 py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Gallery', 'bike-theme'); ?></h6>
-                <h2 class="mb-5"><?php esc_html_e('Vietnam Cycling Tours', 'bike-theme'); ?></h2>
+                <h2 class="mb-1"><?php esc_html_e('Vietnam Cycling Tours', 'bike-theme'); ?></h2>
             </div>
-            <?php include(get_template_directory() . '/template-parts/home/about-slider.php'); ?>
+            <?php include(get_template_directory() . '/template-parts/home/tour-gallery.php'); ?>
         </div>
         <!-- Gallery End -->
+
+        <!-- Tour Categories Start -->
+         <div class="container-fluid bg-light p-0 py-5">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Tour Collection', 'bike-theme'); ?></h6>
+                    <h2 class="mb-1"><?php esc_html_e('Choose Your Adventure', 'bike-theme'); ?></h2>
+                </div>
+                <?php include(get_template_directory() . '/template-parts/home/tour-collection.php'); ?>
+        </div>
+        <!-- Tour Categories End -->
 
         <!-- Destinations Start -->
         <div class="container-fluid p-0 py-5">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Explore Destinations', 'bike-theme'); ?></h6>
-                    <h2 class="mb-5"><?php esc_html_e('Where Do You Want to Ride?', 'bike-theme'); ?></h2>
+                    <h2 class="mb-1"><?php esc_html_e('Where Do You Want to Ride?', 'bike-theme'); ?></h2>
                 </div>
                 <?php include(get_template_directory() . '/template-parts/home/destination-slider.php'); ?>
                 <div class="text-center mt-5">
@@ -134,11 +144,15 @@ wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/assets/js/owl
          <div class="container-xxl py-5">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Bikes', 'bike-theme'); ?></h6>
-                    <h2 class="mb-5"><?php echo wp_kses_post(__('Explore Our <span class="text-primary text-uppercase">Bikes</span>', 'bike-theme')); ?></h2>
+                    <h2 class="mb-1"><?php echo wp_kses_post(__('Explore Our <span class="text-primary text-uppercase">Bikes</span>', 'bike-theme')); ?></h2>
                 </div>
                 <?php include(get_template_directory() . '/template-parts/bikes.php'); ?>
         </div>
         <!-- Featured Bikes End -->
+
+        <!-- Why Choose Us Start -->
+        <?php include(get_template_directory() . '/template-parts/home/why-choose-us.php'); ?>
+        <!-- Why Choose Us End -->
     <?php
     endif;
     ?>
