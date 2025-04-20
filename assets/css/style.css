@@ -1340,6 +1340,7 @@
 }
 
 .bike-image img{
-    height: 200px;
-    object-fit: cover;
+    height: 240px !important;
+    max-height: 240px !important;
+    object-fit: cover !important;
 }
