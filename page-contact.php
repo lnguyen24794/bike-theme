@@ -37,16 +37,16 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
             <div class="col-12">
                 <div class="row gy-4">
                     <div class="col-md-4">
-                        <h6 class="section-title text-start text-primary text-uppercase"><?php esc_html_e('Sales', 'bike-theme'); ?></h6>
+                        <h6 class="section-title text-start text-primary text-uppercase"><?php esc_html_e('Email', 'bike-theme'); ?></h6>
                         <p><i class="fa fa-envelope-open text-primary me-2"></i><a href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
                     </div>
                     <div class="col-md-4">
-                        <h6 class="section-title text-start text-primary text-uppercase"><?php esc_html_e('Service', 'bike-theme'); ?></h6>
-                        <p><i class="fa fa-envelope-open text-primary me-2"></i><a href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
+                        <h6 class="section-title text-start text-primary text-uppercase"><?php esc_html_e('Phone', 'bike-theme'); ?></h6>
+                        <p><i class="fa fa-phone text-primary me-2"></i><a href="tel:<?php echo esc_attr(bike_theme_get_option('contact_phone', '+84 985 455 727')); ?>"><?php echo esc_html(bike_theme_get_option('contact_phone', '+84 985 455 727')); ?></a></p>
                     </div>
                     <div class="col-md-4">
-                        <h6 class="section-title text-start text-primary text-uppercase"><?php esc_html_e('General', 'bike-theme'); ?></h6>
-                        <p><i class="fa fa-envelope-open text-primary me-2"></i><a href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
+                        <h6 class="section-title text-start text-primary text-uppercase"><?php esc_html_e('Whatsapp', 'bike-theme'); ?></h6>
+                        <p><i class="fab fa-whatsapp text-primary me-2"></i><a href="https://wa.me/<?php echo esc_attr(bike_theme_get_option('contact_whatsapp', '+84 985 455 727')); ?>"><?php echo esc_html(bike_theme_get_option('contact_whatsapp', '+84 985 455 727')); ?></a></p>
                     </div>
                 </div>
             </div>
