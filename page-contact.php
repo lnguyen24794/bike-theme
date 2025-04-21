@@ -46,7 +46,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                     </div>
                     <div class="col-md-4">
                         <h6 class="section-title text-start text-primary text-uppercase"><?php esc_html_e('Whatsapp', 'bike-theme'); ?></h6>
-                        <p><i class="fab fa-whatsapp text-primary me-2"></i><a href="https://wa.me/<?php echo esc_attr(bike_theme_get_option('contact_whatsapp', '+84 985 455 727')); ?>"><?php echo esc_html(bike_theme_get_option('contact_whatsapp', '+84 985 455 727')); ?></a></p>
+                        <p><i class="fab fa-whatsapp text-primary me-2"></i><a href="https://api.whatsapp.com/send/?phone=<?php echo esc_attr(bike_theme_get_option('whatsapp_phone', '84985455727')); ?>&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('contact_whatsapp', '+84 985 455 727')); ?></a></p>
                     </div>
                 </div>
             </div>
