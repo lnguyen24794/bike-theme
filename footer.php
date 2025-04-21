@@ -19,7 +19,7 @@
                     <?php else : ?>
                         <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><a href="<?php echo esc_url(bike_theme_get_option('address_link', '#')); ?>" target="_blank"><?php echo esc_html(bike_theme_get_option('contact_address', '123 Street, New York, USA')); ?></a></p>
                         <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a href="tel:<?php echo esc_attr(bike_theme_get_option('contact_phone', '+849854557270')); ?>"><?php echo esc_html(bike_theme_get_option('contact_phone', '+849854557270')); ?></a></p>
-                        <p class="mb-2"><i class="fab fa-whatsapp me-3"></i><a href="https://api.whatsapp.com/send/?phone=<?php echo esc_attr(bike_theme_get_option('whatsapp_phone', '84985455727')); ?>&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+849854557270')); ?></a></p>
+                        <p class="mb-2"><i class="fab fa-whatsapp me-3"></i><a href="https://api.whatsapp.com/send/?phone=<?php echo esc_attr(bike_theme_get_option('contact_phone', '84985455727')); ?>&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+849854557270')); ?></a></p>
                         <p class="mb-2"><i class="fa fa-envelope me-3"></i><a href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
                         <div class="d-flex pt-2">
                             <?php if ($twitter = bike_theme_get_option('twitter')) : ?>
