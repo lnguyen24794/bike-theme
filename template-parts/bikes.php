@@ -48,7 +48,7 @@
                             <span><i class="fa fa-clock me-2"></i><?php echo esc_html(bike_theme_get_tour_duration(get_the_ID())); ?></span>
                             <?php endif; ?>
                         </div>
-                        <p class="text-body mb-3"><?php echo wp_trim_words(get_the_content(), 20, '...'); ?></p>
+                        <p class="text-body mb-3"><?php echo wp_trim_words(the_excerpt(), 20, '...'); ?></p>
                         <div class="d-flex justify-content-between">
                             <a class="btn btn-sm btn-primary rounded py-2 px-4" href="<?php the_permalink(); ?>"><?php esc_html_e('View Details', 'bike-theme'); ?></a>
                         </div>
