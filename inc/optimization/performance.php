@@ -96,9 +96,6 @@ function bike_theme_remove_script_version($src) {
 function bike_theme_preload_assets() {
     // Preload main CSS files
     echo '<link rel="preload" href="' . get_template_directory_uri() . '/assets/css/style.css" as="style">';
-    
-    // Preload main font files (example)
-    echo '<link rel="preload" href="' . get_template_directory_uri() . '/assets/fonts/fontname.woff2" as="font" type="font/woff2" crossorigin>';
 }
 add_action('wp_head', 'bike_theme_preload_assets', 1);
 
