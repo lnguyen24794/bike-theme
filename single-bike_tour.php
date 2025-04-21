@@ -205,10 +205,10 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
     <div class="container-xxl py-5" id="tour-detail">
             <div class="row g-5">
                 <!-- Tour Description -->
-                <div class="col-lg-8">
+                <div class="col-lg-8 mt-0">
                     <!-- Tour Tabs Start -->
                     <div class="mb-5">
-                        <ul class="nav nav-tabs mb-4 d-flex justify-content-center tour-tabs" id="tourTab" role="tablist">
+                        <ul class="nav nav-tabs mb-4 d-flex justify-content-center tour-tabs pt-4" id="tourTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link <?php echo $active_tab === 'overview' ? 'active' : ''; ?>" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="<?php echo $active_tab === 'overview' ? 'true' : 'false'; ?>">
                                     <?php esc_html_e('Overview', 'bike-theme'); ?>
