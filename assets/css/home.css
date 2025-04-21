@@ -1,10 +1,28 @@
 .home-header {
     background: transparent;
     position: absolute;
-    top: 50px;
+    top: 10px;
     left: 0;
     right: 0;
     z-index: 1000;
+}
+
+.header-sticky {
+    background-color: #fff !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.header-sticky .nav-link {
+    color: #000 !important;
+    padding: 5px 0px !important; 
+}
+.header-sticky .nav-link:hover {
+    color: var(--primary-color) !important;
 }
 
 .text-size-large {
@@ -15,6 +33,10 @@
     font-size: 1.5rem !important;
 }
 
+.hero-title {
+    font-size: 3.5rem !important;
+}
+
 @media screen and (max-width: 991px) {
     .hide-mobile {
         display: none !important;
@@ -22,6 +44,10 @@
 
     .hide-desktop {
         display: block !important;
+    }
+
+    .hero-title {
+        font-size: 2.2rem !important;
     }
 }
 
@@ -40,4 +66,36 @@
     top: 0;
     left: 0;
     z-index: 1000;
+}
+
+.section-title {
+    font-size: 1.8rem !important;
+}
+
+.bike-tour-content p {
+    font-size: 1.2rem !important;
+}
+
+.bike-tour-content h2 {
+    font-size: 1.5rem !important;
+}
+
+.bike-tour-content h3 {
+    font-size: 1.2rem !important;
+}
+
+.bike-tour-content ul {
+    font-size: 1.2rem !important;
+}
+
+.bike-tour-content ol {
+    font-size: 1.2rem !important;
+}
+
+.bike-tour-content a {
+    color: var(--primary-color) !important;
+}
+
+.bike-tour-content a:hover {
+    color: var(--primary-color) !important;
 }

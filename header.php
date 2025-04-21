@@ -34,7 +34,7 @@
     if (is_front_page()) :
         wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home.css', array(), '1.0.0');
     ?>
-    <div class="container-fluid px-0 home-header hide-mobile">
+    <div class="container-fluid px-0 home-header animated  hide-mobile" id="mainHeader">
         <div class="text-center">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                 <?php if (has_custom_logo()) : 
@@ -54,7 +54,7 @@
                 'depth'           => 2,
                 'container'       => 'nav',
                 'container_class' => 'navbar navbar-expand-lg navbar-dark ',
-                'container_id'    => 'primary-navigation',
+                'container_id'    => 'primary-navigation', 
                 'menu_class'      => 'navbar-nav mx-auto',
                 'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
                 'walker'          => new WP_Bootstrap_Navwalker()
@@ -62,6 +62,17 @@
             ?>
         </div>
     </div>
+
+    <script>
+    window.addEventListener('scroll', function() {
+        var header = document.getElementById('mainHeader');
+        if (window.scrollY > 100) {
+            header.classList.add('header-sticky', 'fadeInDown');
+        } else {
+            header.classList.remove('header-sticky', 'fadeInDown');
+        }
+    });
+    </script>
 
     <div class="container-fluid bg-primary px-0  hide-desktop">
         <div class="row gx-0">

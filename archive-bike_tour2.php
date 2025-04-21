@@ -31,7 +31,7 @@ get_header();
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Explore Vietnam', 'bike-theme'); ?></h6>
+                <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Explore Vietnam', 'bike-theme'); ?></h6>
                 <h1 class="mb-5"><?php echo wp_kses_post(__('Discover Our <span class="text-primary text-uppercase">Cycling Tours</span>', 'bike-theme')); ?></h1>
             </div>
 

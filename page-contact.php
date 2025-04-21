@@ -30,7 +30,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
     <!-- Contact Start -->
     <div class="container-xxl py-5">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Contact Us', 'bike-theme'); ?></h6>
+            <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Contact Us', 'bike-theme'); ?></h3>
             <h1 class="mb-5"><?php echo wp_kses_post(sprintf(__('<span class="text-primary text-uppercase">%s</span> %s', 'bike-theme'), __('Contact', 'bike-theme'), __('For Any Query', 'bike-theme'))); ?></h1>
         </div>
         <div class="row g-4">

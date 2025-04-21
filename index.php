@@ -28,28 +28,18 @@ get_header();
         <!-- Gallery Start -->
         <div class="container-fluid p-0 py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Gallery', 'bike-theme'); ?></h6>
-                <h2 class="mb-1"><?php esc_html_e('Vietnam Cycling Tours', 'bike-theme'); ?></h2>
+                <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Gallery', 'bike-theme'); ?></h3>
+                <div class="bike-tour-content mb-1"><?php echo wp_kses_post(bike_theme_get_option('tour_gallery_content')); ?></div>
             </div>
             <?php include(get_template_directory() . '/template-parts/home/tour-gallery.php'); ?>
         </div>
         <!-- Gallery End -->
 
-        <!-- Tour Categories Start -->
-         <div class="container-fluid bg-light p-0 py-5">
-                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Tour Collection', 'bike-theme'); ?></h6>
-                    <h2 class="mb-1"><?php esc_html_e('Choose Your Adventure', 'bike-theme'); ?></h2>
-                </div>
-                <?php include(get_template_directory() . '/template-parts/home/tour-collection.php'); ?>
-        </div>
-        <!-- Tour Categories End -->
-
         <!-- Destinations Start -->
-        <div class="container-fluid p-0 py-5">
+        <div class="container-fluid bg-light p-0 py-5">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Explore Destinations', 'bike-theme'); ?></h6>
-                    <h2 class="mb-1"><?php esc_html_e('Where Do You Want to Ride?', 'bike-theme'); ?></h2>
+                    <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Choose Your Adventure', 'bike-theme'); ?></h3>
+                    <div class="bike-tour-content mb-1"><?php echo wp_kses_post(bike_theme_get_option('choose_your_adventure_content')); ?></div>
                 </div>
                 <?php include(get_template_directory() . '/template-parts/home/destination-slider.php'); ?>
                 <div class="text-center mt-5">
@@ -61,8 +51,8 @@ get_header();
          <!-- Featured Bikes Start -->
          <div class="container-xxl py-5">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Bikes', 'bike-theme'); ?></h6>
-                    <h2 class="mb-3"><?php echo wp_kses_post(__('Explore Our <span class="text-primary text-uppercase">Bikes</span>', 'bike-theme')); ?></h2>
+                    <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Bikes', 'bike-theme'); ?></h3>
+                    <div class="bike-tour-content mb-1"><?php echo wp_kses_post(bike_theme_get_option('our_bikes_content')); ?></div>
                 </div>
                 <?php include(get_template_directory() . '/template-parts/bikes.php'); ?>
         </div>
@@ -71,6 +61,18 @@ get_header();
         <!-- Why Choose Us Start -->
         <?php include(get_template_directory() . '/template-parts/home/why-choose-us.php'); ?>
         <!-- Why Choose Us End -->
+
+        <section class="bike-bottom">
+            <div class="container">
+                <div class="text-center">
+                    <div class="bottom-cta">
+                        <a href="/contact" >
+                            <button class="btn btn-outline-primary btn-chat"><i class="fas fa-phone"></i> <?php esc_html_e('Contact Us To Discuss Your Plans', 'bike-theme'); ?></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
     <?php
     endif;
     ?>

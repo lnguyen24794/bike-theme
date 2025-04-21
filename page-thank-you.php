@@ -30,7 +30,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
     <!-- Thank You Start -->
     <div class="container-xxl py-5">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Success', 'bike-theme'); ?></h6>
+            <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Success', 'bike-theme'); ?></h3>
             <h1 class="mb-5"><?php esc_html_e('Your Booking Has Been Received', 'bike-theme'); ?></h1>
             
             <div class="row justify-content-center">

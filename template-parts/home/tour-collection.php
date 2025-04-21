@@ -40,7 +40,7 @@
     }
     
 </style>
-<div class="container-fluid pt-5 tour-collection">   
+<div class="container-fluid pt-3 tour-collection">   
     <div class="row">
         <?php foreach($tour_categories as $key => $tour_category):
             if (!empty($tour_category)) :

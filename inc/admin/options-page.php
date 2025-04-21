@@ -61,14 +61,6 @@ function bike_theme_register_settings()
         'bike_theme_social_section_callback',
         'bike-theme-options'
     );
-    
-    // About Slides Section
-    add_settings_section(
-        'bike_theme_about_slides_section',
-        __('About Slides', 'bike-theme'),
-        'bike_theme_about_slides_section_callback',
-        'bike-theme-options'
-    );
 
     // Hero Banner Slides Section
     add_settings_section(
@@ -86,6 +78,22 @@ function bike_theme_register_settings()
         'bike-theme-options'
     );
 
+    // Tour Gallery Content Section
+    add_settings_section(
+        'bike_theme_tour_gallery_content_section',
+        __('Tour Gallery Content', 'bike-theme'),
+        'bike_theme_tour_gallery_content_section_callback',
+        'bike-theme-options'
+    );
+
+    // Choose Your Adventure Section
+    add_settings_section(
+        'bike_theme_choose_your_adventure_section',
+        __('Choose Your Adventure', 'bike-theme'),
+        'bike_theme_choose_your_adventure_section_callback',
+        'bike-theme-options'
+    );
+
     // Why Choose Us Section
     add_settings_section(
         'bike_theme_why_choose_us_section',
@@ -94,13 +102,21 @@ function bike_theme_register_settings()
         'bike-theme-options'
     );
 
-    // Booking Section
-    add_settings_section(
-        'bike_theme_booking_section',
-        __('Booking Settings', 'bike-theme'),
-        'bike_theme_booking_section_callback',
+     // Our Bikes Section
+     add_settings_section(
+        'bike_theme_our_bikes_section',
+        __('Our Bikes', 'bike-theme'),
+        'bike_theme_our_bikes_section_callback',
         'bike-theme-options'
     );
+
+    // Booking Section
+    // add_settings_section(
+    //     'bike_theme_booking_section',
+    //     __('Booking Settings', 'bike-theme'),
+    //     'bike_theme_booking_section_callback',
+    //     'bike-theme-options'
+    // );
 
     // Add fields
     add_settings_field(
@@ -352,6 +368,32 @@ function bike_theme_register_settings()
         )
     );
 
+    // Tour Gallery Content setting
+    add_settings_field(
+        'tour_gallery_content',
+        __('Gallery Content', 'bike-theme'),
+        'bike_theme_tour_gallery_content_callback',
+        'bike-theme-options',
+        'bike_theme_tour_gallery_content_section',
+        array(
+            'id' => 'tour_gallery_content',
+            'default' => ''
+        )
+    );
+
+    // Choose Your Adventure setting
+    add_settings_field(
+        'choose_your_adventure_content',
+        __('Content', 'bike-theme'),
+        'bike_theme_choose_your_adventure_callback',
+        'bike-theme-options',
+        'bike_theme_choose_your_adventure_section',
+        array(
+            'id' => 'choose_your_adventure_content',
+            'default' => ''
+        )
+    );
+
     // Why Choose Us setting
     add_settings_field(
         'why_choose_us_content',
@@ -365,6 +407,26 @@ function bike_theme_register_settings()
         )
     );
 
+    // Our Bikes setting
+    add_settings_field(
+        'our_bikes_content',
+        __('Content', 'bike-theme'),
+        'bike_theme_our_bikes_callback',
+        'bike-theme-options',
+        'bike_theme_our_bikes_section',
+        array(
+            'id' => 'our_bikes_content',
+            'default' => ''
+        )
+    );
+    
+    // About Slides Section
+    add_settings_section(
+        'bike_theme_about_slides_section',
+        __('About Slides', 'bike-theme'),
+        'bike_theme_about_slides_section_callback',
+        'bike-theme-options'
+    );
     // About Slides setting
      add_settings_field(
         'about_slides',
@@ -413,9 +475,24 @@ function bike_theme_tour_gallery_section_callback()
     echo '<p>' . __('Manage images for the tour gallery display.', 'bike-theme') . '</p>';
 }
 
+function bike_theme_tour_gallery_content_section_callback()
+{
+    echo '<p>' . __('Configure content for the tour gallery.', 'bike-theme') . '</p>';
+}
+
 function bike_theme_why_choose_us_section_callback()
 {
     echo '<p>' . __('Manage the Why Choose Us section content on the homepage.', 'bike-theme') . '</p>';
+}
+
+function bike_theme_our_bikes_section_callback()
+{
+    echo '<p>' . __('Manage the Our Bikes section content on the homepage.', 'bike-theme') . '</p>';
+}
+
+function bike_theme_choose_your_adventure_section_callback()
+{
+    echo '<p>' . __('Manage the Choose Your Adventure section content on the homepage.', 'bike-theme') . '</p>';
 }
 
 function bike_theme_booking_section_callback()
@@ -523,7 +600,7 @@ function bike_theme_validate_options($input)
         if (isset($input[$key])) {
             if ($key === 'contact_email') {
                 $output[$key] = sanitize_email($input[$key]);
-            } elseif (in_array($key, array('contact_address', 'bank_account_info', 'email_footer', 'why_choose_us_content'))) {
+            } elseif (in_array($key, array('contact_address', 'bank_account_info', 'email_footer', 'why_choose_us_content', 'tour_gallery_content'))) {
                 $output[$key] = wp_kses_post($input[$key]);
             } elseif ($key === 'about_slides' && is_array($value)) {
                 // Process about slides
@@ -1550,6 +1627,100 @@ function bike_theme_tour_gallery_callback($args)
 }
 
 /**
+ * Tour gallery content field callback
+ */
+function bike_theme_tour_gallery_content_callback($args)
+{
+    $options = get_option('bike_theme_options');
+    $id = $args['id'];
+    $default = isset($args['default']) ? $args['default'] : '';
+    $content = isset($options[$id]) ? $options[$id] : $default;
+    
+    // If content is empty, provide a default template
+    if (empty($content)) {
+        $content = '';
+    }
+    
+    // Output the WordPress editor
+    wp_editor(
+        $content,
+        'bike_theme_options_tour_gallery_content',
+        array(
+            'textarea_name' => 'bike_theme_options[tour_gallery_content]',
+            'media_buttons' => true,
+            'textarea_rows' => 15,
+            'editor_class'  => 'widefat',
+            'teeny'         => false,
+            'quicktags'     => true,
+        )
+    );
+    
+    echo '<p class="description">' . __('Use the editor above to create the content for the Tour Gallery.', 'bike-theme') . '</p>';
+}
+
+/**
+ * Choose Your Adventure field callback
+ */
+function bike_theme_choose_your_adventure_callback($args)
+{
+    $options = get_option('bike_theme_options');
+    $id = $args['id'];
+    $default = isset($args['default']) ? $args['default'] : '';
+    $content = isset($options[$id]) ? $options[$id] : $default;
+    
+    // If content is empty, provide a default template
+    if (empty($content)) {
+        $content = '';
+    }
+    
+    // Output the WordPress editor
+    wp_editor(
+        $content,
+        'bike_theme_options_choose_your_adventure',
+        array(
+            'textarea_name' => 'bike_theme_options[choose_your_adventure_content]',
+            'media_buttons' => true,
+            'textarea_rows' => 15,
+            'editor_class'  => 'widefat',
+            'teeny'         => false,
+            'quicktags'     => true,
+        )
+    );
+} 
+
+/**
+ * Our Bikes field callback
+ */
+function bike_theme_our_bikes_callback($args)
+{
+    $options = get_option('bike_theme_options');
+    $id = $args['id'];
+    $default = isset($args['default']) ? $args['default'] : '';
+    $content = isset($options[$id]) ? $options[$id] : $default;
+    
+    // If content is empty, provide a default template
+    if (empty($content)) {
+        $content = '';
+    }
+    
+    // Output the WordPress editor
+    wp_editor(
+        $content,
+        'bike_theme_options_our_bikes',
+        array(
+            'textarea_name' => 'bike_theme_options[our_bikes_content]',
+            'media_buttons' => true,
+            'textarea_rows' => 15,
+            'editor_class'  => 'widefat',
+            'teeny'         => false,
+            'quicktags'     => true,
+        )
+    );
+    
+    echo '<p class="description">' . __('Use the editor above to create the content for the Our Bikes section.', 'bike-theme') . '</p>';
+} 
+
+/**
  * Why Choose Us field callback
  */
 function bike_theme_why_choose_us_callback($args)
@@ -1561,45 +1732,7 @@ function bike_theme_why_choose_us_callback($args)
     
     // If content is empty, provide a default template
     if (empty($content)) {
-        $content = '
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="feature-item text-center px-4">
-                    <div class="p-4">
-                        <i class="fa fa-bicycle fa-3x text-primary mb-4"></i>
-                        <h5 class="mb-3">Quality Bikes</h5>
-                        <p>We provide top-quality bicycles for your journey through Vietnam\'s stunning landscapes</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="feature-item text-center px-4">
-                    <div class="p-4">
-                        <i class="fa fa-map-marked-alt fa-3x text-primary mb-4"></i>
-                        <h5 class="mb-3">Curated Routes</h5>
-                        <p>Our carefully designed routes showcase the best of Vietnam\'s natural beauty and local culture</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="feature-item text-center px-4">
-                    <div class="p-4">
-                        <i class="fa fa-user-tie fa-3x text-primary mb-4"></i>
-                        <h5 class="mb-3">Expert Guides</h5>
-                        <p>Experienced local guides with deep knowledge of Vietnam\'s history, culture and terrain</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="feature-item text-center px-4">
-                    <div class="p-4">
-                        <i class="fa fa-heartbeat fa-3x text-primary mb-4"></i>
-                        <h5 class="mb-3">Safety First</h5>
-                        <p>Your safety is our priority with professional equipment and comprehensive support</p>
-                    </div>
-                </div>
-            </div>
-        </div>';
+        $content = '';
     }
     
     // Output the WordPress editor

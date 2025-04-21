@@ -40,7 +40,7 @@
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center" style="height: 100vh !important;">
                         <div class="p-3" style="max-width: 700px; padding-top: 200px !important;">
                             <?php if (!empty($title)) : ?>
-                                <h1 class="section-title text-white mb-4 animated slideInDown"><?php echo esc_html($title); ?></h1>
+                                <h1 class="hero-title text-white mb-4 animated slideInDown"><?php echo esc_html($title); ?></h1>
                             <?php endif; ?>
                             <?php if (!empty($subtitle)) : ?>
                                 <p class=" text-white text-size-medium mb-3 animated slideInDown"><?php echo esc_html($subtitle); ?></p>
@@ -52,9 +52,7 @@
                             <?php if (!empty($btn2_text)) : ?>
                             <a href="<?php echo esc_url($btn2_url); ?>" class="btn btn-light py-md-2 px-md-4 animated slideInRight"><?php echo esc_html($btn2_text); ?></a>
                             <?php endif; ?>
-                            <?php if (!empty($slogan)) : ?>
-                                <p class="text-primary p-4"><i class="fa fa-quote-left"></i> <i class="text-size-large" style="margin: 0 10px;"><?php echo esc_html($slogan); ?></i> <i class="fa fa-quote-right"></i>   </p>
-                            <?php endif; ?>
+                          
                         </div>
                     </div>
                 </div>

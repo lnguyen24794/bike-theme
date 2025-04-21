@@ -155,7 +155,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
     <!-- Team Start -->
     <div class="container-xxl py-5 unlazy">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Reviews', 'bike-theme'); ?></h6>
+            <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Reviews', 'bike-theme'); ?></h3>
             <h1 class="mb-5"><?php esc_html_e('What Our Customers Say', 'bike-theme'); ?></h1>
         </div>
         <?php echo do_shortcode('[trustindex no-registration=google]'); ?>

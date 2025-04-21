@@ -25,7 +25,7 @@ get_header();
     </div>
     <!-- Page Header End -->
     <div class="container">
-    <?php include(get_template_directory() . '/template-parts/bikes.php'); ?>
+        <?php include(get_template_directory() . '/template-parts/bikes.php'); ?>
     </div><!-- .container -->
 </main><!-- #primary -->
 
