@@ -203,7 +203,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 
     <!-- Tour Detail Start -->
     <div class="container-xxl py-0" id="tour-detail">
-            <div class="row g-5">
+            <div class="row">
                 <div class="col-lg-12 tour-tabs animated" id="tourTabWrapper">
                     <ul class="nav nav-tabs d-flex justify-content-center py-3" id="tourTab" role="tablist">
                         <li class="nav-item" role="presentation">
