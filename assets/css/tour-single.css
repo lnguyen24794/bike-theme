@@ -10,7 +10,13 @@
     max-width: 100%;
 }
 
-.nav-link {
+#tourTab .nav-link {
     font-size: 1.5rem !important;
     font-weight: 500 !important;
+}
+
+@media (max-width: 768px) {
+    #tourTab .nav-link {
+        font-size: 1.2rem !important;
+    }
 }

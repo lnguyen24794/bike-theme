@@ -2,7 +2,7 @@
     // Kiểm tra kiểu dữ liệu và chuyển đổi nếu cần
     $gallery_ids_array = is_array($gallery_ids) ? $gallery_ids : explode(',', $gallery_ids);
 ?>
-<div class="container-fluid pt-3 pb-4 bg-light">   
+<div class="container-fluid pt-3 pb-2 bg-light">   
     <div class="owl-carousel tour-slider">
         <?php foreach($gallery_ids_array as $image_id):
             if (!empty($image_id)) :

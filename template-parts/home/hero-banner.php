@@ -47,10 +47,10 @@
                             <?php endif; ?>
                             
                             <?php if (!empty($btn1_text)) : ?>
-                            <a href="<?php echo esc_url($btn1_url); ?>" class="btn btn-primary py-md-2 px-md-4 me-3 animated slideInLeft"><?php echo esc_html($btn1_text); ?></a>
+                            <a href="<?php echo esc_url($btn1_url); ?>" class="btn btn-primary btn-fixed py-md-2 px-md-4 me-3 animated slideInLeft"><?php echo esc_html($btn1_text); ?></a>
                             <?php endif; ?>
                             <?php if (!empty($btn2_text)) : ?>
-                            <a href="<?php echo esc_url($btn2_url); ?>" class="btn btn-light py-md-2 px-md-4 animated slideInRight"><?php echo esc_html($btn2_text); ?></a>
+                            <a href="<?php echo esc_url($btn2_url); ?>" class="btn btn-light btn-fixed py-md-2 px-md-4 animated slideInRight"><?php echo esc_html($btn2_text); ?></a>
                             <?php endif; ?>
                           
                         </div>
