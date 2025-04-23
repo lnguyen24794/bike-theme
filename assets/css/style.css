@@ -1331,3 +1331,15 @@
     width: 150px !important;
 }
 
+.hero-content {
+    max-width: 768px;
+    padding-top: 100px !important;
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        max-width: 100%;
+        padding-top: -50px !important;
+    }
+}
+
