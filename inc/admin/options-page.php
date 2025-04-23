@@ -102,10 +102,10 @@ function bike_theme_register_settings()
         'bike-theme-options'
     );
 
-     // Our Bikes Section
+     // Bike Rentals Section
      add_settings_section(
         'bike_theme_our_bikes_section',
-        __('Our Bikes', 'bike-theme'),
+        __('Bike Rentals', 'bike-theme'),
         'bike_theme_our_bikes_section_callback',
         'bike-theme-options'
     );
@@ -407,7 +407,7 @@ function bike_theme_register_settings()
         )
     );
 
-    // Our Bikes setting
+    // Bike Rentals setting
     add_settings_field(
         'our_bikes_content',
         __('Content', 'bike-theme'),
@@ -487,7 +487,7 @@ function bike_theme_why_choose_us_section_callback()
 
 function bike_theme_our_bikes_section_callback()
 {
-    echo '<p>' . __('Manage the Our Bikes section content on the homepage.', 'bike-theme') . '</p>';
+    echo '<p>' . __('Manage the Bike Rentals section content on the homepage.', 'bike-theme') . '</p>';
 }
 
 function bike_theme_choose_your_adventure_section_callback()
@@ -1689,7 +1689,7 @@ function bike_theme_choose_your_adventure_callback($args)
 } 
 
 /**
- * Our Bikes field callback
+ * Bike Rentals field callback
  */
 function bike_theme_our_bikes_callback($args)
 {
@@ -1717,7 +1717,7 @@ function bike_theme_our_bikes_callback($args)
         )
     );
     
-    echo '<p class="description">' . __('Use the editor above to create the content for the Our Bikes section.', 'bike-theme') . '</p>';
+    echo '<p class="description">' . __('Use the editor above to create the content for the Bike Rentals section.', 'bike-theme') . '</p>';
 } 
 
 /**

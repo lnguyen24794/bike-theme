@@ -26,11 +26,7 @@ get_header();
         <!-- Hero Banner End -->
 
         <!-- Gallery Start -->
-        <div class="container-fluid p-0 py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Gallery', 'bike-theme'); ?></h3>
-                <div class="bike-tour-content mb-1"><?php echo wp_kses_post(bike_theme_get_option('tour_gallery_content')); ?></div>
-            </div>
+        <div class="container-fluid p-0">
             <?php include(get_template_directory() . '/template-parts/home/tour-gallery.php'); ?>
         </div>
         <!-- Gallery End -->
@@ -51,7 +47,7 @@ get_header();
          <!-- Featured Bikes Start -->
          <div class="container-xxl py-5">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Our Bikes', 'bike-theme'); ?></h3>
+                    <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Bike Rentals', 'bike-theme'); ?></h3>
                     <div class="bike-tour-content mb-1"><?php echo wp_kses_post(bike_theme_get_option('our_bikes_content')); ?></div>
                 </div>
                 <?php include(get_template_directory() . '/template-parts/bikes.php'); ?>

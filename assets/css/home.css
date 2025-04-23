@@ -17,6 +17,14 @@
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
+.header-sticky .custom-logo {
+    max-height: 50px !important;
+}
+
+.header-sticky #primary-navigation {
+    padding: 0px !important;
+}
+
 .header-sticky .nav-link {
     color: #000 !important;
     padding: 5px 0px !important; 

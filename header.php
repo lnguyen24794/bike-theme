@@ -16,7 +16,7 @@
     
     <link rel="profile" href="https://gmpg.org/xfn/11">
     
-    <?php wp_head(); ?>
+    <?php wp_head(); wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home.css', array(), '1.0.0'); ?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -31,16 +31,14 @@
     </div>
     <!-- Spinner End -->
     <?php
-    if (is_front_page()) :
-        wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home.css', array(), '1.0.0');
-    ?>
-    <div class="container-fluid px-0 home-header animated  hide-mobile" id="mainHeader">
+    if (is_front_page()) :?>
+    <div class="container-fluid px-0 home-header animated fadeInDown hide-mobile" id="mainHeader">
         <div class="text-center">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                <?php if (has_custom_logo()) : 
+                <?php if (has_custom_logo()) :
                     $custom_logo_id = get_theme_mod('custom_logo');
                     $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-                ?>
+                    ?>
                     <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
                 <?php else : ?>
                     <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
@@ -53,35 +51,45 @@
                 'theme_location'  => 'primary',
                 'depth'           => 2,
                 'container'       => 'nav',
-                'container_class' => 'navbar navbar-expand-lg navbar-dark ',
-                'container_id'    => 'primary-navigation', 
+                'container_class' => 'navbar navbar-expand-lg navbar-dark home-header-nav',
+                'container_id'    => 'primary-navigation',
                 'menu_class'      => 'navbar-nav mx-auto',
                 'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
                 'walker'          => new WP_Bootstrap_Navwalker()
             ));
-            ?>
+        ?>
         </div>
     </div>
 
     <script>
-    window.addEventListener('scroll', function() {
-        var header = document.getElementById('mainHeader');
-        if (window.scrollY > 100) {
-            header.classList.add('header-sticky', 'fadeInDown');
-        } else {
-            header.classList.remove('header-sticky', 'fadeInDown');
-        }
-    });
+        window.addEventListener('scroll', function() {
+            if(window.innerWidth > 992){
+                var header = document.getElementById('mainHeader');
+                if (window.scrollY > 50) {
+                    header.classList.add('header-sticky', 'fadeInDown');
+                } else {
+                    header.classList.remove('header-sticky', 'fadeInDown');
+                }
+            } else {
+                var header = document.getElementById('mobileNavbar');
+                if (window.scrollY > 50) {
+                    header.classList.add('tab-fixed', 'fadeInDown');
+                } else {
+                    header.classList.remove('tab-fixed', 'fadeInDown');
+                }
+            }
+          
+        });
     </script>
-
-    <div class="container-fluid bg-primary px-0  hide-desktop">
+    <!-- mobile header -->
+    <div class="container-fluid bg-primary px-0 hide-desktop">
         <div class="row gx-0">
             <div class="col-lg-3 bg-primary d-none d-lg-block">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                    <?php if (has_custom_logo()) : 
+                    <?php if (has_custom_logo()) :
                         $custom_logo_id = get_theme_mod('custom_logo');
                         $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-                    ?>
+                        ?>
                         <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
                     <?php else : ?>
                         <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
@@ -128,12 +136,12 @@
                         </div>
                     </div>
                 </div>
-                <nav class="navbar navbar-expand-lg bg-primary navbar-dark p-3 p-lg-0">
+                <nav class="navbar navbar-expand-lg bg-primary navbar-dark p-3 p-lg-0 animated" id="mobileNavbar">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand d-block d-lg-none">
-                        <?php if (has_custom_logo()) : 
+                        <?php if (has_custom_logo()) :
                             $custom_logo_id = get_theme_mod('custom_logo');
                             $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-                        ?>
+                            ?>
                             <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo-mobile" style="max-height: 40px;">
                         <?php else : ?>
                             <h1 class="m-0 text-primary text-uppercase"><?php bloginfo('name'); ?></h1>
@@ -144,37 +152,60 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <?php
-                        wp_nav_menu(array(
-                            'theme_location'    => 'primary',
-                            'depth'             => 2,
-                            'container'         => false,
-                            'menu_class'        => 'navbar-nav mr-auto py-0',
-                            'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
-                            'walker'            => new WP_Bootstrap_Navwalker()
-                        ));
-                        ?>
-                        <?php $premium_button_url = bike_theme_get_option('premium_button_url', '#'); ?>
-                        <?php if ($premium_button_url) : ?>
-                            <a href="/booking" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">
-                                <?php echo esc_html(bike_theme_get_option('premium_button_text', __('Booking Now', 'bike-theme'))); ?>
-                                <i class="fa fa-arrow-right ms-3"></i>
-                            </a>
-                        <?php endif; ?>
+                            wp_nav_menu(array(
+                                'theme_location'    => 'primary',
+                                'depth'             => 2,
+                                'container'         => false,
+                                'menu_class'        => 'navbar-nav mr-auto py-0',
+                                'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
+                                'walker'            => new WP_Bootstrap_Navwalker()
+                            ));
+                    ?>
+                       
                     </div>
                 </nav>
             </div>
         </div>
     </div>
     <?php else : ?>
+    <!-- scroll header -->
+    <div class="container-fluid px-0 home-header animated fadeInDown d-none" id="scrollHeader">
+        <div class="text-center">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                <?php if (has_custom_logo()) :
+                    $custom_logo_id = get_theme_mod('custom_logo');
+                    $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+                    ?>
+                    <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
+                <?php else : ?>
+                    <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
+                <?php endif; ?>
+            </a>
+        </div>
+        <div class="text-center">
+            <?php
+            wp_nav_menu(array(
+                'theme_location'  => 'primary',
+                'depth'           => 2,
+                'container'       => 'nav',
+                'container_class' => 'navbar navbar-expand-lg navbar-dark home-header-nav',
+                'container_id'    => 'primary-navigation',
+                'menu_class'      => 'navbar-nav mx-auto',
+                'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
+                'walker'          => new WP_Bootstrap_Navwalker()
+            ));
+        ?>
+        </div>
+    </div>
     <!-- Navbar Start -->
-    <div class="container-fluid bg-primary px-0">
+    <div class="container-fluid bg-primary px-0" id="mainHeader">
         <div class="row gx-0">
             <div class="col-lg-3 bg-primary d-none d-lg-block">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                    <?php if (has_custom_logo()) : 
+                    <?php if (has_custom_logo()) :
                         $custom_logo_id = get_theme_mod('custom_logo');
                         $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-                    ?>
+                        ?>
                         <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
                     <?php else : ?>
                         <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
@@ -217,12 +248,12 @@
                         </div>
                     </div>
                 </div>
-                <nav class="navbar navbar-expand-lg bg-primary navbar-dark p-3 p-lg-0">
+                <nav class="navbar navbar-expand-lg bg-primary navbar-dark p-3 p-lg-0 animated" id="mobileNavbar">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand d-block d-lg-none">
-                        <?php if (has_custom_logo()) : 
+                        <?php if (has_custom_logo()) :
                             $custom_logo_id = get_theme_mod('custom_logo');
                             $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-                        ?>
+                            ?>
                             <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo-mobile" style="max-height: 40px;">
                         <?php else : ?>
                             <h1 class="m-0 text-primary text-uppercase"><?php bloginfo('name'); ?></h1>
@@ -233,27 +264,48 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <?php
-                        wp_nav_menu(array(
-                            'theme_location'    => 'primary',
-                            'depth'             => 2,
-                            'container'         => false,
-                            'menu_class'        => 'navbar-nav mr-auto py-0',
-                            'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
-                            'walker'            => new WP_Bootstrap_Navwalker()
-                        ));
+                            wp_nav_menu(array(
+                                'theme_location'    => 'primary',
+                                'depth'             => 2,
+                                'container'         => false,
+                                'menu_class'        => 'navbar-nav mr-auto py-0',
+                                'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
+                                'walker'            => new WP_Bootstrap_Navwalker()
+                            ));
                         ?>
-                        <?php $premium_button_url = bike_theme_get_option('premium_button_url', '#'); ?>
-                        <?php if ($premium_button_url) : ?>
-                            <a href="/booking" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">
-                                <?php echo esc_html(bike_theme_get_option('premium_button_text', __('Booking Now', 'bike-theme'))); ?>
-                                <i class="fa fa-arrow-right ms-3"></i>
-                            </a>
-                        <?php endif; ?>
                     </div>
                 </nav>
             </div>
         </div>
     </div>
+    <script>
+        window.addEventListener('scroll', function() {
+            if(window.innerWidth > 992){
+                var header = document.getElementById('mainHeader');
+                if (window.scrollY > 100) {
+                    header.classList.add('d-none');
+                } else {
+                    header.classList.remove('d-none');
+                }
+
+                var header = document.getElementById('scrollHeader');
+                if (window.scrollY > 50) {
+                    header.classList.remove('d-none');
+                    header.classList.add('header-sticky', 'fadeInDown');
+                } else {
+                    header.classList.add('d-none');
+                    header.classList.remove('header-sticky', 'fadeInDown');
+                }
+            } else {
+                var header = document.getElementById('mobileNavbar');
+                if (window.scrollY > 50) {
+                    header.classList.add('tab-fixed', 'fadeInDown');
+                } else {
+                    header.classList.remove('tab-fixed', 'fadeInDown');
+                }
+            }
+        });
+    </script>
     <?php endif; ?>
     <!-- Navbar End -->
 </div>

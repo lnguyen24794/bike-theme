@@ -47,7 +47,7 @@
                     <a class="destination-item" href="<?php echo get_term_link($destination); ?>">
                         <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($destination->name); ?>">
                         <div class="destination-slider-title d-flex align-items-center justify-content-center">
-                            <h4 class="text-white mb-4"><?php echo esc_html($destination->name); ?></h4>
+                            <h3 class="text-white"><?php echo esc_html($destination->name); ?></h3>
                         </div>
                     </a>
                 </div>
@@ -63,7 +63,7 @@
                 <img src="<?php echo esc_url($vietnam_multi_day_tours_image); ?>" 
                     alt="<?php echo esc_attr('Vietnam multi-day tours'); ?>">
                 <div class="destination-slider-title d-flex align-items-center justify-content-center">
-                    <h4 class="text-white mb-4"><?php echo esc_html('Vietnam multi-day tours'); ?></h4>
+                    <h3 class="text-white"><?php echo esc_html('Vietnam multi-day tours'); ?></h3>
                 </div>
             </a>
         </div>

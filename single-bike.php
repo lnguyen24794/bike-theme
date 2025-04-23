@@ -257,7 +257,7 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
                         $faqs = array(
                             array(
                                 'question' => __('Does this bike come with warranty?', 'bike-theme'),
-                                'answer' => __('Yes, all our bikes come with a 2-year manufacturer warranty.', 'bike-theme')
+                                'answer' => __('Yes, all Bike Rentals come with a 2-year manufacturer warranty.', 'bike-theme')
                             ),
                             array(
                                 'question' => __('Do you offer home delivery?', 'bike-theme'),

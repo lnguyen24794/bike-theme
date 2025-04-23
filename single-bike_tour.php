@@ -156,7 +156,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 <main id="primary" class="site-main">
     <!-- Page Header Start -->
     <div class="page-header-inner tour-wrapper py-0" style="background-image: url(<?php echo has_post_thumbnail() ? esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')) : esc_url(get_template_directory_uri() . '/assets/images/bikes/tour-banner.jpg'); ?>);">
-            <div class="container pb-2" style="z-index: 1111;">
+            <div class="container pb-2">
                 <div class="row align-items-center">
                     <div class="col-lg-9">
                         <h1 class="tour-heading text-white mb-3 animated slideInDown"><?php the_title(); ?></h1>     
@@ -202,51 +202,52 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
     <!-- Tour Slider End -->
 
     <!-- Tour Detail Start -->
-    <div class="container-xxl py-5" id="tour-detail">
+    <div class="container-xxl py-0" id="tour-detail">
             <div class="row g-5">
+                <div class="col-lg-12 tour-tabs animated" id="tourTabWrapper">
+                    <ul class="nav nav-tabs d-flex justify-content-center py-2" id="tourTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php echo $active_tab === 'overview' ? 'active' : ''; ?>" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="<?php echo $active_tab === 'overview' ? 'true' : 'false'; ?>">
+                                <?php esc_html_e('Overview', 'bike-theme'); ?>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php echo $active_tab === 'itinerary' ? 'active' : ''; ?>" id="itinerary-tab" data-bs-toggle="tab" data-bs-target="#itinerary" type="button" role="tab" aria-controls="itinerary" aria-selected="<?php echo $active_tab === 'itinerary' ? 'true' : 'false'; ?>">
+                                <?php esc_html_e('Itinerary', 'bike-theme'); ?>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php echo $active_tab === 'inclusions' ? 'active' : ''; ?>" id="inclusions-tab" data-bs-toggle="tab" data-bs-target="#inclusions" type="button" role="tab" aria-controls="inclusions" aria-selected="<?php echo $active_tab === 'inclusions' ? 'true' : 'false'; ?>">
+                                <?php esc_html_e('Price & Services', 'bike-theme'); ?>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php echo $active_tab === 'booking' ? 'active' : ''; ?>" id="booking-tab" data-bs-toggle="tab" data-bs-target="#booking" type="button" role="tab" aria-controls="booking" aria-selected="<?php echo $active_tab === 'booking' ? 'true' : 'false'; ?>">
+                                <?php esc_html_e('Booking & Cancellation', 'bike-theme'); ?>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php echo $active_tab === 'gallery' ? 'active' : ''; ?>" id="gallery-tab" data-bs-toggle="tab" data-bs-target="#gallery" type="button" role="tab" aria-controls="gallery" aria-selected="<?php echo $active_tab === 'gallery' ? 'true' : 'false'; ?>">
+                                <?php esc_html_e('Gallery', 'bike-theme'); ?>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php echo $active_tab === 'reviews' ? 'active' : ''; ?>" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="<?php echo $active_tab === 'reviews' ? 'true' : 'false'; ?>">
+                                <?php esc_html_e('Reviews', 'bike-theme'); ?>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php echo $active_tab === 'contact' ? 'active' : ''; ?>" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="<?php echo $active_tab === 'contact' ? 'true' : 'false'; ?>">
+                                <?php esc_html_e('Contact', 'bike-theme'); ?>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
                 <!-- Tour Description -->
                 <div class="col-lg-8 mt-0">
                     <!-- Tour Tabs Start -->
                     <div class="mb-5">
-                        <ul class="nav nav-tabs d-flex justify-content-center tour-tabs py-4 shadow" id="tourTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link <?php echo $active_tab === 'overview' ? 'active' : ''; ?>" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="<?php echo $active_tab === 'overview' ? 'true' : 'false'; ?>">
-                                    <?php esc_html_e('Overview', 'bike-theme'); ?>
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link <?php echo $active_tab === 'itinerary' ? 'active' : ''; ?>" id="itinerary-tab" data-bs-toggle="tab" data-bs-target="#itinerary" type="button" role="tab" aria-controls="itinerary" aria-selected="<?php echo $active_tab === 'itinerary' ? 'true' : 'false'; ?>">
-                                    <?php esc_html_e('Itinerary', 'bike-theme'); ?>
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link <?php echo $active_tab === 'inclusions' ? 'active' : ''; ?>" id="inclusions-tab" data-bs-toggle="tab" data-bs-target="#inclusions" type="button" role="tab" aria-controls="inclusions" aria-selected="<?php echo $active_tab === 'inclusions' ? 'true' : 'false'; ?>">
-                                    <?php esc_html_e('Price & Services', 'bike-theme'); ?>
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link <?php echo $active_tab === 'booking' ? 'active' : ''; ?>" id="booking-tab" data-bs-toggle="tab" data-bs-target="#booking" type="button" role="tab" aria-controls="booking" aria-selected="<?php echo $active_tab === 'booking' ? 'true' : 'false'; ?>">
-                                    <?php esc_html_e('Booking & Cancellation', 'bike-theme'); ?>
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link <?php echo $active_tab === 'gallery' ? 'active' : ''; ?>" id="gallery-tab" data-bs-toggle="tab" data-bs-target="#gallery" type="button" role="tab" aria-controls="gallery" aria-selected="<?php echo $active_tab === 'gallery' ? 'true' : 'false'; ?>">
-                                    <?php esc_html_e('Gallery', 'bike-theme'); ?>
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link <?php echo $active_tab === 'reviews' ? 'active' : ''; ?>" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="<?php echo $active_tab === 'reviews' ? 'true' : 'false'; ?>">
-                                    <?php esc_html_e('Reviews', 'bike-theme'); ?>
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link <?php echo $active_tab === 'contact' ? 'active' : ''; ?>" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="<?php echo $active_tab === 'contact' ? 'true' : 'false'; ?>">
-                                    <?php esc_html_e('Contact', 'bike-theme'); ?>
-                                </button>
-                            </li>
-                        </ul>
-                        
-                        <div class="tab-content p-3" style="border: none; min-height: 100vh;" id="tourTabContent">
+                        <div class="tab-content px-0 py-3" style="border: none; min-height: 100vh;" id="tourTabContent">
                             <!-- Overview Tab -->
                             <div class="tab-pane fade <?php echo $active_tab === 'overview' ? 'show active' : ''; ?>" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                 <?php include(get_template_directory() . '/template-parts/bike-tours/overview.php'); ?>
@@ -401,9 +402,9 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                 <!-- Booking Form Start -->
                 <div class="col-lg-4">
                     <div class="bg-light rounded p-2 mb-5 wow fadeInUp tour-booking-form" data-wow-delay="0.1s">
-                        <h4 class="mb-2 text-center"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></h4>
+                        <h4 id="tour-booking-form" class="mb-2 text-center"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></h4>
                         <div class="booking-response"></div>
-                        <form id="tour-booking-form" method="post">
+                        <form method="post">
                             <?php wp_nonce_field('bike_tour_booking', 'bike_tour_booking_nonce'); ?>
                             <input type="hidden" name="tour_id" value="<?php echo get_the_ID(); ?>">
                             <div class="row g-3">
@@ -523,6 +524,22 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 <?php if (get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1') : ?>
 <script>
 jQuery(document).ready(function($) {
+    let tourTab = document.getElementById('tourTab');
+    if(tourTab){
+        const top = $('#tourTab').offset().top - 100;
+        window.addEventListener('scroll', function() {
+            console.log(top);
+            if(window.scrollY > top){
+                document.getElementById('scrollHeader').classList.add('d-none');
+            }
+           
+            if(window.scrollY > top){
+                document.getElementById('tourTabWrapper').classList.add('tab-fixed', 'fadeInDown');
+            }else{
+                document.getElementById('tourTabWrapper').classList.remove('tab-fixed', 'fadeInDown');
+            }
+        });
+    }
     // Get tour pricing data
     var pricingData = <?php
         $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
@@ -682,7 +699,6 @@ jQuery(document).ready(function($) {
 
     $('#tourTab .nav-link').click(function() {
         var $this = $(this);
-        console.log($this.offset().top);
         window.scrollTo({
             top: $('#tour-detail').offset().top,
             behavior: 'smooth'

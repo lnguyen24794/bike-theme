@@ -1,6 +1,6 @@
 /********** Template CSS **********/
 :root {
-    --primary: #ebde34;
+    --primary: #f7cf07;
     --light: #F1F8FF;
     --dark: #0F172B;
 }
@@ -88,15 +88,19 @@
 .navbar-dark .navbar-nav .nav-link {
     margin-right: 30px;
     padding: 25px 0;
-    color: #FFFFFF;
+    color: #000;
     font-size: 1.19rem;
     text-transform: uppercase;
     outline: none;
 }
 
+.home-header-nav .nav-link {
+    color: #fff !important;
+}
+
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link.active {
-    color: var(--primary);
+    color: var(--primary) !important;
 }
 
 @media (max-width: 991.98px) {
@@ -631,6 +635,7 @@
     .tour-tabs {
         flex-wrap: wrap !important;
         overflow-x: scroll !important;
+        background-color: #fff;
     }
 
     .tour-tabs .nav-link{
@@ -750,17 +755,7 @@
 /* Booking Form Styles */
 .tour-booking-form {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    position: sticky;
-    top: 30px;
     border-radius: 15px !important;
-}
-
-.tour-tabs {
-    flex-wrap: nowrap;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background-color: #fff;
 }
 
 /* Destinations styling */
@@ -994,7 +989,7 @@
 }
 
 .comment-form-rating .stars a {
-    color: #ffc107;
+    color: #f7cf07;
     font-size: 24px;
     margin-right: 5px;
 }
@@ -1316,3 +1311,19 @@
 .submit-button{
     border-radius: 0px 0px 10px 10px !important;
 }
+
+.d-none {
+    display: none;
+}
+
+.tab-fixed{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 0px !important;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+

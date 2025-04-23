@@ -22,15 +22,15 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
 
 /********** Custom Theme CSS **********/
 :root {
-    --primary: #D35400;
+    --primary: #f7cf07;
     --secondary: #2C3E50;
     --light: #F5F5F5;
     --dark: #1E1E1E;
-    --primary-color: #ebde34; /*#ebde34;*/
+    --primary-color: #f7cf07; /*#f7cf07;*/
     --secondary-color: #6c757d;
     --success-color: #198754;
     --info-color: #0dcaf0;
-    --warning-color: #ffc107;
+    --warning-color: #f7cf07;
     --danger-color: #dc3545;
     --light-color: #f8f9fa;
     --dark-color: #212529;
