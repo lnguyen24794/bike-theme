@@ -1135,12 +1135,12 @@ function bike_theme_tour_pricing_meta_box_callback($post)
  */
 function bike_theme_save_tour_meta_boxes_data($post_id) {
     // Check if our nonce is set.
-    if (!isset($_POST['bike_theme_tour_meta_box_nonce'])) {
+    if (!isset($_POST['bike_theme_tour_details_nonce'])) {
         return;
     }
 
     // Verify that the nonce is valid.
-    if (!wp_verify_nonce($_POST['bike_theme_tour_meta_box_nonce'], 'bike_theme_tour_meta_box')) {
+    if (!wp_verify_nonce($_POST['bike_theme_tour_details_nonce'], 'bike_theme_tour_details_nonce')) {
         return;
     }
 
@@ -1157,8 +1157,24 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
     }
 
     // Update tour details
-    if (isset($_POST['tour_duration'])) {
-        update_post_meta($post_id, '_tour_duration', sanitize_text_field($_POST['tour_duration']));
+    if (isset($_POST['tour_duration_type'])) {
+        update_post_meta($post_id, '_tour_duration_type', sanitize_text_field($_POST['tour_duration_type']));
+    }
+    
+    if (isset($_POST['tour_duration_days'])) {
+        update_post_meta($post_id, '_tour_duration_days', absint($_POST['tour_duration_days']));
+    }
+    
+    if (isset($_POST['tour_duration_nights'])) {
+        update_post_meta($post_id, '_tour_duration_nights', absint($_POST['tour_duration_nights']));
+    }
+    
+    if (isset($_POST['tour_duration_hours'])) {
+        update_post_meta($post_id, '_tour_duration_hours', floatval($_POST['tour_duration_hours']));
+    }
+
+    if (isset($_POST['tour_distance'])) {
+        update_post_meta($post_id, '_tour_distance', sanitize_text_field($_POST['tour_distance']));
     }
 
     if (isset($_POST['tour_difficulty'])) {
@@ -1168,66 +1184,94 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
     if (isset($_POST['tour_max_participants'])) {
         update_post_meta($post_id, '_tour_max_participants', absint($_POST['tour_max_participants']));
     }
+    
+    if (isset($_POST['tour_start_location'])) {
+        update_post_meta($post_id, '_tour_start_location', sanitize_text_field($_POST['tour_start_location']));
+    }
+    
+    if (isset($_POST['tour_end_location'])) {
+        update_post_meta($post_id, '_tour_end_location', sanitize_text_field($_POST['tour_end_location']));
+    }
 
     // Save itinerary data
     if (isset($_POST['tour_itinerary']) && is_array($_POST['tour_itinerary'])) {
-        $itinerary = array();
-        foreach ($_POST['tour_itinerary'] as $day => $data) {
-            if (!empty($data['title'])) {
-                $itinerary[$day] = array(
-                    'title' => sanitize_text_field($data['title']),
-                    'description' => wp_kses_post($data['description']),
-                    'distance' => sanitize_text_field($data['distance']),
-                    'accommodation' => sanitize_text_field($data['accommodation']),
-                    'meals' => sanitize_text_field($data['meals']),
+        $itinerary_data = array();
+        foreach ($_POST['tour_itinerary'] as $day_index => $day_data) {
+            if (!empty($day_data['title'])) {
+                $itinerary_data[$day_index] = array(
+                    'title' => sanitize_text_field($day_data['title']),
+                    'description' => isset($day_data['description']) ? wp_kses_post($day_data['description']) : '',
+                    'accommodation' => isset($day_data['accommodation']) ? sanitize_text_field($day_data['accommodation']) : '',
+                    'distance' => isset($day_data['distance']) ? sanitize_text_field($day_data['distance']) : '',
+                    'meals' => isset($day_data['meals']) ? $day_data['meals'] : array(),
                 );
+                
+                // Handle additional details if present
+                if (isset($day_data['additional_details']) && is_array($day_data['additional_details'])) {
+                    $itinerary_data[$day_index]['additional_details'] = array_map('sanitize_text_field', $day_data['additional_details']);
+                }
             }
         }
-        update_post_meta($post_id, '_tour_itinerary', $itinerary);
+        update_post_meta($post_id, '_tour_itinerary_data', $itinerary_data);
     }
 
-    // Save pricing data
-    if (isset($_POST['tour_base_price'])) {
-        update_post_meta($post_id, '_tour_base_price', (float) $_POST['tour_base_price']);
+    // Save service details
+    if (isset($_POST['tour_included'])) {
+        update_post_meta($post_id, '_tour_included', wp_kses_post($_POST['tour_included']));
     }
 
-    if (isset($_POST['tour_price_includes'])) {
-        update_post_meta($post_id, '_tour_price_includes', wp_kses_post($_POST['tour_price_includes']));
+    if (isset($_POST['tour_not_included'])) {
+        update_post_meta($post_id, '_tour_not_included', wp_kses_post($_POST['tour_not_included']));
     }
-
-    if (isset($_POST['tour_price_excludes'])) {
-        update_post_meta($post_id, '_tour_price_excludes', wp_kses_post($_POST['tour_price_excludes']));
+    
+    // Save booking and cancellation details
+    if (isset($_POST['tour_booking_terms'])) {
+        update_post_meta($post_id, '_tour_booking_terms', wp_kses_post($_POST['tour_booking_terms']));
     }
-
-    if (isset($_POST['tour_flexible_pricing']) && is_array($_POST['tour_flexible_pricing'])) {
-        $pricing = array();
-        foreach ($_POST['tour_flexible_pricing'] as $key => $data) {
-            if (!empty($data['participants']) && isset($data['price'])) {
-                $pricing[$key] = array(
-                    'participants' => absint($data['participants']),
-                    'price' => (float) $data['price'],
-                );
-            }
-        }
-        update_post_meta($post_id, '_tour_flexible_pricing', $pricing);
-    }
-
-    // Save booking info
-    if (isset($_POST['tour_booking_note'])) {
-        update_post_meta($post_id, '_tour_booking_note', wp_kses_post($_POST['tour_booking_note']));
-    }
-
+    
     if (isset($_POST['tour_cancellation_policy'])) {
         update_post_meta($post_id, '_tour_cancellation_policy', wp_kses_post($_POST['tour_cancellation_policy']));
     }
-
-    // Save contact info
-    if (isset($_POST['tour_contact_email'])) {
-        update_post_meta($post_id, '_tour_contact_email', sanitize_email($_POST['tour_contact_email']));
+    
+    if (isset($_POST['tour_contact_info'])) {
+        update_post_meta($post_id, '_tour_contact_info', wp_kses_post($_POST['tour_contact_info']));
     }
-
-    if (isset($_POST['tour_contact_phone'])) {
-        update_post_meta($post_id, '_tour_contact_phone', sanitize_text_field($_POST['tour_contact_phone']));
+    
+    // Save pricing data - check for nonce separately as it's from a different metabox
+    if (isset($_POST['bike_theme_tour_pricing_nonce']) && wp_verify_nonce($_POST['bike_theme_tour_pricing_nonce'], 'bike_theme_tour_pricing_nonce')) {
+        
+        if (isset($_POST['tour_price'])) {
+            update_post_meta($post_id, '_tour_price', (float) $_POST['tour_price']);
+        }
+        
+        if (isset($_POST['tour_enable_group_discount'])) {
+            update_post_meta($post_id, '_tour_enable_group_discount', $_POST['tour_enable_group_discount']);
+        } else {
+            update_post_meta($post_id, '_tour_enable_group_discount', 'no');
+        }
+        
+        if (isset($_POST['tour_group_discount'])) {
+            update_post_meta($post_id, '_tour_group_discount', (float) $_POST['tour_group_discount']);
+        }
+        
+        if (isset($_POST['tour_flexible_pricing_enabled'])) {
+            update_post_meta($post_id, '_tour_flexible_pricing_enabled', '1');
+        } else {
+            update_post_meta($post_id, '_tour_flexible_pricing_enabled', '');
+        }
+        
+        if (isset($_POST['tour_flexible_pricing']) && is_array($_POST['tour_flexible_pricing'])) {
+            $pricing = array();
+            foreach ($_POST['tour_flexible_pricing'] as $key => $data) {
+                if (!empty($data['participants']) && isset($data['price'])) {
+                    $pricing[$key] = array(
+                        'participants' => absint($data['participants']),
+                        'price' => (float) $data['price'],
+                    );
+                }
+            }
+            update_post_meta($post_id, '_tour_flexible_pricing', $pricing);
+        }
     }
     
     // Save gallery images

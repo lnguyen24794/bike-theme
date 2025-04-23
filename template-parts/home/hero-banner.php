@@ -38,7 +38,7 @@
                 <div class="carousel-item <?php echo $is_active ? 'active' : ''; ?>" style="height: 100vh !important;">
                     <img class="w-100" src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center" style="height: 100vh !important;">
-                        <div class="p-3" style="max-width: 700px; padding-top: 200px !important;">
+                        <div class="p-3" style="max-width: 700px; padding-top: 100px !important;">
                             <?php if (!empty($title)) : ?>
                                 <h1 class="hero-title text-white mb-4 animated slideInDown"><?php echo esc_html($title); ?></h1>
                             <?php endif; ?>
