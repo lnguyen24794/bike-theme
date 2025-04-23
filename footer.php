@@ -100,6 +100,22 @@
 
 </div><!-- /.container-xxl -->
 <script>
+    let tourTab = document.getElementById('tourTab');
+    if(tourTab){
+        const top = $('#tourTab').offset().top - 100;
+        window.addEventListener('scroll', function() {
+            console.log(top);
+            if(window.scrollY > top){
+                document.getElementById('scrollHeader').classList.add('d-none');
+            }
+           
+            if(window.scrollY > top){
+                document.getElementById('tourTabWrapper').classList.add('tab-fixed', 'fadeInDown');
+            }else{
+                document.getElementById('tourTabWrapper').classList.remove('tab-fixed', 'fadeInDown');
+            }
+        });
+    }
 jQuery(document).ready(function($) {
     // Initialize lightbox for gallery images
     $('.gallery-lightbox').on('click', function(e) {

@@ -524,22 +524,6 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 <?php if (get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1') : ?>
 <script>
 jQuery(document).ready(function($) {
-    let tourTab = document.getElementById('tourTab');
-    if(tourTab){
-        const top = $('#tourTab').offset().top - 100;
-        window.addEventListener('scroll', function() {
-            console.log(top);
-            if(window.scrollY > top){
-                document.getElementById('scrollHeader').classList.add('d-none');
-            }
-           
-            if(window.scrollY > top){
-                document.getElementById('tourTabWrapper').classList.add('tab-fixed', 'fadeInDown');
-            }else{
-                document.getElementById('tourTabWrapper').classList.remove('tab-fixed', 'fadeInDown');
-            }
-        });
-    }
     // Get tour pricing data
     var pricingData = <?php
         $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
