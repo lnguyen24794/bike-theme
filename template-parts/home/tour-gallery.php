@@ -4,7 +4,7 @@
     if (count($tour_gallery) > 0) :
 ?>
 
-<div class="container-fluid pb-4">
+<div class="container-fluid pb-0">
     <!-- Grid Gallery Layout -->
     <div class="gallery-slide owl-carousel">
         <?php foreach($tour_gallery as $index => $gallery_item):
@@ -28,10 +28,10 @@
         jQuery(document).ready(function($){
             $('.gallery-slide').owlCarousel({
                 loop: true,
-                margin: 20,
+                margin: 10,
                 nav: true,
                 dots: true,
-                autoplay: true,
+                autoplay: false,
                 autoplayTimeout: 3000,
                 autoplayHoverPause: true,
                 navText: [
