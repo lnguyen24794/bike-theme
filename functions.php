@@ -9,7 +9,7 @@
  */
 
 if (! defined('BIKE_THEME_VERSION')) {
-    define('BIKE_THEME_VERSION', '1.0.6');
+    define('BIKE_THEME_VERSION', '1.0.7');
 }
 
 /**
@@ -34,7 +34,7 @@ require_once BIKE_THEME_INC_DIR . '/post-types/tours.php';
 require_once BIKE_THEME_INC_DIR . '/post-types/bookings.php';
 require_once BIKE_THEME_INC_DIR . '/taxonomies/destinations.php';
 
-/**
+/**7
  * Load admin components
  */
 require_once BIKE_THEME_INC_DIR . '/admin/options-page.php';
