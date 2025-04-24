@@ -59,36 +59,21 @@ function bike_theme_get_tour_min_price($tour_id)
  */
 function bike_theme_calculate_tour_price($tour_id, $participants = 1)
 {
+    // Default values
+    $result = array(
+        'price_per_person' => 0,
+        'total_price' => 0
+    );
+    
+    // Get price per person
     $price_per_person = bike_theme_get_tour_min_price($tour_id);
     
-    if (!$price_per_person) {
-        return array(
-            'price_per_person' => 0,
-            'total_price' => 0,
-        );
+    if ($price_per_person) {
+        $result['price_per_person'] = $price_per_person;
+        $result['total_price'] = $price_per_person * $participants;
     }
     
-    // Apply discount for groups if enabled
-    $enable_group_discount = get_post_meta($tour_id, '_tour_enable_group_discount', true);
-    
-    if ($enable_group_discount === 'yes' && $participants > 1) {
-        $discount_percentage = get_post_meta($tour_id, '_tour_group_discount', true);
-        
-        if (!empty($discount_percentage)) {
-            $discount_percentage = min(floatval($discount_percentage), 100);
-            $discount_factor = 1 - ($discount_percentage / 100);
-            $total_price = $price_per_person * $participants * $discount_factor;
-        } else {
-            $total_price = $price_per_person * $participants;
-        }
-    } else {
-        $total_price = $price_per_person * $participants;
-    }
-    
-    return array(
-        'price_per_person' => $price_per_person,
-        'total_price' => $total_price,
-    );
+    return $result;
 }
 
 /**
@@ -338,4 +323,115 @@ function bike_theme_register_booking_statuses()
         'label_count' => _n_noop('Cancelled <span class="count">(%s)</span>', 'Cancelled <span class="count">(%s)</span>', 'bike-theme'),
     ));
 }
-add_action('init', 'bike_theme_register_booking_statuses'); 
+add_action('init', 'bike_theme_register_booking_statuses');
+
+/**
+ * Send booking confirmation and notification emails
+ *
+ * @param int $booking_id The booking ID
+ * @param array $booking_data The booking data
+ * @return bool True if emails were sent successfully
+ */
+function bike_theme_send_booking_emails($booking_id, $booking_data) {
+    if (!$booking_id || empty($booking_data)) {
+        return false;
+    }
+    
+    // Extract booking data
+    $name = isset($booking_data['name']) ? $booking_data['name'] : '';
+    $email = isset($booking_data['email']) ? $booking_data['email'] : '';
+    $phone = isset($booking_data['phone']) ? $booking_data['phone'] : '';
+    $date = isset($booking_data['date']) ? $booking_data['date'] : '';
+    $participants = isset($booking_data['participants']) ? $booking_data['participants'] : 1;
+    $message = isset($booking_data['message']) ? $booking_data['message'] : '';
+    $tour_id = isset($booking_data['tour_id']) ? $booking_data['tour_id'] : 0;
+    $bike_id = isset($booking_data['bike_id']) ? $booking_data['bike_id'] : 0;
+    $price_per_person = isset($booking_data['price_per_person']) ? $booking_data['price_per_person'] : 0;
+    $total_price = isset($booking_data['total_price']) ? $booking_data['total_price'] : 0;
+    $payment_method = isset($booking_data['payment_method']) ? $booking_data['payment_method'] : '';
+    $booking_type = $tour_id > 0 ? 'tour' : ($bike_id > 0 ? 'bike' : '');
+    
+    // Email setup
+    $site_name = get_bloginfo('blogname');
+    $headers = array(
+        'From: BeeBikeHub <info@beebikehub.com>',
+        'Content-Type: text/plain; charset=UTF-8'
+    );
+    
+    // Send customer confirmation email
+    $customer_subject = sprintf(__('Your Booking Confirmation #%d - %s', 'bike-theme'), $booking_id, $site_name);
+    
+    $customer_message = sprintf(__("Dear %s,\n\n", 'bike-theme'), $name);
+    $customer_message .= sprintf(__("Thank you for your booking (ID: #%s). Below are your booking details:\n\n", 'bike-theme'), 'BBT-' . $booking_id);
+    
+    if ($tour_id > 0) {
+        $customer_message .= sprintf(__("Tour: %s\n", 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
+        $customer_message .= sprintf(__("Date: %s\n", 'bike-theme'), $date);
+        $customer_message .= sprintf(__("Number of Participants: %d\n", 'bike-theme'), $participants);
+        $customer_message .= sprintf(__("Price per Person: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person));
+        $customer_message .= sprintf(__("Tour Subtotal: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person * $participants));
+        $customer_message .= sprintf(__("Total Price: %s\n", 'bike-theme'), bike_theme_format_price($total_price));
+    }
+    
+    if ($bike_id > 0) {
+        $customer_message .= sprintf(__("Bike: %s\n", 'bike-theme'), html_entity_decode(get_the_title($bike_id), ENT_QUOTES, 'UTF-8'));
+        $customer_message .= sprintf(__("Date: %s\n", 'bike-theme'), $date);
+    }
+    
+    if (!empty($payment_method)) {
+        $customer_message .= sprintf(__("Payment Method: %s\n", 'bike-theme'), $payment_method);
+    }
+    
+    if (!empty($message)) {
+        $customer_message .= sprintf(__("\nYour Special Requests:\n%s\n", 'bike-theme'), $message);
+    }
+    
+    $customer_message .= __("\nBooking Status: Received\n", 'bike-theme');
+    $customer_message .= __("We will review your booking and contact you shortly for confirmation.\n\n", 'bike-theme');
+    $customer_message .= sprintf(__("Thank you for choosing %s!\n\n", 'bike-theme'), $site_name);
+    $customer_message .= sprintf(__("Best regards,\n%s", 'bike-theme'), $site_name);
+    
+    $customer_email_sent = wp_mail($email, $customer_subject, $customer_message, $headers);
+    
+    // Send admin notification email
+    $admin_subject = sprintf(__('[%s] New Booking #%d Received', 'bike-theme'), $site_name, $booking_id);
+    
+    $admin_message = __("A new booking has been received:\n\n", 'bike-theme');
+    $admin_message .= sprintf(__("Booking ID: #%d\n", 'bike-theme'), $booking_id);
+    $admin_message .= sprintf(__("Booking Type: %s\n", 'bike-theme'), ucfirst($booking_type));
+    $admin_message .= sprintf(__("Status: %s\n\n", 'bike-theme'), __('Pending', 'bike-theme'));
+    
+    $admin_message .= __("Customer Details:\n", 'bike-theme');
+    $admin_message .= sprintf(__("Name: %s\n", 'bike-theme'), $name);
+    $admin_message .= sprintf(__("Email: %s\n", 'bike-theme'), $email);
+    $admin_message .= sprintf(__("Phone: %s\n\n", 'bike-theme'), $phone);
+    
+    $admin_message .= __("Booking Details:\n", 'bike-theme');
+    $admin_message .= sprintf(__("Date: %s\n", 'bike-theme'), $date);
+    
+    if ($tour_id > 0) {
+        $admin_message .= sprintf(__("Tour: %s\n", 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
+        $admin_message .= sprintf(__("Participants: %d\n", 'bike-theme'), $participants);
+        $admin_message .= sprintf(__("Price per Person: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person));
+        $admin_message .= sprintf(__("Tour Subtotal: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person * $participants));
+        $admin_message .= sprintf(__("Total Price: %s\n", 'bike-theme'), bike_theme_format_price($total_price));
+    }
+    
+    if ($bike_id > 0) {
+        $admin_message .= sprintf(__("Bike: %s\n", 'bike-theme'), html_entity_decode(get_the_title($bike_id), ENT_QUOTES, 'UTF-8'));
+    }
+    
+    if (!empty($payment_method)) {
+        $admin_message .= sprintf(__("Payment Method: %s\n", 'bike-theme'), $payment_method);
+    }
+    
+    if (!empty($message)) {
+        $admin_message .= sprintf(__("\nSpecial Requests:\n%s\n", 'bike-theme'), $message);
+    }
+    
+    $admin_message .= sprintf(__("\nManage this booking: %s", 'bike-theme'), admin_url('post.php?post=' . $booking_id . '&action=edit'));
+    
+    $admin_email_sent = wp_mail('info@beebikehub.com', $admin_subject, $admin_message, $headers);
+    
+    return ($customer_email_sent && $admin_email_sent);
+} 

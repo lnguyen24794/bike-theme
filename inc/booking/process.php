@@ -101,74 +101,20 @@ function bike_theme_process_booking() {
         // Set booking status taxonomy
         wp_set_object_terms($booking_id, 'pending', 'booking_status');
 
-        // Send confirmation email to customer
-        $to = $email;
-        $site_name = get_bloginfo('blogname');
-        $subject = sprintf(__('Your Booking Confirmation #%d - %s', 'bike-theme'), $booking_id, $site_name);
-        $headers = array(
-            'From: BeeBikeHub <info@beebikehub.com>',
-            'Content-Type: text/plain; charset=UTF-8'
+        // Send confirmation email to customer and admin
+        $booking_data = array(
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'date' => $date,
+            'participants' => $participants,
+            'message' => $message,
+            'tour_id' => $tour_id,
+            'price_per_person' => $price_per_person,
+            'total_price' => $total_price
         );
-        $message = sprintf(
-            __('Dear %s,
-
-            Thank you for your booking (ID: #%s). Below are your booking details:
-
-            Name: %s
-            Email: %s
-            Phone: %s
-            Date: %s
-            Participants: %d
-            Total Price: %s
-
-            Booking Status: Received
-            We will review your booking and contact you shortly for confirmation.
-
-            Thank you for choosing %s!
-
-            Best regards,
-            %s', 'bike-theme'),
-            $name,
-            'BBT-'. $booking_id,
-            $name,
-            $email,
-            $phone,
-            $date,
-            $participants,
-            bike_theme_format_price($total_price),
-            $site_name,
-            $site_name
-        );
-        wp_mail($to, $subject, $message, $headers);
-
-        // Send notification email to admin
-        $admin_email = get_option('admin_email');
-        $admin_subject = sprintf(__('[%s] New Booking #%d Received', 'bike-theme'), $site_name, $booking_id);
         
-        $admin_message = __("A new booking has been received:\n\n", 'bike-theme');
-        $admin_message .= sprintf(__("Booking ID: #%d\n", 'bike-theme'), $booking_id);
-        $admin_message .= sprintf(__("Booking Type: %s\n", 'bike-theme'), 'Tour');
-        $admin_message .= sprintf(__("Status: %s\n\n", 'bike-theme'), __('Pending', 'bike-theme'));
-
-        $admin_message .= __("Customer Details:\n", 'bike-theme');
-        $admin_message .= sprintf(__("Name: %s\n", 'bike-theme'), $name);
-        $admin_message .= sprintf(__("Email: %s\n", 'bike-theme'), $email);
-        $admin_message .= sprintf(__("Phone: %s\n\n", 'bike-theme'), $phone);
-
-        $admin_message .= __("Booking Details:\n", 'bike-theme');
-        $admin_message .= sprintf(__("Date: %s\n", 'bike-theme'), $date);
-        $admin_message .= sprintf(__("Tour: %s\n", 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
-        $admin_message .= sprintf(__("Participants: %d\n", 'bike-theme'), $participants);
-        $admin_message .= sprintf(__("Price per Person: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person));
-        $admin_message .= sprintf(__("Total Price: %s\n", 'bike-theme'), bike_theme_format_price($total_price));
-
-        if (!empty($message)) {
-            $admin_message .= sprintf(__("\nSpecial Requests:\n%s\n", 'bike-theme'), $message);
-        }
-
-        $admin_message .= sprintf(__("\nManage this booking: %s", 'bike-theme'), admin_url('post.php?post=' . $booking_id . '&action=edit'));
-        
-        wp_mail('info@beebikehub.com', $admin_subject, $admin_message, $headers);
+        $emails_sent = bike_theme_send_booking_emails($booking_id, $booking_data);
 
         wp_send_json_success(array(
             'message' => __('Your booking has been submitted successfully. We will contact you shortly.', 'bike-theme'),
