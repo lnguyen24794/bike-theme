@@ -21,20 +21,6 @@
                         <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a href="tel:<?php echo esc_attr(bike_theme_get_option('contact_phone', '+849854557270')); ?>"><?php echo esc_html(bike_theme_get_option('contact_phone', '+849854557270')); ?></a></p>
                         <p class="mb-2"><i class="fab fa-whatsapp me-3"></i><a href="https://api.whatsapp.com/send/?phone=<?php echo esc_attr(bike_theme_get_option('contact_phone', '84985455727')); ?>&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+849854557270')); ?></a></p>
                         <p class="mb-2"><i class="fa fa-envelope me-3"></i><a href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
-                        <div class="d-flex pt-2">
-                            <?php if ($twitter = bike_theme_get_option('twitter')) : ?>
-                                <a class="btn btn-outline-light btn-social" href="<?php echo esc_url($twitter); ?>"><i class="fab fa-twitter"></i></a>
-                            <?php endif; ?>
-                            <?php if ($facebook = bike_theme_get_option('facebook')) : ?>
-                                <a class="btn btn-outline-light btn-social" href="<?php echo esc_url($facebook); ?>"><i class="fab fa-facebook-f"></i></a>
-                            <?php endif; ?>
-                            <?php if ($youtube = bike_theme_get_option('youtube')) : ?>
-                                <a class="btn btn-outline-light btn-social" href="<?php echo esc_url($youtube); ?>"><i class="fab fa-youtube"></i></a>
-                            <?php endif; ?>
-                            <?php if ($linkedin = bike_theme_get_option('linkedin')) : ?>
-                                <a class="btn btn-outline-light btn-social" href="<?php echo esc_url($linkedin); ?>"><i class="fab fa-linkedin-in"></i></a>
-                            <?php endif; ?>
-                        </div>
                     <?php endif; ?>
                 </div>
                 <div class="col-lg-3 col-md-6">
