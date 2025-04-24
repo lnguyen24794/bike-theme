@@ -169,7 +169,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
             <div class="container pb-2">
                 <div class="row align-items-center">
                     <div class="col-lg-9">
-                        <h1 class="tour-heading text-white mb-3 animated slideInDown"><?php the_title(); ?></h1>     
+                        <h1 class="tour-heading text-white mb-3 animated slideInDown text-shadow"><?php the_title(); ?></h1>     
                     </div>
                     <div class="col-lg-3">
                         <a class="btn btn-primary cursor-pointer" href="#tour-booking-form"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></a>

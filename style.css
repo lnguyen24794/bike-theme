@@ -4,7 +4,6 @@ Theme URI: https://example.com/bike-theme/
 Author: Your Name
 Author URI: https://example.com/
 Description: A modern WordPress theme for bike shops and enthusiasts.
-Version: 1.0.0
 Requires at least: 5.0
 Tested up to: 6.0
 Requires PHP: 7.0
@@ -355,4 +354,8 @@ select,
     height: 240px !important;
     max-height: 240px !important;
     object-fit: cover !important;
+}
+
+.tour-heading {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
