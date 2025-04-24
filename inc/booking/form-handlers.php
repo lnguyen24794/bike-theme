@@ -189,7 +189,7 @@ function bike_theme_submit_booking()
             $customer_message .= sprintf(__("\nYour Special Requests:\n%s\n", 'bike-theme'), $message);
         }
 
-        $customer_message .= __("\nBooking Status: Pending\n", 'bike-theme');
+        $customer_message .= __("\nBooking Status: Received\n", 'bike-theme');
         $customer_message .= __("We will review your booking and contact you shortly for confirmation.\n\n", 'bike-theme');
         $customer_message .= sprintf(__("Thank you for choosing %s!\n\n", 'bike-theme'), $site_name);
         $customer_message .= sprintf(__("Best regards,\n%s", 'bike-theme'), $site_name);
