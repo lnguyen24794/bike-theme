@@ -1811,14 +1811,14 @@ function bike_theme_process_booking() {
     $transient_key = 'booking_attempt_' . md5($ip_address);
     $attempt_count = get_transient($transient_key);
     
-    if ($attempt_count === false) {
-        set_transient($transient_key, 1, HOUR_IN_SECONDS);
-    } else {
-        if ($attempt_count >= 5) { // Limit to 5 attempts per hour
-            wp_send_json_error(array('message' => __('Too many booking attempts. Please try again later.', 'bike-theme')));
-        }
-        set_transient($transient_key, $attempt_count + 1, HOUR_IN_SECONDS);
-    }
+    // if ($attempt_count === false) {
+    //     set_transient($transient_key, 1, HOUR_IN_SECONDS);
+    // } else {
+    //     if ($attempt_count >= 5) { // Limit to 5 attempts per hour
+    //         wp_send_json_error(array('message' => __('Too many booking attempts. Please try again later.', 'bike-theme')));
+    //     }
+    //     set_transient($transient_key, $attempt_count + 1, HOUR_IN_SECONDS);
+    // }
 
     // Sanitize and validate form data
     $name = sanitize_text_field($_POST['name']);

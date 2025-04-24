@@ -29,14 +29,14 @@ function bike_theme_process_booking() {
     $transient_key = 'booking_attempt_' . md5($ip_address);
     $attempt_count = get_transient($transient_key);
     
-    if ($attempt_count === false) {
-        set_transient($transient_key, 1, HOUR_IN_SECONDS);
-    } else {
-        if ($attempt_count >= 5) { // Limit to 5 attempts per hour
-            wp_send_json_error(array('message' => __('Too many booking attempts. Please try again later.', 'bike-theme')));
-        }
-        set_transient($transient_key, $attempt_count + 1, HOUR_IN_SECONDS);
-    }
+    // if ($attempt_count === false) {
+    //     set_transient($transient_key, 1, HOUR_IN_SECONDS);
+    // } else {
+    //     if ($attempt_count >= 5) { // Limit to 5 attempts per hour
+    //         wp_send_json_error(array('message' => __('Too many booking attempts. Please try again later.', 'bike-theme')));
+    //     }
+    //     set_transient($transient_key, $attempt_count + 1, HOUR_IN_SECONDS);
+    // }
 
     // Sanitize and validate form data
     $name = sanitize_text_field($_POST['name']);
@@ -112,22 +112,22 @@ function bike_theme_process_booking() {
         $message = sprintf(
             __('Dear %s,
 
-Thank you for your booking (ID: #%s). Below are your booking details:
+            Thank you for your booking (ID: #%s). Below are your booking details:
 
-Name: %s
-Email: %s
-Phone: %s
-Date: %s
-Participants: %d
-Total Price: %s
+            Name: %s
+            Email: %s
+            Phone: %s
+            Date: %s
+            Participants: %d
+            Total Price: %s
 
-Booking Status: Received
-We will review your booking and contact you shortly for confirmation.
+            Booking Status: Received
+            We will review your booking and contact you shortly for confirmation.
 
-Thank you for choosing %s!
+            Thank you for choosing %s!
 
-Best regards,
-%s', 'bike-theme'),
+            Best regards,
+            %s', 'bike-theme'),
             $name,
             'BBT-'. $booking_id,
             $name,
