@@ -79,6 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
             // Send confirmation email to customer
             $to = $email;
             $subject = sprintf(__('Booking Confirmation - %s', 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
+            $headers = array(
+                'From: BeeBikeHub <info@beebikehub.com>',
+                'Content-Type: text/plain; charset=UTF-8'
+            );
             $message = sprintf(
                 __('You have a new booking %s. Your booking details:
 
@@ -99,12 +103,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
                 bike_theme_format_price($total_price),
                 get_bloginfo('name')
             );
-            wp_mail($to, $subject, $message);
+            wp_mail($to, $subject, $message, $headers);
 
             // Send notification email to admin
             $admin_email = get_option('admin_email');
             $admin_subject = sprintf(__('New Booking - %s', 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
-            wp_mail('info@beebikehub.com', $admin_subject, $message);
+            wp_mail('info@beebikehub.com', $admin_subject, $message, $headers);
 
             // Set success message
             $booking_success = true;

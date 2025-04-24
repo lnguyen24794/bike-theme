@@ -124,6 +124,11 @@ function bike_theme_submit_booking()
         $admin_email = get_option('admin_email');
         $site_name = get_bloginfo('blogname');
         $subject = sprintf(__('[%s] New Booking #%d Received', 'bike-theme'), $site_name, $booking_id);
+        
+        $headers = array(
+            'From: BeeBikeHub <info@beebikehub.com>',
+            'Content-Type: text/plain; charset=UTF-8'
+        );
 
         $email_message = __("A new booking has been received:\n\n", 'bike-theme');
         $email_message .= sprintf(__("Booking ID: #%d\n", 'bike-theme'), $booking_id);
@@ -157,7 +162,7 @@ function bike_theme_submit_booking()
 
         $email_message .= sprintf(__("\nManage this booking: %s", 'bike-theme'), admin_url('post.php?post=' . $booking_id . '&action=edit'));
 
-        wp_mail('info@beebikehub.com', $subject, $email_message);
+        wp_mail('info@beebikehub.com', $subject, $email_message, $headers);
 
         // Send confirmation email to customer
         $customer_subject = sprintf(__('Your Booking Confirmation #%d - %s', 'bike-theme'), $booking_id, $site_name);
@@ -189,7 +194,12 @@ function bike_theme_submit_booking()
         $customer_message .= sprintf(__("Thank you for choosing %s!\n\n", 'bike-theme'), $site_name);
         $customer_message .= sprintf(__("Best regards,\n%s", 'bike-theme'), $site_name);
 
-        wp_mail($customer_email, $customer_subject, $customer_message);
+        $headers = array(
+            'From: BeeBikeHub <info@beebikehub.com>',
+            'Content-Type: text/plain; charset=UTF-8'
+        );
+
+        wp_mail($customer_email, $customer_subject, $customer_message, $headers);
 
         // Redirect to thank you page with success message
         wp_redirect(add_query_arg(array(

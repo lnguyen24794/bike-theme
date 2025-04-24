@@ -104,6 +104,10 @@ function bike_theme_process_booking() {
         // Send confirmation email to customer
         $to = $email;
         $subject = sprintf(__('Booking Confirmation - %s', 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
+        $headers = array(
+            'From: BeeBikeHub <info@beebikehub.com>',
+            'Content-Type: text/plain; charset=UTF-8'
+        );
         $message = sprintf(
             __('Thank you for booking %s. Your booking details:
             Booking ID: %s
@@ -128,12 +132,32 @@ function bike_theme_process_booking() {
             bike_theme_format_price($total_price),
             get_bloginfo('name')
         );
-        wp_mail($to, $subject, $message);
+        wp_mail($to, $subject, $message, $headers);
 
         // Send notification email to admin
         $admin_email = get_option('admin_email');
         $admin_subject = sprintf(__('New Booking - %s', 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
-        wp_mail('info@beebikehub.com', $admin_subject, $message);
+        $message = sprintf(
+            __('You have a new booking %s. Your booking details:
+
+            Name: %s
+            Email: %s
+            Phone: %s
+            Date: %s
+            Participants: %d
+            Total Price: %s
+
+            %s', 'bike-theme'),
+            html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'),
+            $name,
+            $email,
+            $phone,
+            $date,
+            $participants,
+            bike_theme_format_price($total_price),
+            get_bloginfo('name')
+        );
+        wp_mail('info@beebikehub.com', $admin_subject, $message, $headers);
 
         wp_send_json_success(array(
             'message' => __('Your booking has been submitted successfully. We will contact you shortly.', 'bike-theme'),
