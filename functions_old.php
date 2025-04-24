@@ -9,7 +9,7 @@
  */
 
 if (! defined('BIKE_THEME_VERSION')) {
-    define('BIKE_THEME_VERSION', '1.0.0');
+    define('BIKE_THEME_VERSION', '');
 }
 
 /**
@@ -243,7 +243,7 @@ add_action('widgets_init', 'bike_theme_widgets_init');
 function bike_theme_scripts()
 {
     // Enqueue custom fonts
-    wp_enqueue_style('bike-theme-fonts', get_template_directory_uri() . '/assets/css/fonts.css', array(), '1.0.0');
+    wp_enqueue_style('bike-theme-fonts', get_template_directory_uri() . '/assets/css/fonts.css', array(), '');
 
     // Google Fonts
     wp_enqueue_style('bike-theme-google-fonts', 'https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap', array(), null);
@@ -1674,7 +1674,7 @@ function bike_theme_tour_admin_scripts($hook)
     if ($hook == 'post-new.php' || $hook == 'post.php') {
         if (isset($post) && $post->post_type === 'bike_tour') {
             // Enqueue tour admin CSS
-            wp_enqueue_style('bike-theme-tour-admin', get_template_directory_uri() . '/assets/css/tour-admin.css', array(), '1.0.0');
+            wp_enqueue_style('bike-theme-tour-admin', get_template_directory_uri() . '/assets/css/tour-admin.css', array(), '');
 
             // Enqueue media library scripts
             wp_enqueue_media();
@@ -1778,7 +1778,7 @@ function bike_theme_display_destination_categories($destination_id, $destination
  */
 function bike_theme_enqueue_booking_scripts() {
     if (is_singular('bike_tour')) {
-        wp_enqueue_script('bike-theme-booking', get_template_directory_uri() . '/assets/js/booking.js', array('jquery'), '1.0.0', true);
+        wp_enqueue_script('bike-theme-booking', get_template_directory_uri() . '/assets/js/booking.js', array('jquery'), '', true);
         wp_localize_script('bike-theme-booking', 'bike_booking', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('bike_theme_booking_nonce'),

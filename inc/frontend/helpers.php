@@ -104,7 +104,7 @@ function bike_theme_booking_page_callback()
  */
 function bike_theme_enqueue_booking_scripts() {
     if (is_singular('bike_tour')) {
-        wp_enqueue_script('bike-theme-booking', get_template_directory_uri() . '/assets/js/booking.js', array('jquery'), '1.0.0', true);
+        wp_enqueue_script('bike-theme-booking', get_template_directory_uri() . '/assets/js/booking.js', array('jquery'), '', true);
         wp_localize_script('bike-theme-booking', 'bike_booking', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('bike_theme_booking_nonce'),

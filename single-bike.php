@@ -6,8 +6,8 @@
  */
 
 get_header();
-wp_enqueue_style('bike-theme-single-bike', get_template_directory_uri() . '/assets/css/single-bike.css', array(), '1.0.0');
-wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/assets/js/single-bike.js', array('jquery'), '1.0.0', true);
+wp_enqueue_style('bike-theme-single-bike', get_template_directory_uri() . '/assets/css/single-bike.css', array(), '');
+wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/assets/js/single-bike.js', array('jquery'), '', true);
 ?>
 
 <main id="primary" class="site-main">

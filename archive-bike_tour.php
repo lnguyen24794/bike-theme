@@ -8,7 +8,7 @@
  */
 
 get_header();
-wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/assets/css/tour-archive.css', array(), '1.0.0');
+wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/assets/css/tour-archive.css', array(), '');
 ?>
 
 <main id="primary" class="site-main">

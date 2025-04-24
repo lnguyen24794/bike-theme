@@ -8,7 +8,7 @@
  */
 
 get_header();
-wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), '1.0.0');
+wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), '');
 
 // Process booking form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking'])) {

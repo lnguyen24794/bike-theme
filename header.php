@@ -16,7 +16,7 @@
     
     <link rel="profile" href="https://gmpg.org/xfn/11">
     
-    <?php wp_head(); wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home.css', array(), '1.0.0'); ?>
+    <?php wp_head(); wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home.css', array(), ''); ?>
 </head>
 
 <body <?php body_class(); ?>>

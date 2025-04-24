@@ -60,7 +60,7 @@ function bike_theme_tour_admin_scripts($hook)
     if ($hook == 'post-new.php' || $hook == 'post.php') {
         if (isset($post) && $post->post_type === 'bike_tour') {
             // Enqueue tour admin CSS
-            wp_enqueue_style('bike-theme-tour-admin', get_template_directory_uri() . '/assets/css/tour-admin.css', array(), '1.0.0');
+            wp_enqueue_style('bike-theme-tour-admin', get_template_directory_uri() . '/assets/css/tour-admin.css', array(), '');
 
             // Enqueue media library scripts
             wp_enqueue_media();
