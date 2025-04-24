@@ -106,7 +106,7 @@ function bike_theme_process_booking() {
         $subject = sprintf(__('Booking Confirmation - %s', 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
         $message = sprintf(
             __('Thank you for booking %s. Your booking details:
-
+            Booking ID: %s
             Name: %s
             Email: %s
             Phone: %s
@@ -119,6 +119,7 @@ function bike_theme_process_booking() {
             Best regards,
             %s', 'bike-theme'),
             html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'),
+            'BBT-'. $booking_id,
             $name,
             $email,
             $phone,
