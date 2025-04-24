@@ -308,7 +308,7 @@ function bike_theme_send_booking_emails($booking_id, $booking_data) {
     $customer_subject = sprintf(__('Your Booking Confirmation #%d - %s', 'bike-theme'), $booking_id, $site_name);
     
     $customer_message = sprintf(__("Dear %s,\n\n", 'bike-theme'), $name);
-    $customer_message .= sprintf(__("Thank you for your booking (ID: #%s). Below are your booking details:\n\n", 'bike-theme'), 'BBT-' . $booking_id);
+    $customer_message .= sprintf(__("Thank you for your booking (ID: #%s). Below are your booking details:\n\n", 'bike-theme'), $booking_id);
     
     if ($tour_id > 0) {
         $customer_message .= sprintf(__("Tour: %s\n", 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
