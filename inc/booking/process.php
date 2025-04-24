@@ -9,6 +9,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Make sure we have access to the helper functions
+require_once dirname(__FILE__) . '/helpers.php';
+
 /**
  * Process booking Ajax request
  */

@@ -9,6 +9,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Make sure we have access to the helper functions
+require_once dirname(__FILE__) . '/helpers.php';
+
 /**
  * Process booking form submission
  */
@@ -153,4 +156,4 @@ function bike_theme_submit_booking()
     }
 }
 add_action('admin_post_bike_theme_submit_booking', 'bike_theme_submit_booking');
-add_action('admin_post_nopriv_bike_theme_submit_booking', 'bike_theme_submit_booking'); 
+add_action('admin_post_nopriv_bike_theme_submit_booking', 'bike_theme_submit_booking');

@@ -10,26 +10,6 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Format price with currency symbol
- *
- * @param float $price The price to format.
- * @return string The formatted price.
- */
-function bike_theme_format_price($price)
-{
-    $currency_symbol = get_option('bike_theme_currency_symbol', '$');
-    $price_format = get_option('bike_theme_price_format', '{symbol}{price}');
-    
-    $formatted_price = number_format((float) $price, 2, '.', ',');
-    
-    return str_replace(
-        array('{symbol}', '{price}'),
-        array($currency_symbol, $formatted_price),
-        $price_format
-    );
-}
-
-/**
  * Get minimum price for a tour
  *
  * @param int $tour_id The tour ID.
@@ -59,42 +39,13 @@ function bike_theme_get_tour_min_price($tour_id)
  */
 function bike_theme_calculate_tour_price($tour_id, $participants = 1)
 {
-    // Default values
-    $result = array(
-        'price_per_person' => 0,
-        'total_price' => 0
+    // Use bike_theme_get_tour_price from pricing.php instead to prevent conflicts
+    $price_per_person = bike_theme_get_tour_price($tour_id, $participants);
+    
+    return array(
+        'price_per_person' => $price_per_person,
+        'total_price' => $price_per_person * $participants
     );
-    
-    // Get price per person
-    $price_per_person = bike_theme_get_tour_min_price($tour_id);
-    
-    if ($price_per_person) {
-        $result['price_per_person'] = $price_per_person;
-        $result['total_price'] = $price_per_person * $participants;
-    }
-    
-    return $result;
-}
-
-/**
- * Get bike rental price
- *
- * @param int $bike_id The bike ID.
- * @return float|bool The rental price or false if not found.
- */
-function bike_theme_get_bike_rental_price($bike_id)
-{
-    if (empty($bike_id)) {
-        return false;
-    }
-    
-    $price = get_post_meta($bike_id, '_bike_rental_price', true);
-    
-    if (!empty($price)) {
-        return floatval($price);
-    }
-    
-    return false;
 }
 
 /**
@@ -281,49 +232,6 @@ function bike_theme_send_customer_booking_confirmation($booking_id)
     
     return wp_mail($customer_email, $subject, $body, $headers);
 }
-
-/**
- * Register booking statuses
- */
-function bike_theme_register_booking_statuses()
-{
-    register_post_status('pending', array(
-        'label' => _x('Pending', 'Booking status', 'bike-theme'),
-        'public' => true,
-        'exclude_from_search' => false,
-        'show_in_admin_all_list' => true,
-        'show_in_admin_status_list' => true,
-        'label_count' => _n_noop('Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'bike-theme'),
-    ));
-    
-    register_post_status('confirmed', array(
-        'label' => _x('Confirmed', 'Booking status', 'bike-theme'),
-        'public' => true,
-        'exclude_from_search' => false,
-        'show_in_admin_all_list' => true,
-        'show_in_admin_status_list' => true,
-        'label_count' => _n_noop('Confirmed <span class="count">(%s)</span>', 'Confirmed <span class="count">(%s)</span>', 'bike-theme'),
-    ));
-    
-    register_post_status('completed', array(
-        'label' => _x('Completed', 'Booking status', 'bike-theme'),
-        'public' => true,
-        'exclude_from_search' => false,
-        'show_in_admin_all_list' => true,
-        'show_in_admin_status_list' => true,
-        'label_count' => _n_noop('Completed <span class="count">(%s)</span>', 'Completed <span class="count">(%s)</span>', 'bike-theme'),
-    ));
-    
-    register_post_status('cancelled', array(
-        'label' => _x('Cancelled', 'Booking status', 'bike-theme'),
-        'public' => true,
-        'exclude_from_search' => false,
-        'show_in_admin_all_list' => true,
-        'show_in_admin_status_list' => true,
-        'label_count' => _n_noop('Cancelled <span class="count">(%s)</span>', 'Cancelled <span class="count">(%s)</span>', 'bike-theme'),
-    ));
-}
-add_action('init', 'bike_theme_register_booking_statuses');
 
 /**
  * Send booking confirmation and notification emails
