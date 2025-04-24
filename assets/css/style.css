@@ -835,12 +835,12 @@
     background-position: left top;
     color: #231f20;
     font-family: FFSuperGroteskWebProMedium;
-    font-size: 1.2rem;
+    font-size: 1.11rem;
     font-weight: 300;
     line-height: 1.2;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    font-size: 1.2rem;
+    font-size: 1.11rem;
 }
 
 .tour-additions {
@@ -1039,7 +1039,7 @@
 }
 
 .detail-item i {
-    font-size: 1.2rem;
+    font-size: 1.11rem;
     color: var(--primary-color);
 }
 
@@ -1178,7 +1178,7 @@
 
 .detail-icon i {
     color: var(--primary);
-    font-size: 1.2rem;
+    font-size: 1.11rem;
 }
 
 .detail-content h5 {
