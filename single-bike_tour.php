@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
             $to = $email;
             $subject = sprintf(__('Booking Confirmation - %s', 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
             $message = sprintf(
-                __('Thank you for booking %s. Your booking details:
+                __('You have a new booking %s. Your booking details:
 
                 Name: %s
                 Email: %s
@@ -89,9 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
                 Participants: %d
                 Total Price: %s
 
-                We will contact you shortly to confirm your booking.
-
-                Best regards,
                 %s', 'bike-theme'),
                 html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'),
                 $name,
