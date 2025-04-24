@@ -177,7 +177,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                 </div>
             </div>
             <div class="tour-basic-info">
-                <div class="container row p-4 align-items-center wrapper">
+                <div class="container row p-lg-3 p-xs-2 align-items-center wrapper">
                     <div class="col-lg-3 col-6">
                         <div class="ms-3 tour-basic-info-title">
                             <h5 class="mb-1"><?php esc_html_e('Price from', 'bike-theme'); ?></h5>
