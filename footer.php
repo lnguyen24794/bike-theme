@@ -62,16 +62,10 @@
                     <?php endif; ?>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="text-light mb-4"><?php esc_html_e('Newsletter', 'bike-theme'); ?></h4>
-                    <?php if (is_active_sidebar('footer-4')) : ?>
-                        <?php dynamic_sidebar('footer-4'); ?>
-                    <?php else : ?>
-                        <p><?php esc_html_e('Subscribe to our newsletter for the latest updates and offers.', 'bike-theme'); ?></p>
-                        <div class="position-relative mx-auto" style="max-width: 400px;">
-                            <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="<?php esc_attr_e('Your email', 'bike-theme'); ?>">
-                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"><?php esc_html_e('Subscribe', 'bike-theme'); ?></button>
-                        </div>
-                    <?php endif; ?>
+                    <h4 class="text-light mb-4"><?php esc_html_e('Fanpage', 'bike-theme'); ?></h4>
+                    <div>
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FBeeBike.BikeTours.and.BikeRentals%2F&tabs&width=340&height=70&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=2174410252844536" width="340" height="70" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
