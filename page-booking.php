@@ -45,7 +45,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
             <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Booking', 'bike-theme'); ?></h3>
             <h1 class="mb-5"><?php echo wp_kses_post(__('Book A <span class="text-primary text-uppercase">Tour or Bike</span>', 'bike-theme')); ?></h1>
         </div>
-        <div class="row g-5">
+        <div class="row">
             <div class="col-lg-6">
                 <div class="wow fadeInUp" data-wow-delay="0.2s">
                     <form id="booking-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
@@ -199,46 +199,42 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="bg-light rounded p-5 wow zoomIn" data-wow-delay="0.9s">
-                            <h4 class="mb-4"><?php esc_html_e('Why Book With Us?', 'bike-theme'); ?></h4>
-                            <div class="d-flex mb-3">
-                                <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
-                                    <i class="fa fa-check"></i>
-                                </span>
-                                <div class="ms-3">
-                                    <h6 class="text-primary mb-1"><?php esc_html_e('Expert Guides', 'bike-theme'); ?></h6>
-                                    <p class="mb-0"><?php esc_html_e('Our professional guides know the best routes and share local knowledge', 'bike-theme'); ?></p>
-                                </div>
-                            </div>
-                            <div class="d-flex mb-3">
-                                <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
-                                    <i class="fa fa-check"></i>
-                                </span>
-                                <div class="ms-3">
-                                    <h6 class="text-primary mb-1"><?php esc_html_e('Quality Equipment', 'bike-theme'); ?></h6>
-                                    <p class="mb-0"><?php esc_html_e('We provide well-maintained bicycles and safety gear for all ages', 'bike-theme'); ?></p>
-                                </div>
-                            </div>
-                            <div class="d-flex mb-3">
-                                <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
-                                    <i class="fa fa-check"></i>
-                                </span>
-                                <div class="ms-3">
-                                    <h6 class="text-primary mb-1"><?php esc_html_e('Flexible Options', 'bike-theme'); ?></h6>
-                                    <p class="mb-0"><?php esc_html_e('Customize your tour experience to match your preferences', 'bike-theme'); ?></p>
-                                </div>
-                            </div>
-                            <div class="d-flex mb-3">
-                                <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
-                                    <i class="fa fa-check"></i>
-                                </span>
-                                <div class="ms-3">
-                                    <h6 class="text-primary mb-1"><?php esc_html_e('24/7 Support', 'bike-theme'); ?></h6>
-                                    <p class="mb-0"><?php esc_html_e('Contact us anytime for assistance before, during, or after your tour', 'bike-theme'); ?></p>
-                                </div>
-                            </div>
+                <div class="bg-light rounded p-3 wow zoomIn" data-wow-delay="0.9s">
+                    <h4 class="mb-4"><?php esc_html_e('Why Book With Us?', 'bike-theme'); ?></h4>
+                    <div class="d-flex mb-3">
+                        <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="fa fa-check"></i>
+                        </span>
+                        <div class="ms-3">
+                            <h6 class="text-primary mb-1"><?php esc_html_e('Expert Guides', 'bike-theme'); ?></h6>
+                            <p class="mb-0"><?php esc_html_e('Our professional guides know the best routes and share local knowledge', 'bike-theme'); ?></p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="fa fa-check"></i>
+                        </span>
+                        <div class="ms-3">
+                            <h6 class="text-primary mb-1"><?php esc_html_e('Quality Equipment', 'bike-theme'); ?></h6>
+                            <p class="mb-0"><?php esc_html_e('We provide well-maintained bicycles and safety gear for all ages', 'bike-theme'); ?></p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="fa fa-check"></i>
+                        </span>
+                        <div class="ms-3">
+                            <h6 class="text-primary mb-1"><?php esc_html_e('Flexible Options', 'bike-theme'); ?></h6>
+                            <p class="mb-0"><?php esc_html_e('Customize your tour experience to match your preferences', 'bike-theme'); ?></p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="fa fa-check"></i>
+                        </span>
+                        <div class="ms-3">
+                            <h6 class="text-primary mb-1"><?php esc_html_e('24/7 Support', 'bike-theme'); ?></h6>
+                            <p class="mb-0"><?php esc_html_e('Contact us anytime for assistance before, during, or after your tour', 'bike-theme'); ?></p>
                         </div>
                     </div>
                 </div>

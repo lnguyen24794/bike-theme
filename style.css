@@ -366,3 +366,7 @@ select,
 .tour-heading {
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
+.ti-widget.ti-goog {
+    max-width: 100% !important;
+}

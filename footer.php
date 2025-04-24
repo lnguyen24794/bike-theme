@@ -10,9 +10,9 @@
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-lg-3 col-md-6">
+        <div class="container py-3">
+            <div class="row g-3">
+                <div class="col-lg-4 col-md-6">
                     <h4 class="text-light mb-4"><?php esc_html_e('About Us', 'bike-theme'); ?></h4>
                     <?php if (is_active_sidebar('footer-1')) : ?>
                         <?php dynamic_sidebar('footer-1'); ?>
@@ -23,19 +23,8 @@
                         <p class="mb-2"><i class="fa fa-envelope me-3"></i><a class="text-light" href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
                     <?php endif; ?>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <h4 class="text-light mb-4"><?php esc_html_e('Company', 'bike-theme'); ?></h4>
-                    <?php if (is_active_sidebar('footer-2')) : ?>
-                        <?php dynamic_sidebar('footer-2'); ?>
-                    <?php else : ?>
-                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/about-us')); ?>"><?php esc_html_e('About Us', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/contact')); ?>"><?php esc_html_e('Contact Us', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/privacy-policy')); ?>"><?php esc_html_e('Privacy Policy', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/terms-and-conditions')); ?>"><?php esc_html_e('Terms & Condition', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/support')); ?>"><?php esc_html_e('Support', 'bike-theme'); ?></a>
-                    <?php endif; ?>
-                </div>
-                <div class="col-lg-3 col-md-6">
+               
+                <div class="col-lg-4 col-md-6">
                     <h4 class="text-light mb-4"><?php esc_html_e('Services', 'bike-theme'); ?></h4>
                     <?php if (is_active_sidebar('footer-3')) : ?>
                         <?php dynamic_sidebar('footer-3'); ?>
@@ -47,10 +36,10 @@
                         <a class="btn btn-link" href="<?php echo esc_url(home_url('/guided-tours')); ?>"><?php esc_html_e('Guided Tours', 'bike-theme'); ?></a>
                     <?php endif; ?>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <h4 class="text-light mb-4"><?php esc_html_e('Fanpage', 'bike-theme'); ?></h4>
                     <div>
-                    <iframe loading="lazy" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FBeeBike.BikeTours.and.BikeRentals%2F&tabs&width=340&height=70&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=2174410252844536" width="340" height="70" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                    <iframe style="width: 100%;" loading="lazy" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FBeeBike.BikeTours.and.BikeRentals%2F&tabs&width=340&height=70&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=2174410252844536" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                     </div>
                 </div>
             </div>

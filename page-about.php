@@ -28,7 +28,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 
     <!-- About Start -->
     <div class="container-xxl py-5">
-            <div class="row g-5 align-items-center">
+            <div class="row align-items-center">
                 <div class="col-lg-6">
                     <h6 class="section-title text-start text-primary text-uppercase"><?php esc_html_e('About Us', 'bike-theme'); ?></h6>
                     <h1 class="mb-4"><?php echo wp_kses_post(__('Welcome to <span class="text-primary">BeeBikeHub</span>', 'bike-theme')); ?></h1>
@@ -165,7 +165,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
     <!-- Call to Action Start -->
     <div class="container-xxl py-5">
         <div class="bg-light rounded p-5 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="row g-5 align-items-center">
+            <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="row g-4">
                         <div class="col-12">
