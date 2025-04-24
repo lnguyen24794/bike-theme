@@ -49,14 +49,14 @@
 }
 
 .bike-card-title {
-    font-size: 20px;
+    font-size: 1.28rem;
     font-weight: bold;
     margin-bottom: 10px;
     color: #D35400;
 }
 
 .bike-card-price {
-    font-size: 18px;
+    font-size: 1.25rem;
     font-weight: bold;
     color: #2C3E50;
     margin-bottom: 15px;
@@ -113,7 +113,7 @@
 }
 
 .bike-single-price {
-    font-size: 24px;
+    font-size: 1.4rem;
     font-weight: bold;
     color: #2C3E50;
     margin-bottom: 20px;
@@ -184,7 +184,7 @@
 }
 
 .cta-text {
-    font-size: 18px;
+    font-size: 1.25rem;
     margin-bottom: 30px;
     max-width: 800px;
     margin-left: auto;
@@ -196,7 +196,7 @@
     background: white;
     color: #D35400;
     padding: 12px 25px;
-    font-size: 18px;
+    font-size: 1.25rem;
     font-weight: bold;
     border-radius: 4px;
     transition: all 0.55s ease;
@@ -324,7 +324,7 @@
 }
 
 .single-bike-details .bike-price {
-    font-size: 24px;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--primary);
     margin-bottom: 20px;
@@ -531,7 +531,7 @@
 
 .lazyload-error::before {
     content: "⚠️";
-    font-size: 24px;
+    font-size: 1.4rem;
 }
 
 /* Iframe container */

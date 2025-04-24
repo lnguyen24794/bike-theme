@@ -21,7 +21,7 @@
 }
 
 .folder-icon {
-    font-size: 24px;
+    font-size: 1.4rem;
     margin-right: 15px;
 }
 
@@ -66,7 +66,7 @@
 }
 
 .folder-description {
-    font-size: 14px;
+    font-size: 1.2rem;
     color: #6c757d;
     margin-bottom: 15px;
     line-height: 1.5;
@@ -86,7 +86,7 @@
 }
 
 .folder-actions .btn i {
-    font-size: 14px;
+    font-size: 1.2rem;
 }
 
 @media (max-width: 768px) {
@@ -95,7 +95,7 @@
     }
 
     .folder-title {
-        font-size: 16px;
+        font-size: 1.22rem;
     }
 
     .folder-image img {
@@ -105,7 +105,7 @@
 
 .tour-item .details .name a {
     font-family: FFSuperGroteskWebProMedium;
-    font-size: 14px;
+    font-size: 1.2rem;
     font-weight: 300;
     line-height: 1.2;
     letter-spacing: 0.1em;

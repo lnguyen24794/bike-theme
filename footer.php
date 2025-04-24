@@ -147,7 +147,7 @@ jQuery(document).ready(function($) {
                 .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; align-items: center; justify-content: center; }\
                 .lightbox-content { position: relative; max-width: 90%; max-height: 90%; }\
                 .lightbox-content img { max-width: 100%; max-height: 90vh; display: block; }\
-                .lightbox-close { position: absolute; top: -40px; right: 0; color: #fff; background: transparent; border: none; font-size: 30px; cursor: pointer; }\
+                .lightbox-close { position: absolute; top: -40px; right: 0; color: #fff; background: transparent; border: none; font-size: 1.4rem; cursor: pointer; }\
                 .lightbox-caption { position: absolute; bottom: -30px; left: 0; color: #fff; padding: 5px; }\
             ')
             .appendTo('head');
