@@ -205,7 +205,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
     <div class="container-xxl py-0" id="tour-detail">
             <div class="row">
                 <div class="col-lg-12 tour-tabs animated" id="tourTabWrapper">
-                    <ul class="nav nav-tabs d-flex justify-content-center py-3" id="tourTab" role="tablist">
+                    <ul class="nav nav-tabs d-flex justify-content-start py-3" id="tourTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo $active_tab === 'overview' ? 'active' : ''; ?>" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="<?php echo $active_tab === 'overview' ? 'true' : 'false'; ?>">
                                 <?php esc_html_e('Overview', 'bike-theme'); ?>
@@ -400,7 +400,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                 <!-- Tour Description End -->
 
                 <!-- Booking Form Start -->
-                <div class="col-lg-4">
+                <div class="col-lg-4 mt-3">
                     <div class="bg-light rounded p-2 mb-5 wow fadeInUp tour-booking-form" data-wow-delay="0.1s">
                         <h4 id="tour-booking-form" class="mb-2 text-center"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></h4>
                         <div class="booking-response"></div>
@@ -684,7 +684,7 @@ jQuery(document).ready(function($) {
     $('#tourTab .nav-link').click(function() {
         var $this = $(this);
         window.scrollTo({
-            top: $('#tour-detail').offset().top,
+            top: $('#tour-detail').offset().top - 150,
             behavior: 'smooth'
         });
     });

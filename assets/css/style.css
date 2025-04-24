@@ -1339,7 +1339,8 @@
 @media (max-width: 768px) {
     .hero-content {
         max-width: 100%;
-        padding-top: -50px !important;
+        padding-top: 0px !important;
+        margin-top: -50px !important;
     }
 }
 
