@@ -72,7 +72,7 @@ function bike_theme_submit_booking()
     if ($tour_id > 0) {
         $booking_title = sprintf(
             __('%s - %s (%d participants) - %s', 'bike-theme'),
-            get_the_title($tour_id),
+            html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'),
             $customer_name,
             $number_of_participants,
             $booking_date
@@ -80,7 +80,7 @@ function bike_theme_submit_booking()
     } elseif ($bike_id > 0) {
         $booking_title = sprintf(
             __('%s - %s - %s', 'bike-theme'),
-            get_the_title($bike_id),
+            html_entity_decode(get_the_title($bike_id), ENT_QUOTES, 'UTF-8'),
             $customer_name,
             $booking_date
         );
@@ -122,7 +122,7 @@ function bike_theme_submit_booking()
 
         // Send email notification to admin
         $admin_email = get_option('admin_email');
-        $site_name = get_bloginfo('name');
+        $site_name = get_bloginfo('blogname');
         $subject = sprintf(__('[%s] New Booking #%d Received', 'bike-theme'), $site_name, $booking_id);
 
         $email_message = __("A new booking has been received:\n\n", 'bike-theme');
@@ -139,14 +139,14 @@ function bike_theme_submit_booking()
         $email_message .= sprintf(__("Date: %s\n", 'bike-theme'), $booking_date);
 
         if ($tour_id > 0) {
-            $email_message .= sprintf(__("Tour: %s\n", 'bike-theme'), get_the_title($tour_id));
+            $email_message .= sprintf(__("Tour: %s\n", 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
             $email_message .= sprintf(__("Participants: %d\n", 'bike-theme'), $number_of_participants);
             $email_message .= sprintf(__("Price per Person: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person));
             $email_message .= sprintf(__("Total Price: %s\n", 'bike-theme'), bike_theme_format_price($total_price));
         }
 
         if ($bike_id > 0) {
-            $email_message .= sprintf(__("Bike: %s\n", 'bike-theme'), get_the_title($bike_id));
+            $email_message .= sprintf(__("Bike: %s\n", 'bike-theme'), html_entity_decode(get_the_title($bike_id), ENT_QUOTES, 'UTF-8'));
         }
 
         $email_message .= sprintf(__("Payment Method: %s\n", 'bike-theme'), $payment_method);
@@ -157,7 +157,7 @@ function bike_theme_submit_booking()
 
         $email_message .= sprintf(__("\nManage this booking: %s", 'bike-theme'), admin_url('post.php?post=' . $booking_id . '&action=edit'));
 
-        wp_mail($admin_email, $subject, $email_message);
+        wp_mail('info@beebikehub.com', $subject, $email_message);
 
         // Send confirmation email to customer
         $customer_subject = sprintf(__('Your Booking Confirmation #%d - %s', 'bike-theme'), $booking_id, $site_name);
@@ -166,7 +166,7 @@ function bike_theme_submit_booking()
         $customer_message .= sprintf(__("Thank you for your booking (ID: #%d). Below are your booking details:\n\n", 'bike-theme'), $booking_id);
 
         if ($tour_id > 0) {
-            $customer_message .= sprintf(__("Tour: %s\n", 'bike-theme'), get_the_title($tour_id));
+            $customer_message .= sprintf(__("Tour: %s\n", 'bike-theme'), html_entity_decode(get_the_title($tour_id), ENT_QUOTES, 'UTF-8'));
             $customer_message .= sprintf(__("Date: %s\n", 'bike-theme'), $booking_date);
             $customer_message .= sprintf(__("Number of Participants: %d\n", 'bike-theme'), $number_of_participants);
             $customer_message .= sprintf(__("Price per Person: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person));
@@ -174,7 +174,7 @@ function bike_theme_submit_booking()
         }
 
         if ($bike_id > 0) {
-            $customer_message .= sprintf(__("Bike: %s\n", 'bike-theme'), get_the_title($bike_id));
+            $customer_message .= sprintf(__("Bike: %s\n", 'bike-theme'), html_entity_decode(get_the_title($bike_id), ENT_QUOTES, 'UTF-8'));
             $customer_message .= sprintf(__("Date: %s\n", 'bike-theme'), $booking_date);
         }
 

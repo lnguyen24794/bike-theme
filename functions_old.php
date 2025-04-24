@@ -1516,7 +1516,7 @@ function bike_theme_submit_booking()
 
         // Send email notification to admin
         $admin_email = get_option('admin_email');
-        $site_name = get_bloginfo('name');
+        $site_name = get_bloginfo('blogname');
         $subject = sprintf(__('[%s] New Booking #%d Received', 'bike-theme'), $site_name, $booking_id);
 
         $message = __("A new booking has been received:\n\n", 'bike-theme');
@@ -1551,7 +1551,7 @@ function bike_theme_submit_booking()
 
         $message .= sprintf(__("\nManage this booking: %s", 'bike-theme'), admin_url('post.php?post=' . $booking_id . '&action=edit'));
 
-        wp_mail($admin_email, $subject, $message);
+        wp_mail('info@beebikehub.com', $subject, $message);
 
         // Send confirmation email to customer
         $customer_subject = sprintf(__('Your Booking Confirmation #%d - %s', 'bike-theme'), $booking_id, $site_name);
@@ -1914,7 +1914,7 @@ function bike_theme_process_booking() {
         // Send notification email to admin
         $admin_email = get_option('admin_email');
         $admin_subject = sprintf(__('New Booking - %s', 'bike-theme'), get_the_title($tour_id));
-        wp_mail($admin_email, $admin_subject, $message);
+        wp_mail('info@beebikehub.com', $admin_subject, $message);
 
         wp_send_json_success(array(
             'message' => __('Your booking has been submitted successfully. We will contact you shortly.', 'bike-theme'),

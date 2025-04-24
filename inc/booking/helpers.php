@@ -153,7 +153,7 @@ function bike_theme_get_booking_status_text($status)
 function bike_theme_send_admin_booking_notification($booking_id)
 {
     $admin_email = get_option('admin_email');
-    $site_name = get_bloginfo('name');
+    $site_name = get_bloginfo('blogname');
     
     $booking = get_post($booking_id);
     
@@ -214,7 +214,7 @@ function bike_theme_send_admin_booking_notification($booking_id)
     
     $headers = array('Content-Type: text/plain; charset=UTF-8');
     
-    return wp_mail($admin_email, $subject, $body, $headers);
+    return wp_mail('info@beebikehub.com', $subject, $body, $headers);
 }
 
 /**
@@ -225,7 +225,7 @@ function bike_theme_send_admin_booking_notification($booking_id)
  */
 function bike_theme_send_customer_booking_confirmation($booking_id)
 {
-    $site_name = get_bloginfo('name');
+    $site_name = get_bloginfo('blogname');
     $admin_email = get_option('admin_email');
     
     $booking = get_post($booking_id);
