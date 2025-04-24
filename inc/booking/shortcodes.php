@@ -299,7 +299,6 @@ function bike_theme_booking_confirmation_shortcode($atts)
                     <h3><?php _e('Booking Details', 'bike-theme'); ?></h3>
                     
                     <div class="booking-info">
-                        <p><strong><?php _e('Booking Reference:', 'bike-theme'); ?></strong> #<?php echo esc_html($booking_id); ?></p>
                         <p><strong><?php _e('Booking Status:', 'bike-theme'); ?></strong> <?php _e('Pending', 'bike-theme'); ?></p>
                         <p><strong><?php _e('Date:', 'bike-theme'); ?></strong> <?php echo esc_html($booking_date); ?></p>
                         
@@ -348,7 +347,6 @@ function bike_theme_booking_confirmation_shortcode($atts)
                             <p><strong><?php _e('Bank Name:', 'bike-theme'); ?></strong> <?php echo esc_html(get_option('bike_theme_bank_name', 'Example Bank')); ?></p>
                             <p><strong><?php _e('Account Name:', 'bike-theme'); ?></strong> <?php echo esc_html(get_option('bike_theme_account_name', 'Bike Tours Company')); ?></p>
                             <p><strong><?php _e('Account Number:', 'bike-theme'); ?></strong> <?php echo esc_html(get_option('bike_theme_account_number', '1234567890')); ?></p>
-                            <p><strong><?php _e('Reference:', 'bike-theme'); ?></strong> <?php _e('Booking', 'bike-theme'); ?> #<?php echo esc_html($booking_id); ?></p>
                         </div>
                     </div>
                     <?php endif; ?>
@@ -371,7 +369,6 @@ function bike_theme_booking_confirmation_shortcode($atts)
         } else {
             ?>
             <div class="alert alert-danger">
-                <?php _e('Invalid booking reference. Please contact us for assistance.', 'bike-theme'); ?>
             </div>
             <?php
         }

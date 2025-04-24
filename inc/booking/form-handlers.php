@@ -109,6 +109,7 @@ function bike_theme_submit_booking()
         update_post_meta($booking_id, '_booking_payment_method', $payment_method);
         update_post_meta($booking_id, '_booking_price_per_person', $price_per_person);
         update_post_meta($booking_id, '_booking_total_price', $total_price);
+        update_post_meta($booking_id, '_booking_payment_status', 'pending');
 
         if ($tour_id > 0) {
             update_post_meta($booking_id, '_booking_tour_id', $tour_id);
@@ -123,6 +124,29 @@ function bike_theme_submit_booking()
         wp_set_object_terms($booking_id, 'pending', 'booking_status');
         update_post_meta($booking_id, '_booking_status', 'pending');
 
+        // Get selected additions if any
+        $selected_additions = isset($_POST['additions']) ? $_POST['additions'] : array();
+        $additions_data = array();
+        
+        if (!empty($selected_additions) && is_array($selected_additions)) {
+            $tour_additions = bike_theme_get_tour_additions($tour_id);
+            foreach ($tour_additions as $addition) {
+                if (in_array($addition['name'], $selected_additions)) {
+                    $additions_data[] = $addition;
+                }
+            }
+            
+            // Save additions data to the booking
+            update_post_meta($booking_id, '_booking_additions', $additions_data);
+            
+            // Calculate additions total price
+            $additions_total = bike_theme_calculate_additions_price($tour_id, $selected_additions, $number_of_participants);
+            
+            // Update total price to include additions
+            $total_price += $additions_total;
+            update_post_meta($booking_id, '_booking_total_price', $total_price);
+        }
+
         // Send confirmation email to customer and admin
         $booking_data = array(
             'name' => $customer_name,
@@ -135,7 +159,8 @@ function bike_theme_submit_booking()
             'bike_id' => $bike_id,
             'price_per_person' => $price_per_person,
             'total_price' => $total_price,
-            'payment_method' => $payment_method
+            'payment_method' => $payment_method,
+            'additions' => $additions_data
         );
         
         $emails_sent = bike_theme_send_booking_emails($booking_id, $booking_data);

@@ -177,8 +177,10 @@ function bike_theme_send_customer_booking_confirmation($booking_id)
     $tour_id = get_post_meta($booking_id, '_booking_tour_id', true);
     $bike_id = get_post_meta($booking_id, '_booking_bike_id', true);
     $participants = get_post_meta($booking_id, '_booking_participants', true);
+    $price_per_person = get_post_meta($booking_id, '_booking_price_per_person', true);
     $total_price = get_post_meta($booking_id, '_booking_total_price', true);
     $payment_method = get_post_meta($booking_id, '_booking_payment_method', true);
+    $additions = get_post_meta($booking_id, '_booking_additions', true);
     
     $subject = sprintf(__('Your Booking Confirmation - #%d', 'bike-theme'), $booking_id);
     
@@ -193,8 +195,44 @@ function bike_theme_send_customer_booking_confirmation($booking_id)
         if ($participants) {
             $body .= sprintf(__('Participants: %d', 'bike-theme'), $participants) . "\n";
         }
+        if ($price_per_person) {
+            $body .= sprintf(__('Price per Person: %s', 'bike-theme'), bike_theme_format_price($price_per_person)) . "\n";
+            $body .= sprintf(__('Tour Subtotal: %s', 'bike-theme'), bike_theme_format_price($price_per_person * $participants)) . "\n";
+        }
+        
+        // Check for and add optional extras if available
+        if (!empty($additions) && is_array($additions)) {
+            $additions_total = 0;
+            
+            $body .= "\n" . __('Optional Extras:', 'bike-theme') . "\n";
+            foreach ($additions as $addition) {
+                $addition_price = isset($addition['price']) ? $addition['price'] : 0;
+                $is_per_person = isset($addition['per_person']) && $addition['per_person'];
+                
+                if ($is_per_person) {
+                    $addition_total = $addition_price * $participants;
+                    $body .= sprintf(__("- %s: %s x %d = %s\n", 'bike-theme'), 
+                        $addition['name'],
+                        bike_theme_format_price($addition_price),
+                        $participants,
+                        bike_theme_format_price($addition_total)
+                    );
+                } else {
+                    $body .= sprintf(__("- %s: %s\n", 'bike-theme'), 
+                        $addition['name'],
+                        bike_theme_format_price($addition_price)
+                    );
+                    $addition_total = $addition_price;
+                }
+                
+                $additions_total += $addition_total;
+            }
+            
+            $body .= sprintf(__("Optional Extras Subtotal: %s\n", 'bike-theme'), bike_theme_format_price($additions_total));
+        }
+        
         if ($total_price) {
-            $body .= sprintf(__('Total Price: %s', 'bike-theme'), bike_theme_format_price($total_price)) . "\n";
+            $body .= sprintf(__("\nTotal Price: %s\n", 'bike-theme'), bike_theme_format_price($total_price));
         }
     } elseif ($booking_type === 'bike' && $bike_id) {
         $body .= sprintf(__('Bike: %s', 'bike-theme'), get_the_title($bike_id)) . "\n";
@@ -278,7 +316,40 @@ function bike_theme_send_booking_emails($booking_id, $booking_data) {
         $customer_message .= sprintf(__("Number of Participants: %d\n", 'bike-theme'), $participants);
         $customer_message .= sprintf(__("Price per Person: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person));
         $customer_message .= sprintf(__("Tour Subtotal: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person * $participants));
-        $customer_message .= sprintf(__("Total Price: %s\n", 'bike-theme'), bike_theme_format_price($total_price));
+        
+        // Check for and add optional extras if available
+        $additions = isset($booking_data['additions']) ? $booking_data['additions'] : array();
+        $additions_total = 0;
+        
+        if (!empty($additions)) {
+            $customer_message .= sprintf(__("\nOptional Extras:\n", 'bike-theme'));
+            foreach ($additions as $addition) {
+                $addition_price = isset($addition['price']) ? $addition['price'] : 0;
+                $is_per_person = isset($addition['per_person']) && $addition['per_person'];
+                
+                if ($is_per_person) {
+                    $addition_total = $addition_price * $participants;
+                    $customer_message .= sprintf(__("- %s: %s x %d = %s\n", 'bike-theme'), 
+                        $addition['name'],
+                        bike_theme_format_price($addition_price),
+                        $participants,
+                        bike_theme_format_price($addition_total)
+                    );
+                } else {
+                    $customer_message .= sprintf(__("- %s: %s\n", 'bike-theme'), 
+                        $addition['name'],
+                        bike_theme_format_price($addition_price)
+                    );
+                    $addition_total = $addition_price;
+                }
+                
+                $additions_total += $addition_total;
+            }
+            
+            $customer_message .= sprintf(__("Optional Extras Subtotal: %s\n", 'bike-theme'), bike_theme_format_price($additions_total));
+        }
+        
+        $customer_message .= sprintf(__("\nTotal Price: %s\n", 'bike-theme'), bike_theme_format_price($total_price));
     }
     
     if ($bike_id > 0) {
@@ -322,7 +393,40 @@ function bike_theme_send_booking_emails($booking_id, $booking_data) {
         $admin_message .= sprintf(__("Participants: %d\n", 'bike-theme'), $participants);
         $admin_message .= sprintf(__("Price per Person: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person));
         $admin_message .= sprintf(__("Tour Subtotal: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person * $participants));
-        $admin_message .= sprintf(__("Total Price: %s\n", 'bike-theme'), bike_theme_format_price($total_price));
+        
+        // Check for and add optional extras if available
+        $additions = isset($booking_data['additions']) ? $booking_data['additions'] : array();
+        $additions_total = 0;
+        
+        if (!empty($additions)) {
+            $admin_message .= sprintf(__("\nOptional Extras:\n", 'bike-theme'));
+            foreach ($additions as $addition) {
+                $addition_price = isset($addition['price']) ? $addition['price'] : 0;
+                $is_per_person = isset($addition['per_person']) && $addition['per_person'];
+                
+                if ($is_per_person) {
+                    $addition_total = $addition_price * $participants;
+                    $admin_message .= sprintf(__("- %s: %s x %d = %s\n", 'bike-theme'), 
+                        $addition['name'],
+                        bike_theme_format_price($addition_price),
+                        $participants,
+                        bike_theme_format_price($addition_total)
+                    );
+                } else {
+                    $admin_message .= sprintf(__("- %s: %s\n", 'bike-theme'), 
+                        $addition['name'],
+                        bike_theme_format_price($addition_price)
+                    );
+                    $addition_total = $addition_price;
+                }
+                
+                $additions_total += $addition_total;
+            }
+            
+            $admin_message .= sprintf(__("Optional Extras Subtotal: %s\n", 'bike-theme'), bike_theme_format_price($additions_total));
+        }
+        
+        $admin_message .= sprintf(__("\nTotal Price: %s\n", 'bike-theme'), bike_theme_format_price($total_price));
     }
     
     if ($bike_id > 0) {

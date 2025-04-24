@@ -72,6 +72,14 @@ function bike_theme_get_tour_price($tour_id, $participants = 1)
  */
 function bike_theme_format_price($price, $include_html = false)
 {
+    // Ensure price is a valid number
+    if ($price === '' || $price === null || !is_numeric($price)) {
+        $price = 0;
+    }
+    
+    // Convert to float to ensure compatibility with number_format
+    $price = floatval($price);
+    
     // Format number with thousand separator
     $formatted_price = number_format($price, 0, ',', '.');
 

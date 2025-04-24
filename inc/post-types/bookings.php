@@ -170,20 +170,15 @@ function bike_theme_booking_details_meta_box_callback($post)
 
     // Get booking type (tour or bike rental)
     $booking_type = get_post_meta($post->ID, '_booking_type', true);
-    $tour_id = get_post_meta($post->ID, '_tour_id', true);
-    $bike_id = get_post_meta($post->ID, '_bike_id', true);
+    $tour_id = get_post_meta($post->ID, '_booking_tour_id', true);
+    $bike_id = get_post_meta($post->ID, '_booking_bike_id', true);
     $booking_date = get_post_meta($post->ID, '_booking_date', true);
-    $participants = get_post_meta($post->ID, '_participants', true);
+    $participants = get_post_meta($post->ID, '_booking_participants', true);
     $additions = get_post_meta($post->ID, '_booking_additions', true);
-    $reference = get_post_meta($post->ID, '_booking_reference', true);
-    $booking_note = get_post_meta($post->ID, '_booking_note', true);
+    $booking_note = get_post_meta($post->ID, '_booking_message', true);
     
     ?>
     <div class="booking-details-meta-box">
-        <p>
-            <strong><?php _e('Booking Reference:', 'bike-theme'); ?></strong>
-            <?php echo esc_html($reference); ?>
-        </p>
         
         <p>
             <strong><?php _e('Booking Type:', 'bike-theme'); ?></strong>
@@ -216,7 +211,7 @@ function bike_theme_booking_details_meta_box_callback($post)
             
             <p>
                 <strong><?php _e('Rental Duration:', 'bike-theme'); ?></strong>
-                <?php echo esc_html(get_post_meta($post->ID, '_rental_duration', true)); ?> days
+                <?php echo esc_html(get_post_meta($post->ID, '_booking_rental_duration', true)); ?> days
             </p>
         <?php endif; ?>
         
@@ -258,11 +253,11 @@ function bike_theme_booking_details_meta_box_callback($post)
  */
 function bike_theme_booking_customer_meta_box_callback($post)
 {
-    $customer_name = get_post_meta($post->ID, '_customer_name', true);
-    $customer_email = get_post_meta($post->ID, '_customer_email', true);
-    $customer_phone = get_post_meta($post->ID, '_customer_phone', true);
-    $customer_address = get_post_meta($post->ID, '_customer_address', true);
-    $customer_id = get_post_meta($post->ID, '_customer_id', true);
+    $customer_name = get_post_meta($post->ID, '_booking_customer_name', true);
+    $customer_email = get_post_meta($post->ID, '_booking_customer_email', true);
+    $customer_phone = get_post_meta($post->ID, '_booking_customer_phone', true);
+    $customer_address = get_post_meta($post->ID, '_booking_customer_address', true);
+    $customer_id = get_post_meta($post->ID, '_booking_customer_id', true);
     
     ?>
     <div class="booking-customer-meta-box">
@@ -305,65 +300,164 @@ function bike_theme_booking_customer_meta_box_callback($post)
  */
 function bike_theme_booking_payment_meta_box_callback($post)
 {
-    $total_price = get_post_meta($post->ID, '_booking_total', true);
-    $payment_method = get_post_meta($post->ID, '_payment_method', true);
-    $payment_status = get_post_meta($post->ID, '_payment_status', true);
-    $payment_date = get_post_meta($post->ID, '_payment_date', true);
-    $transaction_id = get_post_meta($post->ID, '_transaction_id', true);
+    $price_per_person = get_post_meta($post->ID, '_booking_price_per_person', true);
+    $participants = get_post_meta($post->ID, '_booking_participants', true);
+    $total_price = get_post_meta($post->ID, '_booking_total_price', true);
+    $additions = get_post_meta($post->ID, '_booking_additions', true);
+    $payment_method = get_post_meta($post->ID, '_booking_payment_method', true);
+    $payment_status = get_post_meta($post->ID, '_booking_payment_status', true);
+    $payment_date = get_post_meta($post->ID, '_booking_payment_date', true);
+    $transaction_id = get_post_meta($post->ID, '_booking_transaction_id', true);
+    $booking_type = get_post_meta($post->ID, '_booking_type', true);
     
     ?>
     <div class="booking-payment-meta-box">
-        <p>
-            <strong><?php _e('Total Price:', 'bike-theme'); ?></strong>
-            <?php echo bike_theme_format_price($total_price); ?>
-        </p>
-        
-        <p>
-            <strong><?php _e('Payment Method:', 'bike-theme'); ?></strong>
-            <?php 
-            $payment_methods = array(
-                'bank_transfer' => __('Bank Transfer', 'bike-theme'),
-                'cash' => __('Cash', 'bike-theme'),
-                'paypal' => __('PayPal', 'bike-theme'),
-                'credit_card' => __('Credit Card', 'bike-theme'),
-            );
-            echo isset($payment_methods[$payment_method]) ? esc_html($payment_methods[$payment_method]) : esc_html($payment_method);
-            ?>
-        </p>
-        
-        <p>
-            <label for="payment_status">
-                <strong><?php _e('Payment Status:', 'bike-theme'); ?></strong>
-            </label>
-            <select name="payment_status" id="payment_status">
-                <option value="pending" <?php selected($payment_status, 'pending'); ?>><?php _e('Pending', 'bike-theme'); ?></option>
-                <option value="completed" <?php selected($payment_status, 'completed'); ?>><?php _e('Completed', 'bike-theme'); ?></option>
-                <option value="refunded" <?php selected($payment_status, 'refunded'); ?>><?php _e('Refunded', 'bike-theme'); ?></option>
-                <option value="cancelled" <?php selected($payment_status, 'cancelled'); ?>><?php _e('Cancelled', 'bike-theme'); ?></option>
-            </select>
-        </p>
-        
-        <?php if (!empty($payment_date)) : ?>
-            <p>
-                <strong><?php _e('Payment Date:', 'bike-theme'); ?></strong>
-                <?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($payment_date))); ?>
+        <!-- Price breakdown -->
+        <div class="price-breakdown">
+            <h4><?php _e('Price Breakdown', 'bike-theme'); ?></h4>
+            
+            <?php if ($booking_type === 'tour'): ?>
+                <p>
+                    <strong><?php _e('Price per Person:', 'bike-theme'); ?></strong>
+                    <?php echo bike_theme_format_price($price_per_person); ?>
+                </p>
+                
+                <p>
+                    <strong><?php _e('Number of Participants:', 'bike-theme'); ?></strong>
+                    <?php echo esc_html($participants); ?>
+                </p>
+                
+                <p>
+                    <strong><?php _e('Tour Subtotal:', 'bike-theme'); ?></strong>
+                    <?php echo bike_theme_format_price($price_per_person * $participants); ?>
+                </p>
+                
+                <?php if (!empty($additions) && is_array($additions)): ?>
+                    <div class="additions-breakdown">
+                        <h5><?php _e('Optional Extras:', 'bike-theme'); ?></h5>
+                        <ul>
+                            <?php 
+                            $additions_total = 0;
+                            foreach ($additions as $addition): 
+                                $addition_price = isset($addition['price']) ? $addition['price'] : 0;
+                                $is_per_person = isset($addition['per_person']) && $addition['per_person'];
+                                
+                                if ($is_per_person) {
+                                    $addition_total = $addition_price * $participants;
+                                } else {
+                                    $addition_total = $addition_price;
+                                }
+                                
+                                $additions_total += $addition_total;
+                            ?>
+                                <li>
+                                    <?php 
+                                    echo esc_html($addition['name']) . ' - ' . bike_theme_format_price($addition_price);
+                                    if ($is_per_person) {
+                                        echo ' ' . sprintf(__('× %d participants = %s', 'bike-theme'), 
+                                            $participants, 
+                                            bike_theme_format_price($addition_total)
+                                        );
+                                    }
+                                    ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <p>
+                            <strong><?php _e('Extras Subtotal:', 'bike-theme'); ?></strong>
+                            <?php echo bike_theme_format_price($additions_total); ?>
+                        </p>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+            
+            <p class="total-price">
+                <strong><?php _e('Total Price:', 'bike-theme'); ?></strong>
+                <?php echo bike_theme_format_price($total_price); ?>
             </p>
-        <?php endif; ?>
+        </div>
         
-        <?php if (!empty($transaction_id)) : ?>
+        <hr>
+        
+        <!-- Payment information -->
+        <div class="payment-info">
+            <h4><?php _e('Payment Information', 'bike-theme'); ?></h4>
+            
             <p>
-                <strong><?php _e('Transaction ID:', 'bike-theme'); ?></strong>
-                <?php echo esc_html($transaction_id); ?>
+                <strong><?php _e('Payment Method:', 'bike-theme'); ?></strong>
+                <?php 
+                $payment_methods = array(
+                    'bank_transfer' => __('Bank Transfer', 'bike-theme'),
+                    'cash' => __('Cash', 'bike-theme'),
+                    'paypal' => __('PayPal', 'bike-theme'),
+                    'credit_card' => __('Credit Card', 'bike-theme'),
+                );
+                echo isset($payment_methods[$payment_method]) ? esc_html($payment_methods[$payment_method]) : esc_html($payment_method);
+                ?>
             </p>
-        <?php endif; ?>
-        
-        <p>
-            <label for="transaction_note">
-                <strong><?php _e('Payment Notes:', 'bike-theme'); ?></strong>
-            </label>
-            <textarea name="transaction_note" id="transaction_note" rows="3" class="widefat"><?php echo esc_textarea(get_post_meta($post->ID, '_transaction_note', true)); ?></textarea>
-        </p>
+            
+            <p>
+                <label for="payment_status">
+                    <strong><?php _e('Payment Status:', 'bike-theme'); ?></strong>
+                </label>
+                <select name="payment_status" id="payment_status">
+                    <option value="pending" <?php selected($payment_status, 'pending'); ?>><?php _e('Pending', 'bike-theme'); ?></option>
+                    <option value="completed" <?php selected($payment_status, 'completed'); ?>><?php _e('Completed', 'bike-theme'); ?></option>
+                    <option value="refunded" <?php selected($payment_status, 'refunded'); ?>><?php _e('Refunded', 'bike-theme'); ?></option>
+                    <option value="cancelled" <?php selected($payment_status, 'cancelled'); ?>><?php _e('Cancelled', 'bike-theme'); ?></option>
+                </select>
+            </p>
+            
+            <?php if (!empty($payment_date)) : ?>
+                <p>
+                    <strong><?php _e('Payment Date:', 'bike-theme'); ?></strong>
+                    <?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($payment_date))); ?>
+                </p>
+            <?php endif; ?>
+            
+            <?php if (!empty($transaction_id)) : ?>
+                <p>
+                    <strong><?php _e('Transaction ID:', 'bike-theme'); ?></strong>
+                    <?php echo esc_html($transaction_id); ?>
+                </p>
+            <?php endif; ?>
+            
+            <p>
+                <label for="transaction_note">
+                    <strong><?php _e('Payment Notes:', 'bike-theme'); ?></strong>
+                </label>
+                <textarea name="transaction_note" id="transaction_note" rows="3" class="widefat"><?php echo esc_textarea(get_post_meta($post->ID, '_booking_transaction_note', true)); ?></textarea>
+            </p>
+        </div>
     </div>
+    
+    <style>
+        .booking-payment-meta-box h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .booking-payment-meta-box .total-price {
+            font-size: 1.1em;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #eee;
+        }
+        .booking-payment-meta-box .additions-breakdown {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .booking-payment-meta-box .additions-breakdown h5 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .booking-payment-meta-box .additions-breakdown ul {
+            margin: 0 0 10px 20px;
+        }
+    </style>
     <?php
 }
 
@@ -395,10 +489,10 @@ function bike_theme_save_booking_meta_box_data($post_id)
     // Update payment status if changed
     if (isset($_POST['payment_status'])) {
         $new_status = sanitize_text_field($_POST['payment_status']);
-        $old_status = get_post_meta($post_id, '_payment_status', true);
+        $old_status = get_post_meta($post_id, '_booking_payment_status', true);
         
         if ($new_status !== $old_status) {
-            update_post_meta($post_id, '_payment_status', $new_status);
+            update_post_meta($post_id, '_booking_payment_status', $new_status);
             
             // Log the status change
             $log_entry = sprintf(
@@ -408,7 +502,7 @@ function bike_theme_save_booking_meta_box_data($post_id)
                 wp_get_current_user()->display_name
             );
             
-            $logs = get_post_meta($post_id, '_payment_logs', true);
+            $logs = get_post_meta($post_id, '_booking_payment_logs', true);
             if (!is_array($logs)) {
                 $logs = array();
             }
@@ -418,13 +512,13 @@ function bike_theme_save_booking_meta_box_data($post_id)
                 'log' => $log_entry
             );
             
-            update_post_meta($post_id, '_payment_logs', $logs);
+            update_post_meta($post_id, '_booking_payment_logs', $logs);
         }
     }
     
     // Update transaction note
     if (isset($_POST['transaction_note'])) {
-        update_post_meta($post_id, '_transaction_note', sanitize_textarea_field($_POST['transaction_note']));
+        update_post_meta($post_id, '_booking_transaction_note', sanitize_textarea_field($_POST['transaction_note']));
     }
 }
 add_action('save_post_bike_booking', 'bike_theme_save_booking_meta_box_data');
@@ -436,12 +530,10 @@ function bike_theme_booking_columns($columns)
 {
     unset($columns['date']);
     
-    $columns['reference'] = __('Reference', 'bike-theme');
     $columns['type'] = __('Type', 'bike-theme');
     $columns['customer'] = __('Customer', 'bike-theme');
     $columns['total'] = __('Total', 'bike-theme');
     $columns['booking_date'] = __('Booking Date', 'bike-theme');
-    $columns['payment'] = __('Payment', 'bike-theme');
     $columns['date'] = __('Created', 'bike-theme');
     
     return $columns;
@@ -453,30 +545,27 @@ add_filter('manage_bike_booking_posts_columns', 'bike_theme_booking_columns');
  */
 function bike_theme_booking_column_data($column, $post_id)
 {
-    switch ($column) {
-        case 'reference':
-            echo esc_html(get_post_meta($post_id, '_booking_reference', true));
-            break;
+    switch ($column) { 
             
         case 'type':
             $booking_type = get_post_meta($post_id, '_booking_type', true);
             if ($booking_type === 'tour') {
-                $tour_id = get_post_meta($post_id, '_tour_id', true);
+                $tour_id = get_post_meta($post_id, '_booking_tour_id', true);
                 echo '<a href="' . get_edit_post_link($tour_id) . '">' . __('Tour', 'bike-theme') . '</a>';
             } else {
-                $bike_id = get_post_meta($post_id, '_bike_id', true);
+                $bike_id = get_post_meta($post_id, '_booking_bike_id', true);
                 echo '<a href="' . get_edit_post_link($bike_id) . '">' . __('Bike Rental', 'bike-theme') . '</a>';
             }
             break;
             
         case 'customer':
-            $customer_name = get_post_meta($post_id, '_customer_name', true);
-            $customer_email = get_post_meta($post_id, '_customer_email', true);
+            $customer_name = get_post_meta($post_id, '_booking_customer_name', true);
+            $customer_email = get_post_meta($post_id, '_booking_customer_email', true);
             echo esc_html($customer_name) . '<br><a href="mailto:' . esc_attr($customer_email) . '">' . esc_html($customer_email) . '</a>';
             break;
             
         case 'total':
-            $total = get_post_meta($post_id, '_booking_total', true);
+            $total = get_post_meta($post_id, '_booking_total_price', true);
             echo bike_theme_format_price($total);
             break;
             
@@ -486,7 +575,7 @@ function bike_theme_booking_column_data($column, $post_id)
             break;
             
         case 'payment':
-            $payment_status = get_post_meta($post_id, '_payment_status', true);
+            $payment_status = get_post_meta($post_id, '_booking_payment_status', true);
             $status_classes = array(
                 'pending' => 'payment-pending',
                 'completed' => 'payment-completed',
@@ -539,7 +628,6 @@ function bike_theme_booking_admin_styles()
                 width: 10%;
             }
             .column-type,
-            .column-payment,
             .column-total {
                 width: 10%;
             }
@@ -557,7 +645,6 @@ add_action('admin_head', 'bike_theme_booking_admin_styles');
  */
 function bike_theme_booking_sortable_columns($columns)
 {
-    $columns['reference'] = 'reference';
     $columns['booking_date'] = 'booking_date';
     $columns['total'] = 'total';
     return $columns;
@@ -575,18 +662,13 @@ function bike_theme_booking_sort_columns($query)
     
     $orderby = $query->get('orderby');
     
-    if ('reference' === $orderby) {
-        $query->set('meta_key', '_booking_reference');
-        $query->set('orderby', 'meta_value');
-    }
-    
     if ('booking_date' === $orderby) {
         $query->set('meta_key', '_booking_date');
         $query->set('orderby', 'meta_value');
     }
     
     if ('total' === $orderby) {
-        $query->set('meta_key', '_booking_total');
+        $query->set('meta_key', '_booking_total_price');
         $query->set('orderby', 'meta_value_num');
     }
 }
@@ -643,7 +725,7 @@ function bike_theme_apply_booking_filters($query)
         if (isset($_GET['payment_status']) && !empty($_GET['payment_status'])) {
             $query->set('meta_query', array(
                 array(
-                    'key'   => '_payment_status',
+                    'key'   => '_booking_payment_status',
                     'value' => sanitize_text_field($_GET['payment_status']),
                 )
             ));
