@@ -80,6 +80,10 @@ a {
     transition: color 0.3s ease;
 }
 
+div {
+    font-size: 1.2rem;
+}
+
 a:hover {
     color: #0056b3;
 }
@@ -311,7 +315,7 @@ select,
 /* Responsive Typography */
 @media (max-width: 768px) {
     html {
-        font-size: 14px;
+        font-size: 1.1rem;
     }
     
     h1 { font-size: 2rem; }
@@ -320,6 +324,9 @@ select,
     h4 { font-size: 1.25rem; }
     h5 { font-size: 1.2rem; }
     h6 { font-size: 1.19rem; }
+    p { font-size: 1.1rem; }
+    div { font-size: 1.1rem; }
+    a { font-size: 1.1rem; }
 }
 
 .owl-prev {
