@@ -9,14 +9,3 @@
 #tour-detail figure {
     max-width: 100%;
 }
-
-#tourTab .nav-link {
-    font-size: 1.5rem !important;
-    font-weight: 500 !important;
-}
-
-@media (max-width: 768px) {
-    #tourTab .nav-link {
-        font-size: 1.2rem !important;
-    }
-}
