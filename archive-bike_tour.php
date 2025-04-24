@@ -8,7 +8,7 @@
  */
 
 get_header();
-wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/assets/css/tour-archive.css', array(), '');
+wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/assets/css/tour-archive.css', array(), BIKE_THEME_VERSION);
 ?>
 
 <main id="primary" class="site-main">
@@ -42,21 +42,21 @@ wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/ass
                     'order' => 'ASC'
                 ));
 
-                if (!empty($destinations) && !is_wp_error($destinations)) :
-                    foreach ($destinations as $destination) :
-                        // Get destination image
-                        $image_id = get_term_meta($destination->term_id, 'destination_image', true);
-                        $image_url = wp_get_attachment_url($image_id);
-                        if (!$image_url) {
-                            $image_url = get_template_directory_uri() . '/assets/images/bikes/destination-default.jpg';
-                        }
+if (!empty($destinations) && !is_wp_error($destinations)) :
+    foreach ($destinations as $destination) :
+        // Get destination image
+        $image_id = get_term_meta($destination->term_id, 'destination_image', true);
+        $image_url = wp_get_attachment_url($image_id);
+        if (!$image_url) {
+            $image_url = get_template_directory_uri() . '/assets/images/bikes/destination-default.jpg';
+        }
 
-                        // Get tours count
-                        $tours_count = $destination->count;
+        // Get tours count
+        $tours_count = $destination->count;
 
-                        // Get category counts for this destination
-                        $category_counts = bike_theme_count_tours_by_category_in_destination($destination->term_id);
-                ?>
+        // Get category counts for this destination
+        $category_counts = bike_theme_count_tours_by_category_in_destination($destination->term_id);
+        ?>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="destination-folder">
                         <div class="folder-header">
@@ -103,9 +103,9 @@ wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/ass
                     </div>
                 </div>
                 <?php
-                    endforeach;
-                endif;
-                ?>
+    endforeach;
+endif;
+?>
             </div>
             <!-- Destinations Grid End -->
     </div>

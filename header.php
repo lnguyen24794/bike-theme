@@ -16,7 +16,8 @@
     
     <link rel="profile" href="https://gmpg.org/xfn/11">
     
-    <?php wp_head(); wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home.css', array(), ''); ?>
+    <?php wp_head();
+wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home.css', array(), BIKE_THEME_VERSION); ?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -31,7 +32,7 @@
     </div>
     <!-- Spinner End -->
     <?php
-    if (is_front_page()) :?>
+if (is_front_page()) :?>
     <div class="container-fluid px-0 home-header animated fadeInDown hide-mobile" id="mainHeader">
         <div class="text-center">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
@@ -57,7 +58,7 @@
                 'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
                 'walker'          => new WP_Bootstrap_Navwalker()
             ));
-        ?>
+?>
         </div>
     </div>
 
@@ -160,7 +161,7 @@
                                 'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
                                 'walker'            => new WP_Bootstrap_Navwalker()
                             ));
-                    ?>
+?>
                        
                     </div>
                 </nav>
@@ -272,7 +273,7 @@
                                 'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
                                 'walker'            => new WP_Bootstrap_Navwalker()
                             ));
-                        ?>
+?>
                     </div>
                 </nav>
             </div>

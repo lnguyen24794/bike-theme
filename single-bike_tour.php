@@ -8,7 +8,7 @@
  */
 
 get_header();
-wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), '');
+wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), BIKE_THEME_VERSION);
 
 // Make sure we have access to the helper functions
 require_once get_template_directory() . '/inc/booking/helpers.php';
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
             // Process selected additions if any
             $selected_additions = isset($_POST['additions']) ? $_POST['additions'] : array();
             $additions_data = array();
-            
+
             if (!empty($selected_additions) && is_array($selected_additions)) {
                 $tour_additions = bike_theme_get_tour_additions($tour_id);
                 foreach ($tour_additions as $addition) {
@@ -92,13 +92,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
                         $additions_data[] = $addition;
                     }
                 }
-                
+
                 // Save additions data to the booking
                 add_post_meta($booking_id, '_booking_additions', $additions_data);
-                
+
                 // Calculate additions total price
                 $additions_total = bike_theme_calculate_additions_price($tour_id, $selected_additions, $participants);
-                
+
                 // Update total price to include additions
                 $total_price += $additions_total;
                 update_post_meta($booking_id, '_booking_total_price', $total_price);
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
                 'price_per_person' => $price_per_person,
                 'total_price' => $total_price
             );
-            
+
             $emails_sent = bike_theme_send_booking_emails($booking_id, $booking_data);
 
             // Set success message
@@ -317,11 +317,11 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                     <h3><?php esc_html_e('Tour Price', 'bike-theme'); ?></h3>
                                     <?php
                                     $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
-                                        $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
-                                        $standard_price = get_post_meta(get_the_ID(), '_tour_price', true);
+$flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
+$standard_price = get_post_meta(get_the_ID(), '_tour_price', true);
 
-                                        if ($flexible_pricing_enabled && !empty($flexible_pricing)) {
-                                            ?>
+if ($flexible_pricing_enabled && !empty($flexible_pricing)) {
+    ?>
                                         <div class="flexible-pricing-table">
                                             <table class="table">
                                                 <thead>
@@ -341,21 +341,21 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                             </table>
                                         </div>
                                         <?php
-                                        } else {
-                                            ?>
+} else {
+    ?>
                                         <div class="standard-price">
                                             <p class="price-amount"><?php echo esc_html(number_format($standard_price, 0, '.', ',')); ?> VND</p>
                                             <p class="price-note"><?php esc_html_e('per person', 'bike-theme'); ?></p>
                                         </div>
                                         <?php
-                                            }
-                                        ?>
+}
+?>
 
                                     <!-- Tour Additions Section -->
                                     <?php
-                                        $additions = get_post_meta(get_the_ID(), '_tour_additions', true);
-                                        if (!empty($additions)) {
-                                            ?>
+$additions = get_post_meta(get_the_ID(), '_tour_additions', true);
+if (!empty($additions)) {
+    ?>
                                         <div class="tour-additions mt-4">
                                             <h3><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h3>
                                             <div class="additions-table">
@@ -374,12 +374,12 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                                                 <td><?php echo esc_html($addition['description']); ?></td>
                                                                 <td>
                                                                     <?php
-                                                                        echo esc_html(number_format($addition['price'], 0, '.', ',')); ?> VND
+                                echo esc_html(number_format($addition['price'], 0, '.', ',')); ?> VND
                                                                                                             <?php
-                                                                        if (isset($addition['per_person']) && $addition['per_person']) {
-                                                                            echo ' <span class="per-person-note">' . esc_html__('per person', 'bike-theme') . '</span>';
-                                                                        }
-                                                                    ?>
+                                if (isset($addition['per_person']) && $addition['per_person']) {
+                                    echo ' <span class="per-person-note">' . esc_html__('per person', 'bike-theme') . '</span>';
+                                }
+                                                            ?>
                                                                 </td>
                                                             </tr>
                                                         <?php } ?>
@@ -388,8 +388,8 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                             </div>
                                         </div>
                                         <?php
-                                        }
-                                        ?>
+}
+?>
                                 </div>
                             </div>
                         </div>
@@ -454,8 +454,8 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                 </div>
                                 <?php
                                 $additions = bike_theme_get_tour_additions(get_the_ID());
-                                if (!empty($additions)) :
-                                    ?>
+if (!empty($additions)) :
+    ?>
                                 <div class="col-12">
                                     <h5 class="mb-3"><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h5>
                                     <div class="additions-options">
@@ -538,22 +538,22 @@ jQuery(document).ready(function($) {
     // Get tour pricing data
     var pricingData = <?php
         $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
-        $pricing_data = array();
+    $pricing_data = array();
 
-        if ($flexible_pricing_enabled === '1') {
-            $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
-            if (empty($pricing_data) || !is_array($pricing_data)) {
-                $pricing_data = array(
-                    array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
-                );
-            }
-        } else {
+    if ($flexible_pricing_enabled === '1') {
+        $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
+        if (empty($pricing_data) || !is_array($pricing_data)) {
             $pricing_data = array(
                 array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
             );
         }
-        echo json_encode($pricing_data);
-    ?>;
+    } else {
+        $pricing_data = array(
+            array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
+        );
+    }
+echo json_encode($pricing_data);
+?>;
 
     function formatNumber(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

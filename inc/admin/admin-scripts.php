@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Admin scripts and styles
  *
@@ -12,10 +13,11 @@ if (!defined('ABSPATH')) {
 /**
  * Enqueue scripts for theme options page and wp-admin
  */
-function bike_theme_admin_scripts($hook) {
+function bike_theme_admin_scripts($hook)
+{
     // Get current screen
     $screen = get_current_screen();
-    
+
     // Enqueue media scripts
     wp_enqueue_media();
 
@@ -60,11 +62,11 @@ function bike_theme_tour_admin_scripts($hook)
     if ($hook == 'post-new.php' || $hook == 'post.php') {
         if (isset($post) && $post->post_type === 'bike_tour') {
             // Enqueue tour admin CSS
-            wp_enqueue_style('bike-theme-tour-admin', get_template_directory_uri() . '/assets/css/tour-admin.css', array(), '');
+            wp_enqueue_style('bike-theme-tour-admin', get_template_directory_uri() . '/assets/css/tour-admin.css', array(), BIKE_THEME_VERSION);
 
             // Enqueue media library scripts
             wp_enqueue_media();
         }
     }
 }
-add_action('admin_enqueue_scripts', 'bike_theme_tour_admin_scripts'); 
+add_action('admin_enqueue_scripts', 'bike_theme_tour_admin_scripts');

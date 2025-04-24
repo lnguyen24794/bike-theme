@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 function bike_theme_scripts()
 {
     // Enqueue custom fonts
-    wp_enqueue_style('bike-theme-fonts', get_template_directory_uri() . '/assets/css/fonts.css', array(), '');
+    wp_enqueue_style('bike-theme-fonts', get_template_directory_uri() . '/assets/css/fonts.css', array(), BIKE_THEME_VERSION);
 
     // Google Fonts
     wp_enqueue_style('bike-theme-google-fonts', 'https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap', array(), null);

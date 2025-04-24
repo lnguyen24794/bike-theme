@@ -6,12 +6,12 @@
  */
 
 get_header();
-wp_enqueue_style('bike-theme-single-bike', get_template_directory_uri() . '/assets/css/single-bike.css', array(), '');
+wp_enqueue_style('bike-theme-single-bike', get_template_directory_uri() . '/assets/css/single-bike.css', array(), BIKE_THEME_VERSION);
 wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/assets/js/single-bike.js', array('jquery'), '', true);
 ?>
 
 <main id="primary" class="site-main">
-    <?php while (have_posts()) : the_post(); 
+    <?php while (have_posts()) : the_post();
         // Get bike meta data
         $price = get_post_meta(get_the_ID(), 'bike_price', true);
         $sale_price = get_post_meta(get_the_ID(), 'bike_sale_price', true);
@@ -22,7 +22,7 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
         $specifications = get_post_meta(get_the_ID(), 'bike_specifications', true);
         $included_accessories = get_post_meta(get_the_ID(), 'bike_included_accessories', true);
         $stock_quantity = get_post_meta(get_the_ID(), 'bike_stock_quantity', true);
-    ?>
+        ?>
         <!-- Top Section -->
         <section class="bike-top-section">
             <div class="container">
@@ -172,12 +172,12 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
                     <!-- Reviews Tab -->
                     <div class="tab-pane fade" id="reviews" role="tabpanel">
                         <div class="bike-reviews">
-                            <?php 
-                            // If comments are open or we have at least one comment, load up the comment template.
-                            if (comments_open() || get_comments_number()) :
-                                comments_template();
-                            endif;
-                            ?>
+                            <?php
+                                                            // If comments are open or we have at least one comment, load up the comment template.
+                                                            if (comments_open() || get_comments_number()) :
+                                                                comments_template();
+                                                            endif;
+        ?>
                         </div>
                     </div>
 
@@ -214,15 +214,15 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
                     'post__not_in' => array(get_the_ID()),
                     'tax_query' => array(
                         array(
-                            'taxonomy' => 'bike_category',
-                            'field' => 'term_id',
-                            'terms' => wp_get_post_terms(get_the_ID(), 'bike_category', array('fields' => 'ids')),
+        'taxonomy' => 'bike_category',
+        'field' => 'term_id',
+        'terms' => wp_get_post_terms(get_the_ID(), 'bike_category', array('fields' => 'ids')),
                         ),
                     ),
                 ));
 
-                if ($related_bikes) :
-                ?>
+        if ($related_bikes) :
+            ?>
                 <div class="related-bikes">
                     <h3><?php esc_html_e('Related Bikes', 'bike-theme'); ?></h3>
                     <div class="row">
@@ -233,9 +233,9 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
                                     <img src="<?php echo get_the_post_thumbnail_url($related_bike->ID, 'medium'); ?>" alt="<?php echo esc_attr($related_bike->post_title); ?>" class="img-fluid">
                                 <?php endif; ?>
                                 <h4><?php echo esc_html($related_bike->post_title); ?></h4>
-                                <?php 
-                                $related_price = get_post_meta($related_bike->ID, 'bike_price', true);
-                                if (!empty($related_price)) :
+                                <?php
+                            $related_price = get_post_meta($related_bike->ID, 'bike_price', true);
+                            if (!empty($related_price)) :
                                 ?>
                                 <div class="price"><?php echo number_format($related_price, 0, ',', '.'); ?> VNĐ</div>
                                 <?php endif; ?>
@@ -269,8 +269,8 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
                             )
                         );
 
-                        foreach ($faqs as $index => $faq) :
-                        ?>
+        foreach ($faqs as $index => $faq) :
+            ?>
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button <?php echo $index === 0 ? '' : 'collapsed'; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#faq<?php echo $index; ?>">
