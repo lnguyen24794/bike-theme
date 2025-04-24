@@ -327,14 +327,16 @@ select,
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 100%;
+    display: inline-block;
+    left: 0px;
     text-align: left !important;
 }
 .owl-next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 100%;
+    display: inline-block;
+    right: 0px;
     text-align: right !important;
 }
 .owl-nav i {
