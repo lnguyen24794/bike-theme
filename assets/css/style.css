@@ -614,7 +614,7 @@
 .tour-basic-info-title span{
     font-size: 1.875rem;
     color: var(--primary);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 @media (max-width: 1024px) {
