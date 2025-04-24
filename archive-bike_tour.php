@@ -70,7 +70,7 @@ if (!empty($destinations) && !is_wp_error($destinations)) :
                                 </a>
                             </div>
                         </div>
-                        <div class="folder-content">
+                        <div class="folder-content p-3">
                             <div class="folder-image">
                                 <a href="<?php echo esc_url(get_term_link($destination)); ?>">
                                     <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($destination->name); ?>" class="img-fluid rounded">

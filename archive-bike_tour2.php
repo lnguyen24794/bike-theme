@@ -233,7 +233,7 @@ get_header();
                                 </div>
                             </div>
                         </div>
-                        <div class="p-4 mt-2">
+                        <div class="p-3 mt-2 a">
                             <div class="d-flex justify-content-between mb-3">
                                 <h5 class="mb-0"><a href="<?php the_permalink(); ?>" class="text-dark"><?php the_title(); ?></a></h5>
                             </div>

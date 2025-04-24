@@ -15,25 +15,25 @@
             <?php echo esc_html(number_format(get_post_meta(get_the_ID(), '_tour_price', true), 2, ',', '.')); ?> $
         </small>
     </div>
-    <div class="p-4 mt-2">
+    <div class="p-3 mt-2 a">
         <div class="d-flex justify-content-between mb-3">
             <h5 class="mb-0"><?php the_title(); ?></h5>
             <div class="ps-2">
                 <?php
                 $difficulty = get_post_meta(get_the_ID(), '_tour_difficulty', true);
-$difficulty_class = '';
-switch ($difficulty) {
-    case 'easy':
-        $difficulty_class = 'text-success';
-        break;
-    case 'moderate':
-        $difficulty_class = 'text-warning';
-        break;
-    case 'difficult':
-        $difficulty_class = 'text-danger';
-        break;
-}
-?>
+                $difficulty_class = '';
+                switch ($difficulty) {
+                    case 'easy':
+                        $difficulty_class = 'text-success';
+                        break;
+                    case 'moderate':
+                        $difficulty_class = 'text-warning';
+                        break;
+                    case 'difficult':
+                        $difficulty_class = 'text-danger';
+                        break;
+                }
+                ?>
                 <small class="<?php echo esc_attr($difficulty_class); ?>">
                     <?php echo esc_html(ucfirst($difficulty)); ?>
                 </small>

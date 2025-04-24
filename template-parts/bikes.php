@@ -33,7 +33,7 @@
                             <?php endif; ?>
                         </small>
                     </div>
-                    <div class="p-4 mt-2">
+                    <div class="p-3 mt-2 a">
                         <div class="bikes-item mb-2">
                             <h5 class="mb-0"><?php the_title(); ?></h5>
                         </div>
