@@ -88,10 +88,9 @@ if (is_front_page()) :?>
             <div class="col-lg-3 bg-primary d-none d-lg-block">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                     <?php if (has_custom_logo()) :
-                        $custom_logo_id = get_theme_mod('custom_logo');
-                        $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+                        $secondary_logo_url = bike_theme_get_option('secondary_logo');
                         ?>
-                        <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
+                        <img src="<?php echo $secondary_logo_url; ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
                     <?php else : ?>
                         <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
                     <?php endif; ?>
@@ -140,10 +139,9 @@ if (is_front_page()) :?>
                 <nav class="navbar navbar-expand-lg bg-primary navbar-dark p-3 p-lg-0 animated" id="mobileNavbar">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand d-block d-lg-none">
                         <?php if (has_custom_logo()) :
-                            $custom_logo_id = get_theme_mod('custom_logo');
-                            $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+                            $secondary_logo_url = bike_theme_get_option('secondary_logo');
                             ?>
-                            <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo-mobile" style="max-height: 40px;">
+                            <img src="<?php echo $secondary_logo_url; ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo-mobile" style="max-height: 40px;">
                         <?php else : ?>
                             <h1 class="m-0 text-primary text-uppercase"><?php bloginfo('name'); ?></h1>
                         <?php endif; ?>
@@ -174,10 +172,9 @@ if (is_front_page()) :?>
         <div class="text-center">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                 <?php if (has_custom_logo()) :
-                    $custom_logo_id = get_theme_mod('custom_logo');
-                    $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+                    $secondary_logo_url = bike_theme_get_option('secondary_logo');
                     ?>
-                    <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
+                    <img src="<?php echo $secondary_logo_url; ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
                 <?php else : ?>
                     <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
                 <?php endif; ?>
@@ -204,10 +201,9 @@ if (is_front_page()) :?>
             <div class="col-lg-3 bg-primary d-none d-lg-block">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                     <?php if (has_custom_logo()) :
-                        $custom_logo_id = get_theme_mod('custom_logo');
-                        $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+                        $secondary_logo_url = bike_theme_get_option('secondary_logo');
                         ?>
-                        <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
+                        <img src="<?php echo $secondary_logo_url; ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
                     <?php else : ?>
                         <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
                     <?php endif; ?>
@@ -252,10 +248,9 @@ if (is_front_page()) :?>
                 <nav class="navbar navbar-expand-lg bg-primary navbar-dark p-3 p-lg-0 animated" id="mobileNavbar">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand d-block d-lg-none">
                         <?php if (has_custom_logo()) :
-                            $custom_logo_id = get_theme_mod('custom_logo');
-                            $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+                            $secondary_logo_url = bike_theme_get_option('secondary_logo');
                             ?>
-                            <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo-mobile" style="max-height: 40px;">
+                            <img src="<?php echo $secondary_logo_url; ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo-mobile" style="max-height: 40px;">
                         <?php else : ?>
                             <h1 class="m-0 text-primary text-uppercase"><?php bloginfo('name'); ?></h1>
                         <?php endif; ?>

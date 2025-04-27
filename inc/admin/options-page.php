@@ -102,21 +102,13 @@ function bike_theme_register_settings()
         'bike-theme-options'
     );
 
-     // Bike Rentals Section
-     add_settings_section(
+    // Bike Rentals Section
+    add_settings_section(
         'bike_theme_our_bikes_section',
         __('Bike Rentals', 'bike-theme'),
         'bike_theme_our_bikes_section_callback',
         'bike-theme-options'
     );
-
-    // Booking Section
-    // add_settings_section(
-    //     'bike_theme_booking_section',
-    //     __('Booking Settings', 'bike-theme'),
-    //     'bike_theme_booking_section_callback',
-    //     'bike-theme-options'
-    // );
 
     // Add fields
     add_settings_field(
@@ -156,6 +148,18 @@ function bike_theme_register_settings()
         array(
             'id' => 'primary_color',
             'default' => '#3498db'
+        )
+    );
+
+    add_settings_field(
+        'secondary_logo',
+        __('Secondary Logo', 'bike-theme'),
+        'bike_theme_image_field_callback',
+        'bike-theme-options',
+        'bike_theme_general_section',
+        array(
+            'id' => 'secondary_logo',
+            'default' => ''
         )
     );
 
@@ -281,7 +285,7 @@ function bike_theme_register_settings()
             'default' => ''
         )
     );
-    
+
     add_settings_field(
         'twitter',
         __('Twitter', 'bike-theme'),
@@ -293,7 +297,7 @@ function bike_theme_register_settings()
             'default' => ''
         )
     );
-    
+
     add_settings_field(
         'instagram',
         __('Instagram', 'bike-theme'),
@@ -305,7 +309,7 @@ function bike_theme_register_settings()
             'default' => ''
         )
     );
-    
+
     add_settings_field(
         'linkedin',
         __('LinkedIn', 'bike-theme'),
@@ -317,7 +321,7 @@ function bike_theme_register_settings()
             'default' => ''
         )
     );
-    
+
     add_settings_field(
         'youtube',
         __('YouTube', 'bike-theme'),
@@ -329,7 +333,7 @@ function bike_theme_register_settings()
             'default' => ''
         )
     );
-    
+
     add_settings_field(
         'copyright',
         __('Copyright Text', 'bike-theme'),
@@ -341,7 +345,7 @@ function bike_theme_register_settings()
             'default' => '© ' . date('Y') . ' Bike Theme. All Rights Reserved.'
         )
     );
-    
+
     // Hero Banner Slides setting
     add_settings_field(
         'slides',
@@ -354,7 +358,7 @@ function bike_theme_register_settings()
             'default' => array()
         )
     );
-    
+
     // Tour Gallery setting
     add_settings_field(
         'tour_gallery',
@@ -419,7 +423,7 @@ function bike_theme_register_settings()
             'default' => ''
         )
     );
-    
+
     // About Slides Section
     add_settings_section(
         'bike_theme_about_slides_section',
@@ -428,15 +432,15 @@ function bike_theme_register_settings()
         'bike-theme-options'
     );
     // About Slides setting
-     add_settings_field(
+    add_settings_field(
         'about_slides',
         __('About Slides', 'bike-theme'),
         'bike_theme_about_slides_callback',
         'bike-theme-options',
         'bike_theme_about_slides_section',
         array(
-            'id' => 'about_slides',
-            'default' => array()
+           'id' => 'about_slides',
+           'default' => array()
         )
     );
 }
@@ -509,9 +513,9 @@ function bike_theme_text_field_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : '';
     $value = isset($options[$id]) ? $options[$id] : $default;
-    
+
     echo '<input type="text" id="' . esc_attr($id) . '" name="bike_theme_options[' . esc_attr($id) . ']" value="' . esc_attr($value) . '" class="regular-text" />';
-    
+
     if (isset($args['description'])) {
         echo '<p class="description">' . esc_html($args['description']) . '</p>';
     }
@@ -523,9 +527,9 @@ function bike_theme_textarea_field_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : '';
     $value = isset($options[$id]) ? $options[$id] : $default;
-    
+
     echo '<textarea id="' . esc_attr($id) . '" name="bike_theme_options[' . esc_attr($id) . ']" rows="5" class="large-text">' . esc_textarea($value) . '</textarea>';
-    
+
     if (isset($args['description'])) {
         echo '<p class="description">' . esc_html($args['description']) . '</p>';
     }
@@ -538,15 +542,15 @@ function bike_theme_select_field_callback($args)
     $default = isset($args['default']) ? $args['default'] : '';
     $value = isset($options[$id]) ? $options[$id] : $default;
     $select_options = $args['options'];
-    
+
     echo '<select id="' . esc_attr($id) . '" name="bike_theme_options[' . esc_attr($id) . ']">';
-    
+
     foreach ($select_options as $key => $label) {
         echo '<option value="' . esc_attr($key) . '" ' . selected($value, $key, false) . '>' . esc_html($label) . '</option>';
     }
-    
+
     echo '</select>';
-    
+
     if (isset($args['description'])) {
         echo '<p class="description">' . esc_html($args['description']) . '</p>';
     }
@@ -558,12 +562,102 @@ function bike_theme_color_field_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : '#000000';
     $value = isset($options[$id]) ? $options[$id] : $default;
-    
+
     echo '<input type="text" id="' . esc_attr($id) . '" name="bike_theme_options[' . esc_attr($id) . ']" value="' . esc_attr($value) . '" class="bike-theme-color-field" data-default-color="' . esc_attr($default) . '" />';
-    
+
     if (isset($args['description'])) {
         echo '<p class="description">' . esc_html($args['description']) . '</p>';
     }
+}
+
+function bike_theme_image_field_callback($args) {
+    $options = get_option('bike_theme_options');
+    $id = $args['id'];
+    $default = isset($args['default']) ? $args['default'] : '';
+    $value = isset($options[$id]) ? $options[$id] : $default;
+    $image_id = isset($options[$id . '_id']) ? $options[$id . '_id'] : 0;
+
+    echo '<div class="bike-media-upload">';
+    echo '<input type="hidden" id="' . esc_attr($id) . '_id" name="bike_theme_options[' . esc_attr($id) . '_id]" value="' . esc_attr($image_id) . '" class="bike-media-id" />';
+    echo '<input type="hidden" id="' . esc_attr($id) . '" name="bike_theme_options[' . esc_attr($id) . ']" value="' . esc_attr($value) . '" class="bike-media-url" />';
+    
+    echo '<div class="bike-media-preview">';
+    if ($value) {
+        echo '<img src="' . esc_url($value) . '" style="max-width:150px;height:auto;" />';
+    }
+    echo '</div>';
+    
+    echo '<input type="button" class="button bike-media-upload-button" value="' . esc_attr__('Upload Image', 'bike-theme') . '" />';
+    echo '<input type="button" class="button bike-media-remove-button' . ($value ? '' : ' hidden') . '" value="' . esc_attr__('Remove Image', 'bike-theme') . '" />';
+    echo '</div>';
+
+    if (isset($args['description'])) {
+        echo '<p class="description">' . esc_html($args['description']) . '</p>';
+    }
+
+    ?>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // Media Upload
+        var mediaUploader;
+        
+        $('.bike-media-upload-button').click(function(e) {
+            e.preventDefault();
+            
+            var $button = $(this);
+            var $wrapper = $button.closest('.bike-media-upload');
+            var $preview = $wrapper.find('.bike-media-preview');
+            var $urlInput = $wrapper.find('.bike-media-url');
+            var $idInput = $wrapper.find('.bike-media-id');
+            var $removeButton = $wrapper.find('.bike-media-remove-button');
+
+            // If the uploader object has already been created, reopen the dialog
+            if (mediaUploader) {
+                mediaUploader.open();
+                return;
+            }
+
+            // Create the media uploader
+            mediaUploader = wp.media({
+                title: '<?php echo esc_js(__('Choose Image', 'bike-theme')); ?>',
+                button: {
+                    text: '<?php echo esc_js(__('Select', 'bike-theme')); ?>'
+                },
+                multiple: false
+            });
+
+            // When an image is selected, run a callback
+            mediaUploader.on('select', function() {
+                var attachment = mediaUploader.state().get('selection').first().toJSON();
+                
+                $urlInput.val(attachment.url);
+                $idInput.val(attachment.id);
+                $preview.html('<img src="' + attachment.url + '" style="max-width:150px;height:auto;" />');
+                $removeButton.removeClass('hidden');
+            });
+
+            // Open the uploader dialog
+            mediaUploader.open();
+        });
+
+        // Remove Image
+        $('.bike-media-remove-button').click(function(e) {
+            e.preventDefault();
+            
+            var $button = $(this);
+            var $wrapper = $button.closest('.bike-media-upload');
+            var $preview = $wrapper.find('.bike-media-preview');
+            var $urlInput = $wrapper.find('.bike-media-url');
+            var $idInput = $wrapper.find('.bike-media-id');
+
+            $urlInput.val('');
+            $idInput.val('');
+            $preview.empty();
+            $button.addClass('hidden');
+        });
+    });
+    </script>
+    <?php
 }
 
 function bike_theme_page_select_callback($args)
@@ -572,18 +666,18 @@ function bike_theme_page_select_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : '';
     $value = isset($options[$id]) ? $options[$id] : $default;
-    
+
     $pages = get_pages();
-    
+
     echo '<select id="' . esc_attr($id) . '" name="bike_theme_options[' . esc_attr($id) . ']">';
     echo '<option value="">' . __('Select a page', 'bike-theme') . '</option>';
-    
+
     foreach ($pages as $page) {
         echo '<option value="' . esc_attr($page->ID) . '" ' . selected($value, $page->ID, false) . '>' . esc_html($page->post_title) . '</option>';
     }
-    
+
     echo '</select>';
-    
+
     if (isset($args['description'])) {
         echo '<p class="description">' . esc_html($args['description']) . '</p>';
     }
@@ -595,7 +689,7 @@ function bike_theme_page_select_callback($args)
 function bike_theme_validate_options($input)
 {
     $output = array();
-    
+
     foreach ($input as $key => $value) {
         if (isset($input[$key])) {
             if ($key === 'contact_email') {
@@ -638,9 +732,9 @@ function bike_theme_validate_options($input)
                 // Process tour gallery
                 $output[$key] = array();
                 $gallery_index = 0;
-                
+
                 foreach ($value as $index => $gallery_data) {
-                    if ((!isset($gallery_data['delete']) || $gallery_data['delete'] != 'yes') && 
+                    if ((!isset($gallery_data['delete']) || $gallery_data['delete'] != 'yes') &&
                         !empty($gallery_data['image_url']) && !empty($gallery_data['image_id'])) {
                         // Save with sequential indexes to avoid gaps
                         $output[$key][$gallery_index] = array(
@@ -658,7 +752,7 @@ function bike_theme_validate_options($input)
             }
         }
     }
-    
+
     return $output;
 }
 
@@ -674,9 +768,9 @@ function bike_theme_render_options_page()
         <form method="post" action="options.php">
             <?php
             settings_fields('bike_theme_options_group');
-            do_settings_sections('bike-theme-options');
-            submit_button();
-            ?>
+    do_settings_sections('bike-theme-options');
+    submit_button();
+    ?>
         </form>
     </div>
     
@@ -814,13 +908,13 @@ function bike_theme_options_scripts($hook)
     if ('toplevel_page_bike-theme-options' !== $hook) {
         return;
     }
-    
+
     wp_enqueue_style('wp-color-picker');
     wp_enqueue_script('wp-color-picker');
-    
+
     // Add media scripts
     wp_enqueue_media();
-    
+
     // Add custom admin styles
     wp_enqueue_style(
         'bike-theme-admin-css',
@@ -828,7 +922,7 @@ function bike_theme_options_scripts($hook)
         array(),
         '1.0.0'
     );
-    
+
     // Add custom script to handle media uploads and slide management
     wp_enqueue_script(
         'bike-theme-admin-js',
@@ -837,7 +931,7 @@ function bike_theme_options_scripts($hook)
         '1.0.0',
         true
     );
-    
+
     wp_localize_script('bike-theme-admin-js', 'bikeThemeAdmin', array(
         'i18n' => array(
             'confirmDelete' => __('Are you sure you want to delete this item?', 'bike-theme'),
@@ -852,18 +946,18 @@ add_action('admin_enqueue_scripts', 'bike_theme_options_scripts');
 function bike_theme_get_option($key, $default = '')
 {
     $options = get_option('bike_theme_options');
-    
+
     // First try looking in the options array
     if (isset($options[$key])) {
         return $options[$key];
     }
-    
+
     // For backwards compatibility, also check individual options
     $legacy_value = get_option('bike_theme_' . $key, null);
     if ($legacy_value !== null) {
         return $legacy_value;
     }
-    
+
     return $default;
 }
 
@@ -876,7 +970,7 @@ function bike_theme_about_slides_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : array();
     $about_slides = isset($options[$id]) ? $options[$id] : $default;
-    
+
     // If no slides exist, create default ones
     if (empty($about_slides)) {
         $about_slides = array(
@@ -894,10 +988,10 @@ function bike_theme_about_slides_callback($args)
             )
         );
     }
-    
+
     // Output field
     echo '<div id="bike-about-slides-container">';
-    
+
     foreach ($about_slides as $index => $slide) {
         ?>
         <div class="bike-slide-item" data-index="<?php echo $index; ?>">
@@ -973,12 +1067,12 @@ function bike_theme_about_slides_callback($args)
         </div>
         <?php
     }
-    
+
     echo '</div>';
-    
-    echo '<p><button type="button" id="add-about-slide-button" class="button button-secondary">' . 
+
+    echo '<p><button type="button" id="add-about-slide-button" class="button button-secondary">' .
         __('Add New About Slide', 'bike-theme') . '</button></p>';
-    
+
     // Template for new about slides
     ?>
     <script type="text/template" id="about-slide-template">
@@ -1064,7 +1158,7 @@ function bike_theme_hero_slides_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : array();
     $slides = isset($options[$id]) ? $options[$id] : $default;
-    
+
     // If no slides exist, create default ones
     if (empty($slides)) {
         // Thử lấy từ cài đặt cũ trước
@@ -1087,10 +1181,10 @@ function bike_theme_hero_slides_callback($args)
             );
         }
     }
-    
+
     // Output field
     echo '<div id="bike-hero-slides-container">';
-    
+
     foreach ($slides as $index => $slide) {
         ?>
         <div class="bike-slide-item" data-index="<?php echo $index; ?>">
@@ -1248,12 +1342,12 @@ function bike_theme_hero_slides_callback($args)
         </div>
         <?php
     }
-    
+
     echo '</div>';
-    
-    echo '<p><button type="button" id="add-hero-slide-button" class="button button-secondary">' . 
+
+    echo '<p><button type="button" id="add-hero-slide-button" class="button button-secondary">' .
         __('Add New Hero Slide', 'bike-theme') . '</button></p>';
-    
+
     // Template for new hero slides
     ?>
     <script type="text/template" id="hero-slide-template">
@@ -1421,15 +1515,17 @@ function bike_theme_tour_gallery_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : array();
     $tour_gallery = isset($options[$id]) ? $options[$id] : $default;
-    
+
     // Output field
     ?>
     <div class="tour-gallery-wrapper">
         <div id="bike-tour-gallery-container" class="gallery-grid">
-            <?php 
+            <?php
             if (!empty($tour_gallery)) {
                 foreach ($tour_gallery as $index => $gallery_data) {
-                    if (empty($gallery_data['image_url'])) continue;
+                    if (empty($gallery_data['image_url'])) {
+                        continue;
+                    }
                     ?>
                     <div class="gallery-item" data-id="<?php echo esc_attr($gallery_data['image_id']); ?>">
                         <img src="<?php echo esc_url($gallery_data['image_url']); ?>" alt="">
@@ -1445,7 +1541,7 @@ function bike_theme_tour_gallery_callback($args)
                     <?php
                 }
             }
-            ?>
+    ?>
         </div>
         
         <div class="tour-gallery-actions">
@@ -1635,12 +1731,12 @@ function bike_theme_tour_gallery_content_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : '';
     $content = isset($options[$id]) ? $options[$id] : $default;
-    
+
     // If content is empty, provide a default template
     if (empty($content)) {
         $content = '';
     }
-    
+
     // Output the WordPress editor
     wp_editor(
         $content,
@@ -1654,7 +1750,7 @@ function bike_theme_tour_gallery_content_callback($args)
             'quicktags'     => true,
         )
     );
-    
+
     echo '<p class="description">' . __('Use the editor above to create the content for the Tour Gallery.', 'bike-theme') . '</p>';
 }
 
@@ -1667,12 +1763,12 @@ function bike_theme_choose_your_adventure_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : '';
     $content = isset($options[$id]) ? $options[$id] : $default;
-    
+
     // If content is empty, provide a default template
     if (empty($content)) {
         $content = '';
     }
-    
+
     // Output the WordPress editor
     wp_editor(
         $content,
@@ -1686,7 +1782,7 @@ function bike_theme_choose_your_adventure_callback($args)
             'quicktags'     => true,
         )
     );
-} 
+}
 
 /**
  * Bike Rentals field callback
@@ -1697,12 +1793,12 @@ function bike_theme_our_bikes_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : '';
     $content = isset($options[$id]) ? $options[$id] : $default;
-    
+
     // If content is empty, provide a default template
     if (empty($content)) {
         $content = '';
     }
-    
+
     // Output the WordPress editor
     wp_editor(
         $content,
@@ -1716,9 +1812,9 @@ function bike_theme_our_bikes_callback($args)
             'quicktags'     => true,
         )
     );
-    
+
     echo '<p class="description">' . __('Use the editor above to create the content for the Bike Rentals section.', 'bike-theme') . '</p>';
-} 
+}
 
 /**
  * Why Choose Us field callback
@@ -1729,12 +1825,12 @@ function bike_theme_why_choose_us_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : '';
     $content = isset($options[$id]) ? $options[$id] : $default;
-    
+
     // If content is empty, provide a default template
     if (empty($content)) {
         $content = '';
     }
-    
+
     // Output the WordPress editor
     wp_editor(
         $content,
@@ -1748,6 +1844,6 @@ function bike_theme_why_choose_us_callback($args)
             'quicktags'     => true,
         )
     );
-    
+
     echo '<p class="description">' . __('Use the editor above to create the content for the Why Choose Us section.', 'bike-theme') . '</p>';
-} 
+}

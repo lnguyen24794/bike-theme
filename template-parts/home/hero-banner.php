@@ -40,7 +40,7 @@
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center" style="height: 100vh !important;">
                         <div class="p-3 hero-content text-shadow">
                             <?php if (!empty($title)) : ?>
-                                <h1 class="hero-title text-white mb-4 animated slideInDown"><?php echo esc_html($title); ?></h1>
+                                <img  src="<?php echo $title ?>"  class="relative mb-2 animated slideInDown" style=" position: static; max-width: 360px; max-height: 80px;" />
                             <?php endif; ?>
                             <?php if (!empty($subtitle)) : ?>
                                 <p class=" text-white text-size-medium mb-3 animated slideInDown"><?php echo esc_html($subtitle); ?></p>
