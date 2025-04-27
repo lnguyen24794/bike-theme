@@ -116,7 +116,7 @@ class WP_Bootstrap_Navwalker extends Walker_Nav_Menu
                 $atts['class'] = 'dropdown-item';
             } else {
                 $atts['href'] = !empty($item->url) ? $item->url : '#';
-                $atts['class'] = 'nav-link';
+                $atts['class'] = 'nav-link text-shadow';
             }
         }
 

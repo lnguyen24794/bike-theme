@@ -370,3 +370,7 @@ select,
 .ti-widget.ti-goog {
     max-width: 100% !important;
 }
+
+.tour-heading {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}

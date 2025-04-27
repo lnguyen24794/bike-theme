@@ -43,7 +43,7 @@
                                 <img  src="<?php echo $title ?>"  class="relative mb-2 animated slideInDown" style=" position: static; max-width: 360px; max-height: 80px;" />
                             <?php endif; ?>
                             <?php if (!empty($subtitle)) : ?>
-                                <p class=" text-white text-size-medium mb-3 animated slideInDown"><?php echo esc_html($subtitle); ?></p>
+                                <p class="text-shadow text-white text-size-medium mb-3 animated slideInDown"><?php echo esc_html($subtitle); ?></p>
                             <?php endif; ?>
                             
                             <?php if (!empty($btn1_text)) : ?>
