@@ -116,7 +116,7 @@
 
 .hero-content {
     max-width: max(80%, 1024px);
-    padding-top: 100px !important;
+    padding-top: 70px !important;
 }
 
 @media (max-width: 768px) {

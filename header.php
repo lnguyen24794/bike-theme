@@ -34,13 +34,13 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
     <?php
 if (is_front_page()) :?>
     <div class="container-fluid px-0 home-header animated fadeInDown hide-mobile" id="mainHeader">
-        <div class="text-center">
+        <div class="text-center" style="padding-top: 25px;">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                 <?php if (has_custom_logo()) :
                     $custom_logo_id = get_theme_mod('custom_logo');
                     $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
                     ?>
-                    <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
+                    <img width="115px" height="115px" src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
                 <?php else : ?>
                     <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
                 <?php endif; ?>

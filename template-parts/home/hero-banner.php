@@ -40,17 +40,17 @@
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center" style="height: 100vh !important;">
                         <div class="p-3 hero-content text-shadow">
                             <?php if (!empty($title)) : ?>
-                                <img  src="<?php echo $title ?>"  class="relative mb-2 animated slideInDown" style=" position: static; max-width: 360px; max-height: 80px;" />
+                                <img  src="<?php echo $title ?>"  class="relative mb-2 animated slideInDown" style=" position: static; max-width: 550px; max-height: 130px;" />
                             <?php endif; ?>
                             <?php if (!empty($subtitle)) : ?>
-                                <p class="text-shadow text-white text-size-medium mb-3 animated slideInDown"><?php echo esc_html($subtitle); ?></p>
+                                <p style="margin-bottom: 30px;" class="text-shadow text-white text-size-medium mb-3 animated slideInDown"><?php echo esc_html($subtitle); ?></p>
                             <?php endif; ?>
                             
                             <?php if (!empty($btn1_text)) : ?>
                             <a href="<?php echo esc_url($btn1_url); ?>" class="btn btn-primary btn-fixed py-md-2 px-md-4 me-3 animated slideInLeft"><?php echo esc_html($btn1_text); ?></a>
                             <?php endif; ?>
                             <?php if (!empty($btn2_text)) : ?>
-                            <a href="<?php echo esc_url($btn2_url); ?>" class="btn btn-light btn-fixed py-md-2 px-md-4 animated slideInRight"><?php echo esc_html($btn2_text); ?></a>
+                            <a href="<?php echo esc_url($btn2_url); ?>" class="btn btn-primary btn-fixed py-md-2 px-md-4 animated slideInRight"><?php echo esc_html($btn2_text); ?></a>
                             <?php endif; ?>
                           
                         </div>
