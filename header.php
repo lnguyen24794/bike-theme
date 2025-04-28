@@ -115,24 +115,21 @@ if (is_front_page()) :?>
                     </div>
                     <div class="col-lg-5 px-5 text-end">
                         <div class="d-inline-flex align-items-center py-2">
+                            <a class="me-3" href="#">FOLLOW US</a>
                             <?php if (bike_theme_get_option('facebook')) : ?>
-                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('facebook')); ?>"><i class="fab fa-facebook-f"></i></a>
+                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('facebook')); ?>"><i class="fab fa-facebook"></i></a>
                             <?php endif; ?>
                             
-                            <?php if (bike_theme_get_option('twitter')) : ?>
-                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('twitter')); ?>"><i class="fab fa-twitter"></i></a>
+                            <?php if (bike_theme_get_option('address_link')) : ?>
+                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('address_link')); ?>"><i class="fab fa-google"></i></a>
                             <?php endif; ?>
                             
-                            <?php if (bike_theme_get_option('linkedin')) : ?>
-                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('linkedin')); ?>"><i class="fab fa-linkedin-in"></i></a>
+                            <?php if (bike_theme_get_option('youtube')) : ?>
+                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('youtube')); ?>"><i class="fab fa-youtube"></i></a>
                             <?php endif; ?>
                             
                             <?php if (bike_theme_get_option('instagram')) : ?>
                             <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('instagram')); ?>"><i class="fab fa-instagram"></i></a>
-                            <?php endif; ?>
-                            
-                            <?php if (bike_theme_get_option('youtube')) : ?>
-                            <a class="" href="<?php echo esc_url(bike_theme_get_option('youtube')); ?>"><i class="fab fa-youtube"></i></a>
                             <?php endif; ?>
                         </div>
                     </div>
