@@ -63,7 +63,7 @@ get_header();
                 <div class="text-center">
                     <div class="bottom-cta">
                         <a href="/contact" >
-                            <button class="btn btn-outline-primary btn-chat"><i class="fas fa-phone"></i> <?php esc_html_e('Contact Us To Discuss Your Plans', 'bike-theme'); ?></button>
+                            <button class="btn btn-primary btn-chat"><i class="fas fa-phone"></i> <?php esc_html_e('Contact Us To Discuss Your Plans', 'bike-theme'); ?></button>
                         </a>
                     </div>
                 </div>

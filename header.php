@@ -170,47 +170,22 @@ if (is_front_page()) :?>
     </div>
     <?php else : ?>
     <!-- scroll header -->
-    <div class="container-fluid px-0 home-header animated fadeInDown d-none" id="scrollHeader">
-        <div class="text-center">
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                <?php if (has_custom_logo()) :
-                    $custom_logo_id = get_theme_mod('custom_logo');
-                    $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-                    ?>
-                    <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
-                <?php else : ?>
-                    <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
-                <?php endif; ?>
-            </a>
-        </div>
-        <div class="text-center">
-            <?php
-            wp_nav_menu(array(
-                'theme_location'  => 'primary',
-                'depth'           => 2,
-                'container'       => 'nav',
-                'container_class' => 'navbar navbar-expand-lg navbar-dark home-header-nav',
-                'container_id'    => 'primary-navigation',
-                'menu_class'      => 'navbar-nav mx-auto',
-                'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
-                'walker'          => new WP_Bootstrap_Navwalker()
-            ));
-        ?>
-        </div>
-    </div>
+    
     <!-- Navbar Start -->
-    <div class="container-fluid bg-primary px-0" id="mainHeader">
+    <div class="container-fluid bg-primary px-0 animated fadeInDown" id="mainHeader">
         <div class="row gx-0">
             <div class="col-lg-3 bg-primary d-none d-lg-block">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                     <?php if (has_custom_logo()) :
                         $custom_logo_id = get_theme_mod('custom_logo');
                         $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+                        $secondary_logo = bike_theme_get_option('secondary_logo');
                         ?>
                         <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px;">
                     <?php else : ?>
                         <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
                     <?php endif; ?>
+                    <img src="<?php echo esc_url($secondary_logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px; width: 225px;">
                 </a>
             </div>
             <div class="col-lg-9">
@@ -227,29 +202,26 @@ if (is_front_page()) :?>
                     </div>
                     <div class="col-lg-5 px-5 text-end">
                         <div class="d-inline-flex align-items-center py-2">
+                            <a class="me-3" href="#">FOLLOW US</a>
                             <?php if (bike_theme_get_option('facebook')) : ?>
-                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('facebook')); ?>"><i class="fab fa-facebook-f"></i></a>
+                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('facebook')); ?>"><i class="fab fa-facebook"></i></a>
                             <?php endif; ?>
                             
-                            <?php if (bike_theme_get_option('twitter')) : ?>
-                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('twitter')); ?>"><i class="fab fa-twitter"></i></a>
+                            <?php if (bike_theme_get_option('google')) : ?>
+                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('google')); ?>"><i class="fab fa-google"></i></a>
                             <?php endif; ?>
                             
-                            <?php if (bike_theme_get_option('linkedin')) : ?>
-                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('linkedin')); ?>"><i class="fab fa-linkedin-in"></i></a>
+                            <?php if (bike_theme_get_option('youtube')) : ?>
+                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('youtube')); ?>"><i class="fab fa-youtube"></i></a>
                             <?php endif; ?>
                             
                             <?php if (bike_theme_get_option('instagram')) : ?>
                             <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('instagram')); ?>"><i class="fab fa-instagram"></i></a>
                             <?php endif; ?>
-                            
-                            <?php if (bike_theme_get_option('youtube')) : ?>
-                            <a class="" href="<?php echo esc_url(bike_theme_get_option('youtube')); ?>"><i class="fab fa-youtube"></i></a>
-                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
-                <nav class="navbar navbar-expand-lg bg-primary navbar-dark p-3 p-lg-0 animated" id="mobileNavbar">
+                <nav class="navbar navbar-expand-lg bg-primary navbar-dark p-3 p-lg-0 animated" style="padding-top: 5px !important;" id="mobileNavbar">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand d-block d-lg-none">
                         <?php if (has_custom_logo()) :
                             $custom_logo_id = get_theme_mod('custom_logo');
@@ -283,18 +255,9 @@ if (is_front_page()) :?>
         window.addEventListener('scroll', function() {
             if(window.innerWidth > 992){
                 var header = document.getElementById('mainHeader');
-                if (window.scrollY > 100) {
-                    header.classList.add('d-none');
-                } else {
-                    header.classList.remove('d-none');
-                }
-
-                var header = document.getElementById('scrollHeader');
                 if (window.scrollY > 50) {
-                    header.classList.remove('d-none');
                     header.classList.add('header-sticky', 'fadeInDown');
                 } else {
-                    header.classList.add('d-none');
                     header.classList.remove('header-sticky', 'fadeInDown');
                 }
             } else {
