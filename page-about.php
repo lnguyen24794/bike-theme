@@ -34,36 +34,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                     <h1 class="mb-4"><?php echo wp_kses_post(__('Welcome to <span class="text-primary">BeeBikeHub</span>', 'bike-theme')); ?></h1>
                     <p class="mb-4"><?php esc_html_e('Welcome to BeeBikeHub – your starting point for unforgettable adventures exploring Da Nang on two wheels! We\'re a passionate team dedicated to bringing you unique travel experiences, blending the freedom of cycling with the stunning beauty of Da Nang, Vietnam\'s vibrant coastal city.', 'bike-theme'); ?></p>
                     <p class="mb-4"><?php esc_html_e('At BeeBikeHub, we go beyond just offering high-quality bike rentals and carefully crafted bike tours. We want you to feel the pulse of local life – from sunlit coastal roads and iconic bridges to peaceful villages and mouthwatering street food. Our mission is to turn every ride into a cherished memory, with well-maintained bikes, diverse routes, and a friendly team of guides who know this land inside and out.', 'bike-theme'); ?></p>
-                    <div class="row g-3 pb-4">
-                        <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
-                            <div class="border rounded p-1">
-                                <div class="border rounded text-center p-4">
-                                    <i class="fa fa-bicycle fa-2x text-primary mb-2"></i>
-                                    <h2 class="mb-1" data-toggle="counter-up">20</h2>
-                                    <p class="mb-0"><?php esc_html_e('Bicycles', 'bike-theme'); ?></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
-                            <div class="border rounded p-1">
-                                <div class="border rounded text-center p-4">
-                                    <i class="fa fa-map-marked-alt fa-2x text-primary mb-2"></i>
-                                    <h2 class="mb-1" data-toggle="counter-up"><?php echo wp_count_posts('bike_tour')->publish; ?></h2>
-                                    <p class="mb-0"><?php esc_html_e('Tours', 'bike-theme'); ?></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 wow fadeIn" data-wow-delay="0.5s">
-                            <div class="border rounded p-1">
-                                <div class="border rounded text-center p-4">
-                                    <i class="fa fa-users fa-2x text-primary mb-2"></i>
-                                    <h2 class="mb-1" data-toggle="counter-up">100</h2>
-                                    <p class="mb-0"><?php esc_html_e('Customers', 'bike-theme'); ?></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary py-3 px-5 mt-2" href="<?php echo esc_url(get_post_type_archive_link('bike_tour')); ?>"><?php esc_html_e('Explore Our Tours', 'bike-theme'); ?></a>
+                    <a class="btn btn-primary py-3 px-5 mt-2" href="/contact"><?php esc_html_e('Contact Us', 'bike-theme'); ?></a>
                 </div>
                 <div class="col-lg-6">
                         <div class="row g-3">
@@ -161,29 +132,6 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
         <?php echo do_shortcode('[trustindex no-registration=google]'); ?>
     </div>
     <!-- Team End -->
-
-    <!-- Call to Action Start -->
-    <div class="container-xxl py-5">
-        <div class="bg-light rounded p-5 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <h1 class="mb-3"><?php esc_html_e('Ready to Experience Da Nang on Two Wheels?', 'bike-theme'); ?></h1>
-                            <p class="mb-4"><?php esc_html_e('Born from a love for cycling and a desire to share Da Nang\'s charm in the most eco-friendly way, BeeBikeHub is here for everyone – whether you\'re a seasoned rider or just looking to pedal at your own pace. We\'re proud to be your companion on the journey, helping you discover Da Nang in a way that\'s uniquely yours.', 'bike-theme'); ?></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <a class="btn btn-primary py-3 px-4 me-3" href="<?php echo esc_url(get_post_type_archive_link('bike_tour')); ?>"><?php esc_html_e('Book a Tour', 'bike-theme'); ?></a>
-                        <a class="btn btn-dark py-3 px-4" href="<?php echo esc_url(home_url('/bike-rentals')); ?>"><?php esc_html_e('Rent a Bike', 'bike-theme'); ?></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Call to Action End -->
 </main><!-- #main -->
 
 <?php

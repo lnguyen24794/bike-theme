@@ -187,7 +187,7 @@ if (is_front_page()) :?>
             </div>
             <div class="col-lg-9">
                 <div class="row gx-0 bg-dark text-white d-none d-lg-flex border-radius-bottom-left-15">
-                    <div class="col-lg-6 px-5 text-start">
+                    <div class="col-lg-7 px-5 text-start">
                         <div class="h-100 d-inline-flex align-items-center py-2 me-4">
                             <i class="fa fa-envelope text-primary me-2"></i>
                             <p class="mb-0"><a class="text-white" href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
@@ -197,7 +197,7 @@ if (is_front_page()) :?>
                             <p class="mb-0"><a class="text-white" href="https://api.whatsapp.com/send/?phone=<?php echo esc_attr(bike_theme_get_option('contact_phone', '84985455727')); ?>&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+84985455727')); ?></a></p>
                         </div>
                     </div>
-                    <div class="col-lg-6 px-5 text-end">
+                    <div class="col-lg-5 px-5 text-end">
                         <div class="d-inline-flex align-items-center py-2">
                             <a class="me-3" href="#">FOLLOW US</a>
                             <?php if (bike_theme_get_option('facebook')) : ?>
