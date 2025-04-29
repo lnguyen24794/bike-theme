@@ -574,7 +574,8 @@
     width: 100%;
     padding: 0;
     text-align: center;
-    background-color: rgba(255, 255, 255, .9);
+    color: #f7cf07;
+    background-color: rgba(243, 208, 13, 0.8);
 }
 
 .tour-basic-info .wrapper {
@@ -612,7 +613,7 @@
 
 .tour-basic-info-title span{
     font-size: 1.875rem;
-    color: var(--primary);
+    color: #000;
     font-weight: 500;
 }
 
@@ -1350,4 +1351,15 @@ transform: scaleY(0.8) !important;
 
 .bg-gray {
     background: rgba(123, 123, 125, 0.1);
+}
+
+.header-contact-info a, .header-contact-info p {
+    font-size: 0.9rem !important;
+    line-height: 20px;
+}
+
+.bg-primary .nav-tabs .nav-link.active {
+    color: #000 !important;
+    border-bottom: 2px solid #000 !important;
+    background-color: #f7cf07 !important;
 }

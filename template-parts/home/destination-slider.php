@@ -36,7 +36,7 @@
         height: 100%;
     }
 </style>
-<div class="container-fluid pt-3 pb-4 destination-slider">   
+<div class="container-fluid pt-3 destination-slider">   
     <div class="row tour-slider">
         <?php foreach($destinations as $key => $destination):
             if (!empty($destination)) :
@@ -47,7 +47,7 @@
                     <a class="destination-item" href="<?php echo get_term_link($destination); ?>">
                         <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($destination->name); ?>">
                         <div class="destination-slider-title d-flex align-items-center justify-content-center">
-                            <h3 class="text-white"><?php echo esc_html($destination->name); ?></h3>
+                            <h3 class="text-primary"><?php echo esc_html($destination->name); ?></h3>
                         </div>
                     </a>
                 </div>
@@ -63,39 +63,10 @@
                 <img src="<?php echo esc_url($vietnam_multi_day_tours_image); ?>" 
                     alt="<?php echo esc_attr('Vietnam multi-day tours'); ?>">
                 <div class="destination-slider-title d-flex align-items-center justify-content-center">
-                    <h3 class="text-white"><?php echo esc_html('Vietnam multi-day tours'); ?></h3>
+                    <h3 class="text-primary"><?php echo esc_html('Vietnam multi-day tours'); ?></h3>
                 </div>
             </a>
         </div>
     </div>
-
-    <script>
-        // jQuery(document).ready(function($){
-        //     $('.tour-slider').owlCarousel({
-        //         loop: true,
-        //         margin: 20,
-        //         nav: true,
-        //         dots: true,
-        //         autoplay: false,
-        //         autoplayTimeout: 10000,
-        //         autoplayHoverPause: true,
-        //         navText: [
-        //             "<i class='fa fa-chevron-left'></i>",
-        //             "<i class='fa fa-chevron-right'></i>"
-        //         ],
-        //         responsive:{
-        //             0:{
-        //                 items:1
-        //             },
-        //             768:{
-        //                 items:2
-        //             },
-        //             992:{
-        //                 items:4
-        //             }
-        //         }
-        //     });
-        // });
-    </script>
 </div>
 <?php endif; ?>

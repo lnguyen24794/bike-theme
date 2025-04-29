@@ -49,18 +49,18 @@ $tour_category = get_query_var('tour_category');
                     <?php
                     // Set up custom query with filters
                     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-$args = array(
-    'post_type' => 'bike_tour',
-    'posts_per_page' => 9,
-    'paged' => $paged,
-    'tax_query' => array(
-        array(
-            'taxonomy' => 'destination',
-            'field' => 'term_id',
-            'terms' => $term->term_id,
-        ),
-    ),
-);
+                    $args = array(
+                        'post_type' => 'bike_tour',
+                        'posts_per_page' => 9,
+                        'paged' => $paged,
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'destination',
+                                'field' => 'term_id',
+                                'terms' => $term->term_id,
+                            ),
+                        ),
+                    );
 
 // Add meta query if filters are active
 $meta_query = array();
@@ -176,19 +176,19 @@ endif;
                     <div class="col-12">
                         <nav aria-label="Page navigation">
                             <?php
-        $big = 999999999; // Need an unlikely integer
-echo paginate_links(array(
-    'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-    'format' => '?paged=%#%',
-    'current' => max(1, get_query_var('paged')),
-    'total' => $tour_query->max_num_pages,
-    'prev_text' => '<i class="fa fa-angle-left"></i>',
-    'next_text' => '<i class="fa fa-angle-right"></i>',
-    'type' => 'list',
-    'end_size' => 3,
-    'mid_size' => 3
-));
-?>
+                                    $big = 999999999; // Need an unlikely integer
+                            echo paginate_links(array(
+                                'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+                                'format' => '?paged=%#%',
+                                'current' => max(1, get_query_var('paged')),
+                                'total' => $tour_query->max_num_pages,
+                                'prev_text' => '<i class="fa fa-angle-left"></i>',
+                                'next_text' => '<i class="fa fa-angle-right"></i>',
+                                'type' => 'list',
+                                'end_size' => 3,
+                                'mid_size' => 3
+                            ));
+                            ?>
                         </nav>
                     </div>
                 </div>

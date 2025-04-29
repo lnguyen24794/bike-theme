@@ -14,7 +14,7 @@ if (empty($why_choose_us_content)) {
 }
 ?>
 
-<div class="container-xxl py-5">
+<div class="container-fluid py-5 bg-gray my-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Why Choose Us', 'bike-theme'); ?></h3>

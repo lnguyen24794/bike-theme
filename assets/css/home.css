@@ -53,6 +53,10 @@
     .hero-title {
         font-size: 2.2rem !important;
     }
+
+    .show-mobile {
+        display: block !important;
+    }
 }
 
 @media screen and (min-width: 992px) {

@@ -288,7 +288,9 @@ select,
 }
 
 .nav-link {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #000;
 }
 
 /* Cards */
@@ -373,4 +375,22 @@ select,
 
 .tour-heading {
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.text-dark {
+    color: #000 !important;
+}
+
+.btn-dark {
+    background-color: #000 !important;
+    border-color: #000 !important;
+    color: var(--primary) !important;
+}
+
+.btn-dark:hover {
+    background-color: #333 !important;
+    border-color: #333 !important;
+}
+.menu-item:hover a{
+    color: #fff !important;
 }

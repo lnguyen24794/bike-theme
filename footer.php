@@ -71,11 +71,12 @@
 <script>
     let tourTab = document.getElementById('tourTab');
     if(tourTab){
-        const top = $('#tourTab').offset().top - 100;
+        const top = $('#tourTab').offset().top - 50;
         window.addEventListener('scroll', function() {
-            console.log(top);
             if(window.scrollY > top){
                 document.getElementById('scrollHeader').classList.add('d-none');
+            }else{
+                document.getElementById('scrollHeader').classList.remove('d-none');
             }
            
             if(window.scrollY > top){

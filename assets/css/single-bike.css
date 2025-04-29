@@ -170,11 +170,6 @@
     color: var(--primary-color);
 }
 
-.nav-tabs .nav-link.active {
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
-}
-
 /* Tab Content Styles */
 .tab-content {
     padding: 30px 0;

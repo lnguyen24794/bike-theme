@@ -450,7 +450,7 @@
 }
 
 #navbarCollapse .nav-link:hover{
-    color: var(--dark) !important;
+    color: #fff !important;
 }
 
 /* Lazy Loading Images */

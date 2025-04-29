@@ -51,7 +51,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                 </div>
             </div>
             <div class="col-md-6 wow fadeIn" data-wow-delay="0.1s">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1917.0985752873369!2d108.245189!3d16.055256!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142173a7147582d%3A0xa536f5fc9eab63cd!2sBee%20Bike%20-%20Bike%20Tours%20and%20Bike%20Rentals!5e0!3m2!1sen!2s!4v1745131690485!5m2!1sen!2s" width="100%" height="380" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d245386.29943491388!2d108.03706786319917!3d16.05713670186373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sBeebikehub!5e0!3m2!1sen!2sus!4v1745850968203!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <div class="col-md-6">
                 <div class="wow fadeInUp" data-wow-delay="0.2s">

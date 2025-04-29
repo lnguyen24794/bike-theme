@@ -413,7 +413,7 @@ if (!empty($additions)) {
 
             <!-- Booking Form Start -->
             <div class="col-lg-4 mt-3">
-                <div class="bg-light rounded p-2 mb-5 wow fadeInUp tour-booking-form" data-wow-delay="0.1s">
+                <div class="bg-primary rounded p-2 mb-5 wow fadeInUp tour-booking-form" data-wow-delay="0.1s">
                     <h4 id="tour-booking-form" class="mb-2 text-center"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></h4>
                     <div class="booking-response"></div>
                     <form method="post">
