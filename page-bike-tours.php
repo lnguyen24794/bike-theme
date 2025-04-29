@@ -26,19 +26,21 @@ wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/ass
             </div>
         </div>
     </div>
-    <!-- Page Header End -->
-    <div class="container-xxl py-5 pb-0">
-        <div class="row">
-            <div class="col-md-12">
-                <?php the_content(); ?>
+    <div class="container-fluid bg-primary p-0">
+       <!-- Page Header End -->
+        <div class="container-xxl py-5 pb-0">
+            <div class="row">
+                <div class="col-md-12">
+                    <?php the_content(); ?>
+                </div>
             </div>
         </div>
+        <!-- Tours Start -->
+        <div class="py-5">
+            <?php include(get_template_directory() . '/template-parts/home/destination-slider.php'); ?>
+        </div>
+        <!-- Tours End -->
     </div>
-    <!-- Tours Start -->
-    <div class="container-xxl py-5">
-           <?php include(get_template_directory() . '/template-parts/home/destination-slider.php'); ?>
-    </div>
-    <!-- Tours End -->
 </main>
 
 <?php
