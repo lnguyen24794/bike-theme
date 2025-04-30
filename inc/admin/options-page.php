@@ -202,36 +202,12 @@ function bike_theme_register_settings()
     add_settings_field(
         'contact_address',
         __('Address', 'bike-theme'),
-        'bike_theme_textarea_field_callback',
+        'bike_theme_branches_callback',
         'bike-theme-options',
         'bike_theme_contact_section',
         array(
             'id' => 'contact_address',
-            'default' => ''
-        )
-    );
-
-    add_settings_field(
-        'address_link',
-        __('Address Link', 'bike-theme'),
-        'bike_theme_text_field_callback',
-        'bike-theme-options',
-        'bike_theme_contact_section',
-        array(
-            'id' => 'address_link',
-            'default' => ''
-        )
-    );
-
-    add_settings_field(
-        'google_map',
-        __('Google Map', 'bike-theme'),
-        'bike_theme_textarea_field_callback',
-        'bike-theme-options',
-        'bike_theme_contact_section',
-        array(
-            'id' => 'google_map',
-            'default' => ''
+            'default' => array()
         )
     );
 
@@ -694,8 +670,21 @@ function bike_theme_validate_options($input)
         if (isset($input[$key])) {
             if ($key === 'contact_email') {
                 $output[$key] = sanitize_email($input[$key]);
-            } elseif (in_array($key, array('contact_address', 'bank_account_info', 'email_footer', 'why_choose_us_content', 'tour_gallery_content'))) {
+            } elseif (in_array($key, array('bank_account_info', 'email_footer', 'why_choose_us_content', 'tour_gallery_content'))) {
                 $output[$key] = wp_kses_post($input[$key]);
+            } elseif ($key === 'contact_address' && is_array($value)) {
+                // Xử lý mảng chi nhánh
+                $output[$key] = array();
+                foreach ($value as $index => $branch_data) {
+                    if (!isset($branch_data['delete']) || $branch_data['delete'] != 'yes') {
+                        $output[$key][] = array(
+                            'name' => isset($branch_data['name']) ? sanitize_text_field($branch_data['name']) : '',
+                            'address' => isset($branch_data['address']) ? wp_kses_post($branch_data['address']) : '',
+                            'link' => isset($branch_data['link']) ? esc_url_raw($branch_data['link']) : '',
+                            'opening_closed' => isset($branch_data['opening_closed']) ? sanitize_text_field($branch_data['opening_closed']) : '',
+                        );
+                    }
+                }
             } elseif ($key === 'about_slides' && is_array($value)) {
                 // Process about slides
                 $output[$key] = array();
@@ -1846,4 +1835,237 @@ function bike_theme_why_choose_us_callback($args)
     );
 
     echo '<p class="description">' . __('Use the editor above to create the content for the Why Choose Us section.', 'bike-theme') . '</p>';
+}
+
+/**
+ * Chi nhánh field callback
+ */
+function bike_theme_branches_callback($args)
+{
+    $options = get_option('bike_theme_options');
+    $id = $args['id'];
+    $default = isset($args['default']) ? $args['default'] : array();
+    $branches = isset($options[$id]) ? $options[$id] : $default;
+
+    // Nếu không có chi nhánh nào thì tạo một chi nhánh mặc định
+    if (empty($branches)) {
+        $old_address = isset($options['contact_address']) && !is_array($options['contact_address']) ? $options['contact_address'] : '';
+        $old_link = isset($options['address_link']) ? $options['address_link'] : '';
+        
+        if (!empty($old_address)) {
+            // Chuyển đổi từ dữ liệu cũ sang định dạng mới
+            $branches[] = array(
+                'name' => __('Main Office', 'bike-theme'),
+                'address' => $old_address,
+                'link' => $old_link,
+                'opening_closed' => ''
+            );
+        } else {
+            // Tạo chi nhánh mặc định nếu không có dữ liệu cũ
+            $branches[] = array(
+                'name' => __('Main Office', 'bike-theme'),
+                'address' => '',
+                'link' => '',
+                'opening_closed' => ''
+            );
+        }
+    }
+
+    // Output field
+    echo '<div id="bike-branches-container">';
+
+    foreach ($branches as $index => $branch) {
+        ?>
+        <div class="bike-branch-item" data-index="<?php echo $index; ?>">
+            <h3><?php esc_html_e('Branch', 'bike-theme'); ?> <span class="branch-number"><?php echo $index + 1; ?></span> 
+                <span class="branch-controls">
+                    <a href="#" class="branch-toggle"><?php esc_html_e('Toggle', 'bike-theme'); ?></a> | 
+                    <a href="#" class="branch-remove"><?php esc_html_e('Remove', 'bike-theme'); ?></a>
+                </span>
+            </h3>
+            <div class="branch-content">
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_contact_address_<?php echo $index; ?>_name">
+                                <?php esc_html_e('Branch Name', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[contact_address][<?php echo $index; ?>][name]" 
+                                type="text" 
+                                id="bike_theme_options_contact_address_<?php echo $index; ?>_name" 
+                                value="<?php echo esc_attr(isset($branch['name']) ? $branch['name'] : ''); ?>" 
+                                class="regular-text">
+                            <input type="hidden" 
+                                name="bike_theme_options[contact_address][<?php echo $index; ?>][delete]" 
+                                class="branch-delete-field" value="no">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_contact_address_<?php echo $index; ?>_address">
+                                <?php esc_html_e('Address', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <textarea name="bike_theme_options[contact_address][<?php echo $index; ?>][address]" 
+                                id="bike_theme_options_contact_address_<?php echo $index; ?>_address" 
+                                class="regular-text" rows="3"><?php echo esc_textarea(isset($branch['address']) ? $branch['address'] : ''); ?></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_contact_address_<?php echo $index; ?>_link">
+                                <?php esc_html_e('Google Maps Link', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[contact_address][<?php echo $index; ?>][link]" 
+                                type="url" 
+                                id="bike_theme_options_contact_address_<?php echo $index; ?>_link" 
+                                value="<?php echo esc_url(isset($branch['link']) ? $branch['link'] : ''); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_contact_address_<?php echo $index; ?>_link">
+                                <?php esc_html_e('Opening/Closed', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[contact_address][<?php echo $index; ?>][opening_closed]" 
+                                type="text" 
+                                id="bike_theme_options_contact_address_<?php echo $index; ?>_opening_closed" 
+                                value="<?php echo esc_url(isset($branch['opening_closed']) ? $branch['opening_closed'] : ''); ?>" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <?php
+    }
+
+    echo '</div>';
+
+    echo '<p><button type="button" id="add-branch-button" class="button button-secondary">' .
+        __('Add New Branch', 'bike-theme') . '</button></p>';
+
+    // Template for new branches
+    ?>
+    <script type="text/template" id="branch-template">
+        <div class="bike-branch-item" data-index="{{index}}">
+            <h3><?php esc_html_e('Branch', 'bike-theme'); ?> <span class="branch-number">{{number}}</span> 
+                <span class="branch-controls">
+                    <a href="#" class="branch-toggle"><?php esc_html_e('Toggle', 'bike-theme'); ?></a> | 
+                    <a href="#" class="branch-remove"><?php esc_html_e('Remove', 'bike-theme'); ?></a>
+                </span>
+            </h3>
+            <div class="branch-content">
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_contact_address_{{index}}_name">
+                                <?php esc_html_e('Branch Name', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[contact_address][{{index}}][name]" 
+                                type="text" 
+                                id="bike_theme_options_contact_address_{{index}}_name" 
+                                value="" 
+                                class="regular-text">
+                            <input type="hidden" 
+                                name="bike_theme_options[contact_address][{{index}}][delete]" 
+                                class="branch-delete-field" 
+                                value="no">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_contact_address_{{index}}_address">
+                                <?php esc_html_e('Address', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <textarea name="bike_theme_options[contact_address][{{index}}][address]" 
+                                id="bike_theme_options_contact_address_{{index}}_address" 
+                                class="regular-text" rows="3"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_contact_address_{{index}}_link">
+                                <?php esc_html_e('Google Maps Link', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                        <td>
+                            <input name="bike_theme_options[contact_address][{{index}}][link]" 
+                                type="url" 
+                                id="bike_theme_options_contact_address_{{index}}_link" 
+                                value="" 
+                                class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="bike_theme_options_contact_address_{{index}}_opening_closed">
+                                <?php esc_html_e('Opening/Closed', 'bike-theme'); ?>
+                            </label>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </script>
+    <?php
+
+    // Thêm JavaScript để xử lý thêm/xóa chi nhánh
+    ?>
+    <script>
+        jQuery(document).ready(function($) {
+            // Toggle branch content
+            $(document).on('click', '.branch-toggle', function(e) {
+                e.preventDefault();
+                var $item = $(this).closest('.bike-branch-item');
+                $item.find('.branch-content').slideToggle();
+            });
+            
+            // Remove branch
+            $(document).on('click', '.branch-remove', function(e) {
+                e.preventDefault();
+                if (confirm('<?php echo esc_js(__('Are you sure you want to remove this branch?', 'bike-theme')); ?>')) {
+                    var $item = $(this).closest('.bike-branch-item');
+                    $item.find('.branch-delete-field').val('yes');
+                    $item.slideUp();
+                }
+            });
+            
+            // Add new branch
+            var branchIndex = $('#bike-branches-container .bike-branch-item').length;
+            $('#add-branch-button').on('click', function() {
+                var template = $('#branch-template').html();
+                var newBranch = template.replace(/\{\{index\}\}/g, branchIndex).replace(/\{\{number\}\}/g, branchIndex + 1);
+                $('#bike-branches-container').append(newBranch);
+                branchIndex++;
+            });
+            
+            // Make branches sortable if jQuery UI is available
+            if ($.fn.sortable) {
+                $('#bike-branches-container').sortable({
+                    handle: 'h3',
+                    cursor: 'move',
+                    update: function(event, ui) {
+                        // Update branch numbers after sorting
+                        $(this).find('.bike-branch-item').each(function(index) {
+                            $(this).find('.branch-number').text(index + 1);
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+    <?php
 }

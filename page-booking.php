@@ -128,48 +128,9 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Price Summary Container -->
-                            <div id="price-summary-container" class="col-12 mt-3" style="display: none;">
-                                <div class="price-summary bg-white p-3 rounded border">
-                                    <h5 class="mb-3"><?php esc_html_e('Price Summary', 'bike-theme'); ?></h5>
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <span><?php esc_html_e('Tour price per person:', 'bike-theme'); ?></span>
-                                        <span id="tour-price-per-person">0 VND</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <span><?php esc_html_e('Number of participants:', 'bike-theme'); ?></span>
-                                        <span id="participant-count">1</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <span><?php esc_html_e('Tour subtotal:', 'bike-theme'); ?></span>
-                                        <span id="tour-subtotal">0 VND</span>
-                                    </div>
-                                    <div id="additions-summary" style="display: none;">
-                                        <div class="additions-list my-2"></div>
-                                        <div class="d-flex justify-content-between mb-2">
-                                            <span><?php esc_html_e('Additions subtotal:', 'bike-theme'); ?></span>
-                                            <span id="additions-subtotal">0 VND</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-between fw-bold pt-2 border-top">
-                                        <span><?php esc_html_e('Total:', 'bike-theme'); ?></span>
-                                        <span id="total-price">0 VND</span>
-                                    </div>
-                                </div>
-                            </div>
                             <!-- Participants end -->
                             <!-- Payment Method start -->
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <select class="form-select" id="payment_method" name="payment_method">
-                                        <option value="cash"><?php esc_html_e('Cash on Arrival', 'bike-theme'); ?></option>
-                                        <option value="bank_transfer"><?php esc_html_e('Bank Transfer', 'bike-theme'); ?></option>
-                                        <option value="paypal"><?php esc_html_e('PayPal', 'bike-theme'); ?></option>
-                                    </select>
-                                    <label for="payment_method"><?php esc_html_e('Payment Method', 'bike-theme'); ?></label>
-                                </div>
-                            </div>
+                            <input type="hidden" name="payment_method" value="cash">
                             <!-- Payment Method end -->
                             <!-- Special Request start -->
                             <div class="col-12">
@@ -190,8 +151,8 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             </div>
                             <!-- Terms and Conditions end -->
                             <!-- Book Now start -->
-                            <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit"><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
+                            <div class="col-12 text-center">
+                                <button class="btn btn-primary py-3" type="submit"><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
                             </div>
                             <!-- Book Now end -->
                         </div>
@@ -199,42 +160,32 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="bg-light rounded p-3 wow zoomIn" data-wow-delay="0.9s">
-                    <h4 class="mb-4"><?php esc_html_e('Why Book With Us?', 'bike-theme'); ?></h4>
-                    <div class="d-flex mb-3">
-                        <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
-                            <i class="fa fa-check"></i>
-                        </span>
-                        <div class="ms-3">
-                            <h6 class="text-primary mb-1"><?php esc_html_e('Expert Guides', 'bike-theme'); ?></h6>
-                            <p class="mb-0"><?php esc_html_e('Our professional guides know the best routes and share local knowledge', 'bike-theme'); ?></p>
+               <!-- Price Summary Container -->
+               <div id="price-summary-container" class="col-12 ">
+                    <div class="price-summary bg-white p-3 rounded border">
+                        <h5 class="mb-3"><?php esc_html_e('Price Summary', 'bike-theme'); ?></h5>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span><?php esc_html_e('Tour price per person:', 'bike-theme'); ?></span>
+                            <span id="tour-price-per-person">0 VND</span>
                         </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
-                            <i class="fa fa-check"></i>
-                        </span>
-                        <div class="ms-3">
-                            <h6 class="text-primary mb-1"><?php esc_html_e('Quality Equipment', 'bike-theme'); ?></h6>
-                            <p class="mb-0"><?php esc_html_e('We provide well-maintained bicycles and safety gear for all ages', 'bike-theme'); ?></p>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span><?php esc_html_e('Number of participants:', 'bike-theme'); ?></span>
+                            <span id="participant-count">1</span>
                         </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
-                            <i class="fa fa-check"></i>
-                        </span>
-                        <div class="ms-3">
-                            <h6 class="text-primary mb-1"><?php esc_html_e('Flexible Options', 'bike-theme'); ?></h6>
-                            <p class="mb-0"><?php esc_html_e('Customize your tour experience to match your preferences', 'bike-theme'); ?></p>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span><?php esc_html_e('Tour subtotal:', 'bike-theme'); ?></span>
+                            <span id="tour-subtotal">0 VND</span>
                         </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <span class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle" style="width: 40px; height: 40px;">
-                            <i class="fa fa-check"></i>
-                        </span>
-                        <div class="ms-3">
-                            <h6 class="text-primary mb-1"><?php esc_html_e('24/7 Support', 'bike-theme'); ?></h6>
-                            <p class="mb-0"><?php esc_html_e('Contact us anytime for assistance before, during, or after your tour', 'bike-theme'); ?></p>
+                        <div id="additions-summary" style="display: none;">
+                            <div class="additions-list my-2"></div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span><?php esc_html_e('Additions subtotal:', 'bike-theme'); ?></span>
+                                <span id="additions-subtotal">0 VND</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between fw-bold pt-2 border-top">
+                            <span><?php esc_html_e('Total:', 'bike-theme'); ?></span>
+                            <span id="total-price">0 VND</span>
                         </div>
                     </div>
                 </div>

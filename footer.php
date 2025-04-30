@@ -13,33 +13,47 @@
         <div class="container py-3">
             <div class="row g-3">
                 <div class="col-lg-4 col-md-6">
-                    <h4 class="text-light mb-4"><?php esc_html_e('About Us', 'bike-theme'); ?></h4>
-                    <?php if (is_active_sidebar('footer-1')) : ?>
-                        <?php dynamic_sidebar('footer-1'); ?>
-                    <?php else : ?>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><a class="text-light" href="<?php echo esc_url(bike_theme_get_option('address_link', '#')); ?>" target="_blank"><?php echo esc_html(bike_theme_get_option('contact_address', '123 Street, New York, USA')); ?></a></p>
-                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a class="text-light" href="tel:<?php echo esc_attr(bike_theme_get_option('contact_phone', '+849854557270')); ?>"><?php echo esc_html(bike_theme_get_option('contact_phone', '+849854557270')); ?></a></p>
-                        <p class="mb-2"><i class="fab fa-whatsapp me-3"></i><a class="text-light" href="https://api.whatsapp.com/send/?phone=<?php echo esc_attr(bike_theme_get_option('contact_phone', '84985455727')); ?>&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+849854557270')); ?></a></p>
-                        <p class="mb-2"><i class="fa fa-envelope me-3"></i><a class="text-light" href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
-                    <?php endif; ?>
+                    <h4 class="text-light mb-4"><?php esc_html_e('Our Shop', 'bike-theme'); ?></h4>
+                    <?php foreach (bike_theme_get_option('contact_address', array()) as $branch) : ?>
+                        <p class="mb-2">
+                            <i class="fa fa-map-marker-alt me-3"></i>
+                            <a class="text-light" href="<?php echo esc_url($branch['link']); ?>" target="_blank"><?php echo esc_html($branch['name']); ?></a>
+                            <p class="text-light"><?php echo esc_html($branch['address']); ?></p>
+                            <p class="text-light"><i class="fa fa-clock me-3"></i><?php echo esc_html($branch['opening_closed']); ?></p>
+                        </p>
+                    <?php endforeach; ?>
                 </div>
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="text-light mb-4"><?php esc_html_e('Contact Information', 'bike-theme'); ?></h4>
+                    <p class="mb-2"><i class="fa fa-envelope me-4"></i><a class="text-light" href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-4"></i><a class="text-light" href="tel:<?php echo esc_attr(bike_theme_get_option('contact_phone', '+849854557270')); ?>"><?php echo esc_html(bike_theme_get_option('contact_phone', '+849854557270')); ?></a></p>
+                    <p class="mb-2"><i class="fab fa-whatsapp me-4"></i><a class="text-light" href="https://api.whatsapp.com/send/?phone=<?php echo esc_attr(bike_theme_get_option('contact_phone', '84985455727')); ?>&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+849854557270')); ?></a></p>
+                    <p class="mb-2"><i class="fab fa-telegram me-4"></i><a class="text-light" href="https://t.me/beebikehub"><?php echo esc_html(bike_theme_get_option('contact_phone', '+849854557270')); ?></a></p>
+                    <p class="mb-2"><i class="fa fab-zalo" style="margin-right: 6px;">Zalo</i><a class="text-light" href="https://zalo.me/0985455727"><?php echo esc_html(bike_theme_get_option('contact_phone', '+849854557270')); ?></a></p>
+                </div> 
                
+             
                 <div class="col-lg-4 col-md-6">
-                    <h4 class="text-light mb-4"><?php esc_html_e('Services', 'bike-theme'); ?></h4>
-                    <?php if (is_active_sidebar('footer-3')) : ?>
-                        <?php dynamic_sidebar('footer-3'); ?>
-                    <?php else : ?>
-                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/bike-repair')); ?>"><?php esc_html_e('Bike Repair', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/bike-rental')); ?>"><?php esc_html_e('Bike Rental', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/custom-builds')); ?>"><?php esc_html_e('Custom Builds', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/bike-accessories')); ?>"><?php esc_html_e('Bike Accessories', 'bike-theme'); ?></a>
-                        <a class="btn btn-link" href="<?php echo esc_url(home_url('/guided-tours')); ?>"><?php esc_html_e('Guided Tours', 'bike-theme'); ?></a>
-                    <?php endif; ?>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <h4 class="text-light mb-4"><?php esc_html_e('Fanpage', 'bike-theme'); ?></h4>
+                    <h4 class="text-light mb-4"><?php esc_html_e('Follow Us', 'bike-theme'); ?></h4>
                     <div>
-                    <iframe style="width: 100%;" loading="lazy" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FBeeBike.BikeTours.and.BikeRentals%2F&tabs&width=340&height=70&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=2174410252844536" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                        <iframe style="width: 100%;" loading="lazy" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FBeeBike.BikeTours.and.BikeRentals%2F&tabs&width=340&height=70&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=2174410252844536" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                    </div>
+                    <div class="d-inline-flex align-items-center">
+                        <?php if (bike_theme_get_option('facebook')) : ?>
+                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('facebook')); ?>"><i class="fab fa-facebook"></i></a>
+                        <?php endif; ?>
+                        
+                        <?php if (bike_theme_get_option('address_link')) : ?>
+                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('address_link')); ?>"><i class="fab fa-google"></i></a>
+                        <?php endif; ?>
+                        
+                        <?php if (bike_theme_get_option('youtube')) : ?>
+                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('youtube')); ?>"><i class="fab fa-youtube"></i></a>
+                        <?php endif; ?>
+                        
+                        <?php if (bike_theme_get_option('instagram')) : ?>
+                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('instagram')); ?>"><i class="fab fa-instagram"></i></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

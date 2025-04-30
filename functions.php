@@ -9,7 +9,7 @@
  */
 
 if (! defined('BIKE_THEME_VERSION')) {
-    define('BIKE_THEME_VERSION', '1.0.10');
+    define('BIKE_THEME_VERSION', '1.0.11');
 }
 
 /**
@@ -47,6 +47,11 @@ require_once BIKE_THEME_INC_DIR . '/admin/customizer.php';
  */
 require_once BIKE_THEME_INC_DIR . '/frontend/template-tags.php';
 require_once BIKE_THEME_INC_DIR . '/frontend/helpers.php';
+
+/**
+ * Load contact components
+ */
+require_once BIKE_THEME_INC_DIR . '/contact/request.php';
 
 /**
  * Load booking system

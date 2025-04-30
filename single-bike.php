@@ -8,6 +8,8 @@
 get_header();
 wp_enqueue_style('bike-theme-single-bike', get_template_directory_uri() . '/assets/css/single-bike.css', array(), BIKE_THEME_VERSION);
 wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/assets/js/single-bike.js', array('jquery'), '', true);
+wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), BIKE_THEME_VERSION);
+
 ?>
 
 <main id="primary" class="site-main">
@@ -74,16 +76,6 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
                                 </span>
                             </div>
                             <?php endif; ?>
-
-                            <div class="bike-price">
-                                <?php if (!empty($sale_price)) : ?>
-                                    <span class="original-price"><?php echo number_format($price, 2, ',', '.'); ?> $ / hour</span>
-                                    <span class="sale-price"><?php echo number_format($sale_price, 2, ',', '.'); ?> $ / hour</span>
-                                <?php elseif (!empty($price)) : ?>
-                                    <span class="current-price"><?php echo number_format($price, 2, ',', '.'); ?> $ / hour</span>
-                                <?php endif; ?>
-                            </div>
-
                             <div class="bike-actions">
                                 <a href="/contact" class="btn btn-outline-primary btn-contact">
                                     <i class="fas fa-phone"></i> <?php esc_html_e('Contact Us', 'bike-theme'); ?>
@@ -101,37 +93,41 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
             </div>
         </section>
 
-        <!-- Main Content Section -->
-        <section class="bike-main-content">
-            <div class="container">
-                <!-- Navigation Tabs -->
-                <ul class="nav nav-tabs" id="bikeTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab">
+        <!-- Bike Tabs Navigation -->
+        <div class="tour-tabs animated" id="tourTabWrapper">
+            <div class="container-xxl">
+                <ul class="nav nav-tabs d-flex justify-content-start py-2" id="tourTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-uppercase active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">
                             <?php esc_html_e('Overview', 'bike-theme'); ?>
-                        </a>
+                        </button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="specs-tab" data-bs-toggle="tab" href="#specs" role="tab">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-uppercase" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button" role="tab" aria-controls="specs" aria-selected="false">
                             <?php esc_html_e('Specifications', 'bike-theme'); ?>
-                        </a>
+                        </button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-uppercase" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">
                             <?php esc_html_e('Reviews', 'bike-theme'); ?>
-                        </a>
+                        </button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="accessories-tab" data-bs-toggle="tab" href="#accessories" role="tab">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-uppercase" id="accessories-tab" data-bs-toggle="tab" data-bs-target="#accessories" type="button" role="tab" aria-controls="accessories" aria-selected="false">
                             <?php esc_html_e('Accessories', 'bike-theme'); ?>
-                        </a>
+                        </button>
                     </li>
                 </ul>
+            </div>
+        </div>
 
+        <!-- Main Content Section -->
+        <section class="bike-main-content py-0" id="tour-detail">
+            <div class="container-xxl">
                 <!-- Tab Content -->
-                <div class="tab-content" id="bikeTabContent">
+                <div class="tab-content px-0 py-3" style="border: none; min-height: 100vh;" id="tourTabContent">
                     <!-- Overview Tab -->
-                    <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                         <div class="bike-overview">
                             <?php the_content(); ?>
                             
@@ -149,7 +145,7 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
                     </div>
 
                     <!-- Specifications Tab -->
-                    <div class="tab-pane fade" id="specs" role="tabpanel">
+                    <div class="tab-pane fade" id="specs" role="tabpanel" aria-labelledby="specs-tab">
                         <?php if (!empty($specifications)) : ?>
                         <div class="bike-specifications">
                             <table class="table">
@@ -170,19 +166,19 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
                     </div>
 
                     <!-- Reviews Tab -->
-                    <div class="tab-pane fade" id="reviews" role="tabpanel">
+                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                         <div class="bike-reviews">
                             <?php
-                                                            // If comments are open or we have at least one comment, load up the comment template.
-                                                            if (comments_open() || get_comments_number()) :
-                                                                comments_template();
-                                                            endif;
-        ?>
+                            // If comments are open or we have at least one comment, load up the comment template.
+                            if (comments_open() || get_comments_number()) :
+                                comments_template();
+                            endif;
+                            ?>
                         </div>
                     </div>
 
                     <!-- Accessories Tab -->
-                    <div class="tab-pane fade" id="accessories" role="tabpanel">
+                    <div class="tab-pane fade" id="accessories" role="tabpanel" aria-labelledby="accessories-tab">
                         <?php if (!empty($included_accessories)) : ?>
                         <div class="bike-accessories">
                             <div class="row">
@@ -323,6 +319,18 @@ wp_enqueue_script('bike-theme-single-bike', get_template_directory_uri() . '/ass
         </section>
 
     <?php endwhile; ?>
+    <script>
+        $(document).ready(function() {
+            $('#tourTab .nav-link').click(function() {
+                var $this = $(this);
+                window.scrollTo({
+                    top: $('#tour-detail').offset().top - 150,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    
 </main>
 
 <?php
