@@ -36,7 +36,7 @@
                 <div class="col-lg-4 col-md-6">
                     <h4 class="text-light mb-4"><?php esc_html_e('Follow Us', 'bike-theme'); ?></h4>
                     <div>
-                        <iframe style="width: 100%;" loading="lazy" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FBeeBike.BikeTours.and.BikeRentals%2F&tabs&width=340&height=70&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=2174410252844536" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FBeeBikeHub&tabs&width=340&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="130" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                     </div>
                     <div class="d-inline-flex align-items-center">
                         <?php if (bike_theme_get_option('facebook')) : ?>

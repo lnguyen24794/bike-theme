@@ -24,7 +24,7 @@ function bike_theme_process_contact_form() {
         // Validate email
         if (!is_email($email)) {
             wp_send_json_error(array(
-                'message' => __('Email không hợp lệ. Vui lòng kiểm tra lại.', 'bike-theme')
+                'message' => __('Email is not valid, please check again.', 'bike-theme')
             ));
             return;
         }
@@ -55,16 +55,16 @@ function bike_theme_process_contact_form() {
         
         if ($sent) {
             wp_send_json_success(array(
-                'message' => __('Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất có thể!', 'bike-theme')
+                'message' => __('Thank you for contacting us. We will respond as soon as possible!', 'bike-theme')
             ));
         } else {
             wp_send_json_error(array(
-                'message' => __('Đã xảy ra lỗi khi gửi email. Vui lòng thử lại sau.', 'bike-theme')
+                'message' => __('An error occurred while sending the email. Please try again later.', 'bike-theme')
             ));
         }
     } else {
         wp_send_json_error(array(
-            'message' => __('Vui lòng điền đầy đủ thông tin.', 'bike-theme')
+            'message' => __('Please fill in all the information.', 'bike-theme')
         ));
     }
     
