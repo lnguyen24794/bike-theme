@@ -39,11 +39,15 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
             <div class="col-md-4">
                 <div class="col-md-12">
                     <h4 class=" mb-4"><?php esc_html_e('Our Shop', 'bike-theme'); ?></h4>
-                <?php foreach (bike_theme_get_option('contact_address', array()) as $branch) : ?>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><a  href="<?php echo esc_url($branch['link']); ?>" target="_blank"><?php echo esc_html($branch['name']); ?></a></p>
-                    <p class="mb-2"><?php echo esc_html($branch['address']); ?></p>
-                    <p class="mb-2"><i class="fa fa-clock me-3"></i><?php echo esc_html($branch['opening_closed']); ?></p>
-                <?php endforeach; ?>
+                    <?php foreach (bike_theme_get_option('contact_address', array()) as $branch) : ?>
+                        <p class="mb-2">
+                            <p ><a href="<?php echo esc_url($branch['link']); ?>" target="_blank">
+                                <h5 class="mb-0"><?php echo esc_html($branch['name']); ?></h5>
+                            </a></p>
+                            <p><i class="fa fa-map-marker-alt me-3"></i><?php echo esc_html($branch['address']); ?></p>
+                            <p><i class="fa fa-clock me-3"></i><?php echo esc_html($branch['opening_closed']); ?></p>
+                        </p>
+                    <?php endforeach; ?>
                 </div>
                 <div class="col-md-12 mt-4">
                     <h4 class=" mb-4"><?php esc_html_e('Contact Information', 'bike-theme'); ?></h4>

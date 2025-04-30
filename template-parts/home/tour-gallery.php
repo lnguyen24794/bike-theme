@@ -11,7 +11,7 @@
             $image_url = !empty($gallery_item['image_url']) ? $gallery_item['image_url'] : '';
             if (!empty($image_url)) :
         ?>
-            <div class="gallery-item" style="height: 300px;">
+            <div class="gallery-item" style="height: 400px;">
                 <a href="<?php echo esc_url($image_url); ?>" class="gallery-lightbox">
                     <?php echo wp_get_attachment_image($gallery_item['image_id'], 'full', false, array(
                         'class' => 'img-fluid rounded box-shadow',
@@ -34,6 +34,9 @@
                 autoplay: false,
                 autoplayTimeout: 3000,
                 autoplayHoverPause: true,
+                stagePadding: 50,
+                autoWidth:true,
+                center: true,
                 navText: [
                     "<i class='fa fa-chevron-left'></i>",
                     "<i class='fa fa-chevron-right'></i>"

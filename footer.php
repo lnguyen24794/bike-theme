@@ -16,9 +16,10 @@
                     <h4 class="text-light mb-4"><?php esc_html_e('Our Shop', 'bike-theme'); ?></h4>
                     <?php foreach (bike_theme_get_option('contact_address', array()) as $branch) : ?>
                         <p class="mb-2">
-                            <i class="fa fa-map-marker-alt me-3"></i>
-                            <a class="text-light" href="<?php echo esc_url($branch['link']); ?>" target="_blank"><?php echo esc_html($branch['name']); ?></a>
-                            <p class="text-light"><?php echo esc_html($branch['address']); ?></p>
+                            <p class="text-light" ><a href="<?php echo esc_url($branch['link']); ?>" target="_blank">
+                                <h5 class="mb-0"><?php echo esc_html($branch['name']); ?></h5>
+                            </a></p>
+                            <p class="text-light"><i class="fa fa-map-marker-alt me-3"></i><?php echo esc_html($branch['address']); ?></p>
                             <p class="text-light"><i class="fa fa-clock me-3"></i><?php echo esc_html($branch['opening_closed']); ?></p>
                         </p>
                     <?php endforeach; ?>

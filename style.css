@@ -394,3 +394,14 @@ select,
 .menu-item:hover a{
     color: #fff !important;
 }
+
+.owl-item.center{
+    transform: scaleY(1.1);
+}
+
+.owl-item img{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    height: 100% !important;
+    max-height: 100% !important;
+    object-fit: cover !important;
+}
