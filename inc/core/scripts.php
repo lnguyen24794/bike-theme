@@ -64,9 +64,6 @@ function bike_theme_scripts()
     // Navigation JS
     wp_enqueue_script('bike-theme-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), BIKE_THEME_VERSION, true);
 
-    // Main JS
-    wp_enqueue_script('bike-theme-main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), BIKE_THEME_VERSION, true);
-
     // Add lazysizes
     wp_enqueue_script('lazysizes', get_template_directory_uri() . '/assets/js/lazysizes.min.js', array(), '5.3.2', true);
     wp_enqueue_script('lazysizes-plugins', get_template_directory_uri() . '/assets/js/ls.unveilhooks.min.js', array('lazysizes'), '5.3.2', true);
@@ -74,5 +71,8 @@ function bike_theme_scripts()
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
     }
+
+    // Main JS
+    wp_enqueue_script('bike-theme-main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), BIKE_THEME_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'bike_theme_scripts'); 

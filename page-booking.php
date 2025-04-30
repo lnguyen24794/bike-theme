@@ -118,6 +118,37 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                     <label for="participants"><?php esc_html_e('Number of Participants', 'bike-theme'); ?></label>
                                 </div>
                             </div>
+                            <!-- Rider Details start -->
+                            <div class="col-12 mt-3">
+                                <h5><?php esc_html_e('Rider Details', 'bike-theme'); ?></h5>
+                                <div id="rider-details-container">
+                                    <!-- Rider details will be dynamically added here based on participant count -->
+                                    <div class="rider-details mb-3 rounded" data-rider="1">
+                                        <div class="row g-2">
+                                            <div class="col-12">
+                                                <div class="input-group mb-3 align-items-center">
+                                                    <span class="bg-dark text-primary rider-start-number">#1</span>
+                                                    <input type="text" class="form-control col-lg-6" id="rider_name_1" name="rider_name[]" placeholder="<?php esc_attr_e('Rider Name', 'bike-theme'); ?>" required>
+                                                    <select class="form-select" id="rider_gender_1" name="rider_gender[]">
+                                                        <option value="male"><?php esc_html_e('Male', 'bike-theme'); ?></option>
+                                                        <option value="female"><?php esc_html_e('Female', 'bike-theme'); ?></option>
+                                                        <option value="other"><?php esc_html_e('Other', 'bike-theme'); ?></option>
+                                                    </select>
+                                                    <input type="number" class="form-control" id="rider_weight_1" name="rider_weight[]" placeholder="<?php esc_attr_e('Weight (kg)', 'bike-theme'); ?>" min="1" max="200">
+                                                    <div class="form-check kid-checkbox">
+                                                        <input class="form-check-input rider-child-checkbox" type="checkbox" id="rider_is_child_1" name="rider_is_child[]" value="1" data-rider="1">
+                                                        <label class="form-check-label" for="rider_is_child_1">
+                                                            <?php esc_html_e('Kid', 'bike-theme'); ?>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="small text-muted"><?php esc_html_e('Please provide details for each rider. Children (under 12) receive a 50% discount.', 'bike-theme'); ?></p>
+                            </div>
+                            <!-- Participants end -->
                             <!-- After the participants field -->
                             <!-- Tour Additions Container -->
                             <div id="tour-additions-container" class="col-12" style="display: none;">
@@ -128,7 +159,6 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                     </div>
                                 </div>
                             </div>
-                            <!-- Participants end -->
                             <!-- Payment Method start -->
                             <input type="hidden" name="payment_method" value="cash">
                             <!-- Payment Method end -->
@@ -140,21 +170,6 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                 </div>
                             </div>
                             <!-- Special Request end -->
-                            <!-- Terms and Conditions start -->
-                            <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="terms" required>
-                                    <label class="form-check-label" for="terms">
-                                        <?php esc_html_e('I agree to the terms and conditions', 'bike-theme'); ?>
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- Terms and Conditions end -->
-                            <!-- Book Now start -->
-                            <div class="col-12 text-center">
-                                <button class="btn btn-primary py-3" type="submit"><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
-                            </div>
-                            <!-- Book Now end -->
                         </div>
                     </form>
                 </div>
@@ -188,6 +203,21 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             <span id="total-price">0 VND</span>
                         </div>
                     </div>
+                     <!-- Terms and Conditions start -->
+                     <div class="col-12 mt-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="terms" required>
+                            <label class="form-check-label" for="terms">
+                                <?php esc_html_e('I agree to the terms and conditions', 'bike-theme'); ?>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Terms and Conditions end -->
+                    <!-- Book Now start -->
+                    <div class="col-12 mt-2 text-center">
+                        <button class="btn btn-primary w-100 submit-button" type="submit" ><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
+                    </div>
+                    <!-- Book Now end -->
                 </div>
             </div>
         </div>
@@ -403,15 +433,28 @@ foreach ($all_tours as $tour_id) {
         
         var participants = parseInt($('#participants').val());
         var tourPricePerPerson = getPricePerPerson(tourId, participants);
-        var tourSubtotal = tourPricePerPerson * participants;
+        var tourSubtotal = 0;
         var additionsTotal = 0;
         var additionsList = [];
+        var childCount = $('.rider-child-checkbox:checked').length;
+        var adultCount = participants - childCount;
+        
+        // Calculate tour subtotal with child discounts
+        tourSubtotal = (adultCount * tourPricePerPerson) + (childCount * tourPricePerPerson * 0.5);
         
         // Calculate additions total
         $('.addition-checkbox:checked').each(function() {
             var price = parseFloat($(this).data('price'));
             var perPerson = $(this).data('per-person') === 1;
-            var additionTotal = perPerson ? price * participants : price;
+            var additionTotal = 0;
+            
+            if (perPerson) {
+                // Apply the same child discount to per-person additions
+                additionTotal = (adultCount * price) + (childCount * price * 0.5);
+            } else {
+                additionTotal = price;
+            }
+            
             additionsTotal += additionTotal;
             
             additionsList.push(
@@ -426,9 +469,17 @@ foreach ($all_tours as $tour_id) {
         $('#tour-price-per-person').fadeOut(200, function() {
             $(this).text(formatNumber(tourPricePerPerson) + ' VND').fadeIn(200);
         });
+        
+        // Show participant breakdown if there are children
+        var participantText = participants;
+        if (childCount > 0) {
+            participantText = adultCount + ' adults, ' + childCount + ' children';
+        }
+        
         $('#participant-count').fadeOut(200, function() {
-            $(this).text(participants).fadeIn(200);
+            $(this).text(participantText).fadeIn(200);
         });
+        
         $('#tour-subtotal').fadeOut(200, function() {
             $(this).text(formatNumber(tourSubtotal) + ' VND').fadeIn(200);
         });
@@ -461,7 +512,75 @@ foreach ($all_tours as $tour_id) {
         updateAdditionsOptions();
         updatePriceSummary();
     }
+
+    // Handle rider details based on participant count
+    function updateRiderDetails() {
+        var participantCount = parseInt($('#participants').val());
+        var $container = $('#rider-details-container');
+        var currentRiders = $container.find('.rider-details').length;
+
+        // Add more rider forms if needed
+        if (participantCount > currentRiders) {
+            for (var i = currentRiders + 1; i <= participantCount; i++) {
+                var riderHtml = `
+                    <div class="rider-details mb-3 rounded" data-rider="${i}">
+                        <div class="row g-2">
+                            <div class="col-12">
+                                <div class="input-group mb-3 align-items-center">
+                                    <span class="bg-dark text-primary rider-start-number">#${i}</span>
+                                    <input type="text" class="form-control col-lg-6" id="rider_name_${i}" name="rider_name[]" placeholder="Rider Name" required>
+                                    <select class="form-select" id="rider_gender_${i}" name="rider_gender[]">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <input type="number" class="form-control" id="rider_weight_${i}" name="rider_weight[]" placeholder="Weight (kg)" min="1" max="200">
+                                    <div class="form-check kid-checkbox">
+                                        <input class="form-check-input rider-child-checkbox" type="checkbox" id="rider_is_child_${i}" name="rider_is_child[]" value="1" data-rider="${i}">
+                                        <label class="form-check-label" for="rider_is_child_${i}">
+                                            Kid
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                $container.append(riderHtml);
+            }
+        }
+        // Remove excess rider forms
+        else if (participantCount < currentRiders) {
+            $container.find('.rider-details').slice(participantCount).remove();
+        }
+
+        // Update price calculation with child discounts
+        updatePriceSummary();
+    }
+
+    // Initialize rider details
+    updateRiderDetails();
+
+    // Update rider details when participant count changes
+    $('#participants').change(updateRiderDetails);
+
+    // Update price calculation when child status changes
+    $(document).on('change', '.rider-child-checkbox', updatePriceSummary);
 });
+</script>
+
+<script>
+// Define translations for the dynamic JS
+var bike_booking_params = {
+    rider_text: '<?php esc_html_e('Rider', 'bike-theme'); ?>',
+    rider_name: '<?php esc_html_e('Rider Name', 'bike-theme'); ?>',
+    gender: '<?php esc_html_e('Gender', 'bike-theme'); ?>',
+    male: '<?php esc_html_e('Male', 'bike-theme'); ?>',
+    female: '<?php esc_html_e('Female', 'bike-theme'); ?>',
+    other: '<?php esc_html_e('Other', 'bike-theme'); ?>',
+    weight: '<?php esc_html_e('Weight (kg)', 'bike-theme'); ?>',
+    child_text: '<?php esc_html_e('Kid', 'bike-theme'); ?>'
+};
 </script>
 
 <style>
@@ -541,6 +660,40 @@ foreach ($all_tours as $tour_id) {
 
 .additions-list small {
     color: #495057;
+}
+
+/* Rider details styles */
+
+.kid-checkbox {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.kid-checkbox .form-check-label {
+    margin-bottom: 0;
+    white-space: nowrap;
+    padding-left: 5px;
+}
+
+.rider-details .input-group {
+    flex-wrap: nowrap;
+}
+
+@media (max-width: 768px) {
+    .rider-details .input-group {
+        flex-wrap: wrap;
+    }
+    
+    .rider-details .input-group input,
+    .rider-details .input-group select {
+        margin-bottom: 5px;
+    }
+    
+    .kid-checkbox {
+        margin-left: 0;
+        margin-top: 5px;
+    }
 }
 </style>
 

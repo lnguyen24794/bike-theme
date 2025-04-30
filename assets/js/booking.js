@@ -41,6 +41,9 @@ jQuery(document).ready(function($) {
                         updatePriceDisplay();
                     }
 
+                    // Reset rider details
+                    updateRiderDetails();
+
                     // Refresh CSRF token
                     bike_booking.csrf_token = response.data.new_csrf_token;
 
@@ -83,8 +86,24 @@ jQuery(document).ready(function($) {
         });
     });
 
-    // Update price calculation when participants change
+    // Initialize rider details
+    if ($('#rider-details-container').length) {
+        updateRiderDetails();
+    }
+
+    // Update rider details when participants change
     $('#participants').on('change', function() {
+        if ($('#rider-details-container').length) {
+            updateRiderDetails();
+        }
+        
+        if (typeof updatePriceDisplay === 'function') {
+            updatePriceDisplay();
+        }
+    });
+
+    // Update price calculation when child status changes
+    $(document).on('change', '.rider-child-checkbox', function() {
         if (typeof updatePriceDisplay === 'function') {
             updatePriceDisplay();
         }

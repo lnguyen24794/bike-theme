@@ -158,6 +158,15 @@ function bike_theme_add_booking_meta_boxes()
         'normal',
         'high'
     );
+
+    add_meta_box(
+        'booking_rider_details',
+        __('Rider Details', 'bike-theme'),
+        'bike_theme_booking_rider_details_meta_box_callback',
+        'bike_booking',
+        'normal',
+        'high'
+    );
 }
 add_action('add_meta_boxes', 'bike_theme_add_booking_meta_boxes');
 
@@ -456,6 +465,99 @@ function bike_theme_booking_payment_meta_box_callback($post)
         }
         .booking-payment-meta-box .additions-breakdown ul {
             margin: 0 0 10px 20px;
+        }
+    </style>
+    <?php
+}
+
+/**
+ * Rider details meta box callback
+ */
+function bike_theme_booking_rider_details_meta_box_callback($post)
+{
+    $rider_names = get_post_meta($post->ID, '_booking_rider_names', true);
+    $rider_genders = get_post_meta($post->ID, '_booking_rider_genders', true);
+    $rider_weights = get_post_meta($post->ID, '_booking_rider_weights', true);
+    $rider_is_children = get_post_meta($post->ID, '_booking_rider_is_children', true);
+    
+    // If no rider data exists, show a message
+    if (empty($rider_names) || !is_array($rider_names)) {
+        echo '<p>' . __('No rider details available for this booking.', 'bike-theme') . '</p>';
+        return;
+    }
+    
+    ?>
+    <div class="booking-rider-details-meta-box">
+        <table class="widefat">
+            <thead>
+                <tr>
+                    <th><?php _e('Rider', 'bike-theme'); ?></th>
+                    <th><?php _e('Name', 'bike-theme'); ?></th>
+                    <th><?php _e('Gender', 'bike-theme'); ?></th>
+                    <th><?php _e('Weight (kg)', 'bike-theme'); ?></th>
+                    <th><?php _e('Child Status', 'bike-theme'); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($rider_names as $index => $name) : 
+                    $gender = isset($rider_genders[$index]) ? $rider_genders[$index] : '';
+                    $weight = isset($rider_weights[$index]) ? $rider_weights[$index] : '';
+                    $is_child = isset($rider_is_children[$index]) && $rider_is_children[$index];
+                ?>
+                    <tr>
+                        <td><?php echo esc_html($index + 1); ?></td>
+                        <td><?php echo esc_html($name); ?></td>
+                        <td>
+                            <?php 
+                            if ($gender === 'male') {
+                                _e('Male', 'bike-theme');
+                            } elseif ($gender === 'female') {
+                                _e('Female', 'bike-theme');
+                            } elseif ($gender === 'other') {
+                                _e('Other', 'bike-theme');
+                            } else {
+                                _e('Not specified', 'bike-theme');
+                            }
+                            ?>
+                        </td>
+                        <td><?php echo $weight ? esc_html($weight) . ' kg' : __('Not specified', 'bike-theme'); ?></td>
+                        <td>
+                            <?php if ($is_child) : ?>
+                                <span class="child-status"><?php _e('Child (50% discount applied)', 'bike-theme'); ?></span>
+                            <?php else : ?>
+                                <span class="adult-status"><?php _e('Adult', 'bike-theme'); ?></span>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    
+    <style>
+        .booking-rider-details-meta-box table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .booking-rider-details-meta-box th,
+        .booking-rider-details-meta-box td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .booking-rider-details-meta-box th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
+        .booking-rider-details-meta-box tr:hover {
+            background-color: #f5f5f5;
+        }
+        .child-status {
+            color: #0073aa;
+            font-weight: bold;
+        }
+        .adult-status {
+            color: #444;
         }
     </style>
     <?php

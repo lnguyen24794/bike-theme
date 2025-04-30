@@ -414,3 +414,10 @@ select,
     height: 100% !important;
     max-height: 100% !important;
 }
+
+.rider-start-number{
+    padding: .3rem 0.2rem;
+}
+.kid-checkbox{
+ padding-left: 45px !important;
+}

@@ -288,7 +288,7 @@ wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/asse
         <!-- Bottom Section -->
         <section class="bike-bottom">
             <div class="container">
-                <div class="row align-items-center">
+                <div class="row align-items-start">
                     <div class="col-md-6">
                         <div class="bottom-cta">
                             <a href="/contact" class="btn btn-primary btn-lg btn-buy">

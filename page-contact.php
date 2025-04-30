@@ -122,8 +122,6 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                     </div>
                 </div>
             </div>
-          
-          
         </div>
     </div>
     <!-- Contact End -->

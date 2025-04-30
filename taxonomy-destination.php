@@ -150,8 +150,8 @@ if ($tour_query->have_posts()) :
                                         <div class="price"><?php echo bike_theme_format_price($price); ?></div>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <a class="btn btn-sm btn-primary rounded py-2 px-4" href="<?php the_permalink(); ?>"><?php esc_html_e('View Details', 'bike-theme'); ?></a>
-                                        <a class="btn btn-sm btn-dark rounded py-2 px-4" href="<?php echo esc_url(get_permalink(get_option('bike_theme_booking_page'))); ?>?tour=<?php the_ID(); ?>"><?php esc_html_e('Book Now', 'bike-theme'); ?></a>
+                                        <a class="btn btn-sm btn-primary w-50 rounded py-2 px-2" href="<?php the_permalink(); ?>"><?php esc_html_e('View Details', 'bike-theme'); ?></a>
+                                        <a class="btn btn-sm btn-dark w-50 rounded py-2 px-2" href="<?php echo esc_url(get_permalink(get_option('bike_theme_booking_page'))); ?>?tour=<?php the_ID(); ?>"><?php esc_html_e('Book Now', 'bike-theme'); ?></a>
                                     </div>
                                 </div>
                             </div>
