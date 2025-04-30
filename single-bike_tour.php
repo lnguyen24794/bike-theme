@@ -451,9 +451,9 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                     <?php wp_nonce_field('bike_tour_booking', 'bike_tour_booking_nonce'); ?>
                     <input type="hidden" name="tour_id" value="<?php echo get_the_ID(); ?>">
                     <div class="row">
-                        <div class="col-7 bg-primary py-3">
+                        <div class="col-7 bg-primary py-3 pl-2">
+                            <h5 class=""><?php esc_html_e('Your Information', 'bike-theme'); ?></h5>
                             <div class="row g-3">
-                                <h5 class=""><?php esc_html_e('Your Information', 'bike-theme'); ?></h5>
                                 <div class="col-lg-6">
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="name" name="name" placeholder="<?php esc_attr_e('Your Name', 'bike-theme'); ?>" required>
@@ -548,12 +548,16 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                     </div>
                                 </div>
                                 <?php endif; ?>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="<?php esc_attr_e('Special Request', 'bike-theme'); ?>" id="message" name="message" style="height: 100px"></textarea>
+                                        <label for="message"><?php esc_html_e('Special Request', 'bike-theme'); ?></label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-5">
-                            <div class="row g-3">
-                                <div class="col-12 mt-3">
-                            <div class="price-summary bg-white p-3 rounded border">
+                        <div class="col-5 p-0 pr-2 text-center border">
+                            <div class="price-summary p-3 ">
                                 <h5 class="mb-3"><?php esc_html_e('Price Summary', 'bike-theme'); ?></h5>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span><?php esc_html_e('Tour price per person:', 'bike-theme'); ?></span>
@@ -582,15 +586,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                     <span id="total-price"><?php echo esc_html(number_format(bike_theme_get_tour_total_price(get_the_ID(), 1), 0, '.', ',')); ?> VND</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="<?php esc_attr_e('Special Request', 'bike-theme'); ?>" id="message" name="message" style="height: 100px"></textarea>
-                                <label for="message"><?php esc_html_e('Special Request', 'bike-theme'); ?></label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary w-100 submit-button" type="button" ><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
+                            <button class="btn btn-primary w-50 submit-button" type="button" ><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
                         </div>
                     </div>
                 </form>
