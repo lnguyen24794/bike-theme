@@ -2,7 +2,7 @@
     // Kiểm tra kiểu dữ liệu và chuyển đổi nếu cần
     $gallery_ids_array = is_array($gallery_ids) ? $gallery_ids : explode(',', $gallery_ids);
 ?>
-<div class="container-fluid pt-3 pb-2 bg-light">   
+<div class="container-fluid pt-2 pb-2 bg-light">   
     <div class="owl-carousel tour-slider">
         <?php foreach($gallery_ids_array as $image_id):
             if (!empty($image_id)) :
@@ -27,13 +27,16 @@
     <script>
         jQuery(document).ready(function($){
             $('.tour-slider').owlCarousel({
-                loop: true,
-                margin: 20,
+               loop: true,
+                margin: 50,
                 nav: true,
                 dots: true,
-                autoplay: true,
+                autoplay: false,
                 autoplayTimeout: 3000,
                 autoplayHoverPause: true,
+                stagePadding: 50,
+                autoWidth:true,
+                center: true,
                 navText: [
                     "<i class='fa fa-chevron-left'></i>",
                     "<i class='fa fa-chevron-right'></i>"

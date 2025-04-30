@@ -393,15 +393,24 @@ select,
 }
 .menu-item:hover a{
     color: #fff !important;
+    margin-bottom: 0px !important;
+}
+.owl-item {
+    max-height: 400px !important;
+}
+.owl-item .gallery-item{
+ transform: scaleY(0.9) !important;
+}
+.owl-item.center .gallery-item {
+    transform: scaleY(1) !important;
+    box-shadow: 5px 10px 10px 5px rgba(0, 0, 0, 0.3);
 }
 
-.owl-item.center{
-    transform: scaleY(1.1);
+.owl-item.center {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
 }
 
-.owl-item img{
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+.owl-item.center img{
     height: 100% !important;
     max-height: 100% !important;
-    object-fit: cover !important;
 }
