@@ -575,8 +575,6 @@ function bike_theme_image_field_callback($args) {
     <script type="text/javascript">
     jQuery(document).ready(function($) {
         // Media Upload
-        var mediaUploader;
-        
         $('.bike-media-upload-button').click(function(e) {
             e.preventDefault();
             
@@ -587,14 +585,8 @@ function bike_theme_image_field_callback($args) {
             var $idInput = $wrapper.find('.bike-media-id');
             var $removeButton = $wrapper.find('.bike-media-remove-button');
 
-            // If the uploader object has already been created, reopen the dialog
-            if (mediaUploader) {
-                mediaUploader.open();
-                return;
-            }
-
-            // Create the media uploader
-            mediaUploader = wp.media({
+            // Create a new media uploader instance for this button
+            var fileMediaUploader = wp.media({
                 title: '<?php echo esc_js(__('Choose Image', 'bike-theme')); ?>',
                 button: {
                     text: '<?php echo esc_js(__('Select', 'bike-theme')); ?>'
@@ -603,8 +595,8 @@ function bike_theme_image_field_callback($args) {
             });
 
             // When an image is selected, run a callback
-            mediaUploader.on('select', function() {
-                var attachment = mediaUploader.state().get('selection').first().toJSON();
+            fileMediaUploader.on('select', function() {
+                var attachment = fileMediaUploader.state().get('selection').first().toJSON();
                 
                 $urlInput.val(attachment.url);
                 $idInput.val(attachment.id);
@@ -613,7 +605,7 @@ function bike_theme_image_field_callback($args) {
             });
 
             // Open the uploader dialog
-            mediaUploader.open();
+            fileMediaUploader.open();
         });
 
         // Remove Image
@@ -762,130 +754,6 @@ function bike_theme_render_options_page()
     ?>
         </form>
     </div>
-    
-    <script>
-        jQuery(document).ready(function($) {
-            // Color picker
-            $('.bike-theme-color-field').wpColorPicker();
-            
-            // Media uploaders for slides
-            var frame;
-            
-            // Toggle slide content
-            $(document).on('click', '.slide-toggle', function(e) {
-                e.preventDefault();
-                var $item = $(this).closest('.bike-slide-item');
-                $item.find('.slide-content').slideToggle();
-            });
-            
-            // Remove slide
-            $(document).on('click', '.slide-remove', function(e) {
-                e.preventDefault();
-                if (confirm('<?php echo esc_js(__('Are you sure you want to remove this item?', 'bike-theme')); ?>')) {
-                    var $item = $(this).closest('.bike-slide-item');
-                    $item.find('.slide-delete-field').val('yes');
-                    $item.slideUp();
-                }
-            });
-            
-            // Add new About slide
-            var aboutSlideIndex = $('#bike-about-slides-container .bike-slide-item').length;
-            $('#add-about-slide-button').on('click', function() {
-                var template = $('#about-slide-template').html();
-                var newSlide = template.replace(/\{\{index\}\}/g, aboutSlideIndex).replace(/\{\{number\}\}/g, aboutSlideIndex + 1);
-                $('#bike-about-slides-container').append(newSlide);
-                aboutSlideIndex++;
-            });
-            
-            // Add new Hero slide
-            var heroSlideIndex = $('#bike-hero-slides-container .bike-slide-item').length;
-            $('#add-hero-slide-button').on('click', function() {
-                var template = $('#hero-slide-template').html();
-                var newSlide = template.replace(/\{\{index\}\}/g, heroSlideIndex).replace(/\{\{number\}\}/g, heroSlideIndex + 1);
-                $('#bike-hero-slides-container').append(newSlide);
-                heroSlideIndex++;
-            });
-            
-            // Media upload buttons (for slides)
-            $(document).on('click', '.bike-media-upload-btn', function(e) {
-                e.preventDefault();
-                
-                var $button = $(this);
-                var $uploadDiv = $button.closest('.bike-media-upload');
-                var $idField = $uploadDiv.find('.bike-media-id');
-                var $urlField = $uploadDiv.find('.bike-media-url');
-                var $preview = $uploadDiv.find('.bike-media-preview');
-                var $removeButton = $uploadDiv.find('.bike-media-remove-btn');
-                
-                // If the media frame already exists, reopen it
-                if (frame) {
-                    frame.open();
-                    return;
-                }
-                
-                // Create the media frame
-                frame = wp.media({
-                    title: '<?php echo esc_js(__('Select or Upload Image', 'bike-theme')); ?>',
-                    button: {
-                        text: '<?php echo esc_js(__('Use this image', 'bike-theme')); ?>'
-                    },
-                    multiple: false
-                });
-                
-                // When an image is selected in the media frame
-                frame.on('select', function() {
-                    // Get media attachment details
-                    var attachment = frame.state().get('selection').first().toJSON();
-                    
-                    // Set the field values
-                    $idField.val(attachment.id);
-                    $urlField.val(attachment.url);
-                    
-                    // Update the preview
-                    $preview.html('<img src="' + attachment.url + '" alt="" style="max-width: 300px;">');
-                    
-                    // Show the remove button
-                    $removeButton.removeClass('hidden');
-                });
-                
-                // Open the modal
-                frame.open();
-            });
-            
-            // Remove image
-            $(document).on('click', '.bike-media-remove-btn', function(e) {
-                e.preventDefault();
-                
-                var $button = $(this);
-                var $uploadDiv = $button.closest('.bike-media-upload');
-                var $idField = $uploadDiv.find('.bike-media-id');
-                var $urlField = $uploadDiv.find('.bike-media-url');
-                var $preview = $uploadDiv.find('.bike-media-preview');
-                
-                // Clear the fields
-                $idField.val('');
-                $urlField.val('');
-                $preview.html('');
-                
-                // Hide the remove button
-                $button.addClass('hidden');
-            });
-            
-            // Make slides sortable
-            if ($.fn.sortable) {
-                $('#bike-about-slides-container, #bike-hero-slides-container').sortable({
-                    handle: 'h3',
-                    cursor: 'move',
-                    update: function(event, ui) {
-                        // Update slide numbers after sorting
-                        $(this).find('.bike-slide-item').each(function(index) {
-                            $(this).find('.slide-number').text(index + 1);
-                        });
-                    }
-                });
-            }
-        });
-    </script>
     <?php
 }
 
@@ -924,6 +792,10 @@ function bike_theme_options_scripts($hook)
     wp_localize_script('bike-theme-admin-js', 'bikeThemeAdmin', array(
         'i18n' => array(
             'confirmDelete' => __('Are you sure you want to delete this item?', 'bike-theme'),
+            'chooseImage' => __('Select or Upload Image', 'bike-theme'),
+            'useThisImage' => __('Use this image', 'bike-theme'),
+            'selectGalleryImages' => __('Select Gallery Images', 'bike-theme'),
+            'addToGallery' => __('Add to Gallery', 'bike-theme')
         )
     ));
 }

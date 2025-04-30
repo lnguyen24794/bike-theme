@@ -40,7 +40,8 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                         <div class="row g-3">
                             <?php
                             // Get all about slides from options
-                            $about_slides = get_option('bike_theme_about_slides', array());
+                            $options = get_option('bike_theme_options', array());
+                            $about_slides = isset($options['about_slides']) ? $options['about_slides'] : array();
 
                             // If no slides found, create default ones
                             if (empty($about_slides)) {
