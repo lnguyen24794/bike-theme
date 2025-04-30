@@ -779,31 +779,32 @@ jQuery(document).ready(function($) {
     // Update price calculation when child status changes
     $(document).on('change', '.rider-child-checkbox', updatePriceSummary);
 
-     // Change from form submit to button click
-     $('.submit-button').on('click', function(e) {
+        // Handle booking form submission
+        $('#tour-booking-form').on('submit', function(e) {
         e.preventDefault();
         
-        var $button = $(this);
-        var $form = $button.closest('form');
-        var $responseDiv = $('.booking-response');
-
-        // Validate form
-        if (!$form[0].checkValidity()) {
-            $form[0].reportValidity();
-            return;
-        }
-
-        // Disable button and show loading state
-        $button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ' + bike_booking.submitting_text);
-
+        var $form = $(this);
+        var $submitButton = $form.find('button[type="submit"]');
+        var $response = $('.booking-response');
+        
+        // Disable submit button and show loading state
+        $submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <?php esc_html_e('Processing...', 'bike-theme'); ?>');
+        
+        // Clear previous messages
+        $response.empty();
+        
         // Get form data
-        var formData = new FormData($form[0]);
-        formData.append('action', 'bike_theme_process_booking');
-        formData.append('csrf_token', bike_booking.csrf_token);
-
+        var formData = new FormData(this);
+        
+        // Add price information if flexible pricing is enabled
+        if ($('#price-per-person').length) {
+            formData.append('price_per_person', $('#price-per-person').text().replace(/[^0-9]/g, ''));
+            formData.append('total_price', $('#total-price').text().replace(/[^0-9]/g, ''));
+        }
+        
         // Send Ajax request
         $.ajax({
-            url: bike_booking.ajax_url,
+            url: '<?php echo admin_url('admin-ajax.php'); ?>',
             type: 'POST',
             data: formData,
             processData: false,
@@ -811,57 +812,27 @@ jQuery(document).ready(function($) {
             success: function(response) {
                 if (response.success) {
                     // Show success message
-                    $responseDiv.html('<div class="alert alert-success">' + response.data.message + '</div>');
+                    $response.html('<div class="alert alert-success">' + response.data.message + '</div>');
                     
                     // Reset form
                     $form[0].reset();
                     
-                    // Update price calculation if exists
-                    if (typeof updatePriceDisplay === 'function') {
-                        updatePriceDisplay();
+                    // Reset price display if flexible pricing is enabled
+                    if ($('#price-per-person').length) {
+                        updatePriceSummary();
                     }
-
-                    // Reset rider details
-                    updateRiderDetails();
-
-                    // Refresh CSRF token
-                    bike_booking.csrf_token = response.data.new_csrf_token;
-
-                    // Scroll to response message
-                    $('html, body').animate({
-                        scrollTop: $responseDiv.offset().top - 100
-                    }, 500);
                 } else {
                     // Show error message
-                    var errorHtml = '<div class="alert alert-danger"><ul class="mb-0">';
-                    if (Array.isArray(response.data)) {
-                        response.data.forEach(function(error) {
-                            errorHtml += '<li>' + error + '</li>';
-                        });
-                    } else {
-                        errorHtml += '<li>' + response.data.message + '</li>';
-                    }
-                    errorHtml += '</ul></div>';
-                    $responseDiv.html(errorHtml);
-
-                    // Scroll to error message
-                    $('html, body').animate({
-                        scrollTop: $responseDiv.offset().top - 100
-                    }, 500);
+                    $response.html('<div class="alert alert-danger">' + response.data.message + '</div>');
                 }
             },
             error: function() {
                 // Show error message
-                $responseDiv.html('<div class="alert alert-danger">' + bike_booking.error_message + '</div>');
-                
-                // Scroll to error message
-                $('html, body').animate({
-                    scrollTop: $responseDiv.offset().top - 100
-                }, 500);
+                $response.html('<div class="alert alert-danger"><?php esc_html_e('An error occurred. Please try again.', 'bike-theme'); ?></div>');
             },
             complete: function() {
-                // Re-enable button
-                $button.prop('disabled', false).text(bike_booking.submit_text);
+                // Re-enable submit button
+                $submitButton.prop('disabled', false).html('<?php esc_html_e('Book Now', 'bike-theme'); ?>');
             }
         });
     });
@@ -871,6 +842,8 @@ jQuery(document).ready(function($) {
 
 <script>
 jQuery(document).ready(function($) {
+
+
     $('#tourTab .nav-link').click(function() {
         var $this = $(this);
         window.scrollTo({
