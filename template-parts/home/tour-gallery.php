@@ -8,7 +8,7 @@
     <!-- Grid Gallery Layout -->
     <div class="gallery-slide owl-carousel">
         <?php foreach($tour_gallery as $index => $gallery_item):
-            $image_url = !empty($gallery_item['image_url']) ? $gallery_item['image_url'] : 'thumbnail';
+            $image_url = !empty($gallery_item['image_url']) ? $gallery_item['image_url'] : 'large';
             if (!empty($image_url)) :
         ?>
             <div class="gallery-item" style="height: 400px;">
