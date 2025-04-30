@@ -624,11 +624,11 @@ jQuery(document).ready(function($) {
     echo json_encode($pricing_data);
     ?>;
 
-    function formatNumber(number) {
+    var formatNumber = function(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    function getPricePerPerson(participants) {
+    var getPricePerPerson = function(participants) {
         // Sort pricing data by number of participants (ascending)
         pricingData.sort(function(a, b) {
             return a.participants - b.participants;
@@ -653,7 +653,7 @@ jQuery(document).ready(function($) {
         return applicablePrice || <?php echo (int)get_post_meta(get_the_ID(), '_tour_price', true); ?>;
     }
 
-    function updatePriceSummary() {
+    var updatePriceSummary = function() {
         var participants = parseInt($('#participants').val());
         var pricePerPerson = getPricePerPerson(participants);
         var childCount = $('.rider-child-checkbox:checked').length;
@@ -718,7 +718,7 @@ jQuery(document).ready(function($) {
     updatePriceSummary();
 
      // Handle rider details based on participant count
-     function updateRiderDetails() {
+    var updateRiderDetails = function() {
         var participantCount = parseInt($('#participants').val());
         var $container = $('#rider-details-container');
         var currentRiders = $container.find('.rider-details').length;
@@ -822,7 +822,9 @@ jQuery(document).ready(function($) {
                     }
 
                     // Reset rider details
-                    updateRiderDetails();
+                    if (typeof updateRiderDetails === 'function') { 
+                        updateRiderDetails();
+                    }
 
                     // Refresh CSRF token
                     bike_booking.csrf_token = response.data.new_csrf_token;
