@@ -601,7 +601,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 <!-- Booking Form End -->
 </main><!-- #main -->
 
-<?php if (get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1') : ?>
+
 <script>
 jQuery(document).ready(function($) {
     // Get tour pricing data
@@ -869,12 +869,9 @@ jQuery(document).ready(function($) {
     });
 });
 </script>
-<?php endif; ?>
 
 <script>
 jQuery(document).ready(function($) {
-
-
     $('#tourTab .nav-link').click(function() {
         var $this = $(this);
         window.scrollTo({
