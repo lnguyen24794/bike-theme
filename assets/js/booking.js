@@ -85,27 +85,4 @@ jQuery(document).ready(function($) {
             }
         });
     });
-
-    // Initialize rider details
-    if ($('#rider-details-container').length) {
-        updateRiderDetails();
-    }
-
-    // Update rider details when participants change
-    $('#participants').on('change', function() {
-        if ($('#rider-details-container').length) {
-            updateRiderDetails();
-        }
-        
-        if (typeof updatePriceDisplay === 'function') {
-            updatePriceDisplay();
-        }
-    });
-
-    // Update price calculation when child status changes
-    $(document).on('change', '.rider-child-checkbox', function() {
-        if (typeof updatePriceDisplay === 'function') {
-            updatePriceDisplay();
-        }
-    });
 }); 
