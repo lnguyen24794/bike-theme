@@ -349,19 +349,12 @@ jQuery(document).ready(function($) {
         var tourId = $('#tour').val();
         var participants = parseInt($('#participants').val(), 10);
         
-        if (!tourId) {
-            $('.price-summary-container').hide();
-            return;
-        }
-        
         var pricePerPerson = getPricePerPerson(tourId, participants);
         var totalPrice = pricePerPerson * participants;
         
         $('#price-per-person').text(formatNumber(pricePerPerson) + ' $');
         $('#participant-count').text(participants);
         $('#total-price').text(formatNumber(totalPrice) + ' $');
-        
-        $('.price-summary-container').show();
     }
     
     // Initial update
