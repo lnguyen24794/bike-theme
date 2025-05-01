@@ -432,23 +432,8 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
             <section class="bike-bottom">
                 <div class="container">
                     <div class="row align-items-start">
-                        <div class="col-md-6">
-                            <div class="bottom-cta">
-                            <a class="btn btn-primary cursor-pointer" data-bs-toggle="modal" data-bs-target="#bookingModal"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></a>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="bottom-support text-end">
-                                <button class="btn btn-outline-primary btn-chat">
-                                    <i class="fas fa-comments"></i> <?php esc_html_e('Chat with Expert', 'bike-theme'); ?>
-                                </button>
-                                <div class="social-share">
-                                    <span><?php esc_html_e('Share:', 'bike-theme'); ?></span>
-                                    <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
-                                    <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
+                        <div class="bottom-cta text-center">
+                            <a class="btn btn-primary w-xs-100 mx-auto cursor-pointer" data-bs-toggle="modal" data-bs-target="#bookingModal"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></a>
                         </div>
                     </div>
                 </div>
