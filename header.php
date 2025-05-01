@@ -38,7 +38,7 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
                     $custom_logo_id = get_theme_mod('custom_logo');
                     $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
                     ?>
-                    <img width="115px" height="115px" src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo">
+                    <img width="115px" height="115px" src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-width: 115px;">
                 <?php else : ?>
                     <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
                 <?php endif; ?>
@@ -69,7 +69,7 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
                         $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
                         $secondary_logo = bike_theme_get_option('secondary_logo');
                         ?>
-                        <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo">
+                        <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-width: 115px;">
                     <?php else : ?>
                         <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
                     <?php endif; ?>

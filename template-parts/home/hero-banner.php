@@ -45,13 +45,15 @@
                             <?php if (!empty($subtitle)) : ?>
                                 <p style="margin-bottom: 30px;" class="text-shadow text-white text-size-medium mb-3 animated slideInDown"><?php echo esc_html($subtitle); ?></p>
                             <?php endif; ?>
-                            
-                            <?php if (!empty($btn1_text)) : ?>
-                            <a href="<?php echo esc_url($btn1_url); ?>" class="btn btn-primary btn-fixed py-md-2 px-md-4 me-3 animated slideInLeft"><?php echo esc_html($btn1_text); ?></a>
-                            <?php endif; ?>
-                            <?php if (!empty($btn2_text)) : ?>
-                            <a href="<?php echo esc_url($btn2_url); ?>" class="btn btn-primary btn-fixed py-md-2 px-md-4 animated slideInRight"><?php echo esc_html($btn2_text); ?></a>
-                            <?php endif; ?>
+                            <div class="w-lg-50 mx-auto">
+                                <?php if (!empty($btn1_text)) : ?>
+                                <a style="width: min(180px, 45%); display: inline-block;" href="<?php echo esc_url($btn1_url); ?>" class="btn btn-primary py-md-2 px-md-4 me-2  animated slideInLeft"><?php echo esc_html($btn1_text); ?></a>
+                                <?php endif; ?>
+                                <?php if (!empty($btn2_text)) : ?>
+                                <a style="width: min(180px, 45%); display: inline-block;" href="<?php echo esc_url($btn2_url); ?>" class="btn btn-primary py-md-2 px-md-4 animated slideInRight"><?php echo esc_html($btn2_text); ?></a>
+                                <?php endif; ?>
+                            </div>
+                          
                           
                         </div>
                     </div>
