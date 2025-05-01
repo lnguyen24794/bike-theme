@@ -37,11 +37,18 @@
     font-size: 1.5rem !important;
 }
 
+
 .hero-title {
     font-size: 3.5rem !important;
 }
 
 @media screen and (max-width: 991px) {
+    .custom-logo-mobile {
+        max-width: 200px !important;
+    }
+    .text-size-medium {
+        font-size: 1rem !important;
+    }
     .hide-mobile {
         display: none !important;
     }

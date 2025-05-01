@@ -1718,9 +1718,9 @@ function bike_theme_branches_callback($args)
     $id = $args['id'];
     $default = isset($args['default']) ? $args['default'] : array();
     $branches = isset($options[$id]) ? $options[$id] : $default;
-
     // Nếu không có chi nhánh nào thì tạo một chi nhánh mặc định
     if (empty($branches)) {
+      
         $old_address = isset($options['contact_address']) && !is_array($options['contact_address']) ? $options['contact_address'] : '';
         $old_link = isset($options['address_link']) ? $options['address_link'] : '';
         $old_opening_closed = isset($options['opening_closed']) ? $options['opening_closed'] : '';
@@ -1811,7 +1811,7 @@ function bike_theme_branches_callback($args)
                             <input name="bike_theme_options[contact_address][<?php echo $index; ?>][opening_closed]" 
                                 type="text" 
                                 id="bike_theme_options_contact_address_<?php echo $index; ?>_opening_closed" 
-                                value="<?php echo esc_url(isset($branch['opening_closed']) ? $branch['opening_closed'] : ''); ?>" 
+                                value="<?php echo esc_attr(isset($branch['opening_closed']) ? $branch['opening_closed'] : ''); ?>" 
                                 class="regular-text">
                         </td>
                     </tr>
@@ -1888,6 +1888,13 @@ function bike_theme_branches_callback($args)
                                 <?php esc_html_e('Opening/Closed', 'bike-theme'); ?>
                             </label>
                         </th>
+                        <td>
+                            <input name="bike_theme_options[contact_address][{{index}}][opening_closed]" 
+                                type="text" 
+                                id="bike_theme_options_contact_address_{{index}}_opening_closed" 
+                                value="" 
+                                class="regular-text">
+                        </td>
                     </tr>
                 </table>
             </div>
