@@ -25,8 +25,6 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
         </div>
     </div>
     <!-- Page Header End -->
-
-    <!-- Tours Start -->
     <div class="container-xxl py-5 pb-0">
         <div class="row">
             <div class="col-md-12">

@@ -32,8 +32,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                 <div class="col-lg-6">
                     <h6 class="section-title text-start text-primary text-uppercase"><?php esc_html_e('About Us', 'bike-theme'); ?></h6>
                     <h1 class="mb-4"><?php echo wp_kses_post(__('Welcome to <span class="text-primary">BeeBikeHub</span>', 'bike-theme')); ?></h1>
-                    <p class="mb-4"><?php esc_html_e('Welcome to BeeBikeHub – your starting point for unforgettable adventures exploring Da Nang on two wheels! We\'re a passionate team dedicated to bringing you unique travel experiences, blending the freedom of cycling with the stunning beauty of Da Nang, Vietnam\'s vibrant coastal city.', 'bike-theme'); ?></p>
-                    <p class="mb-4"><?php esc_html_e('At BeeBikeHub, we go beyond just offering high-quality bike rentals and carefully crafted bike tours. We want you to feel the pulse of local life – from sunlit coastal roads and iconic bridges to peaceful villages and mouthwatering street food. Our mission is to turn every ride into a cherished memory, with well-maintained bikes, diverse routes, and a friendly team of guides who know this land inside and out.', 'bike-theme'); ?></p>
+                    <div><?php the_content(); ?></div>
                     <a class="btn btn-primary py-3 px-5 mt-2" href="/contact"><?php esc_html_e('Contact Us', 'bike-theme'); ?></a>
                 </div>
                 <div class="col-lg-6">

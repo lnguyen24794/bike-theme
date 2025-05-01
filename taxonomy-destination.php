@@ -43,7 +43,6 @@ $tour_category = get_query_var('tour_category');
     <div class="container-xxl py-5">
         <div class="row g-5">
             <div class="col-lg-9">
-
                 <!-- Tours List Start -->
                 <div class="row g-4">
                     <?php
@@ -61,71 +60,69 @@ $tour_category = get_query_var('tour_category');
                             ),
                         ),
                     );
+                    // Add meta query if filters are active
+                    $meta_query = array();
+                    // Duration filter
+                    if (isset($_GET['duration']) && !empty($_GET['duration'])) {
+                        switch ($_GET['duration']) {
+                            case '1-3':
+                                $meta_query[] = array(
+                                    'key' => '_tour_duration',
+                                    'value' => array(1, 3),
+                                    'type' => 'numeric',
+                                    'compare' => 'BETWEEN'
+                                );
+                                break;
+                            case '4-7':
+                                $meta_query[] = array(
+                                    'key' => '_tour_duration',
+                                    'value' => array(4, 7),
+                                    'type' => 'numeric',
+                                    'compare' => 'BETWEEN'
+                                );
+                                break;
+                            case '8+':
+                                $meta_query[] = array(
+                                    'key' => '_tour_duration',
+                                    'value' => 8,
+                                    'type' => 'numeric',
+                                    'compare' => '>='
+                                );
+                                break;
+                        }
+                    }
 
-// Add meta query if filters are active
-$meta_query = array();
+                    // Difficulty filter
+                    if (isset($_GET['difficulty']) && !empty($_GET['difficulty'])) {
+                        $meta_query[] = array(
+                            'key' => '_tour_difficulty',
+                            'value' => sanitize_text_field($_GET['difficulty']),
+                            'compare' => '='
+                        );
+                    }
 
-// Duration filter
-if (isset($_GET['duration']) && !empty($_GET['duration'])) {
-    switch ($_GET['duration']) {
-        case '1-3':
-            $meta_query[] = array(
-                'key' => '_tour_duration',
-                'value' => array(1, 3),
-                'type' => 'numeric',
-                'compare' => 'BETWEEN'
-            );
-            break;
-        case '4-7':
-            $meta_query[] = array(
-                'key' => '_tour_duration',
-                'value' => array(4, 7),
-                'type' => 'numeric',
-                'compare' => 'BETWEEN'
-            );
-            break;
-        case '8+':
-            $meta_query[] = array(
-                'key' => '_tour_duration',
-                'value' => 8,
-                'type' => 'numeric',
-                'compare' => '>='
-            );
-            break;
-    }
-}
+                    if (!empty($tour_category)) {
+                        $args['tax_query'][] = array(
+                            'taxonomy' => 'tour_category',
+                            'field' => 'slug',
+                            'terms' => $tour_category,
+                        );
+                    }
 
-// Difficulty filter
-if (isset($_GET['difficulty']) && !empty($_GET['difficulty'])) {
-    $meta_query[] = array(
-        'key' => '_tour_difficulty',
-        'value' => sanitize_text_field($_GET['difficulty']),
-        'compare' => '='
-    );
-}
+                    if (!empty($meta_query)) {
+                        $args['meta_query'] = $meta_query;
+                    }
 
-if (!empty($tour_category)) {
-    $args['tax_query'][] = array(
-        'taxonomy' => 'tour_category',
-        'field' => 'slug',
-        'terms' => $tour_category,
-    );
-}
+                    $tour_query = new WP_Query($args);
 
-if (!empty($meta_query)) {
-    $args['meta_query'] = $meta_query;
-}
-
-$tour_query = new WP_Query($args);
-
-if ($tour_query->have_posts()) :
-    while ($tour_query->have_posts()) : $tour_query->the_post();
-        $duration = bike_theme_get_tour_duration(get_the_ID());
-        $distance = get_post_meta(get_the_ID(), '_tour_distance', true);
-        $difficulty = get_post_meta(get_the_ID(), '_tour_difficulty', true);
-        $price = bike_theme_get_tour_price(get_the_ID());
-        $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1';
-        ?>
+                        if ($tour_query->have_posts()) :
+                            while ($tour_query->have_posts()) : $tour_query->the_post();
+                                $duration = bike_theme_get_tour_duration(get_the_ID());
+                                $distance = get_post_meta(get_the_ID(), '_tour_distance', true);
+                                $difficulty = get_post_meta(get_the_ID(), '_tour_difficulty', true);
+                                $price = bike_theme_get_tour_price(get_the_ID());
+                                $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1';
+                                ?>
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="tour-item shadow rounded">
                                 <div class="position-relative">
@@ -157,17 +154,17 @@ if ($tour_query->have_posts()) :
                             </div>
                             </div>
                         <?php
-    endwhile;
-wp_reset_postdata();
-else :
-    ?>
+                            endwhile;
+                        wp_reset_postdata();
+                        else :
+                            ?>
                         <div class="col-12 text-center">
                             <h3><?php esc_html_e('No bike tours found.', 'bike-theme'); ?></h3>
                             <p><?php esc_html_e('Please try different filter options or check back later.', 'bike-theme'); ?></p>
                         </div>
                     <?php
-endif;
-?>
+                    endif;
+                    ?>
                 </div>
                 <!-- Tours List End -->
 
