@@ -458,7 +458,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
     <!-- Tour Detail End -->
  <!-- Booking Form Start -->
  <div  class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable tour-booking-form">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable tour-booking-form">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="bookingModalLabel"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></h1>
@@ -470,7 +470,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                     <?php wp_nonce_field('bike_tour_booking', 'bike_tour_booking_nonce'); ?>
                     <input type="hidden" name="tour_id" value="<?php echo get_the_ID(); ?>">
                     <div class="row">
-                        <div class="col-7 bg-primary py-3 pl-2">
+                        <div class="col-lg-7 bg-primary py-3 pl-2">
                             <h5 class=""><?php esc_html_e('Your Information', 'bike-theme'); ?></h5>
                             <div class="row g-3">
                                 <div class="col-lg-6">
@@ -575,7 +575,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                 </div>
                             </div>
                         </div>
-                        <div class="col-5 p-0 pr-2 text-center border">
+                        <div class="col-lg-5 p-0 pr-2 text-center border">
                             <div class="price-summary p-3">
                                 <h5 class="mb-3"><?php esc_html_e('Price Summary', 'bike-theme'); ?></h5>
                                 <div class="d-flex justify-content-between mb-2">

@@ -109,7 +109,7 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
                         </div>
                     </div>
                 </div>
-                <nav class="navbar navbar-expand-lg bg-primary navbar-dark p-3 px-0 pb-0 pt-lg-2 animated" id="mobileNavbar">
+                <nav class="navbar navbar-expand-lg bg-primary navbar-dark p-2 px-lg-0 pb-lg-0 pt-lg-2 animated" id="mobileNavbar">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand d-block d-lg-none">
                         <?php if (has_custom_logo()) :
                             $custom_logo_id = get_theme_mod('custom_logo');

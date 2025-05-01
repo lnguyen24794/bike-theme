@@ -421,3 +421,9 @@ select,
 .kid-checkbox{
  padding-left: 45px !important;
 }
+
+@media screen and (max-width: 1024px) {
+    #navbarCollapse {
+        padding: 0px 15px !important;
+    }
+}

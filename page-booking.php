@@ -184,7 +184,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                         </div>
                 </div>
             </div>
-            <div class="col-lg-5 p-0 pr-2 text-center border">
+            <div class="col-lg-5 py-3 p-lg-0 pr-2 text-center border">
                <!-- Price Summary Container -->
                <div id="price-summary-container">
                     <div class="price-summary p-3">
