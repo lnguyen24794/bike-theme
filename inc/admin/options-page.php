@@ -1884,7 +1884,7 @@ function bike_theme_branches_callback($args)
                     <tr>
                         <th scope="row">
                             <label for="bike_theme_options_contact_address_{{index}}_opening_closed">
-                                <?php esc_html_e('Opening/Closed', 'bike-theme'); ?>
+                               <input type="checkbox" name="bike_theme_options[contact_address][{{index}}][opening_closed]" value="" class="regular-text">
                             </label>
                         </th>
                     </tr>
