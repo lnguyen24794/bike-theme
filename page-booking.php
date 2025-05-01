@@ -414,10 +414,8 @@ jQuery(document).ready(function($) {
             });
             
             $container.slideDown();
-            $('#price-summary-container').slideDown();
         } else {
             $container.slideUp();
-            $('#price-summary-container').slideUp();
         }
     }
     
