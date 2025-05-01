@@ -46,8 +46,9 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
             <h1 class="mb-5"><?php echo wp_kses_post(__('Amazing <span class="text-primary text-uppercase">Tour</span>', 'bike-theme')); ?></h1>
         </div>
         <form id="booking-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
-        <div class="row">
-            <div class="col-lg-7 bg-primary py-3" style="padding-right: 0px !important">
+         <div class="container-xxl">
+         <div class="row">
+            <div class="col-lg-7 bg-primary py-3 px-3">
                 <div class="wow fadeInUp" data-wow-delay="0.2s">
                         <input type="hidden" name="action" value="bike_theme_submit_booking">
                         <?php wp_nonce_field('bike_theme_booking_nonce', 'booking_nonce'); ?>   
@@ -221,6 +222,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                 </div>
             </div>
         </div>
+         </div>
         </form>
     </div>
     <!-- Booking End -->
