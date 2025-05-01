@@ -1723,6 +1723,7 @@ function bike_theme_branches_callback($args)
     if (empty($branches)) {
         $old_address = isset($options['contact_address']) && !is_array($options['contact_address']) ? $options['contact_address'] : '';
         $old_link = isset($options['address_link']) ? $options['address_link'] : '';
+        $old_opening_closed = isset($options['opening_closed']) ? $options['opening_closed'] : '';
         
         if (!empty($old_address)) {
             // Chuyển đổi từ dữ liệu cũ sang định dạng mới
@@ -1730,7 +1731,7 @@ function bike_theme_branches_callback($args)
                 'name' => __('Main Office', 'bike-theme'),
                 'address' => $old_address,
                 'link' => $old_link,
-                'opening_closed' => ''
+                'opening_closed' => $old_opening_closed
             );
         } else {
             // Tạo chi nhánh mặc định nếu không có dữ liệu cũ
@@ -1884,7 +1885,7 @@ function bike_theme_branches_callback($args)
                     <tr>
                         <th scope="row">
                             <label for="bike_theme_options_contact_address_{{index}}_opening_closed">
-                               <input type="checkbox" name="bike_theme_options[contact_address][{{index}}][opening_closed]" value="" class="regular-text">
+                                <?php esc_html_e('Opening/Closed', 'bike-theme'); ?>
                             </label>
                         </th>
                     </tr>
