@@ -47,7 +47,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
         </div>
         <form id="booking-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
         <div class="row">
-            <div class="col-lg-7 bg-primary py-3 pl-2">
+            <div class="col-lg-7 bg-primary py-3" style="padding-right: 0px !important">
                 <div class="wow fadeInUp" data-wow-delay="0.2s">
                         <input type="hidden" name="action" value="bike_theme_submit_booking">
                         <?php wp_nonce_field('bike_theme_booking_nonce', 'booking_nonce'); ?>   
@@ -184,7 +184,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                         </div>
                 </div>
             </div>
-            <div class="col-lg-5 py-3 p-lg-0 pr-2 text-center border">
+            <div class="col-lg-5 py-3 text-center border" style="padding-left: 0px !important">
                <!-- Price Summary Container -->
                <div id="price-summary-container">
                     <div class="price-summary p-3">
