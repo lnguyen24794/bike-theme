@@ -147,6 +147,12 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="text-start mt-2 mb-2">
+                                    <button type="button" id="add-rider-button" class="btn btn-sm btn-dark">
+                                        <i class="fa fa-plus-circle"></i> <?php esc_html_e('Add New Rider', 'bike-theme'); ?>
+                                    </button>
+                                </div>
                             </div>
                             <!-- Participants end -->
                             <!-- After the participants field -->
@@ -555,6 +561,21 @@ jQuery(document).ready(function($) {
 
     // Update rider details when participant count changes
     $('#participants').change(updateRiderDetails);
+
+    // Handle Add New Rider button click
+    $('#add-rider-button').on('click', function() {
+        var participantCount = parseInt($('#participants').val());
+        var newCount = participantCount + 1;
+        
+        // Update participants select
+        $('#participants').val(newCount);
+        
+        // Add new rider form
+        updateRiderDetails();
+        
+        // Update price summary
+        updatePriceSummary();
+    });
 
     // Update price calculation when child status changes
     $(document).on('change', '.rider-child-checkbox', updatePriceSummary);

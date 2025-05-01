@@ -438,3 +438,10 @@ select,
     background-color: var(--primary) !important;
     color: #000 !important;
 }
+
+.bg-primary a {
+    color: #000 !important;
+}
+.bg-primary a:hover {
+    color: #fff !important;
+}

@@ -520,6 +520,11 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="text-start mt-2 mb-2">
+                                        <button type="button" id="add-rider-button" class="btn btn-sm btn-dark">
+                                            <i class="fa fa-plus-circle"></i> <?php esc_html_e('Add New Rider', 'bike-theme'); ?>
+                                        </button>
+                                    </div>
                                 </div>
                                 <!-- Rider Details end -->
                                 <?php
@@ -768,6 +773,30 @@ jQuery(document).ready(function($) {
 
     // Update rider details when participant count changes
     $('#participants').change(updateRiderDetails);
+    
+    // Handle Add New Rider button click
+    $('#add-rider-button').on('click', function() {
+        var participantCount = parseInt($('#participants').val());
+        var maxParticipants = parseInt($('#participants option:last-child').val());
+        var newCount = participantCount + 1;
+        
+        // Check if we reached maximum participants
+        if (newCount > maxParticipants) {
+            alert('Maximum number of participants reached.');
+            return;
+        }
+        
+        // Update participants select
+        $('#participants').val(newCount);
+        
+        // Add new rider form
+        updateRiderDetails();
+        
+        // Update price summary
+        if (typeof updatePriceSummary === 'function') {
+            updatePriceSummary();
+        }
+    });
 
     // Update price calculation when child status changes
     $(document).on('change', '.rider-child-checkbox', function() {
@@ -775,8 +804,6 @@ jQuery(document).ready(function($) {
             updatePriceSummary();
         }
     });
-    // Update price calculation when child status changes
-    $(document).on('change', '.rider-child-checkbox', updatePriceSummary);
 
     // Change from form submit to button click
     $('.submit-button').on('click', function(e) {
