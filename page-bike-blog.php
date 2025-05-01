@@ -42,16 +42,16 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                     foreach ($posts as $post) {
                         setup_postdata($post);
                 ?>
-                <div class="w-50 mx-auto">
+                <div class="w-75 mx-auto">
                     <div class="card shadow rounded">
                         <a class="text-dark" href="<?php the_permalink(); ?>">
                         <div class="card-body row justify-content-between">
-                            <div class="card-image col-md-4">
+                            <div class="card-image col-md-5">
                                 <?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?>
                             </div>
-                            <div class="card-content col-md-8">
+                            <div class="card-content col-md-7">
                                 <h5 class="card-title"><?php the_title(); ?></h5>
-                                <p class="card-text"><?php echo wp_trim_words(get_the_excerpt(), 20, '...'); ?></p>
+                                <p class="card-text"><?php echo wp_trim_words(get_the_excerpt(), 50, '...'); ?></p>
                             </div>
                         </div>
                         </a>
