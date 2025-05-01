@@ -477,7 +477,7 @@ function bike_theme_booking_rider_details_meta_box_callback($post)
 {
     $rider_names = get_post_meta($post->ID, '_booking_rider_names', true);
     $rider_genders = get_post_meta($post->ID, '_booking_rider_genders', true);
-    $rider_weights = get_post_meta($post->ID, '_booking_rider_weights', true);
+    $rider_heights = get_post_meta($post->ID, '_booking_rider_heights', true);
     $rider_is_children = get_post_meta($post->ID, '_booking_rider_is_children', true);
     
     // If no rider data exists, show a message
@@ -494,14 +494,14 @@ function bike_theme_booking_rider_details_meta_box_callback($post)
                     <th><?php _e('Rider', 'bike-theme'); ?></th>
                     <th><?php _e('Name', 'bike-theme'); ?></th>
                     <th><?php _e('Gender', 'bike-theme'); ?></th>
-                    <th><?php _e('Weight (kg)', 'bike-theme'); ?></th>
+                    <th><?php _e('height ', 'bike-theme'); ?></th>
                     <th><?php _e('Type', 'bike-theme'); ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($rider_names as $index => $name) : 
                     $gender = isset($rider_genders[$index]) ? $rider_genders[$index] : '';
-                    $weight = isset($rider_weights[$index]) ? $rider_weights[$index] : '';
+                    $height = isset($rider_heights[$index]) ? $rider_heights[$index] : '';
                     $is_child = isset($rider_is_children[$index]) && $rider_is_children[$index];
                 ?>
                     <tr>
@@ -520,7 +520,7 @@ function bike_theme_booking_rider_details_meta_box_callback($post)
                             }
                             ?>
                         </td>
-                        <td><?php echo $weight ? esc_html($weight) . ' kg' : __('Not specified', 'bike-theme'); ?></td>
+                        <td><?php echo $height ? esc_html($height) . ' kg' : __('Not specified', 'bike-theme'); ?></td>
                         <td>
                             <?php if ($is_child) : ?>
                                 <span class="child-status"><?php _e('Child (50% discount applied)', 'bike-theme'); ?></span>
@@ -547,14 +547,14 @@ function bike_theme_booking_rider_details_meta_box_callback($post)
         }
         .booking-rider-details-meta-box th {
             background-color: #f8f8f8;
-            font-weight: bold;
+            font-height: bold;
         }
         .booking-rider-details-meta-box tr:hover {
             background-color: #f5f5f5;
         }
         .child-status {
             color: #0073aa;
-            font-weight: bold;
+            font-height: bold;
         }
         .adult-status {
             color: #444;
@@ -706,7 +706,7 @@ function bike_theme_booking_admin_styles()
                 display: inline-block;
                 padding: 3px 8px;
                 border-radius: 3px;
-                font-weight: bold;
+                font-height: bold;
             }
             .payment-pending {
                 background-color: #f8dda7;

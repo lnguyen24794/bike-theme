@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
     // Sanitize and validate rider details
     $rider_names = isset($_POST['rider_name']) ? array_map('sanitize_text_field', $_POST['rider_name']) : array();
     $rider_genders = isset($_POST['rider_gender']) ? array_map('sanitize_text_field', $_POST['rider_gender']) : array();
-    $rider_weights = isset($_POST['rider_weight']) ? array_map('sanitize_text_field', $_POST['rider_weight']) : array();
+    $rider_heights = isset($_POST['rider_height']) ? array_map('sanitize_text_field', $_POST['rider_height']) : array();
     $rider_is_children = isset($_POST['rider_is_child']) ? $_POST['rider_is_child'] : array();
 
     // Validate required fields
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
             // Save rider details
             add_post_meta($booking_id, '_booking_rider_names', $rider_names);
             add_post_meta($booking_id, '_booking_rider_genders', $rider_genders);
-            add_post_meta($booking_id, '_booking_rider_weights', $rider_weights);
+            add_post_meta($booking_id, '_booking_rider_heights', $rider_heights);
             add_post_meta($booking_id, '_booking_rider_is_children', $rider_is_children);
 
             // Set booking status taxonomy
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
                 'total_price' => $total_price,
                 'rider_names' => $rider_names,
                 'rider_genders' => $rider_genders,
-                'rider_weights' => $rider_weights,
+                'rider_heights' => $rider_heights,
                 'rider_is_children' => $rider_is_children
             );
 
@@ -508,7 +508,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                                             <option value="female"><?php esc_html_e('Female', 'bike-theme'); ?></option>
                                                             <option value="other"><?php esc_html_e('Other', 'bike-theme'); ?></option>
                                                         </select>
-                                                        <input type="number" class="form-control" id="rider_weight_1" name="rider_weight[]" placeholder="<?php esc_attr_e('Weight (kg)', 'bike-theme'); ?>" min="1" max="200">
+                                                        <input type="number" class="form-control" id="rider_height_1" name="rider_height[]" placeholder="<?php esc_attr_e('Height ', 'bike-theme'); ?>" min="1" max="200">
                                                         <div class="form-check kid-checkbox">
                                                             <input class="form-check-input rider-child-checkbox" type="checkbox" id="rider_is_child_1" name="rider_is_child[]" value="1" data-rider="1">
                                                             <label class="form-check-label" for="rider_is_child_1">
@@ -742,7 +742,7 @@ jQuery(document).ready(function($) {
                                         <option value="female">Female</option>
                                         <option value="other">Other</option>
                                     </select>
-                                    <input type="number" class="form-control" id="rider_weight_${i}" name="rider_weight[]" placeholder="Weight (kg)" min="1" max="200">
+                                    <input type="number" class="form-control" id="rider_height_${i}" name="rider_height[]" placeholder="height " min="1" max="200">
                                     <div class="form-check kid-checkbox">
                                         <input class="form-check-input rider-child-checkbox" type="checkbox" id="rider_is_child_${i}" name="rider_is_child[]" value="1" data-rider="${i}">
                                         <label class="form-check-label" for="rider_is_child_${i}">

@@ -153,7 +153,7 @@ function bike_theme_bike_details_meta_box_callback($post)
     $bike_rental_price = get_post_meta($post->ID, '_bike_rental_price', true);
     $bike_specs = get_post_meta($post->ID, '_bike_specs', true);
     $bike_features = get_post_meta($post->ID, '_bike_features', true);
-    $bike_weight = get_post_meta($post->ID, '_bike_weight', true);
+    $bike_height = get_post_meta($post->ID, '_bike_height', true);
     $bike_frame_size = get_post_meta($post->ID, '_bike_frame_size', true);
     $bike_wheel_size = get_post_meta($post->ID, '_bike_wheel_size', true);
     $bike_colors = get_post_meta($post->ID, '_bike_colors', true);
@@ -184,8 +184,8 @@ function bike_theme_bike_details_meta_box_callback($post)
         
         <div class="bike-specs-grid">
             <p>
-                <label for="bike_weight"><?php _e('Weight (kg)', 'bike-theme'); ?></label><br>
-                <input type="text" id="bike_weight" name="bike_weight" value="<?php echo esc_attr($bike_weight); ?>" class="widefat">
+                <label for="bike_height"><?php _e('height ', 'bike-theme'); ?></label><br>
+                <input type="text" id="bike_height" name="bike_height" value="<?php echo esc_attr($bike_height); ?>" class="widefat">
             </p>
             
             <p>
@@ -213,7 +213,7 @@ function bike_theme_bike_details_meta_box_callback($post)
             gap: 15px;
         }
         .bike-theme-meta-box label {
-            font-weight: 600;
+            font-height: 600;
         }
     </style>
     <?php
@@ -314,8 +314,8 @@ function bike_theme_save_bike_meta_boxes_data($post_id)
         update_post_meta($post_id, '_bike_features', sanitize_textarea_field($_POST['bike_features']));
     }
 
-    if (isset($_POST['bike_weight'])) {
-        update_post_meta($post_id, '_bike_weight', sanitize_text_field($_POST['bike_weight']));
+    if (isset($_POST['bike_height'])) {
+        update_post_meta($post_id, '_bike_height', sanitize_text_field($_POST['bike_height']));
     }
 
     if (isset($_POST['bike_frame_size'])) {

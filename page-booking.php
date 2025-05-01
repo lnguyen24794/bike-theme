@@ -136,7 +136,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                                         <option value="female"><?php esc_html_e('Female', 'bike-theme'); ?></option>
                                                         <option value="other"><?php esc_html_e('Other', 'bike-theme'); ?></option>
                                                     </select>
-                                                    <input type="number" class="form-control" id="rider_weight_1" name="rider_weight[]" placeholder="<?php esc_attr_e('Weight (kg)', 'bike-theme'); ?>" min="1" max="200">
+                                                    <input type="number" class="form-control" id="rider_height_1" name="rider_height[]" placeholder="<?php esc_attr_e('height ', 'bike-theme'); ?>" min="1" max="200">
                                                     <div class="form-check kid-checkbox">
                                                         <input class="form-check-input rider-child-checkbox" type="checkbox" id="rider_is_child_1" name="rider_is_child[]" value="1" data-rider="1">
                                                         <label class="form-check-label" for="rider_is_child_1">
@@ -532,7 +532,7 @@ jQuery(document).ready(function($) {
                                         <option value="female">Female</option>
                                         <option value="other">Other</option>
                                     </select>
-                                    <input type="number" class="form-control" id="rider_weight_${i}" name="rider_weight[]" placeholder="Weight (kg)" min="1" max="200">
+                                    <input type="number" class="form-control" id="rider_height_${i}" name="rider_height[]" placeholder="height " min="1" max="200">
                                     <div class="form-check kid-checkbox">
                                         <input class="form-check-input rider-child-checkbox" type="checkbox" id="rider_is_child_${i}" name="rider_is_child[]" value="1" data-rider="${i}">
                                         <label class="form-check-label" for="rider_is_child_${i}">
@@ -591,7 +591,7 @@ var bike_booking_params = {
     male: '<?php esc_html_e('Male', 'bike-theme'); ?>',
     female: '<?php esc_html_e('Female', 'bike-theme'); ?>',
     other: '<?php esc_html_e('Other', 'bike-theme'); ?>',
-    weight: '<?php esc_html_e('Weight (kg)', 'bike-theme'); ?>',
+    height: '<?php esc_html_e('height ', 'bike-theme'); ?>',
     child_text: '<?php esc_html_e('Kid', 'bike-theme'); ?>'
 };
 </script>

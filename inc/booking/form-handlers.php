@@ -35,7 +35,7 @@ function bike_theme_submit_booking()
     // Sanitize and validate rider details
     $rider_names = isset($_POST['rider_name']) ? array_map('sanitize_text_field', $_POST['rider_name']) : array();
     $rider_genders = isset($_POST['rider_gender']) ? array_map('sanitize_text_field', $_POST['rider_gender']) : array();
-    $rider_weights = isset($_POST['rider_weight']) ? array_map('sanitize_text_field', $_POST['rider_weight']) : array();
+    $rider_heights = isset($_POST['rider_height']) ? array_map('sanitize_text_field', $_POST['rider_height']) : array();
     $rider_is_children = isset($_POST['rider_is_child']) ? $_POST['rider_is_child'] : array();
 
     // Validate required fields
@@ -124,7 +124,7 @@ function bike_theme_submit_booking()
         if ($tour_id > 0 && !empty($rider_names)) {
             update_post_meta($booking_id, '_booking_rider_names', $rider_names);
             update_post_meta($booking_id, '_booking_rider_genders', $rider_genders);
-            update_post_meta($booking_id, '_booking_rider_weights', $rider_weights);
+            update_post_meta($booking_id, '_booking_rider_heights', $rider_heights);
             update_post_meta($booking_id, '_booking_rider_is_children', $rider_is_children);
         }
 
@@ -180,7 +180,7 @@ function bike_theme_submit_booking()
             'additions' => $additions_data,
             'rider_names' => $rider_names,
             'rider_genders' => $rider_genders,
-            'rider_weights' => $rider_weights,
+            'rider_heights' => $rider_heights,
             'rider_is_children' => $rider_is_children
         );
         
