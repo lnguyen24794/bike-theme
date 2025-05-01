@@ -147,8 +147,6 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <p class="small"><?php esc_html_e('Please provide details for each rider. Children (under 12) receive a 50% discount.', 'bike-theme'); ?></p>
                             </div>
                             <!-- Participants end -->
                             <!-- After the participants field -->

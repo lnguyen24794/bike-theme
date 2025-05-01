@@ -520,7 +520,6 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="small"><?php esc_html_e('Please provide details for each rider. Children (under 12) receive a 50% discount.', 'bike-theme'); ?></p>
                                 </div>
                                 <!-- Rider Details end -->
                                 <?php
