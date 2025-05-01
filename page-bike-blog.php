@@ -51,7 +51,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             </div>
                             <div class="card-content col-md-7">
                                 <h5 class="card-title"><?php the_title(); ?></h5>
-                                <p class="card-text"><?php echo wp_trim_words(get_the_excerpt(), 50, '...'); ?></p>
+                                <p class="card-text"><?php echo wp_trim_words(get_the_excerpt(), 68, '...'); ?></p>
                             </div>
                         </div>
                         </a>
