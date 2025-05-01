@@ -36,7 +36,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
             <?php the_content(); ?>
         </div>
         <div class="row g-4">
-        <div class="col-md-6 px-0">
+            <div class="col-md-6" style="padding-right: 0px !important">
                 <div class="wow fadeInUp bg-primary p-3" data-wow-delay="0.2s">
                     <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
                         <?php the_content(); ?>
@@ -75,10 +75,10 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                     </form>
                 </div>
             </div>
-            <div class="col-md-6 px-0 wow fadeIn" data-wow-delay="0.1s">
+            <div class="col-md-6" style="padding-left: 0px !important">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d245386.29943491388!2d108.03706786319917!3d16.05713670186373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sBeebikehub!5e0!3m2!1sen!2sus!4v1745850968203!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <div class="col-md-12 px-0">
+            <div class="col-md-12 mt-3">
                 <div class="row">
                     <div class="col-md-4">
                         <h4 class=" mb-4"><?php esc_html_e('Our Shop', 'bike-theme'); ?></h4>
