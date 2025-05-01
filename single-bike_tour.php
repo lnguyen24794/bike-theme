@@ -191,7 +191,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                         <h1 class="tour-heading text-white mb-3 animated slideInDown text-shadow"><?php the_title(); ?></h1>     
                     </div>
                     <div class="col-lg-3">
-                        <a class="btn btn-primary cursor-pointer" data-bs-toggle="modal" data-bs-target="#bookingModal"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></a>
+                        <a class="btn btn-primary cursor-pointer shadow" data-bs-toggle="modal" data-bs-target="#bookingModal"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></a>
                     </div>
                 </div>
             </div>
@@ -590,7 +590,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                     <span id="total-price"><?php echo esc_html(number_format(bike_theme_get_tour_total_price(get_the_ID(), 1), 0, '.', ',')); ?> VND</span>
                                 </div>
                             </div>
-                            <button class="btn btn-primary w-50 submit-button" type="button" ><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
+                            <button class="btn btn-primary w-50 submit-button shadow" type="button" ><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
                         </div>
                     </div>
                 </form>
