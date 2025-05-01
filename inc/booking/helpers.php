@@ -297,6 +297,12 @@ function bike_theme_send_booking_emails($booking_id, $booking_data) {
     $payment_method = isset($booking_data['payment_method']) ? $booking_data['payment_method'] : '';
     $booking_type = $tour_id > 0 ? 'tour' : ($bike_id > 0 ? 'bike' : '');
     
+    // Extract rider details
+    $rider_names = isset($booking_data['rider_names']) ? $booking_data['rider_names'] : array();
+    $rider_genders = isset($booking_data['rider_genders']) ? $booking_data['rider_genders'] : array();
+    $rider_weights = isset($booking_data['rider_weights']) ? $booking_data['rider_weights'] : array();
+    $rider_is_children = isset($booking_data['rider_is_children']) ? $booking_data['rider_is_children'] : array();
+    
     // Email setup
     $site_name = get_bloginfo('blogname');
     $headers = array(
@@ -316,6 +322,34 @@ function bike_theme_send_booking_emails($booking_id, $booking_data) {
         $customer_message .= sprintf(__("Number of Participants: %d\n", 'bike-theme'), $participants);
         $customer_message .= sprintf(__("Price per Person: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person));
         $customer_message .= sprintf(__("Tour Subtotal: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person * $participants));
+        
+        // Add rider details if available
+        if (!empty($rider_names)) {
+            $customer_message .= sprintf(__("\nRider Details:\n", 'bike-theme'));
+            foreach ($rider_names as $i => $name) {
+                $gender = isset($rider_genders[$i]) ? $rider_genders[$i] : '';
+                $weight = isset($rider_weights[$i]) ? $rider_weights[$i] : '';
+                $is_child = isset($rider_is_children[$i]);
+                
+                $gender_text = '';
+                switch ($gender) {
+                    case 'male': $gender_text = __('Male', 'bike-theme'); break;
+                    case 'female': $gender_text = __('Female', 'bike-theme'); break;
+                    case 'other': $gender_text = __('Other', 'bike-theme'); break;
+                    default: $gender_text = __('Not specified', 'bike-theme'); break;
+                }
+                
+                $customer_message .= sprintf(__("Rider %d: %s\n", 'bike-theme'), $i + 1, $name);
+                $customer_message .= sprintf(__("  Gender: %s\n", 'bike-theme'), $gender_text);
+                if (!empty($weight)) {
+                    $customer_message .= sprintf(__("  Weight: %s kg\n", 'bike-theme'), $weight);
+                }
+                $customer_message .= sprintf(__("  Status: %s\n", 'bike-theme'), 
+                    $is_child ? __('Child (50% discount applied)', 'bike-theme') : __('Adult', 'bike-theme')
+                );
+                $customer_message .= "\n";
+            }
+        }
         
         // Check for and add optional extras if available
         $additions = isset($booking_data['additions']) ? $booking_data['additions'] : array();
@@ -393,6 +427,34 @@ function bike_theme_send_booking_emails($booking_id, $booking_data) {
         $admin_message .= sprintf(__("Participants: %d\n", 'bike-theme'), $participants);
         $admin_message .= sprintf(__("Price per Person: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person));
         $admin_message .= sprintf(__("Tour Subtotal: %s\n", 'bike-theme'), bike_theme_format_price($price_per_person * $participants));
+        
+        // Add rider details if available
+        if (!empty($rider_names)) {
+            $admin_message .= sprintf(__("\nRider Details:\n", 'bike-theme'));
+            foreach ($rider_names as $i => $name) {
+                $gender = isset($rider_genders[$i]) ? $rider_genders[$i] : '';
+                $weight = isset($rider_weights[$i]) ? $rider_weights[$i] : '';
+                $is_child = isset($rider_is_children[$i]);
+                
+                $gender_text = '';
+                switch ($gender) {
+                    case 'male': $gender_text = __('Male', 'bike-theme'); break;
+                    case 'female': $gender_text = __('Female', 'bike-theme'); break;
+                    case 'other': $gender_text = __('Other', 'bike-theme'); break;
+                    default: $gender_text = __('Not specified', 'bike-theme'); break;
+                }
+                
+                $admin_message .= sprintf(__("Rider %d: %s\n", 'bike-theme'), $i + 1, $name);
+                $admin_message .= sprintf(__("  Gender: %s\n", 'bike-theme'), $gender_text);
+                if (!empty($weight)) {
+                    $admin_message .= sprintf(__("  Weight: %s kg\n", 'bike-theme'), $weight);
+                }
+                $admin_message .= sprintf(__("  Status: %s\n", 'bike-theme'), 
+                    $is_child ? __('Child (50% discount applied)', 'bike-theme') : __('Adult', 'bike-theme')
+                );
+                $admin_message .= "\n";
+            }
+        }
         
         // Check for and add optional extras if available
         $additions = isset($booking_data['additions']) ? $booking_data['additions'] : array();

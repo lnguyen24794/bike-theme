@@ -49,6 +49,12 @@ function bike_theme_process_booking() {
     $participants = intval($_POST['participants']);
     $message = sanitize_textarea_field($_POST['message']);
     $tour_id = intval($_POST['tour_id']);
+    
+    // Sanitize and validate rider details
+    $rider_names = isset($_POST['rider_name']) ? array_map('sanitize_text_field', $_POST['rider_name']) : array();
+    $rider_genders = isset($_POST['rider_gender']) ? array_map('sanitize_text_field', $_POST['rider_gender']) : array();
+    $rider_weights = isset($_POST['rider_weight']) ? array_map('sanitize_text_field', $_POST['rider_weight']) : array();
+    $rider_is_children = isset($_POST['rider_is_child']) ? $_POST['rider_is_child'] : array();
 
     // Validate required fields
     $errors = array();
@@ -69,6 +75,9 @@ function bike_theme_process_booking() {
     }
     if (!$tour_id) {
         $errors[] = __('Invalid tour selected', 'bike-theme');
+    }
+    if (count($rider_names) < $participants) {
+        $errors[] = __('Please provide details for all riders', 'bike-theme');
     }
 
     if (!empty($errors)) {
@@ -102,6 +111,12 @@ function bike_theme_process_booking() {
         add_post_meta($booking_id, '_booking_status', 'pending');
         add_post_meta($booking_id, '_booking_payment_status', 'pending');
         add_post_meta($booking_id, '_booking_type', 'tour');
+        
+        // Save rider details
+        add_post_meta($booking_id, '_booking_rider_names', $rider_names);
+        add_post_meta($booking_id, '_booking_rider_genders', $rider_genders);
+        add_post_meta($booking_id, '_booking_rider_weights', $rider_weights);
+        add_post_meta($booking_id, '_booking_rider_is_children', $rider_is_children);
 
         // Set booking status taxonomy
         wp_set_object_terms($booking_id, 'pending', 'booking_status');
@@ -140,7 +155,11 @@ function bike_theme_process_booking() {
             'tour_id' => $tour_id,
             'price_per_person' => $price_per_person,
             'total_price' => $total_price,
-            'additions' => $additions_data
+            'additions' => $additions_data,
+            'rider_names' => $rider_names,
+            'rider_genders' => $rider_genders,
+            'rider_weights' => $rider_weights,
+            'rider_is_children' => $rider_is_children
         );
         
         $emails_sent = bike_theme_send_booking_emails($booking_id, $booking_data);

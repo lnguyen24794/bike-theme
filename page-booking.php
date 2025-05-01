@@ -43,14 +43,15 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
     <div class="container-xxl py-5">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Booking', 'bike-theme'); ?></h3>
-            <h1 class="mb-5"><?php echo wp_kses_post(__('Book A <span class="text-primary text-uppercase">Tour or Bike</span>', 'bike-theme')); ?></h1>
+            <h1 class="mb-5"><?php echo wp_kses_post(__('Amazing <span class="text-primary text-uppercase">Tour</span>', 'bike-theme')); ?></h1>
         </div>
+        <form id="booking-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-7 bg-primary py-3 pl-2">
                 <div class="wow fadeInUp" data-wow-delay="0.2s">
-                    <form id="booking-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
                         <input type="hidden" name="action" value="bike_theme_submit_booking">
                         <?php wp_nonce_field('bike_theme_booking_nonce', 'booking_nonce'); ?>   
+                        <h5 class=""><?php esc_html_e('Your Information', 'bike-theme'); ?></h5>
                         <!-- Booking Form Start -->
                         <div class="row g-3">
                             <!-- Name start -->
@@ -146,7 +147,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                         </div>
                                     </div>
                                 </div>
-                                <p class="small text-muted"><?php esc_html_e('Please provide details for each rider. Children (under 12) receive a 50% discount.', 'bike-theme'); ?></p>
+                                <p class="small"><?php esc_html_e('Please provide details for each rider. Children (under 12) receive a 50% discount.', 'bike-theme'); ?></p>
                             </div>
                             <!-- Participants end -->
                             <!-- After the participants field -->
@@ -170,14 +171,23 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                 </div>
                             </div>
                             <!-- Special Request end -->
+                            <!-- Terms and Conditions start -->
+                            <div class="col-12 mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="terms" required>
+                                    <label class="form-check-label" for="terms">
+                                        <?php esc_html_e('I agree to the terms and conditions', 'bike-theme'); ?>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- Terms and Conditions end -->
                         </div>
-                    </form>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-5 p-0 pr-2 text-center border">
                <!-- Price Summary Container -->
-               <div id="price-summary-container" class="col-12 ">
-                    <div class="price-summary bg-white p-3 rounded border">
+               <div id="price-summary-container">
+                    <div class="price-summary p-3">
                         <h5 class="mb-3"><?php esc_html_e('Price Summary', 'bike-theme'); ?></h5>
                         <div class="d-flex justify-content-between mb-2">
                             <span><?php esc_html_e('Tour price per person:', 'bike-theme'); ?></span>
@@ -191,7 +201,8 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             <span><?php esc_html_e('Tour subtotal:', 'bike-theme'); ?></span>
                             <span id="tour-subtotal">0 VND</span>
                         </div>
-                        <div id="additions-summary" style="display: none;">
+                        <div id="additions-summary" class="border-top pt-2 mb-2" style="display: none;">
+                            <h6 class="mb-2"><?php esc_html_e('Selected Extras:', 'bike-theme'); ?></h6>
                             <div class="additions-list my-2"></div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span><?php esc_html_e('Additions subtotal:', 'bike-theme'); ?></span>
@@ -203,24 +214,14 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             <span id="total-price">0 VND</span>
                         </div>
                     </div>
-                     <!-- Terms and Conditions start -->
-                     <div class="col-12 mt-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="terms" required>
-                            <label class="form-check-label" for="terms">
-                                <?php esc_html_e('I agree to the terms and conditions', 'bike-theme'); ?>
-                            </label>
-                        </div>
-                    </div>
-                    <!-- Terms and Conditions end -->
+                    
                     <!-- Book Now start -->
-                    <div class="col-12 mt-2 text-center">
-                        <button class="btn btn-primary w-100 submit-button" type="submit" ><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
-                    </div>
+                    <button class="btn btn-primary w-50 submit-button" type="submit" ><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
                     <!-- Book Now end -->
                 </div>
             </div>
         </div>
+        </form>
     </div>
     <!-- Booking End -->
 
@@ -286,26 +287,26 @@ jQuery(document).ready(function($) {
         'fields' => 'ids'
     ));
 
-foreach ($all_tours as $tour_id) {
-    $flexible_pricing_enabled = get_post_meta($tour_id, '_tour_flexible_pricing_enabled', true) === '1';
-    $pricing_data = array();
+    foreach ($all_tours as $tour_id) {
+        $flexible_pricing_enabled = get_post_meta($tour_id, '_tour_flexible_pricing_enabled', true) === '1';
+        $pricing_data = array();
 
-    if ($flexible_pricing_enabled) {
-        $pricing_data = get_post_meta($tour_id, '_tour_flexible_pricing', true);
-        if (empty($pricing_data) || !is_array($pricing_data)) {
+        if ($flexible_pricing_enabled) {
+            $pricing_data = get_post_meta($tour_id, '_tour_flexible_pricing', true);
+            if (empty($pricing_data) || !is_array($pricing_data)) {
+                $pricing_data = array(
+                    array('participants' => 1, 'price' => get_post_meta($tour_id, '_tour_price', true))
+                );
+            }
+        } else {
             $pricing_data = array(
                 array('participants' => 1, 'price' => get_post_meta($tour_id, '_tour_price', true))
             );
         }
-    } else {
-        $pricing_data = array(
-            array('participants' => 1, 'price' => get_post_meta($tour_id, '_tour_price', true))
-        );
-    }
 
-    echo 'tourPricingData[' . $tour_id . '] = ' . json_encode($pricing_data) . ';';
-}
-?>
+        echo 'tourPricingData[' . $tour_id . '] = ' . json_encode($pricing_data) . ';';
+    }
+    ?>
     
     // Format number with thousand separator
     function formatNumber(number) {
@@ -496,7 +497,7 @@ foreach ($all_tours as $tour_id) {
             $(this).text(formatNumber(tourSubtotal + additionsTotal) + ' VND').fadeIn(200);
         });
     }
-    
+
     // Update when tour selection changes
     $('#tour').change(function() {
         updateAdditionsOptions();
@@ -613,10 +614,6 @@ var bike_booking_params = {
     background: #555;
 }
 
-.price-summary {
-    background: #f8f9fa;
-}
-
 .additions-list {
     padding: 10px;
     background: #fff;
@@ -634,32 +631,6 @@ var bike_booking_params = {
     color: #6c757d;
     font-size: 0.875em;
     margin-top: 2px;
-}
-
-.price-summary h5 {
-    color: #333;
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-}
-
-.price-summary .d-flex {
-    padding: 5px 0;
-}
-
-.price-summary .border-top {
-    margin-top: 10px;
-    padding-top: 15px;
-}
-
-#additions-summary {
-    background: #f8f9fa;
-    border-radius: 4px;
-    padding: 10px;
-    margin: 10px 0;
-}
-
-.additions-list small {
-    color: #495057;
 }
 
 /* Rider details styles */

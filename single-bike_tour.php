@@ -30,6 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
     $message = sanitize_textarea_field($_POST['message']);
     $tour_id = get_the_ID();
 
+    // Sanitize and validate rider details
+    $rider_names = isset($_POST['rider_name']) ? array_map('sanitize_text_field', $_POST['rider_name']) : array();
+    $rider_genders = isset($_POST['rider_gender']) ? array_map('sanitize_text_field', $_POST['rider_gender']) : array();
+    $rider_weights = isset($_POST['rider_weight']) ? array_map('sanitize_text_field', $_POST['rider_weight']) : array();
+    $rider_is_children = isset($_POST['rider_is_child']) ? $_POST['rider_is_child'] : array();
+
     // Validate required fields
     $errors = array();
     if (empty($name)) {
@@ -46,6 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
     }
     if ($participants < 1) {
         $errors[] = __('Number of participants must be at least 1', 'bike-theme');
+    }
+    if (count($rider_names) < $participants) {
+        $errors[] = __('Please provide details for all riders', 'bike-theme');
     }
 
     // If no errors, create booking
@@ -77,6 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
             add_post_meta($booking_id, '_booking_status', 'pending');
             add_post_meta($booking_id, '_booking_payment_status', 'pending');
             add_post_meta($booking_id, '_booking_type', 'tour');
+            
+            // Save rider details
+            add_post_meta($booking_id, '_booking_rider_names', $rider_names);
+            add_post_meta($booking_id, '_booking_rider_genders', $rider_genders);
+            add_post_meta($booking_id, '_booking_rider_weights', $rider_weights);
+            add_post_meta($booking_id, '_booking_rider_is_children', $rider_is_children);
 
             // Set booking status taxonomy
             wp_set_object_terms($booking_id, 'pending', 'booking_status');
@@ -114,7 +129,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking']))
                 'message' => $message,
                 'tour_id' => $tour_id,
                 'price_per_person' => $price_per_person,
-                'total_price' => $total_price
+                'total_price' => $total_price,
+                'rider_names' => $rider_names,
+                'rider_genders' => $rider_genders,
+                'rider_weights' => $rider_weights,
+                'rider_is_children' => $rider_is_children
             );
 
             $emails_sent = bike_theme_send_booking_emails($booking_id, $booking_data);
@@ -557,7 +576,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                             </div>
                         </div>
                         <div class="col-5 p-0 pr-2 text-center border">
-                            <div class="price-summary p-3 ">
+                            <div class="price-summary p-3">
                                 <h5 class="mb-3"><?php esc_html_e('Price Summary', 'bike-theme'); ?></h5>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span><?php esc_html_e('Tour price per person:', 'bike-theme'); ?></span>

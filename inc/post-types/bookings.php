@@ -495,7 +495,7 @@ function bike_theme_booking_rider_details_meta_box_callback($post)
                     <th><?php _e('Name', 'bike-theme'); ?></th>
                     <th><?php _e('Gender', 'bike-theme'); ?></th>
                     <th><?php _e('Weight (kg)', 'bike-theme'); ?></th>
-                    <th><?php _e('Child Status', 'bike-theme'); ?></th>
+                    <th><?php _e('Type', 'bike-theme'); ?></th>
                 </tr>
             </thead>
             <tbody>

@@ -31,6 +31,12 @@ function bike_theme_submit_booking()
     $bike_id = isset($_POST['bike']) ? intval($_POST['bike']) : 0;
     $message = sanitize_textarea_field($_POST['message']);
     $payment_method = sanitize_text_field($_POST['payment_method']);
+    
+    // Sanitize and validate rider details
+    $rider_names = isset($_POST['rider_name']) ? array_map('sanitize_text_field', $_POST['rider_name']) : array();
+    $rider_genders = isset($_POST['rider_gender']) ? array_map('sanitize_text_field', $_POST['rider_gender']) : array();
+    $rider_weights = isset($_POST['rider_weight']) ? array_map('sanitize_text_field', $_POST['rider_weight']) : array();
+    $rider_is_children = isset($_POST['rider_is_child']) ? $_POST['rider_is_child'] : array();
 
     // Validate required fields
     $errors = array();
@@ -51,6 +57,9 @@ function bike_theme_submit_booking()
     }
     if (!$tour_id && !$bike_id) {
         $errors[] = __('Please select either a tour or a bike', 'bike-theme');
+    }
+    if ($tour_id > 0 && count($rider_names) < $number_of_participants) {
+        $errors[] = __('Please provide details for all riders', 'bike-theme');
     }
 
     if (!empty($errors)) {
@@ -110,6 +119,14 @@ function bike_theme_submit_booking()
         update_post_meta($booking_id, '_booking_price_per_person', $price_per_person);
         update_post_meta($booking_id, '_booking_total_price', $total_price);
         update_post_meta($booking_id, '_booking_payment_status', 'pending');
+        
+        // Save rider details if tour is selected
+        if ($tour_id > 0 && !empty($rider_names)) {
+            update_post_meta($booking_id, '_booking_rider_names', $rider_names);
+            update_post_meta($booking_id, '_booking_rider_genders', $rider_genders);
+            update_post_meta($booking_id, '_booking_rider_weights', $rider_weights);
+            update_post_meta($booking_id, '_booking_rider_is_children', $rider_is_children);
+        }
 
         if ($tour_id > 0) {
             update_post_meta($booking_id, '_booking_tour_id', $tour_id);
@@ -160,7 +177,11 @@ function bike_theme_submit_booking()
             'price_per_person' => $price_per_person,
             'total_price' => $total_price,
             'payment_method' => $payment_method,
-            'additions' => $additions_data
+            'additions' => $additions_data,
+            'rider_names' => $rider_names,
+            'rider_genders' => $rider_genders,
+            'rider_weights' => $rider_weights,
+            'rider_is_children' => $rider_is_children
         );
         
         $emails_sent = bike_theme_send_booking_emails($booking_id, $booking_data);
