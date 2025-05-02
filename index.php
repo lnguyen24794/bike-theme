@@ -35,7 +35,7 @@ get_header();
         <div class="container-fluid bg-primary p-0 py-5 my-5">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h3 class="section-title text-center text-dark text-uppercase"><?php esc_html_e('Choose Your Adventure', 'bike-theme'); ?></h3>
-                    <div class="bike-tour-content mb-1"><?php echo wp_kses_post(bike_theme_get_option('choose_your_adventure_content')); ?></div>
+                    <div class="bike-tour-content mb-1"><?php echo esc_html(bike_theme_get_option('choose_your_adventure_content')); ?></div>
                 </div>
                 <?php include(get_template_directory() . '/template-parts/home/destination-slider.php'); ?>
                 <div class="text-center mt-3">
@@ -48,7 +48,7 @@ get_header();
          <div class="container-xxl">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Bike Rentals', 'bike-theme'); ?></h3>
-                    <div class="bike-tour-content mb-1"><?php echo wp_kses_post(bike_theme_get_option('our_bikes_content')); ?></div>
+                    <div class="bike-tour-content mb-1"><?php echo esc_html(bike_theme_get_option('our_bikes_content')); ?></div>
                 </div>
                 <?php include(get_template_directory() . '/template-parts/bikes.php'); ?>
         </div>
