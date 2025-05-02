@@ -88,9 +88,9 @@ function bike_theme_register_settings()
 
     // Choose Your Adventure Section
     add_settings_section(
-        'bike_theme_choose_your_adventure_section',
+        'bike_theme_choose_your_adventures_section',
         __('Choose Your Adventure', 'bike-theme'),
-        'bike_theme_choose_your_adventure_section_callback',
+        'bike_theme_choose_your_adventures_section_callback',
         'bike-theme-options'
     );
 
@@ -363,13 +363,13 @@ function bike_theme_register_settings()
 
     // Choose Your Adventure setting
     add_settings_field(
-        'choose_your_adventure_content',
-        __('Content', 'bike-theme'),
-        'bike_theme_choose_your_adventure_callback',
+        'choose_your_adventures_content',
+        __('Choose Your Adventure Content', 'bike-theme'),
+        'bike_theme_choose_your_adventures_callback',
         'bike-theme-options',
-        'bike_theme_choose_your_adventure_section',
+        'bike_theme_choose_your_adventures_section',
         array(
-            'id' => 'choose_your_adventure_content',
+            'id' => 'choose_your_adventures_content',
             'default' => ''
         )
     );
@@ -470,7 +470,7 @@ function bike_theme_our_bikes_section_callback()
     echo '<p>' . __('Manage the Bike Rentals section content on the homepage.', 'bike-theme') . '</p>';
 }
 
-function bike_theme_choose_your_adventure_section_callback()
+function bike_theme_choose_your_adventures_section_callback()
 {
     echo '<p>' . __('Manage the Choose Your Adventure section content on the homepage.', 'bike-theme') . '</p>';
 }
@@ -662,7 +662,7 @@ function bike_theme_validate_options($input)
         if (isset($input[$key])) {
             if ($key === 'contact_email') {
                 $output[$key] = sanitize_email($input[$key]);
-            } elseif (in_array($key, array('bank_account_info', 'email_footer', 'why_choose_us_content', 'tour_gallery_content'))) {
+            } elseif (in_array($key, array('bank_account_info', 'email_footer', 'why_choose_us_content', 'tour_gallery_content', 'choose_your_adventures_content', 'our_bikes_content'))) {
                 $output[$key] = wp_kses_post($input[$key]);
             } elseif ($key === 'contact_address' && is_array($value)) {
                 // Xử lý mảng chi nhánh
@@ -1618,7 +1618,7 @@ function bike_theme_tour_gallery_content_callback($args)
 /**
  * Choose Your Adventure field callback
  */
-function bike_theme_choose_your_adventure_callback($args)
+function bike_theme_choose_your_adventures_callback($args)
 {
     $options = get_option('bike_theme_options');
     $id = $args['id'];
@@ -1633,9 +1633,9 @@ function bike_theme_choose_your_adventure_callback($args)
     // Output the WordPress editor
     wp_editor(
         $content,
-        'bike_theme_options_choose_your_adventure',
+        'bike_theme_options_choose_your_adventures',
         array(
-            'textarea_name' => 'bike_theme_options[choose_your_adventure_content]',
+            'textarea_name' => 'bike_theme_options[choose_your_adventures_content]',
             'media_buttons' => true,
             'textarea_rows' => 15,
             'editor_class'  => 'widefat',
@@ -1643,6 +1643,8 @@ function bike_theme_choose_your_adventure_callback($args)
             'quicktags'     => true,
         )
     );
+
+      echo '<p class="description">' . __('Use the editor above to create the content for the Tour Gallery.', 'bike-theme') . '</p>';
 }
 
 /**
