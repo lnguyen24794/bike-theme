@@ -426,6 +426,9 @@ select,
     #navbarCollapse {
         padding: 0px 15px !important;
     }
+    .text-size-x-medium  {
+        font-size: 1rem !important;
+    }
 }
 
 .bg-primary .form-check-input:checked {
@@ -437,4 +440,8 @@ select,
 .nav-tabs .nav-link.active {
     background-color: var(--primary) !important;
     color: #000 !important;
+}
+
+.text-size-x-medium  {
+    font-size: 1.2rem !important;
 }
