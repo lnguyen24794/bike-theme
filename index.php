@@ -32,18 +32,23 @@ get_header();
         <!-- Gallery End -->
 
         <!-- Destinations Start -->
-        <div class="container-fluid bg-primary p-0 py-5 my-5">
-                <div class="container">
-                    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <h3 class="section-title text-center text-dark text-uppercase"><?php esc_html_e('Choose Your Adventure', 'bike-theme'); ?></h3>
+        <div class="container-fluid p-0 py-5 my-5">
+                <div class="w-100 pt-5 pb-3 bg-gray">
+                    <div class="container">
+                        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                            <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Choose Your Adventure', 'bike-theme'); ?></h3>
+                        </div>
+                        <div class="bike-tour-content mb-1"><?php echo wp_kses_post(bike_theme_get_option('choose_your_adventures_content')); ?></div>
                     </div>
-                    <div class="bike-tour-content mb-1"><?php echo wp_kses_post(bike_theme_get_option('choose_your_adventures_content')); ?></div>
                 </div>
                 
-                <?php include(get_template_directory() . '/template-parts/home/destination-slider.php'); ?>
-                <div class="text-center mt-3">
-                    <a href="/bike-tours" class="btn btn-dark py-3 px-5"><?php esc_html_e('View All Destinations', 'bike-theme'); ?></a>
-                </div>
+               <div class="container-fluid bg-primary pt-3 pb-5 text-center" style="margin-top: -10px;">
+                    <h5>Hop on a bike, slow down, and experience the real Vietnam in the most meaningful way — by cycling!</h5>
+                    <?php include(get_template_directory() . '/template-parts/home/destination-slider.php'); ?>
+                    <div class="text-center mt-3">
+                        <a href="/bike-tours" class="btn btn-dark py-3 px-5"><?php esc_html_e('View All Destinations', 'bike-theme'); ?></a>
+                    </div>
+               </div>
         </div>
         <!-- Destinations End -->
 
