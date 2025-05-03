@@ -85,7 +85,7 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
                         </div>
                         <div class="d-inline-flex align-items-center">
                             <i class="fab fa-whatsapp text-primary me-2"></i>
-                            <p class="mb-0"><a class="text-white" href="https://api.whatsapp.com/send/?phone=<?php echo esc_attr(bike_theme_get_option('contact_phone', '84985455727')); ?>&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+84985455727')); ?></a></p>
+                            <p class="mb-0"><a class="text-white" href="https://api.whatsapp.com/send/?phone=84985455727&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+84985455727')); ?></a></p>
                         </div>
                     </div>
                     <div class="col-lg-5 px-5 text-end">

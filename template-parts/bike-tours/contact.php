@@ -23,7 +23,7 @@
                     <h4 class=" mb-4"><?php esc_html_e('Contact Information', 'bike-theme'); ?></h4>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i><a  href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a  href="tel:<?php echo esc_attr(bike_theme_get_option('contact_phone', '+849854557270')); ?>"><?php echo esc_html(bike_theme_get_option('contact_phone', '+849854557270')); ?></a></p>
-                    <p class="mb-2"><i class="fab fa-whatsapp me-3"></i><a  href="https://api.whatsapp.com/send/?phone=<?php echo esc_attr(bike_theme_get_option('contact_phone', '84985455727')); ?>&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+849854557270')); ?></a></p>
+                    <p class="mb-2"><i class="fab fa-whatsapp me-3"></i><a  href="https://api.whatsapp.com/send/?phone=84985455727&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+849854557270')); ?></a></p>
                     <p class="mb-2"><i class="fab fa-telegram me-3"></i><a  href="https://t.me/beebikehub"><?php echo esc_html(bike_theme_get_option('contact_phone', '+849854557270')); ?></a></p>
                     <p class="mb-2"><i class="fa fab-zalo" style="margin-right: 6px;">Zalo</i><a  href="https://zalo.me/0985455727"><?php echo esc_html(bike_theme_get_option('contact_phone', '+849854557270')); ?></a></p>
                 </div>
