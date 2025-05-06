@@ -1,5 +1,8 @@
 <div class="price-details mt-4">
     <h4><?php esc_html_e('Price Details', 'bike-theme'); ?></h4>
+    <div class="price-info mb-2">
+        <?php echo wp_kses_post(get_post_meta(get_the_ID(), '_tour_price_info', true)); ?>
+    </div>
     <?php if (get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1') :
         $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
         if (!empty($pricing_data) && is_array($pricing_data)) :

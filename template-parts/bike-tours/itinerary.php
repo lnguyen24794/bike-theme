@@ -1,4 +1,4 @@
-<div class="tour-itinerary">
+<div class="tour-itinerary mt-4">
     <?php
     $itinerary_data = get_post_meta($post->ID, '_tour_itinerary_data', true);
     if (!empty($itinerary_data) && is_array($itinerary_data)) :
@@ -47,7 +47,7 @@
                                                     <i class="fas fa-utensils"></i>
                                                 </div>
                                                 <div class="detail-content">
-                                                    <h5><?php esc_html_e('Meals', 'bike-theme'); ?></h5>
+                                                    <h5><?php esc_html_e('Meals Provided', 'bike-theme'); ?></h5>
                                                     <div class="meals-included">
                                                         <?php
                                                         $meals_included = array();
@@ -77,10 +77,10 @@
                                         <?php if (!empty($day['distance'])) : ?>
                                             <div class="detail-item distance">
                                                 <div class="detail-icon">
-                                                    <i class="fas fa-road"></i>
+                                                    <i class="fas fa-bicycle"></i>
                                                 </div>
                                                 <div class="detail-content">
-                                                    <h5><?php esc_html_e('Distance', 'bike-theme'); ?></h5>
+                                                    <h5><?php esc_html_e('Bicycle Distance', 'bike-theme'); ?></h5>
                                                     <p><?php printf(esc_html__('%g km', 'bike-theme'), $day['distance']); ?></p>
                                                 </div>
                                             </div>

@@ -199,7 +199,8 @@ function bike_theme_tour_details_meta_box_callback($post)
     $tour_booking_terms = get_post_meta($post->ID, '_tour_booking_terms', true);
     $tour_cancellation_policy = get_post_meta($post->ID, '_tour_cancellation_policy', true);
     $tour_contact_info = get_post_meta($post->ID, '_tour_contact_info', true);
-
+    $tour_price_info = get_post_meta($post->ID, '_tour_price_info', true);
+    $tour_review_info = get_post_meta($post->ID, '_tour_review_info', true);
     if (!is_array($tour_itinerary_data)) {
         $tour_itinerary_data = array();
     }
@@ -652,6 +653,34 @@ function bike_theme_tour_details_meta_box_callback($post)
             <?php 
             wp_editor($tour_contact_info, 'tour_contact_info', array(
                 'textarea_name' => 'tour_contact_info',
+                'media_buttons' => true,
+                'textarea_rows' => 5,
+                'editor_class' => 'widefat',
+                'teeny' => true
+            )); 
+            ?>
+        </p>
+
+        <h3><?php esc_html_e('Price Information', 'bike-theme'); ?></h3>
+        <p>
+            <label for="tour_price_info"><?php esc_html_e('Price Information', 'bike-theme'); ?></label>
+            <?php 
+            wp_editor($tour_price_info, 'tour_price_info', array(
+                'textarea_name' => 'tour_price_info',
+                'media_buttons' => true,
+                'textarea_rows' => 5,
+                'editor_class' => 'widefat',
+                'teeny' => true
+            )); 
+            ?>
+        </p>
+
+        <h3><?php esc_html_e('Reviews Information', 'bike-theme'); ?></h3>
+        <p>
+            <label for="tour_review_info"><?php esc_html_e('Reviews Information', 'bike-theme'); ?></label>
+            <?php 
+            wp_editor($tour_review_info, 'tour_review_info', array(
+                'textarea_name' => 'tour_review_info',
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
@@ -1235,6 +1264,14 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
     
     if (isset($_POST['tour_contact_info'])) {
         update_post_meta($post_id, '_tour_contact_info', wp_kses_post($_POST['tour_contact_info']));
+    }
+
+    if (isset($_POST['tour_price_info'])) {
+        update_post_meta($post_id, '_tour_price_info', wp_kses_post($_POST['tour_price_info']));
+    }
+
+    if (isset($_POST['tour_review_info'])) {
+        update_post_meta($post_id, '_tour_review_info', wp_kses_post($_POST['tour_review_info']));
     }
     
     // Save pricing data - check for nonce separately as it's from a different metabox
