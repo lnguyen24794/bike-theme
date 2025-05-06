@@ -61,9 +61,9 @@
                     $vietnam_multi_day_tours_image = get_the_post_thumbnail_url($vietnam_multi_day_tours_page->ID, 'full');
                 ?>
                 <img src="<?php echo esc_url($vietnam_multi_day_tours_image); ?>" 
-                    alt="<?php echo esc_attr('Vietnam multi-day tours'); ?>">
+                    alt="<?php echo esc_attr('Vietnam Multi-Day Cycling Tours'); ?>">
                 <div class="destination-slider-title d-flex align-items-center justify-content-center">
-                    <h3 class="text-primary"><?php echo esc_html('Vietnam multi-day tours'); ?></h3>
+                    <h3 class="text-primary"><?php echo esc_html('Vietnam Multi-Day Cycling Tours'); ?></h3>
                 </div>
             </a>
         </div>

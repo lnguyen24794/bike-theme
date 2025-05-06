@@ -574,14 +574,14 @@
     width: 100%;
     padding: 0;
     text-align: center;
+}
+.tour-basic-info .container {
     color: #f7cf07;
     background-color: rgba(243, 208, 13, 0.8);
 }
 
 .tour-basic-info .wrapper {
-    border-radius: 0px 0px 15px 15px !important;
     width: 100%;
-    border-radius: 8px;
 }
 
 .tour-basic-info .flex-shrink-0 {
@@ -612,7 +612,7 @@
 }
 
 .tour-basic-info-title span{
-    font-size: 1.875rem;
+    font-size: 1.5rem;
     color: #000;
     font-weight: 500;
 }

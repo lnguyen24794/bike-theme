@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Vietnam Multi-Day Tours Page
+ * Template Name: Vietnam Multi-Day Cycling Tours Page
  *
  * @package Bike_Theme
  */
@@ -14,7 +14,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
      <div class="container-fluid page-header mb-5 p-0" style="background-image: url(<?php echo esc_url($featured_image); ?>);">
         <div class="container-fluid page-header-inner py-5">
             <div class="container text-center pb-5">
-                <h1 class="display-3 text-white mb-3 animated slideInDown"><?php esc_html_e('Vietnam Multi-Day Tours', 'bike-theme'); ?></h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown"><?php esc_html_e('Vietnam Multi-Day Cycling Tours', 'bike-theme'); ?></h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center text-uppercase">
                         <li class="breadcrumb-item"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'bike-theme'); ?></a></li>
@@ -34,11 +34,6 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
             </div>
         </div>
     </div>
-    <!-- Tours Start -->
-    <div class="container-xxl py-5">
-            <?php include(get_template_directory() . '/template-parts/home/destination-slider.php'); ?>
-        </div>
-        <!-- Tours End -->
 </main><!-- #main -->
 
 <?php

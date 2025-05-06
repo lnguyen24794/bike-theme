@@ -9,11 +9,12 @@
 
 get_header();
 wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/assets/css/tour-archive.css', array(), BIKE_THEME_VERSION);
+$featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 ?>
 
 <main id="primary" class="site-main">
     <!-- Page Header Start -->
-    <div class="container-fluid page-header mb-5 p-0" style="background-image: url(<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/bikes/tour-banner.jpg);">
+    <div class="container-fluid page-header mb-5 p-0" style="background-image: url(<?php  echo esc_url($featured_image); ?>">
         <div class="container-fluid page-header-inner py-5">
             <div class="container text-center pb-5">
                 <h1 class="display-3 text-white mb-3 animated slideInDown"><?php esc_html_e('Our Bike Tours', 'bike-theme'); ?></h1>
@@ -26,20 +27,19 @@ wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/ass
             </div>
         </div>
     </div>
-    <div class="container-fluid bg-primary p-0">
-       <!-- Page Header End -->
-        <div class="container-xxl py-5 pb-0">
-            <div class="row">
-                <div class="col-md-12">
-                    <?php the_content(); ?>
+    <div class="container-fluid p-0 my-5">
+        <div class="w-100 pt-5 pb-5 bg-gray">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Choose Your Adventure', 'bike-theme'); ?></h3>
                 </div>
+                <div class="bike-tour-content mb-3"><?php echo get_the_content(); ?></div>
+            </div>
+            <div class="container-fluid bg-primary pt-3 pb-3 text-center" style="margin-top: -10px;">
+                    <h5>Hop on a bike, slow down, and experience the real Vietnam in the most meaningful way — by cycling!</h5>
+                    <?php include(get_template_directory() . '/template-parts/home/destination-slider.php'); ?>
             </div>
         </div>
-        <!-- Tours Start -->
-        <div class="py-5">
-            <?php include(get_template_directory() . '/template-parts/home/destination-slider.php'); ?>
-        </div>
-        <!-- Tours End -->
     </div>
 </main>
 

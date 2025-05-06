@@ -185,18 +185,18 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 <main id="primary" class="site-main">
     <!-- Page Header Start -->
     <div class="page-header-inner tour-wrapper py-0" style="background-image: url(<?php echo has_post_thumbnail() ? esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')) : esc_url(get_template_directory_uri() . '/assets/images/bikes/tour-banner.jpg'); ?>);">
-            <div class="container pb-2">
+            <div class="container pb-2 px-0">
                 <div class="row align-items-center">
-                    <div class="col-lg-9">
+                    <div class="col">
                         <h1 class="tour-heading text-white mb-3 animated slideInDown text-shadow"><?php the_title(); ?></h1>     
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-auto" style="text-align: right;">
                         <a class="btn btn-primary cursor-pointer shadow" data-bs-toggle="modal" data-bs-target="#bookingModal"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></a>
                     </div>
                 </div>
             </div>
             <div class="tour-basic-info">
-                <div class="container row p-lg-3 p-xs-2 align-items-center wrapper">
+                <div class="container row p-2 align-items-center wrapper">
                     <div class="col-lg-3 col-6">
                         <div class="ms-3 tour-basic-info-title">
                             <h5 class="mb-1"><?php esc_html_e('Price from', 'bike-theme'); ?></h5>
