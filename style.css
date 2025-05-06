@@ -367,6 +367,7 @@ select,
 
 .tour-heading {
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-size: 1.85rem !important;
 }
 
 .ti-widget.ti-goog {
@@ -428,6 +429,9 @@ select,
     }
     .text-size-x-medium  {
         font-size: 1rem !important;
+    }
+    .tour-heading {
+        font-size: 1.6rem !important;
     }
 }
 
