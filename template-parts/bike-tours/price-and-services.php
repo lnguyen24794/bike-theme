@@ -1,24 +1,3 @@
-<div class="row">
-    <div class="col-md-6 mb-4">
-        <h4><?php esc_html_e('What\'s Included', 'bike-theme'); ?></h4>
-        <?php if (!empty($tour_included)) : ?>
-            <div class="included-services">
-                <?php echo wp_kses_post($tour_included); ?>
-            </div>
-        
-        <?php endif; ?>
-    </div>
-    <div class="col-md-6 mb-4">
-        <h4><?php esc_html_e('What\'s Not Included', 'bike-theme'); ?></h4>
-        <?php if (!empty($not_included)) : ?>
-            <div class="not-included-services">
-                <?php echo wp_kses_post($not_included); ?>
-            </div>
-        
-        <?php endif; ?>
-    </div>
-</div>
-
 <div class="price-details mt-4">
     <h4><?php esc_html_e('Price Details', 'bike-theme'); ?></h4>
     <?php if (get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1') :
@@ -53,3 +32,25 @@
         <p><?php echo bike_theme_format_price(bike_theme_get_tour_price(get_the_ID())); ?> <?php esc_html_e('per person', 'bike-theme'); ?></p>
     <?php endif; ?>
 </div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <h4><?php esc_html_e('What\'s Included', 'bike-theme'); ?></h4>
+        <?php if (!empty($tour_included)) : ?>
+            <div class="included-services">
+                <?php echo wp_kses_post($tour_included); ?>
+            </div>
+        
+        <?php endif; ?>
+    </div>
+    <div class="col-md-6 mb-4">
+        <h4><?php esc_html_e('What\'s Not Included', 'bike-theme'); ?></h4>
+        <?php if (!empty($not_included)) : ?>
+            <div class="not-included-services">
+                <?php echo wp_kses_post($not_included); ?>
+            </div>
+        
+        <?php endif; ?>
+    </div>
+</div>
+

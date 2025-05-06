@@ -449,3 +449,15 @@ select,
 .text-size-x-medium  {
     font-size: 1.2rem !important;
 }
+
+.section-title {
+    font-size: 1.8rem !important;
+}
+
+.text-size-large {
+    font-size: 2rem !important;
+}
+
+.text-size-medium {
+    font-size: 1.5rem !important;
+}

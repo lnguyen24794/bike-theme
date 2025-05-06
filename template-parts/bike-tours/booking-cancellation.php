@@ -1,4 +1,4 @@
-<div class="booking-cancellation">
+<div class="booking-cancellation mt-4">
     <div class="mb-4">
         <h4><?php esc_html_e('Booking Terms', 'bike-theme'); ?></h4>
         <?php if (!empty($booking_terms)) : ?>

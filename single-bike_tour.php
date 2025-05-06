@@ -159,6 +159,7 @@ $schedule = get_post_meta(get_the_ID(), '_tour_schedule', true);
 $tour_included = get_post_meta(get_the_ID(), '_tour_included', true);
 $not_included = get_post_meta(get_the_ID(), '_tour_not_included', true);
 $gallery_ids = get_post_meta(get_the_ID(), '_tour_gallery', true);
+$contact_info = get_post_meta(get_the_ID(), '_tour_contact_info', true);
 
 // Format difficulty text and class
 $difficulty_text = '';
@@ -281,155 +282,164 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                     <div class="tab-content px-0 py-3" style="border: none; min-height: 100vh;" id="tourTabContent">
                         <!-- Overview Tab -->
                         <div class="tab-pane fade <?php echo $active_tab === 'overview' ? 'show active' : ''; ?>" id="overview" role="tabpanel" aria-labelledby="overview-tab">
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/overview.php'); ?>
+                            <!-- Overview Start -->
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Overview', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/overview.php'); ?>
+                                </div>
+                            </div>
+                            <!-- Overview End -->
                             <!-- Tour Itinerary Start -->
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/itinerary.php'); ?>
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Itinerary', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/itinerary.php'); ?>
+                                </div>
+                            </div>
                             <!-- Tour Itinerary End -->
                             <!-- Price & Services Tab -->
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/price-and-services.php'); ?>
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Price & Services', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/price-and-services.php'); ?>
+                                </div>
+                            </div>
                             <!-- Price & Services Tab End -->
                             <!-- Booking & Cancellation Tab -->
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/booking-cancellation.php'); ?>
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Booking & Cancellation', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/booking-cancellation.php'); ?>
+                                </div>
+                            </div>
                             <!-- Booking & Cancellation Tab End -->
                             <!-- Gallery Tab -->
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/gallery.php'); ?>
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Gallery', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/gallery.php'); ?>
+                                </div>
+                            </div>
                             <!-- Gallery Tab End -->    
                             <!-- Reviews Tab -->
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/review.php'); ?>
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Reviews', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/review.php'); ?>
+                                </div>
+                            </div>
                             <!-- Reviews Tab End -->
                             <!-- Contact Tab -->
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/contact.php'); ?>
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Contact', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/contact.php'); ?>
+                                </div>
+                            </div>
                             <!-- Contact Tab End -->
                         </div>
                         
                         <!-- Itinerary Tab -->
                         <div class="tab-pane fade <?php echo $active_tab === 'itinerary' ? 'show active' : ''; ?>" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab">
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/itinerary.php'); ?>
+                            <!-- Itinerary Start -->
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Itinerary', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/itinerary.php'); ?>
+                                    </div>
+                            </div>
+                            <!-- Itinerary End -->
                         </div>
                         
                         <!-- Price & Services Tab -->
                         <div class="tab-pane fade <?php echo $active_tab === 'inclusions' ? 'show active' : ''; ?>" id="inclusions" role="tabpanel" aria-labelledby="inclusions-tab">
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/price-and-services.php'); ?>
+                            <!-- Price & Services Start -->
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Price & Services', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/price-and-services.php'); ?>
+                                </div>
+                            </div>
+                            <!-- Price & Services End -->
                         </div>
                         
                         <!-- Booking & Cancellation Tab -->
                         <div class="tab-pane fade <?php echo $active_tab === 'booking' ? 'show active' : ''; ?>" id="booking" role="tabpanel" aria-labelledby="booking-tab">
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/booking-cancellation.php'); ?>
+                            <!-- Booking & Cancellation Start -->
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Booking & Cancellation', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/booking-cancellation.php'); ?>
+                                </div>
+                            </div>
+                            <!-- Booking & Cancellation End -->
                         </div>
                         
                         <!-- Gallery Tab -->
                         <div class="tab-pane fade <?php echo $active_tab === 'gallery' ? 'show active' : ''; ?>" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/gallery.php'); ?>
+                            <!-- Gallery Start -->
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Gallery', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/gallery.php'); ?>
+                                </div>
+                            </div>
+                            <!-- Gallery End -->
                         </div>
-                        
                         <!-- Reviews Tab -->
                         <div class="tab-pane fade <?php echo $active_tab === 'reviews' ? 'show active' : ''; ?>" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/review.php'); ?>
+                            <!-- Reviews Start -->
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Reviews', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/review.php'); ?>
+                                </div>
+                            </div>
                         </div>
-                        
                         <!-- Contact Tab -->
                         <div class="tab-pane fade <?php echo $active_tab === 'contact' ? 'show active' : ''; ?>" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                            <?php include(get_template_directory() . '/template-parts/bike-tours/contact.php'); ?>
-                        </div>
-
-                        <!-- In the pricing tab -->
-                        <div class="tab-pane fade" id="pricing" role="tabpanel">
-                            <div class="tour-pricing-details">
-                                <h3><?php esc_html_e('Tour Price', 'bike-theme'); ?></h3>
-                                <?php
-                                $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
-                                $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
-                                $standard_price = get_post_meta(get_the_ID(), '_tour_price', true);
-
-                                if ($flexible_pricing_enabled && !empty($flexible_pricing)) {
-                                    ?>
-                                    <div class="flexible-pricing-table">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th><?php esc_html_e('Number of Participants', 'bike-theme'); ?></th>
-                                                    <th><?php esc_html_e('Price per Person', 'bike-theme'); ?></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($flexible_pricing as $price_level) { ?>
-                                                    <tr>
-                                                        <td><?php echo esc_html($price_level['participants']); ?>+</td>
-                                                        <td><?php echo esc_html(number_format($price_level['price'], 0, '.', ',')); ?> VND</td>
-                                                    </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <?php
-                                    } else {
-                                        ?>
-                                    <div class="standard-price">
-                                        <p class="price-amount"><?php echo esc_html(number_format($standard_price, 0, '.', ',')); ?> VND</p>
-                                        <p class="price-note"><?php esc_html_e('per person', 'bike-theme'); ?></p>
-                                    </div>
-                                    <?php
-                                    }
-                                    ?>
-                                <!-- Tour Additions Section -->
-                                <?php
-                                    $additions = get_post_meta(get_the_ID(), '_tour_additions', true);
-                                    if (!empty($additions)) {
-                                        ?>
-                                    <div class="tour-additions mt-4">
-                                        <h3><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h3>
-                                        <div class="additions-table">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th><?php esc_html_e('Service', 'bike-theme'); ?></th>
-                                                        <th><?php esc_html_e('Description', 'bike-theme'); ?></th>
-                                                        <th><?php esc_html_e('Price', 'bike-theme'); ?></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php foreach ($additions as $addition) { ?>
-                                                        <tr>
-                                                            <td><?php echo esc_html($addition['name']); ?></td>
-                                                            <td><?php echo esc_html($addition['description']); ?></td>
-                                                            <td>
-                                                                <?php
-                                echo esc_html(number_format($addition['price'], 0, '.', ',')); ?> VND
-                                                                                                        <?php
-                                if (isset($addition['per_person']) && $addition['per_person']) {
-                                    echo ' <span class="per-person-note">' . esc_html__('per person', 'bike-theme') . '</span>';
-                                }
-                                                        ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <?php
-                                    }
-                                    ?>
+                            <!-- Contact Start -->
+                            <div class="w-100 py-3">
+                                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                                    <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Contact', 'bike-theme'); ?></h3>
+                                </div>
+                                <div class="pb-3">
+                                    <?php include(get_template_directory() . '/template-parts/bike-tours/contact.php'); ?>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Tour Tabs End -->
-
-                <!-- Tour Schedule Start -->
-                <?php if (!empty($schedule)) : ?>
-                <div class="mb-5">
-                    <h3 class="mb-4"><?php esc_html_e('Bike Tour Schedule', 'bike-theme'); ?></h3>
-                    <div class="border rounded p-4">
-                        <?php echo wpautop(wp_kses_post($schedule)); ?>
-                    </div>
-                </div>
-                <?php endif; ?>
-                <!-- Tour Schedule End -->
             </div>
             <!-- Tour Description End -->
              <!-- Bottom Section -->
-            <section class="bike-bottom">
+            <section class="bike-bottom mb-4">
                 <div class="container">
                     <div class="row align-items-start">
                         <div class="bottom-cta text-center">

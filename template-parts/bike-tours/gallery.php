@@ -1,4 +1,4 @@
-<div class="tour-media">
+<div class="tour-media mt-4">
     <?php if (!empty($gallery_ids)) :
         $gallery_ids_array = is_array($gallery_ids) ? $gallery_ids : explode(',', $gallery_ids);
         ?>

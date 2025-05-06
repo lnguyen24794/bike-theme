@@ -29,15 +29,6 @@
     color: var(--primary-color) !important;
 }
 
-.text-size-large {
-    font-size: 2rem !important;
-}
-
-.text-size-medium {
-    font-size: 1.5rem !important;
-}
-
-
 .hero-title {
     font-size: 3.5rem !important;
 }
@@ -81,10 +72,6 @@
     top: 0;
     left: 0;
     z-index: 1000;
-}
-
-.section-title {
-    font-size: 1.8rem !important;
 }
 
 @media screen and (max-width: 991px) {

@@ -1,4 +1,4 @@
-<div class="tour-reviews">
+<div class="tour-reviews mt-4">
     <?php if (comments_open() || get_comments_number()) : ?>
         <?php comments_template(); ?>
     <?php else : ?>
