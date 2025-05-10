@@ -280,7 +280,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
             <div class="col-lg-12 mt-0">
                 <!-- Tour Tabs Start -->
                 <div class="mb-2 border-bottom">
-                    <div class="tab-content px-0 py-3" style="border: none; min-height: 100vh;" id="tourTabContent">
+                    <div class="tab-content px-0 py-3" style="border: none; " id="tourTabContent">
                         <!-- Overview Tab -->
                         <div class="tab-pane fade <?php echo $active_tab === 'overview' ? 'show active' : ''; ?>" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                             <!-- Overview Start -->

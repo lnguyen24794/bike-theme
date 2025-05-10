@@ -69,7 +69,7 @@ wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/asse
         <section class="bike-main-content py-0" id="tour-detail">
             <div class="container-xxl">
                 <!-- Tab Content -->
-                <div class="tab-content px-0 py-3" style="border: none; min-height: 100vh;" id="tourTabContent">
+                <div class="tab-content px-0 py-3" style="border: none; " id="tourTabContent">
                     <!-- Bike Price Tab -->
                     <div class="tab-pane fade show active" id="price" role="tabpanel" aria-labelledby="price-tab">
                         <?php include(get_template_directory() . '/template-parts/bike/bike-price.php'); ?>
