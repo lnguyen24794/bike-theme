@@ -25,7 +25,7 @@ wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/asse
         ?>
         <!-- Top Section -->
         <?php include(get_template_directory() . '/template-parts/bike/bike-slider.php'); ?>
-        <div class="container-xxl">
+        <div class="container-xxl mt-3">
             <div class="row">
                 <div class="col-md-12">
                    <?php the_content(); ?>

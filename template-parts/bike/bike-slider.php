@@ -1,7 +1,7 @@
  <?php if (!empty($bike_gallery)) :
     $gallery_ids_array = is_array($bike_gallery) ? $bike_gallery : explode(',', $bike_gallery);
 ?>
-<div class="container-fluid pt-2 mt-2 pb-2 bg-light">   
+<div class="container-fluid pt-2 mt-3 pb-2 bg-light">   
     <div class="owl-carousel bike-slider">
         <?php foreach($gallery_ids_array as $image_id):
             if (!empty($image_id)) :
