@@ -38,9 +38,6 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
         <div class="row g-4">
             <div class="col-md-6" style="padding-right: 0px !important">
                 <div class="wow fadeInUp bg-primary p-3" data-wow-delay="0.2s">
-                    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-                        <?php the_content(); ?>
-                    <?php endwhile; endif; ?>
                     <form id="contact-form" action="" method="post">
                         <?php wp_nonce_field('bike_theme_contact_nonce', 'contact_nonce'); ?>
                         <div class="row g-3">
