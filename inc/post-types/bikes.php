@@ -521,7 +521,7 @@ function bike_theme_save_bike_meta_boxes_data($post_id)
         delete_post_meta($post_id, '_bike_gallery');
     }
     if (isset($_POST['bike_price'])) {
-        update_post_meta($post_id, '_bike_price', sanitize_text_field($_POST['bike_price']));
+        update_post_meta($post_id, '_bike_price', wp_kses_post($_POST['bike_price']));
     }
 
     if (isset($_POST['bike_accessories'])) {
