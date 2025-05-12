@@ -339,13 +339,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                                             'media_buttons' => true,
                                             'textarea_rows' => 5,
                                             'editor_class' => 'widefat',
-                                            'teeny' => false,
-                                            'wpautop' => true,
-                                            'quicktags' => true,
-                                            'tinymce' => array(
-                                                'toolbar1' => 'bold,italic,underline,bullist,numlist,link,unlink,undo,redo,formatselect',
-                                                'toolbar2' => ''
-                                            )
+                                            'teeny' => true
                                         )
                                     ); 
                                     ?>
@@ -610,13 +604,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => false,
-                'wpautop' => true,
-                'quicktags' => true,
-                'tinymce' => array(
-                    'toolbar1' => 'bold,italic,underline,bullist,numlist,link,unlink,undo,redo,formatselect',
-                    'toolbar2' => ''
-                )
+                'teeny' => true
             )); 
             ?>
         </p>
@@ -628,13 +616,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => false,
-                'wpautop' => true,
-                'quicktags' => true,
-                'tinymce' => array(
-                    'toolbar1' => 'bold,italic,underline,bullist,numlist,link,unlink,undo,redo,formatselect',
-                    'toolbar2' => ''
-                )
+                'teeny' => true
             )); 
             ?>
         </p>
@@ -648,13 +630,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => false,
-                'wpautop' => true,
-                'quicktags' => true,
-                'tinymce' => array(
-                    'toolbar1' => 'bold,italic,underline,bullist,numlist,link,unlink,undo,redo,formatselect',
-                    'toolbar2' => ''
-                )
+                'teeny' => true
             )); 
             ?>
         </p>
@@ -666,13 +642,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => false,
-                'wpautop' => true,
-                'quicktags' => true,
-                'tinymce' => array(
-                    'toolbar1' => 'bold,italic,underline,bullist,numlist,link,unlink,undo,redo,formatselect',
-                    'toolbar2' => ''
-                )
+                'teeny' => true
             )); 
             ?>
         </p>
@@ -686,13 +656,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => false,
-                'wpautop' => true,
-                'quicktags' => true,
-                'tinymce' => array(
-                    'toolbar1' => 'bold,italic,underline,bullist,numlist,link,unlink,undo,redo,formatselect',
-                    'toolbar2' => ''
-                )
+                'teeny' => true
             )); 
             ?>
         </p>
@@ -706,13 +670,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => false,
-                'wpautop' => true,
-                'quicktags' => true,
-                'tinymce' => array(
-                    'toolbar1' => 'bold,italic,underline,bullist,numlist,link,unlink,undo,redo,formatselect',
-                    'toolbar2' => ''
-                )
+                'teeny' => true
             )); 
             ?>
         </p>
@@ -726,13 +684,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => false,
-                'wpautop' => true,
-                'quicktags' => true,
-                'tinymce' => array(
-                    'toolbar1' => 'bold,italic,underline,bullist,numlist,link,unlink,undo,redo,formatselect',
-                    'toolbar2' => ''
-                )
+                'teeny' => true
             )); 
             ?>
         </p>
@@ -1270,51 +1222,6 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
         update_post_meta($post_id, '_tour_end_location', sanitize_text_field($_POST['tour_end_location']));
     }
 
-    // Define allowed HTML tags for wp_editor content
-    $allowed_html = array(
-        'a' => array(
-            'href' => array(),
-            'title' => array(),
-            'target' => array(),
-            'class' => array(),
-        ),
-        'br' => array(),
-        'em' => array(),
-        'strong' => array(),
-        'p' => array(
-            'class' => array(),
-            'style' => array(),
-        ),
-        'h1' => array(),
-        'h2' => array(),
-        'h3' => array(),
-        'h4' => array(),
-        'h5' => array(),
-        'h6' => array(),
-        'ul' => array(),
-        'ol' => array(),
-        'li' => array(),
-        'span' => array(
-            'class' => array(),
-            'style' => array(),
-        ),
-        'div' => array(
-            'class' => array(),
-            'style' => array(),
-        ),
-        'table' => array(),
-        'tr' => array(),
-        'td' => array(),
-        'th' => array(),
-        'img' => array(
-            'src' => array(),
-            'alt' => array(),
-            'class' => array(),
-            'width' => array(),
-            'height' => array(),
-        ),
-    );
-
     // Save itinerary data
     if (isset($_POST['tour_itinerary']) && is_array($_POST['tour_itinerary'])) {
         $itinerary_data = array();
@@ -1322,7 +1229,7 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
             if (!empty($day_data['title'])) {
                 $itinerary_data[$day_index] = array(
                     'title' => sanitize_text_field($day_data['title']),
-                    'description' => isset($day_data['description']) ? wp_kses($day_data['description'], $allowed_html) : '',
+                    'description' => isset($day_data['description']) ? wp_kses_post($day_data['description']) : '',
                     'accommodation' => isset($day_data['accommodation']) ? sanitize_text_field($day_data['accommodation']) : '',
                     'distance' => isset($day_data['distance']) ? sanitize_text_field($day_data['distance']) : '',
                     'meals' => isset($day_data['meals']) ? $day_data['meals'] : array(),
@@ -1339,32 +1246,32 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
 
     // Save service details
     if (isset($_POST['tour_included'])) {
-        update_post_meta($post_id, '_tour_included', wp_kses($_POST['tour_included'], $allowed_html));
+        update_post_meta($post_id, '_tour_included', wp_kses_post($_POST['tour_included']));
     }
 
     if (isset($_POST['tour_not_included'])) {
-        update_post_meta($post_id, '_tour_not_included', wp_kses($_POST['tour_not_included'], $allowed_html));
+        update_post_meta($post_id, '_tour_not_included', wp_kses_post($_POST['tour_not_included']));
     }
     
     // Save booking and cancellation details
     if (isset($_POST['tour_booking_terms'])) {
-        update_post_meta($post_id, '_tour_booking_terms', wp_kses($_POST['tour_booking_terms'], $allowed_html));
+        update_post_meta($post_id, '_tour_booking_terms', wp_kses_post($_POST['tour_booking_terms']));
     }
     
     if (isset($_POST['tour_cancellation_policy'])) {
-        update_post_meta($post_id, '_tour_cancellation_policy', wp_kses($_POST['tour_cancellation_policy'], $allowed_html));
+        update_post_meta($post_id, '_tour_cancellation_policy', wp_kses_post($_POST['tour_cancellation_policy']));
     }
     
     if (isset($_POST['tour_contact_info'])) {
-        update_post_meta($post_id, '_tour_contact_info', wp_kses($_POST['tour_contact_info'], $allowed_html));
+        update_post_meta($post_id, '_tour_contact_info', wp_kses_post($_POST['tour_contact_info']));
     }
 
     if (isset($_POST['tour_price_info'])) {
-        update_post_meta($post_id, '_tour_price_info', wp_kses($_POST['tour_price_info'], $allowed_html));
+        update_post_meta($post_id, '_tour_price_info', wp_kses_post($_POST['tour_price_info']));
     }
 
     if (isset($_POST['tour_review_info'])) {
-        update_post_meta($post_id, '_tour_review_info', wp_kses($_POST['tour_review_info'], $allowed_html));
+        update_post_meta($post_id, '_tour_review_info', wp_kses_post($_POST['tour_review_info']));
     }
     
     // Save pricing data - check for nonce separately as it's from a different metabox
