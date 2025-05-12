@@ -163,20 +163,20 @@ function bike_theme_bike_details_meta_box_callback($post)
             <div id="bike_gallery_preview" class="bike-gallery-preview">
                 <?php
                 $gallery_ids = get_post_meta($post->ID, '_bike_gallery', true);
-                if (!empty($gallery_ids) && is_array($gallery_ids)) {
-                    foreach ($gallery_ids as $image_id) {
-                        if ($image_id) {
-                            $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
-                            if ($image_url) {
-                                echo '<div class="gallery-image-item" data-id="' . esc_attr($image_id) . '">';
-                                echo '<img src="' . esc_url($image_url) . '" alt="">';
-                                echo '<button type="button" class="remove-gallery-image dashicons dashicons-no-alt"></button>';
-                                echo '</div>';
-                            }
-                        }
-                    }
+    if (!empty($gallery_ids) && is_array($gallery_ids)) {
+        foreach ($gallery_ids as $image_id) {
+            if ($image_id) {
+                $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+                if ($image_url) {
+                    echo '<div class="gallery-image-item" data-id="' . esc_attr($image_id) . '">';
+                    echo '<img src="' . esc_url($image_url) . '" alt="">';
+                    echo '<button type="button" class="remove-gallery-image dashicons dashicons-no-alt"></button>';
+                    echo '</div>';
                 }
-                ?>
+            }
+        }
+    }
+    ?>
             </div>
             <p>
                 <button type="button" class="button add-gallery-images"><?php esc_html_e('Add Gallery Images', 'bike-theme'); ?></button>
@@ -347,78 +347,78 @@ function bike_theme_bike_details_meta_box_callback($post)
         <p>
             <?php
             wp_editor($bike_price, 'bike_price', array(
-                'textarea_name' => 'bike_price',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true
+    'textarea_name' => 'bike_price',
+    'media_buttons' => true,
+    'textarea_rows' => 5,
+    'editor_class' => 'widefat',
+    'teeny' => true
             ));
-            ?>
+    ?>
         </p>
 
         <h3><?php esc_html_e('Accessories', 'bike-theme'); ?></h3>
         <p>
             <?php
-            wp_editor($bike_accessories, 'bike_accessories', array(
-                'textarea_name' => 'bike_accessories',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true
-            ));
-            ?>
+    wp_editor($bike_accessories, 'bike_accessories', array(
+        'textarea_name' => 'bike_accessories',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true
+    ));
+    ?>
         </p>
 
         <h3><?php esc_html_e('Conditions and Policies', 'bike-theme'); ?></h3>
         <p>
             <?php
-            wp_editor($bike_conditions, 'bike_conditions', array(
-                'textarea_name' => 'bike_conditions',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true
-            ));
-            ?>
+    wp_editor($bike_conditions, 'bike_conditions', array(
+        'textarea_name' => 'bike_conditions',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true
+    ));
+    ?>
         </p>
 
         <h3><?php esc_html_e('How to Book', 'bike-theme'); ?></h3>
         <p>
             <?php
-            wp_editor($bike_how_to_book, 'bike_how_to_book', array(
-                'textarea_name' => 'bike_how_to_book',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true
-            ));
-            ?>
+    wp_editor($bike_how_to_book, 'bike_how_to_book', array(
+        'textarea_name' => 'bike_how_to_book',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true
+    ));
+    ?>
         </p>
 
         <h3><?php esc_html_e('Reviews', 'bike-theme'); ?></h3>
         <p>
             <?php
-            wp_editor($bike_reviews, 'bike_reviews', array(
-                'textarea_name' => 'bike_reviews',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true
-            ));
-            ?>
+    wp_editor($bike_reviews, 'bike_reviews', array(
+        'textarea_name' => 'bike_reviews',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true
+    ));
+    ?>
         </p>
 
         <h3><?php esc_html_e('Contact Information', 'bike-theme'); ?></h3>
         <p>
             <?php
-            wp_editor($bike_contact, 'bike_contact', array(
-                'textarea_name' => 'bike_contact',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true
-            ));
-            ?>
+    wp_editor($bike_contact, 'bike_contact', array(
+        'textarea_name' => 'bike_contact',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true
+    ));
+    ?>
         </p>
     </div>
     
@@ -514,7 +514,7 @@ function bike_theme_save_bike_meta_boxes_data($post_id)
     }
 
     // Save bike details
-     if (isset($_POST['bike_gallery'])) {
+    if (isset($_POST['bike_gallery'])) {
         $gallery_ids = array_filter(explode(',', sanitize_text_field($_POST['bike_gallery'])));
         update_post_meta($post_id, '_bike_gallery', $gallery_ids);
     } else {
@@ -525,23 +525,23 @@ function bike_theme_save_bike_meta_boxes_data($post_id)
     }
 
     if (isset($_POST['bike_accessories'])) {
-        update_post_meta($post_id, '_bike_accessories', sanitize_textarea_field($_POST['bike_accessories']));
+        update_post_meta($post_id, '_bike_accessories', wp_kses_post($_POST['bike_accessories']));
     }
-    
+
     if (isset($_POST['bike_conditions'])) {
-        update_post_meta($post_id, '_bike_conditions', sanitize_textarea_field($_POST['bike_conditions']));
+        update_post_meta($post_id, '_bike_conditions', wp_kses_post($_POST['bike_conditions']));
     }
 
     if (isset($_POST['bike_how_to_book'])) {
-        update_post_meta($post_id, '_bike_how_to_book', sanitize_textarea_field($_POST['bike_how_to_book']));
+        update_post_meta($post_id, '_bike_how_to_book', wp_kses_post($_POST['bike_how_to_book']));
     }
 
     if (isset($_POST['bike_reviews'])) {
-        update_post_meta($post_id, '_bike_reviews', sanitize_textarea_field($_POST['bike_reviews']));
+        update_post_meta($post_id, '_bike_reviews', wp_kses_post($_POST['bike_reviews']));
     }
 
     if (isset($_POST['bike_contact'])) {
-        update_post_meta($post_id, '_bike_contact', sanitize_textarea_field($_POST['bike_contact']));
+        update_post_meta($post_id, '_bike_contact', wp_kses_post($_POST['bike_contact']));
     }
 
     // Save featured status
