@@ -5,7 +5,7 @@
     <div class="pb-3">
         <div class="price-details mt-4">
             <h4><?php esc_html_e('Price Details', 'bike-theme'); ?></h4>
-            <div class="price-info mb-2">
+            <div class="price-info wp-editor-content mb-2">
                 <?php echo wp_kses_post(get_post_meta(get_the_ID(), '_tour_price_info', true)); ?>
             </div>
             <?php if (get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1') :
@@ -45,7 +45,7 @@
             <div class="col-md-6 mb-4">
                 <h4><?php esc_html_e('What\'s Included', 'bike-theme'); ?></h4>
                 <?php if (!empty($tour_included)) : ?>
-                    <div class="included-services">
+                    <div class="included-services wp-editor-content">
                         <?php echo wp_kses_post($tour_included); ?>
                     </div>
                 
@@ -54,7 +54,7 @@
             <div class="col-md-6 mb-4">
                 <h4><?php esc_html_e('What\'s Not Included', 'bike-theme'); ?></h4>
                 <?php if (!empty($not_included)) : ?>
-                    <div class="not-included-services">
+                    <div class="not-included-services wp-editor-content">
                         <?php echo wp_kses_post($not_included); ?>
                     </div>
                 

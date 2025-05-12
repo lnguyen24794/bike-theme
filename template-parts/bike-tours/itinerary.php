@@ -29,7 +29,7 @@
                                 </h3>
                                 
                                 <div class="row">
-                                    <div class="col-lg-8 day-description content-formatted">
+                                    <div class="col-lg-8 wp-editor-content day-description content-formatted">
                                         <?php echo wpautop(wp_kses_post($day['description'])); ?>
                                     </div>
 
@@ -55,7 +55,7 @@
                                                         </div>
                                                         <div class="detail-content">
                                                             <h5><?php esc_html_e('Meals Provided', 'bike-theme'); ?></h5>
-                                                            <div class="meals-included">
+                                                            <div class="meals-included wp-editor-content">
                                                                 <?php
                                                                 $meals_included = array();
                                                                 $meal_icons = array(

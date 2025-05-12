@@ -3,7 +3,7 @@
         <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Price', 'bike-theme'); ?></h3>
     </div>
     <div class="pb-3">
-            <div class="tour-contact mt-4">
+        <div class="tour-contact wp-editor-content mt-4">
             <?php if (!empty($bike_price)) : ?>
                 <?php echo wp_kses_post($bike_price); ?>
             <?php endif; ?>

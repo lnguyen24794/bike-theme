@@ -461,3 +461,7 @@ select,
 .text-size-medium {
     font-size: 1.5rem !important;
 }
+
+.wp-editor-content {
+    white-space: pre-wrap !important;
+}
