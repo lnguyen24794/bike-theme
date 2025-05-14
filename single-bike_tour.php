@@ -199,35 +199,41 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                     </div>
                 </div>
             </div>
-            <div class="tour-basic-info">
-                <div class="container shadow row p-2 align-items-center wrapper">
-                    <div class="col-lg-3 col-6">
-                        <div class="tour-basic-info-title">
-                            <h5 class="mb-1"><?php esc_html_e('Price from', 'bike-theme'); ?></h5>
-                            <span><?php echo bike_theme_format_price(bike_theme_get_tour_price(get_the_ID())); ?></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-6">
-                        <div class="tour-basic-info-title">
-                            <h5 class="mb-1"><?php esc_html_e('Duration', 'bike-theme'); ?></h5>
-                            <span><?php echo esc_html($duration); ?></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-6">
-                        <div class="tour-basic-info-title">
-                            <h5 class="mb-1"><?php esc_html_e('Distance', 'bike-theme'); ?></h5>
-                            <span><?php echo esc_html($distance); ?> km</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-6">
-                        <div class="tour-basic-info-title">
-                            <h5 class="mb-1"><?php esc_html_e('Difficulty', 'bike-theme'); ?></h5>
-                            <span><?php echo esc_html($difficulty_text); ?></span>
-                        </div>
-                    </div>
+        </div>
+    </div>
+    <div class="container-xxl">
+        <div class="row p-4 align-items-center wrapper">
+            <div class="col-lg-3 col-6">
+                <div class="tour-basic-info-title">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h5 class="mb-1 text-uppercase"><?php esc_html_e('Price from', 'bike-theme'); ?></h5>
+                    <span><?php echo bike_theme_format_price(bike_theme_get_tour_price(get_the_ID())); ?></span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="tour-basic-info-title">
+                    <i class="fas fa-clock"></i>
+                    <h5 class="mb-1 text-uppercase"><?php esc_html_e('Duration', 'bike-theme'); ?></h5>
+                    <span><?php echo esc_html($duration); ?></span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="tour-basic-info-title">
+                    <i class="fas fa-road"></i>
+                    <h5 class="mb-1 text-uppercase"><?php esc_html_e('Distance', 'bike-theme'); ?></h5>
+                    <span><?php echo esc_html($distance); ?> km</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="tour-basic-info-title">
+                    <i class="fas fa-star"></i>
+                    <h5 class="mb-1 text-uppercase"><?php esc_html_e('Difficulty', 'bike-theme'); ?></h5>
+                    <span><?php echo esc_html($difficulty_text); ?></span>
                 </div>
             </div>
         </div>
+
+        <div class="w-50 mx-auto border-bottom mb-4"> </div>
     </div>
     <!-- Page Header End -->
     <!-- Tour Slider Start -->
@@ -422,7 +428,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                                             <option value="female"><?php esc_html_e('Female', 'bike-theme'); ?></option>
                                                             <option value="other"><?php esc_html_e('Other', 'bike-theme'); ?></option>
                                                         </select>
-                                                        <input type="number" class="form-control" id="rider_height_1" name="rider_height[]" placeholder="<?php esc_attr_e('Height ', 'bike-theme'); ?>" min="1" max="200">
+                                                        <input type="text" class="form-control" id="rider_height_1" name="rider_height[]" placeholder="<?php esc_attr_e('Height ', 'bike-theme'); ?>" min="1">
                                                         <div class="form-check kid-checkbox">
                                                             <input class="form-check-input rider-child-checkbox" type="checkbox" id="rider_is_child_1" name="rider_is_child[]" value="1" data-rider="1">
                                                             <label class="form-check-label" for="rider_is_child_1">
@@ -656,7 +662,7 @@ jQuery(document).ready(function($) {
                                         <option value="female">Female</option>
                                         <option value="other">Other</option>
                                     </select>
-                                    <input type="number" class="form-control" id="rider_height_${i}" name="rider_height[]" placeholder="height " min="1" max="200">
+                                    <input type="text" class="form-control" id="rider_height_${i}" name="rider_height[]" placeholder="height " min="1">
                                     <div class="form-check kid-checkbox">
                                         <input class="form-check-input rider-child-checkbox" type="checkbox" id="rider_is_child_${i}" name="rider_is_child[]" value="1" data-rider="${i}">
                                         <label class="form-check-label" for="rider_is_child_${i}">
