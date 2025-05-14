@@ -462,12 +462,4 @@ select,
     font-size: 1.5rem !important;
 }
 
-.wp-editor-content {
-    white-space: pre-line !important;
-}
-
-.wp-editor-content ul, .wp-editor-content ol, .wp-editor-content li {
-    white-space: unset !important;
-}
-
 

@@ -17,7 +17,7 @@
     <link rel="profile" href="https://gmpg.org/xfn/11">
     
 <?php wp_head();
-wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home.css', array(), BIKE_THEME_VERSION); ?>
+wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home.css', array(), false); ?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -56,7 +56,7 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
                 'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
                 'walker'          => new WP_Bootstrap_Navwalker()
             ));
-            ?>
+?>
         </div>
     </div>
 
@@ -135,7 +135,7 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
                                 'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
                                 'walker'            => new WP_Bootstrap_Navwalker()
                             ));
-                        ?>
+?>
                     </div>
                 </nav>
             </div>

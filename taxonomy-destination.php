@@ -6,7 +6,7 @@
  */
 
 get_header();
-wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/assets/css/tour-archive.css', array(), BIKE_THEME_VERSION);
+wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/assets/css/tour-archive.css', array(), false);
 // Get current destination term
 $term = get_queried_object();
 

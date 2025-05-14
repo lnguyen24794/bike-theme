@@ -111,7 +111,7 @@ function bike_theme_destination_media_scripts()
         return;
     }
     wp_enqueue_media();
-    wp_enqueue_script('destination-media-uploader', get_template_directory_uri() . '/assets/js/destination-media.js', array('jquery'), BIKE_THEME_VERSION, true);
+    wp_enqueue_script('destination-media-uploader', get_template_directory_uri() . '/assets/js/destination-media.js', array('jquery'), false, true);
 }
 add_action('admin_enqueue_scripts', 'bike_theme_destination_media_scripts');
 
