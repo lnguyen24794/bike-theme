@@ -423,7 +423,7 @@ select,
  padding-left: 45px !important;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 991px) {
     #navbarCollapse {
         padding: 0px 15px !important;
     }
@@ -464,6 +464,9 @@ select,
 
 @media (max-width: 1200px) {
     .navbar-dark .navbar-nav .nav-link {
-        font-size: 0.9rem !important;
+        font-size: 1.1rem !important;
+    }
+    .navbar-dark .navbar-nav .nav-link {
+        margin-right: 10px !important;
     }
 }
