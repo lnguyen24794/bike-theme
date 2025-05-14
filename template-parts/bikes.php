@@ -18,7 +18,7 @@
                 $is_available = get_post_meta(get_the_ID(), '_bike_available', true);
             ?>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="room-item shadow rounded">
+                <div class="room-item shadow rounded" style="height: 100%;">
                     <div class="position-relative bike-image">
                         <?php if (has_post_thumbnail()) : ?>
                             <?php the_post_thumbnail('large', array('class' => 'img-fluid')); ?>
@@ -57,9 +57,6 @@
             </div>
     <?php
             endwhile;
-wp_reset_postdata();
+        wp_reset_postdata();
     ?> <?php endif; ?>
-</div>
-<div class="text-center mt-5">
-    <a href="<?php echo esc_url(get_post_type_archive_link('bike')); ?>" class="btn btn-primary py-3 px-5"><?php esc_html_e('View All Bikes', 'bike-theme'); ?></a>
 </div>

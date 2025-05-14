@@ -16,9 +16,6 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
 /* Import custom fonts */
 @import url('assets/css/fonts.css');
 
-/* Import main stylesheet */
-@import url('assets/css/style.css');
-
 /********** Custom Theme CSS **********/
 :root {
     --primary: #f7cf07;

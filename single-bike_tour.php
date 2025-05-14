@@ -161,7 +161,9 @@ $not_included = get_post_meta(get_the_ID(), '_tour_not_included', true);
 $gallery_ids = get_post_meta(get_the_ID(), '_tour_gallery', true);
 $contact_info = get_post_meta(get_the_ID(), '_tour_contact_info', true);
 $price_info = get_post_meta(get_the_ID(), '_tour_price_info', true);
-$review_info = get_post_meta(get_the_ID(), '_tour_review_info', true);
+$bike_reviews = get_post_meta(get_the_ID(), '_tour_review', true);
+$tour_booking_terms = get_post_meta(get_the_ID(), '_tour_booking_terms', true);
+$tour_cancellation_policy = get_post_meta(get_the_ID(), '_tour_cancellation_policy', true);
 // Format difficulty text and class
 $difficulty_text = '';
 $difficulty_class = '';

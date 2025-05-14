@@ -153,7 +153,6 @@ function bike_theme_bike_details_meta_box_callback($post)
     $bike_accessories = get_post_meta($post->ID, '_bike_accessories', true);
     $bike_conditions = get_post_meta($post->ID, '_bike_conditions', true);
     $bike_how_to_book = get_post_meta($post->ID, '_bike_how_to_book', true);
-    $bike_reviews = get_post_meta($post->ID, '_bike_reviews', true);
     $bike_contact = get_post_meta($post->ID, '_bike_contact', true);
     ?>
     <div class="bike-theme-meta-box">
@@ -163,20 +162,20 @@ function bike_theme_bike_details_meta_box_callback($post)
             <div id="bike_gallery_preview" class="bike-gallery-preview">
                 <?php
                 $gallery_ids = get_post_meta($post->ID, '_bike_gallery', true);
-    if (!empty($gallery_ids) && is_array($gallery_ids)) {
-        foreach ($gallery_ids as $image_id) {
-            if ($image_id) {
-                $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
-                if ($image_url) {
-                    echo '<div class="gallery-image-item" data-id="' . esc_attr($image_id) . '">';
-                    echo '<img src="' . esc_url($image_url) . '" alt="">';
-                    echo '<button type="button" class="remove-gallery-image dashicons dashicons-no-alt"></button>';
-                    echo '</div>';
+                if (!empty($gallery_ids) && is_array($gallery_ids)) {
+                    foreach ($gallery_ids as $image_id) {
+                        if ($image_id) {
+                            $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+                            if ($image_url) {
+                                echo '<div class="gallery-image-item" data-id="' . esc_attr($image_id) . '">';
+                                echo '<img src="' . esc_url($image_url) . '" alt="">';
+                                echo '<button type="button" class="remove-gallery-image dashicons dashicons-no-alt"></button>';
+                                echo '</div>';
+                            }
+                        }
+                    }
                 }
-            }
-        }
-    }
-    ?>
+                ?>
             </div>
             <p>
                 <button type="button" class="button add-gallery-images"><?php esc_html_e('Add Gallery Images', 'bike-theme'); ?></button>
@@ -217,7 +216,6 @@ function bike_theme_bike_details_meta_box_callback($post)
                 background: rgba(0,0,0,0.8);
             }
         </style>
-        
         <script>
         jQuery(document).ready(function($) {
             // Gallery image management
@@ -301,45 +299,6 @@ function bike_theme_bike_details_meta_box_callback($post)
                 // Remove the image preview
                 imageItem.remove();
             });
-
-            // Add new addition row
-            $('.add-addition').click(function() {
-                var rowCount = $('#additions-rows .addition-row').length;
-                var newRow = '<div class="addition-row">' +
-                    '<div class="addition-cell">' +
-                    '<input type="text" name="tour_additions[' + rowCount + '][name]" class="widefat" placeholder="<?php esc_attr_e('e.g. Bike Rental', 'bike-theme'); ?>">' +
-                    '</div>' +
-                    '<div class="addition-cell">' +
-                    '<input type="text" name="tour_additions[' + rowCount + '][description]" class="widefat" placeholder="<?php esc_attr_e('e.g. High-quality mountain bike', 'bike-theme'); ?>">' +
-                    '</div>' +
-                    '<div class="addition-cell">' +
-                    '<input type="number" name="tour_additions[' + rowCount + '][price]" class="widefat" min="0" step="0.01" placeholder="0.00">' +
-                    '</div>' +
-                    '<div class="addition-cell">' +
-                    '<input type="checkbox" name="bike_additions[' + rowCount + '][per_person]" value="1">' +
-                    '</div>' +
-                    '<div class="addition-cell">' +
-                    '<button type="button" class="button remove-addition"><?php esc_html_e('Remove', 'bike-theme'); ?></button>' +
-                    '</div>' +
-                    '</div>';
-                $('#additions-rows').append(newRow);
-            });
-            
-            // Remove addition row
-            $(document).on('click', '.remove-addition', function() {
-                $(this).closest('.addition-row').remove();
-                reindexAdditions();
-            });
-            
-            function reindexAdditions() {
-                $('#additions-rows .addition-row').each(function(index) {
-                    $(this).find('input').each(function() {
-                        var name = $(this).attr('name');
-                        name = name.replace(/\[\d+\]/, '[' + index + ']');
-                        $(this).attr('name', name);
-                    });
-                });
-            }
         });
         </script>
 
@@ -347,78 +306,212 @@ function bike_theme_bike_details_meta_box_callback($post)
         <p>
             <?php
             wp_editor($bike_price, 'bike_price', array(
-    'textarea_name' => 'bike_price',
-    'media_buttons' => true,
-    'textarea_rows' => 5,
-    'editor_class' => 'widefat',
-    'teeny' => true
-            ));
-    ?>
+            'textarea_name' => 'bike_price',
+            'media_buttons' => true,
+            'textarea_rows' => 5,
+            'editor_class' => 'widefat',
+            'teeny' => true
+                    ));
+            ?>
         </p>
 
         <h3><?php esc_html_e('Accessories', 'bike-theme'); ?></h3>
         <p>
             <?php
-    wp_editor($bike_accessories, 'bike_accessories', array(
-        'textarea_name' => 'bike_accessories',
-        'media_buttons' => true,
-        'textarea_rows' => 5,
-        'editor_class' => 'widefat',
-        'teeny' => true
-    ));
-    ?>
+            wp_editor($bike_accessories, 'bike_accessories', array(
+                'textarea_name' => 'bike_accessories',
+                'media_buttons' => true,
+                'textarea_rows' => 5,
+                'editor_class' => 'widefat',
+                'teeny' => true
+            ));
+            ?>
         </p>
 
         <h3><?php esc_html_e('Conditions and Policies', 'bike-theme'); ?></h3>
         <p>
             <?php
-    wp_editor($bike_conditions, 'bike_conditions', array(
-        'textarea_name' => 'bike_conditions',
-        'media_buttons' => true,
-        'textarea_rows' => 5,
-        'editor_class' => 'widefat',
-        'teeny' => true
-    ));
-    ?>
+            wp_editor($bike_conditions, 'bike_conditions', array(
+                'textarea_name' => 'bike_conditions',
+                'media_buttons' => true,
+                'textarea_rows' => 5,
+                'editor_class' => 'widefat',
+                'teeny' => true
+            ));
+            ?>
         </p>
 
         <h3><?php esc_html_e('How to Book', 'bike-theme'); ?></h3>
         <p>
             <?php
-    wp_editor($bike_how_to_book, 'bike_how_to_book', array(
-        'textarea_name' => 'bike_how_to_book',
-        'media_buttons' => true,
-        'textarea_rows' => 5,
-        'editor_class' => 'widefat',
-        'teeny' => true
-    ));
-    ?>
+            wp_editor($bike_how_to_book, 'bike_how_to_book', array(
+                'textarea_name' => 'bike_how_to_book',
+                'media_buttons' => true,
+                'textarea_rows' => 5,
+                'editor_class' => 'widefat',
+                'teeny' => true
+            ));
+            ?>
         </p>
 
         <h3><?php esc_html_e('Reviews', 'bike-theme'); ?></h3>
-        <p>
-            <?php
-    wp_editor($bike_reviews, 'bike_reviews', array(
-        'textarea_name' => 'bike_reviews',
-        'media_buttons' => true,
-        'textarea_rows' => 5,
-        'editor_class' => 'widefat',
-        'teeny' => true
-    ));
-    ?>
-        </p>
+        <div class="bike-review-container">
+            <input type="hidden" id="bike_review" name="bike_review" value="<?php echo esc_attr(implode(',', (array)get_post_meta($post->ID, '_bike_review', true))); ?>">
+            <div id="bike_review_preview" class="bike-review-preview">
+                <?php
+                $review_ids = get_post_meta($post->ID, '_bike_review', true);
+                if (!empty($review_ids) && is_array($review_ids)) {
+                    foreach ($review_ids as $image_id) {
+                        if ($image_id) {
+                            $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+                            if ($image_url) {
+                                echo '<div class="review-image-item" data-id="' . esc_attr($image_id) . '">';
+                                echo '<img src="' . esc_url($image_url) . '" alt="">';
+                                echo '<button type="button" class="remove-review-image dashicons dashicons-no-alt"></button>';
+                                echo '</div>';
+                            }
+                        }
+                    }
+                }
+                ?>
+            </div>
+            <p>
+                <button type="button" class="button add-review-images"><?php esc_html_e('Add Reviews', 'bike-theme'); ?></button>
+            </p>
+        </div>
+        <style>
+            .bike-review-preview {
+                display: flex;
+                flex-wrap: wrap;
+                margin: 10px 0;
+                gap: 10px;
+            }
+            .review-image-item {
+                position: relative;
+                width: 100px;
+                height: 100px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                overflow: hidden;
+            }
+            .review-image-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .remove-review-image {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: rgba(0,0,0,0.5);
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                padding: 2px;
+                line-height: 1;
+            }
+            .remove-review-image:hover {
+                background: rgba(0,0,0,0.8);
+            }
+        </style>
+        
+        <script>
+            jQuery(document).ready(function($) {
+                // Review image management
+                var review_frame;
+                
+                $('.add-review-images').on('click', function(e) {
+                    e.preventDefault();
+                    
+                    // If the frame already exists, open it
+                    if (review_frame) {
+                        review_frame.open();
+                        return;
+                    }
+                    
+                    // Create the media frame
+                    review_frame = wp.media({
+                        title: '<?php esc_html_e('Select or Upload Bike Reviews', 'bike-theme'); ?>',
+                        button: {
+                            text: '<?php esc_html_e('Add to Reviews', 'bike-theme'); ?>'
+                        },
+                        multiple: true
+                    });
+                    
+                    // When an image is selected, run a callback
+                    review_frame.on('select', function() {
+                        var selection = review_frame.state().get('selection');
+                        var ids = [];
+                        var currentIds = $('#bike_review').val() ? $('#bike_review').val().split(',') : [];
+                        
+                        // Add existing IDs to the array
+                        if (currentIds.length > 0) {
+                            for (var i = 0; i < currentIds.length; i++) {
+                                if (currentIds[i]) {
+                                    ids.push(currentIds[i]);
+                                }
+                            }
+                        }
+                        
+                        // Add new IDs to the array
+                        selection.forEach(function(attachment) {
+                            var attachmentId = attachment.id;
+                            if (ids.indexOf(attachmentId.toString()) === -1) {
+                                ids.push(attachmentId);
+                                
+                                // Add image preview
+                                var image = attachment.attributes.sizes.thumbnail ? attachment.attributes.sizes.thumbnail.url : attachment.attributes.url;
+                                $('#bike_review_preview').append(
+                                    '<div class="review-image-item" data-id="' + attachmentId + '">' +
+                                    '<img src="' + image + '" alt="">' +
+                                    '<button type="button" class="remove-review-image dashicons dashicons-no-alt"></button>' +
+                                    '</div>'
+                                );
+                            }
+                        });
+                        
+                        // Update the input value
+                        $('#bike_review').val(ids.join(','));
+                    });
+                    
+                    // Open the frame
+                    review_frame.open();
+                });
+                
+                // Remove review image
+                $(document).on('click', '.remove-review-image', function() {
+                    var imageItem = $(this).closest('.review-image-item');
+                    var imageId = imageItem.data('id');
+                    var currentIds = $('#bike_review').val().split(',');
+                    var newIds = [];
+                    
+                    // Filter out the removed ID
+                    for (var i = 0; i < currentIds.length; i++) {
+                        if (currentIds[i] != imageId) {
+                            newIds.push(currentIds[i]);
+                        }
+                    }
+                    
+                    // Update the input value
+                    $('#bike_review').val(newIds.join(','));
+                    
+                    // Remove the image preview
+                    imageItem.remove();
+                });
+            });
+        </script>
 
         <h3><?php esc_html_e('Contact Information', 'bike-theme'); ?></h3>
         <p>
             <?php
-    wp_editor($bike_contact, 'bike_contact', array(
-        'textarea_name' => 'bike_contact',
-        'media_buttons' => true,
-        'textarea_rows' => 5,
-        'editor_class' => 'widefat',
-        'teeny' => true
-    ));
-    ?>
+            wp_editor($bike_contact, 'bike_contact', array(
+                'textarea_name' => 'bike_contact',
+                'media_buttons' => true,
+                'textarea_rows' => 5,
+                'editor_class' => 'widefat',
+                'teeny' => true
+            ));
+            ?>
         </p>
     </div>
     
@@ -536,8 +629,11 @@ function bike_theme_save_bike_meta_boxes_data($post_id)
         update_post_meta($post_id, '_bike_how_to_book', wp_kses_post($_POST['bike_how_to_book']));
     }
 
-    if (isset($_POST['bike_reviews'])) {
-        update_post_meta($post_id, '_bike_reviews', wp_kses_post($_POST['bike_reviews']));
+    if (isset($_POST['bike_review'])) {
+        $review_ids = array_filter(explode(',', sanitize_text_field($_POST['bike_review'])));
+        update_post_meta($post_id, '_bike_review', $review_ids);
+    } else {
+        delete_post_meta($post_id, '_bike_review');
     }
 
     if (isset($_POST['bike_contact'])) {

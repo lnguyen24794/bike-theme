@@ -675,19 +675,152 @@ function bike_theme_tour_details_meta_box_callback($post)
             ?>
         </p>
 
-        <h3><?php esc_html_e('Reviews Information', 'bike-theme'); ?></h3>
-        <p>
-            <label for="tour_review_info"><?php esc_html_e('Reviews Information', 'bike-theme'); ?></label>
-            <?php 
-            wp_editor($tour_review_info, 'tour_review_info', array(
-                'textarea_name' => 'tour_review_info',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true
-            )); 
-            ?>
-        </p>
+        <h3><?php esc_html_e('Reviews', 'bike-theme'); ?></h3>
+        <div class="tour-review-container">
+            <input type="hidden" id="tour_review" name="tour_review" value="<?php echo esc_attr(implode(',', (array)get_post_meta($post->ID, '_tour_review', true))); ?>">
+            <div id="tour_review_preview" class="tour-review-preview">
+                <?php
+                $review_ids = get_post_meta($post->ID, '_tour_review', true);
+                if (!empty($review_ids) && is_array($review_ids)) {
+                    foreach ($review_ids as $image_id) {
+                        if ($image_id) {
+                            $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+                            if ($image_url) {
+                                echo '<div class="review-image-item" data-id="' . esc_attr($image_id) . '">';
+                                echo '<img src="' . esc_url($image_url) . '" alt="">';
+                                echo '<button type="button" class="remove-review-image dashicons dashicons-no-alt"></button>';
+                                echo '</div>';
+                            }
+                        }
+                    }
+                }
+                ?>
+            </div>
+            <p>
+                <button type="button" class="button add-review-images"><?php esc_html_e('Add Reviews', 'bike-theme'); ?></button>
+            </p>
+        </div>
+        <style>
+            .tour-review-preview {
+                display: flex;
+                flex-wrap: wrap;
+                margin: 10px 0;
+                gap: 10px;
+            }
+            .review-image-item {
+                position: relative;
+                width: 100px;
+                height: 100px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                overflow: hidden;
+            }
+            .review-image-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .remove-review-image {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: rgba(0,0,0,0.5);
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                padding: 2px;
+                line-height: 1;
+            }
+            .remove-review-image:hover {
+                background: rgba(0,0,0,0.8);
+            }
+        </style>
+        
+        <script>
+            jQuery(document).ready(function($) {
+                // Review image management
+                var review_frame;
+                
+                $('.add-review-images').on('click', function(e) {
+                    e.preventDefault();
+                    
+                    // If the frame already exists, open it
+                    if (review_frame) {
+                        review_frame.open();
+                        return;
+                    }
+                    
+                    // Create the media frame
+                    review_frame = wp.media({
+                        title: '<?php esc_html_e('Select or Upload Bike Reviews', 'bike-theme'); ?>',
+                        button: {
+                            text: '<?php esc_html_e('Add to Reviews', 'bike-theme'); ?>'
+                        },
+                        multiple: true
+                    });
+                    
+                    // When an image is selected, run a callback
+                    review_frame.on('select', function() {
+                        var selection = review_frame.state().get('selection');
+                        var ids = [];
+                        var currentIds = $('#tour_review').val() ? $('#tour_review').val().split(',') : [];
+                        
+                        // Add existing IDs to the array
+                        if (currentIds.length > 0) {
+                            for (var i = 0; i < currentIds.length; i++) {
+                                if (currentIds[i]) {
+                                    ids.push(currentIds[i]);
+                                }
+                            }
+                        }
+                        
+                        // Add new IDs to the array
+                        selection.forEach(function(attachment) {
+                            var attachmentId = attachment.id;
+                            if (ids.indexOf(attachmentId.toString()) === -1) {
+                                ids.push(attachmentId);
+                                
+                                // Add image preview
+                                var image = attachment.attributes.sizes.thumbnail ? attachment.attributes.sizes.thumbnail.url : attachment.attributes.url;
+                                $('#tour_review_preview').append(
+                                    '<div class="review-image-item" data-id="' + attachmentId + '">' +
+                                    '<img src="' + image + '" alt="">' +
+                                    '<button type="button" class="remove-review-image dashicons dashicons-no-alt"></button>' +
+                                    '</div>'
+                                );
+                            }
+                        });
+                        
+                        // Update the input value
+                        $('#tour_review').val(ids.join(','));
+                    });
+                    
+                    // Open the frame
+                    review_frame.open();
+                });
+                
+                // Remove review image
+                $(document).on('click', '.remove-review-image', function() {
+                    var imageItem = $(this).closest('.review-image-item');
+                    var imageId = imageItem.data('id');
+                    var currentIds = $('#tour_review').val().split(',');
+                    var newIds = [];
+                    
+                    // Filter out the removed ID
+                    for (var i = 0; i < currentIds.length; i++) {
+                        if (currentIds[i] != imageId) {
+                            newIds.push(currentIds[i]);
+                        }
+                    }
+                    
+                    // Update the input value
+                    $('#tour_review').val(newIds.join(','));
+                    
+                    // Remove the image preview
+                    imageItem.remove();
+                });
+            });
+        </script>
 
         <h3><?php esc_html_e('Media Gallery', 'bike-theme'); ?></h3>
         <div class="tour-gallery-container">
@@ -1270,8 +1403,11 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
         update_post_meta($post_id, '_tour_price_info', wp_kses_post($_POST['tour_price_info']));
     }
 
-    if (isset($_POST['tour_review_info'])) {
-        update_post_meta($post_id, '_tour_review_info', wp_kses_post($_POST['tour_review_info']));
+    if (isset($_POST['tour_review'])) {
+        $review_ids = array_filter(explode(',', sanitize_text_field($_POST['tour_review'])));
+        update_post_meta($post_id, '_tour_review', $review_ids);
+    } else {
+        delete_post_meta($post_id, '_tour_review');
     }
     
     // Save pricing data - check for nonce separately as it's from a different metabox

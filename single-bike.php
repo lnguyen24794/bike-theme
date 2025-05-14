@@ -20,7 +20,7 @@ wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/asse
         $bike_accessories = get_post_meta(get_the_ID(), '_bike_accessories', true);
         $bike_how_to_book = get_post_meta(get_the_ID(), '_bike_how_to_book', true);
         $bike_conditions = get_post_meta(get_the_ID(), '_bike_conditions', true);
-        $bike_reviews = get_post_meta(get_the_ID(), '_bike_reviews', true);
+        $bike_reviews = get_post_meta(get_the_ID(), '_bike_review', true);
         $bike_contact = get_post_meta(get_the_ID(), '_bike_contact', true);
         ?>
         <!-- Top Section -->
@@ -73,6 +73,10 @@ wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/asse
                     <!-- Bike Price Tab -->
                     <div class="tab-pane fade show active" id="price" role="tabpanel" aria-labelledby="price-tab">
                         <?php include(get_template_directory() . '/template-parts/bike/bike-price.php'); ?>
+                        <?php include(get_template_directory() . '/template-parts/bike/bike-accessories.php'); ?>
+                        <?php include(get_template_directory() . '/template-parts/bike/bike-conditions.php'); ?>
+                        <?php include(get_template_directory() . '/template-parts/bike/bike-how-to-book.php'); ?>
+                        <?php include(get_template_directory() . '/template-parts/bike/bike-review.php'); ?>
                     </div>
 
                     <!-- Accessories Tab -->

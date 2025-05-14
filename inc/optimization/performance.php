@@ -94,8 +94,6 @@ function bike_theme_remove_script_version($src) {
  * Add preload for critical assets
  */
 function bike_theme_preload_assets() {
-    // Preload main CSS files
-    echo '<link rel="preload" href="' . get_template_directory_uri() . '/assets/css/style.css" as="style">';
 }
 add_action('wp_head', 'bike_theme_preload_assets', 1);
 
