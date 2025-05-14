@@ -64,21 +64,27 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
         <div class="row gx-0">
             <div class="col-lg-3 bg-primary d-none d-lg-block">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                    <?php if (has_custom_logo()) :
+                    <?php 
                         $custom_logo_id = get_theme_mod('custom_logo');
                         $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
                         $secondary_logo = bike_theme_get_option('secondary_logo');
-                        ?>
-                        <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-width: 100px;">
-                    <?php else : ?>
-                        <h1 class="m-0 text-primary text-uppercase"><?php echo get_bloginfo('name'); ?></h1>
-                    <?php endif; ?>
-                    <img src="<?php echo esc_url($secondary_logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo" style="max-height: 100px; width: 225px;">
+                    ?>
+                    
+                    <div class="container-fluid" style="max-width: 400px;">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo">
+                            </div>
+                            <div class="col-lg-9 pl-0" style="padding-left: 0px !important;">
+                                <img src="<?php echo esc_url($secondary_logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo">
+                            </div>
+                        </div>
+                    </div>
                 </a>
             </div>
             <div class="col-lg-9">
                 <div class="row gx-0 bg-dark text-white d-none d-lg-flex border-radius-bottom-left-15 header-contact-info">
-                    <div class="col-lg-7 px-5 text-start align-items-center justify-content-center pt-1">
+                    <div class="col-lg-7 px-2 text-start align-items-center justify-content-center pt-1">
                         <div class="d-inline-flex align-items-center me-4">
                             <i class="fa fa-envelope text-primary me-2"></i>
                             <p class="mb-0"><a class="text-white" href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
@@ -88,7 +94,7 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
                             <p class="mb-0"><a class="text-white" href="https://api.whatsapp.com/send/?phone=84985455727&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+84985455727')); ?></a></p>
                         </div>
                     </div>
-                    <div class="col-lg-5 px-5 text-end">
+                    <div class="col-lg-5 px-2 text-end">
                         <div class="d-inline-flex align-items-center">
                             <a class="me-3" href="#">FOLLOW US</a>
                             <?php if (bike_theme_get_option('facebook')) : ?>

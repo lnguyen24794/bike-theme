@@ -462,4 +462,8 @@ select,
     font-size: 1.5rem !important;
 }
 
-
+@media (max-width: 1200px) {
+    .navbar-dark .navbar-nav .nav-link {
+        font-size: 0.9rem !important;
+    }
+}
