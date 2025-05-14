@@ -1,6 +1,6 @@
 <!-- Reviews Tab -->
 <div class="w-100 py-3">
-        <div class="wow fadeInUp" data-wow-delay="0.1s">
+        <div class="wow fadeInUp">
         <h3 class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Reviews', 'bike-theme'); ?></h3>
     </div>
     <div class="pb-3">
@@ -8,7 +8,7 @@
             $review_ids_array = is_array($bike_reviews) ? $bike_reviews : explode(',', $bike_reviews);
         ?>
         <div class="container-fluid pt-2 mt-3 pb-2 bg-light">   
-            <div class="owl-carousel bike-slider">
+            <div class="owl-carousel tour-review-slider">
                 <?php foreach($review_ids_array as $image_id):
                     if (!empty($image_id)) :
                         $full_image_url = wp_get_attachment_image_url($image_id, 'full');
@@ -31,7 +31,7 @@
 
             <script>
                 jQuery(document).ready(function($){
-                    $('.bike-slider').owlCarousel({
+                    $('.tour-review-slider').owlCarousel({
                     loop: true,
                         margin: 50,
                         nav: true,

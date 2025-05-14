@@ -818,6 +818,63 @@ jQuery(document).ready(function($) {
             behavior: 'smooth'
         });
     });
+
+    var initCarousel = function() {
+    var $carousel = $('.tour-review-slider');
+
+    // Kiểm tra nếu carousel đã được khởi tạo
+    if ($carousel.hasClass('owl-loaded')) {
+        console.log('refresh');
+        $carousel.trigger('refresh.owl.carousel');
+        return;
+    }
+    // Khởi tạo carousel nếu chưa được khởi tạo
+    $carousel.owlCarousel({
+        loop: true,
+        margin: 50,
+        nav: true,
+        dots: true,
+        autoplay: false,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+        stagePadding: 50,
+        autoWidth: true,
+        center: true,
+        onInitialized: function() {
+            setTimeout(function() {
+                $carousel.trigger('refresh.owl.carousel');
+            }, 100);
+        },
+        navText: [
+            "<i class='fa fa-chevron-left'></i>",
+            "<i class='fa fa-chevron-right'></i>"
+        ],
+        responsive:{
+            0:{
+                items:1
+            },
+            768:{
+                items:2
+            },
+            992:{
+                items:3
+            }
+        }
+    });
+};
+
+// Khởi tạo ngay nếu tab hiện tại là Reviews
+if ($('#reviews').hasClass('active')) {
+    initCarousel();
+}
+
+// Khởi tạo khi tab Reviews được hiển thị
+$('#reviews-tab').on('click', function() {
+    setTimeout(initCarousel, 300);
+});
+$('#overview-tab').on('click', function() {
+    setTimeout(initCarousel, 300);
+});
 });
 </script>
 
