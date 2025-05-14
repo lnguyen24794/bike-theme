@@ -8,6 +8,10 @@
  * @package Bike_Theme
  */
 
+if (! defined('BIKE_THEME_VERSION')) {
+    define('BIKE_THEME_VERSION', '1.0.23');
+}
+
 /**
  * Define theme constants
  */

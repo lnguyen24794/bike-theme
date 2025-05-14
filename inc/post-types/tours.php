@@ -145,7 +145,7 @@ function bike_theme_tour_category_media_scripts()
         return;
     }
     wp_enqueue_media();
-    wp_enqueue_script('tour_category-media-uploader', get_template_directory_uri() . '/assets/js/tour_category-media.js', array('jquery'), false, true);
+    wp_enqueue_script('tour_category-media-uploader', get_template_directory_uri() . '/assets/js/tour_category-media.js', array('jquery'), BIKE_THEME_VERSION, true);
 }
 add_action('admin_enqueue_scripts', 'bike_theme_tour_category_media_scripts');
 

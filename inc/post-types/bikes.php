@@ -108,33 +108,6 @@ function bike_theme_register_bike_post_type()
 add_action('init', 'bike_theme_register_bike_post_type');
 
 /**
- * Fix TinyMCE auto paragraph issue
- * Force TinyMCE to add paragraph tags automatically
- */
-function bike_theme_tinymce_settings($settings) {
-    // Force wpautop to be true for all editors 
-    $settings['wpautop'] = true;
-    
-    // Configure TinyMCE to handle paragraphs properly
-    if (isset($settings['tinymce']) && is_array($settings['tinymce'])) {
-        $settings['tinymce']['forced_root_block'] = 'p';
-        $settings['tinymce']['force_br_newlines'] = false;
-        $settings['tinymce']['force_p_newlines'] = true;
-        $settings['tinymce']['convert_newlines_to_brs'] = false;
-    } else if ($settings['tinymce'] === true) {
-        $settings['tinymce'] = array(
-            'forced_root_block' => 'p',
-            'force_br_newlines' => false,
-            'force_p_newlines' => true,
-            'convert_newlines_to_brs' => false
-        );
-    }
-    
-    return $settings;
-}
-add_filter('wp_editor_settings', 'bike_theme_tinymce_settings');
-
-/**
  * Add meta boxes for Bike post type
  */
 function bike_theme_add_bike_meta_boxes()
@@ -373,79 +346,79 @@ function bike_theme_bike_details_meta_box_callback($post)
         <h3><?php esc_html_e('Price Information', 'bike-theme'); ?></h3>
         <p>
             <?php
-             wp_editor($bike_price, 'bike_price', array(
-                'textarea_name' => 'bike_price',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'teeny' => false,
-                'tinymce' => true,
-            )); 
-            ?>
+            wp_editor($bike_price, 'bike_price', array(
+    'textarea_name' => 'bike_price',
+    'media_buttons' => true,
+    'textarea_rows' => 5,
+    'editor_class' => 'widefat',
+    'teeny' => true
+            ));
+    ?>
         </p>
 
         <h3><?php esc_html_e('Accessories', 'bike-theme'); ?></h3>
         <p>
             <?php
-            wp_editor($bike_accessories, 'bike_accessories', array(
-                'textarea_name' => 'bike_accessories',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'teeny' => true,
-                'tinymce' => true,
-            ));
-            ?>
+    wp_editor($bike_accessories, 'bike_accessories', array(
+        'textarea_name' => 'bike_accessories',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true
+    ));
+    ?>
         </p>
 
         <h3><?php esc_html_e('Conditions and Policies', 'bike-theme'); ?></h3>
         <p>
             <?php
-            wp_editor($bike_conditions, 'bike_conditions', array(
-                'textarea_name' => 'bike_conditions',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'teeny' => true,
-                'tinymce' => true,
-            )); 
+    wp_editor($bike_conditions, 'bike_conditions', array(
+        'textarea_name' => 'bike_conditions',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true
+    ));
     ?>
         </p>
 
         <h3><?php esc_html_e('How to Book', 'bike-theme'); ?></h3>
         <p>
             <?php
-                wp_editor($bike_how_to_book, 'bike_how_to_book', array(
-                    'textarea_name' => 'bike_how_to_book',
-                    'media_buttons' => true,
-                    'textarea_rows' => 5,
-                    'teeny' => true,
-                    'tinymce' => true,
-                ));
-            ?>
+    wp_editor($bike_how_to_book, 'bike_how_to_book', array(
+        'textarea_name' => 'bike_how_to_book',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true
+    ));
+    ?>
         </p>
 
         <h3><?php esc_html_e('Reviews', 'bike-theme'); ?></h3>
         <p>
             <?php
-            wp_editor($bike_reviews, 'bike_reviews', array(
-                'textarea_name' => 'bike_reviews',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'teeny' => true,
-                'tinymce' => true,
-            ));
-            ?>
+    wp_editor($bike_reviews, 'bike_reviews', array(
+        'textarea_name' => 'bike_reviews',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true
+    ));
+    ?>
         </p>
 
         <h3><?php esc_html_e('Contact Information', 'bike-theme'); ?></h3>
         <p>
             <?php
-            wp_editor($bike_contact, 'bike_contact', array(
-                'textarea_name' => 'bike_contact',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'teeny' => true,
-                'tinymce' => true,
-            ));
-            ?>
+    wp_editor($bike_contact, 'bike_contact', array(
+        'textarea_name' => 'bike_contact',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true
+    ));
+    ?>
         </p>
     </div>
     

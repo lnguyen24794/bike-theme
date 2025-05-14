@@ -8,7 +8,7 @@
  */
 
 get_header();
-wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), false);
+wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), BIKE_THEME_VERSION);
 
 // Make sure we have access to the helper functions
 require_once get_template_directory() . '/inc/booking/helpers.php';
