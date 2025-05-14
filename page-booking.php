@@ -196,7 +196,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                         <h5 class="mb-3"><?php esc_html_e('Price Summary', 'bike-theme'); ?></h5>
                         <div class="d-flex justify-content-between mb-2">
                             <span><?php esc_html_e('Tour price per person:', 'bike-theme'); ?></span>
-                            <span id="tour-price-per-person">0 VND</span>
+                            <span id="tour-price-per-person">0 USD</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span><?php esc_html_e('Number of participants:', 'bike-theme'); ?></span>
@@ -204,19 +204,19 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span><?php esc_html_e('Tour subtotal:', 'bike-theme'); ?></span>
-                            <span id="tour-subtotal">0 VND</span>
+                            <span id="tour-subtotal">0 USD</span>
                         </div>
                         <div id="additions-summary" class="border-top pt-2 mb-2" style="display: none;">
                             <h6 class="mb-2"><?php esc_html_e('Selected Extras:', 'bike-theme'); ?></h6>
                             <div class="additions-list my-2"></div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span><?php esc_html_e('Additions subtotal:', 'bike-theme'); ?></span>
-                                <span id="additions-subtotal">0 VND</span>
+                                <span id="additions-subtotal">0 USD</span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between fw-bold pt-2 border-top">
                             <span><?php esc_html_e('Total:', 'bike-theme'); ?></span>
-                            <span id="total-price">0 VND</span>
+                            <span id="total-price">0 USD</span>
                         </div>
                     </div>
                     
@@ -407,7 +407,7 @@ jQuery(document).ready(function($) {
                     'data-price="' + addition.price + '" ' +
                     'data-per-person="' + (addition.per_person ? '1' : '0') + '">' +
                     '<label class="form-check-label" for="addition_' + index + '">' +
-                    '<strong>' + addition.name + '</strong> - ' + formatNumber(addition.price) + ' VND' +
+                    '<strong>' + addition.name + '</strong> - ' + formatNumber(addition.price) + ' USD' +
                     (addition.per_person ? ' per person' : '');
                 
                 if (addition.description) {
@@ -458,14 +458,14 @@ jQuery(document).ready(function($) {
             additionsList.push(
                 '<div class="d-flex justify-content-between mb-1">' +
                 '<small>' + $(this).next('label').find('strong').text() + '</small>' +
-                '<small>' + formatNumber(additionTotal) + ' VND</small>' +
+                '<small>' + formatNumber(additionTotal) + ' USD</small>' +
                 '</div>'
             );
         });
         
         // Update display with animation
         $('#tour-price-per-person').fadeOut(200, function() {
-            $(this).text(formatNumber(tourPricePerPerson) + ' VND').fadeIn(200);
+            $(this).text(formatNumber(tourPricePerPerson) + ' USD').fadeIn(200);
         });
         
         // Show participant breakdown if there are children
@@ -479,19 +479,19 @@ jQuery(document).ready(function($) {
         });
         
         $('#tour-subtotal').fadeOut(200, function() {
-            $(this).text(formatNumber(tourSubtotal) + ' VND').fadeIn(200);
+            $(this).text(formatNumber(tourSubtotal) + ' USD').fadeIn(200);
         });
         
         if (additionsList.length > 0) {
             $('.additions-list').html(additionsList.join(''));
-            $('#additions-subtotal').text(formatNumber(additionsTotal) + ' VND');
+            $('#additions-subtotal').text(formatNumber(additionsTotal) + ' USD');
             $('#additions-summary').slideDown();
         } else {
             $('#additions-summary').slideUp();
         }
         
         $('#total-price').fadeOut(200, function() {
-            $(this).text(formatNumber(tourSubtotal + additionsTotal) + ' VND').fadeIn(200);
+            $(this).text(formatNumber(tourSubtotal + additionsTotal) + ' USD').fadeIn(200);
         });
     }
 

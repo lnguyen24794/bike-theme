@@ -621,6 +621,13 @@
     .tour-basic-info-title span{
         font-size: 1.5rem;
     }
+    .tour-basic-info-title {
+        text-align: left;
+        display: grid;
+        grid-template-columns: 30px 1fr auto;
+        vertical-align: middle;
+        align-items: center;
+    }
 
     .tour-basic-info .wrapper {
         row-gap: 15px;

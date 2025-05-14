@@ -188,43 +188,36 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 
 <main id="primary" class="site-main">
     <!-- Page Header Start -->
-    <div class="page-header-inner tour-wrapper py-0" style="background-image: url(<?php echo has_post_thumbnail() ? esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')) : esc_url(get_template_directory_uri() . '/assets/images/bikes/tour-banner.jpg'); ?>);">
-            <div class="container pb-2 px-lg-0">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <h1 class="tour-heading text-white mb-3 animated slideInDown text-shadow"><?php the_title(); ?></h1>     
-                    </div>
-                    <div class="col-lg-auto">
-                        <a class="btn btn-primary cursor-pointer shadow" data-bs-toggle="modal" data-bs-target="#bookingModal"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></a>
-                    </div>
-                </div>
-            </div>
+    <div class="page-header-inner tour-wrapper py-0 d-flex justify-content-center align-items-center" style="background-image: url(<?php echo has_post_thumbnail() ? esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')) : esc_url(get_template_directory_uri() . '/assets/images/bikes/tour-banner.jpg'); ?>);">
+        <div class="container-xxl text-center">
+        <h1 class="display-4 text-white mb-3 animated slideInDown"><?php the_title(); ?></h1>
+        <a class="btn btn-primary cursor-pointer shadow" data-bs-toggle="modal" data-bs-target="#bookingModal"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></a>
         </div>
     </div>
     <div class="container-xxl">
         <div class="row p-4 align-items-center wrapper">
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-12">
                 <div class="tour-basic-info-title">
-                    <i class="fas fa-dollar-sign"></i>
+                    <i class="fas fa-money-bill"></i>
                     <h5 class="mb-1 text-uppercase"><?php esc_html_e('Price from', 'bike-theme'); ?></h5>
                     <span><?php echo bike_theme_format_price(bike_theme_get_tour_price(get_the_ID())); ?></span>
                 </div>
             </div>
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-12">
                 <div class="tour-basic-info-title">
                     <i class="fas fa-clock"></i>
                     <h5 class="mb-1 text-uppercase"><?php esc_html_e('Duration', 'bike-theme'); ?></h5>
                     <span><?php echo esc_html($duration); ?></span>
                 </div>
             </div>
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-12">
                 <div class="tour-basic-info-title">
                     <i class="fas fa-road"></i>
                     <h5 class="mb-1 text-uppercase"><?php esc_html_e('Distance', 'bike-theme'); ?></h5>
                     <span><?php echo esc_html($distance); ?> km</span>
                 </div>
             </div>
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-12">
                 <div class="tour-basic-info-title">
                     <i class="fas fa-star"></i>
                     <h5 class="mb-1 text-uppercase"><?php esc_html_e('Difficulty', 'bike-theme'); ?></h5>
@@ -463,7 +456,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                                     data-per-person="<?php echo esc_attr(isset($addition['per_person']) && $addition['per_person'] ? '1' : '0'); ?>">
                                             <label class="form-check-label" for="addition_<?php echo esc_attr(sanitize_title($addition['name'])); ?>">
                                                 <?php echo esc_html($addition['name']); ?> 
-                                                (<?php echo esc_html(number_format($addition['price'], 0, '.', ',')); ?> VND
+                                                (<?php echo esc_html(number_format($addition['price'], 0, '.', ',')); ?> USD
                                                 <?php if (isset($addition['per_person']) && $addition['per_person']) {
                                                     echo esc_html__('per person', 'bike-theme');
                                                 } ?>)
@@ -489,7 +482,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                 <h5 class="mb-3"><?php esc_html_e('Price Summary', 'bike-theme'); ?></h5>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span><?php esc_html_e('Tour price per person:', 'bike-theme'); ?></span>
-                                    <span id="tour-price-per-person"><?php echo esc_html(number_format(bike_theme_get_tour_price(get_the_ID()), 0, '.', ',')); ?> VND</span>
+                                    <span id="tour-price-per-person"><?php echo esc_html(number_format(bike_theme_get_tour_price(get_the_ID()), 0, '.', ',')); ?> USD</span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span><?php esc_html_e('Number of participants:', 'bike-theme'); ?></span>
@@ -497,7 +490,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                 </div>
                                 <div class="d-flex justify-content-between mb-2 border-bottom pb-2">
                                     <span><?php esc_html_e('Tour subtotal:', 'bike-theme'); ?></span>
-                                    <span id="tour-subtotal"><?php echo esc_html(number_format(bike_theme_get_tour_total_price(get_the_ID(), 1), 0, '.', ',')); ?> VND</span>
+                                    <span id="tour-subtotal"><?php echo esc_html(number_format(bike_theme_get_tour_total_price(get_the_ID(), 1), 0, '.', ',')); ?> USD</span>
                                 </div>
                                 <?php if (!empty($additions)) : ?>
                                     <div id="additions-summary" class="border-bottom pb-2 mb-2" style="display: none;">
@@ -505,13 +498,13 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                         <div class="additions-list my-2"></div>
                                         <div class="d-flex justify-content-between mb-2">
                                             <span><?php esc_html_e('Additions subtotal:', 'bike-theme'); ?></span>
-                                            <span id="additions-subtotal">0 VND</span>
+                                            <span id="additions-subtotal">0 USD</span>
                                         </div>
                                     </div>
                                 <?php endif; ?>
                                 <div class="d-flex justify-content-between fw-bold pt-2">
                                     <span><?php esc_html_e('Total:', 'bike-theme'); ?></span>
-                                    <span id="total-price"><?php echo esc_html(number_format(bike_theme_get_tour_total_price(get_the_ID(), 1), 0, '.', ',')); ?> VND</span>
+                                    <span id="total-price"><?php echo esc_html(number_format(bike_theme_get_tour_total_price(get_the_ID(), 1), 0, '.', ',')); ?> USD</span>
                                 </div>
                             </div>
                             <button class="btn btn-primary w-50 submit-button shadow" type="button" ><?php esc_html_e('Book Now', 'bike-theme'); ?></button>
@@ -606,13 +599,13 @@ jQuery(document).ready(function($) {
             additionsList.push(
                 '<div class="d-flex justify-content-between mb-1">' +
                 '<small>' + $(this).next('label').text().split('(')[0].trim() + '</small>' +
-                '<small>' + formatNumber(additionTotal) + ' VND</small>' +
+                '<small>' + formatNumber(additionTotal) + ' USD</small>' +
                 '</div>'
             );
         });
 
         // Update display
-        $('#tour-price-per-person').text(formatNumber(pricePerPerson) + ' VND');
+        $('#tour-price-per-person').text(formatNumber(pricePerPerson) + ' USD');
         
         // Show participant breakdown if there are children
         var participantText = participants;
@@ -621,17 +614,17 @@ jQuery(document).ready(function($) {
         }
         
         $('#participant-count').text(participantText);
-        $('#tour-subtotal').text(formatNumber(tourSubtotal) + ' VND');
+        $('#tour-subtotal').text(formatNumber(tourSubtotal) + ' USD');
         
         if (additionsList.length > 0) {
             $('.additions-list').html(additionsList.join(''));
-            $('#additions-subtotal').text(formatNumber(additionsTotal) + ' VND');
+            $('#additions-subtotal').text(formatNumber(additionsTotal) + ' USD');
             $('#additions-summary').slideDown();
         } else {
             $('#additions-summary').slideUp();
         }
 
-        $('#total-price').text(formatNumber(tourSubtotal + additionsTotal) + ' VND');
+        $('#total-price').text(formatNumber(tourSubtotal + additionsTotal) + ' USD');
     }
 
     // Update price when participants change or additions are selected
