@@ -199,28 +199,28 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
             <div class="col-lg-3 col-12">
                 <div class="tour-basic-info-title">
                     <i class="fas fa-money-bill"></i>
-                    <h5 class="mb-1 text-uppercase"><?php esc_html_e('Price from', 'bike-theme'); ?></h5>
+                    <h5 class="mb-0 text-uppercase"><?php esc_html_e('Price from', 'bike-theme'); ?></h5>
                     <span><?php echo bike_theme_format_price(bike_theme_get_tour_price(get_the_ID())); ?></span>
                 </div>
             </div>
             <div class="col-lg-3 col-12">
                 <div class="tour-basic-info-title">
                     <i class="fas fa-clock"></i>
-                    <h5 class="mb-1 text-uppercase"><?php esc_html_e('Duration', 'bike-theme'); ?></h5>
+                    <h5 class="mb-0 text-uppercase"><?php esc_html_e('Duration', 'bike-theme'); ?></h5>
                     <span><?php echo esc_html($duration); ?></span>
                 </div>
             </div>
             <div class="col-lg-3 col-12">
                 <div class="tour-basic-info-title">
                     <i class="fas fa-road"></i>
-                    <h5 class="mb-1 text-uppercase"><?php esc_html_e('Distance', 'bike-theme'); ?></h5>
+                    <h5 class="mb-0 text-uppercase"><?php esc_html_e('Distance', 'bike-theme'); ?></h5>
                     <span><?php echo esc_html($distance); ?> km</span>
                 </div>
             </div>
             <div class="col-lg-3 col-12">
                 <div class="tour-basic-info-title">
                     <i class="fas fa-star"></i>
-                    <h5 class="mb-1 text-uppercase"><?php esc_html_e('Difficulty', 'bike-theme'); ?></h5>
+                    <h5 class="mb-0 text-uppercase"><?php esc_html_e('Difficulty', 'bike-theme'); ?></h5>
                     <span><?php echo esc_html($difficulty_text); ?></span>
                 </div>
             </div>
