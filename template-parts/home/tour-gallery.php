@@ -35,7 +35,7 @@
                 autoplayTimeout: 3000,
                 autoplayHoverPause: true,
                 stagePadding: 50,
-                autoWidth:true,
+                autoWidth:false,
                 center: true,
                 navText: [
                     "<i class='fa fa-chevron-left'></i>",
