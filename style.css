@@ -434,6 +434,9 @@ select,
     .tour-heading {
         font-size: 1.6rem !important;
     }
+    .btn {
+        font-size: 0.9rem !important;
+    }
 }
 
 .bg-primary .form-check-input:checked {
