@@ -11,7 +11,7 @@
             $image_url = !empty($gallery_item['image_url']) ? $gallery_item['image_url'] : 'large';
             if (!empty($image_url)) :
         ?>
-            <div class="gallery-item" style="height: 400px;">
+            <div class="gallery-item" style="height: 300px;">
                 <a href="<?php echo esc_url($image_url); ?>" class="gallery-lightbox">
                     <?php echo wp_get_attachment_image($gallery_item['image_id'], 'full', false, array(
                         'class' => 'img-fluid rounded box-shadow',
