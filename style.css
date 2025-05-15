@@ -469,8 +469,6 @@ select,
 @media (max-width: 1200px) {
     .navbar-dark .navbar-nav .nav-link {
         font-size: 1.1rem !important;
-    }
-    .navbar-dark .navbar-nav .nav-link {
-        margin-right: 10px !important;
+        margin-right: 15px !important;
     }
 }
