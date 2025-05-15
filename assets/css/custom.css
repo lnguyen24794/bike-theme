@@ -551,16 +551,6 @@
     border: 0;
 }
 
-/* Style for images with loading="lazy" attribute */
-img[loading="lazy"] {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-img[loading="lazy"].loaded {
-    opacity: 1;
-}
-
 /* For Owl Carousel specifically */
 .owl-carousel .owl-item img[loading="lazy"] {
     min-height: 200px;
