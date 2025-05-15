@@ -127,7 +127,7 @@ if ($tour_query->have_posts()) :
         $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1';
         ?>
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                <div class="tour-item shadow rounded">
+                                <div class="tour-item shadow rounded h-100">
                                 <div class="position-relative">
                                     <?php if (has_post_thumbnail()) : ?>
                                         <a href="<?php the_permalink(); ?>">
@@ -139,7 +139,7 @@ if ($tour_query->have_posts()) :
                                         </a>
                                     <?php endif; ?>
                                 </div>
-                                <div class="p-3 mt-2 a">
+                                <div class="p-3 mt-2 a pb-0">
                                     <div class="d-flex justify-content-between mb-3">
                                         <h5 class="mb-0"><a href="<?php the_permalink(); ?>" class="text-dark"><?php the_title(); ?></a></h5>
                                     </div>
@@ -154,7 +154,7 @@ if ($tour_query->have_posts()) :
                                         <a class="btn btn-sm btn-dark w-50 rounded py-2 px-2" href="<?php echo esc_url(get_permalink(get_option('bike_theme_booking_page'))); ?>?tour=<?php the_ID(); ?>"><?php esc_html_e('Book Now', 'bike-theme'); ?></a>
                                     </div>
                                 </div>
-                            </div>
+                                </div>
                             </div>
                         <?php
     endwhile;

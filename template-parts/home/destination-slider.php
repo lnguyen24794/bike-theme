@@ -1,16 +1,16 @@
-<?php 
-    // Get all destinations
-    $destinations = get_terms(array(
-        'taxonomy' => 'destination',
-        'hide_empty' => false,
-        'parent' => 0, // Get only top-level destinations
-        'orderby' => 'name',
-        'order' => 'ASC',
-        'number' => 6 // Limit to 6 destinations
-    ));
+<?php
+// Get all destinations
+$destinations = get_terms(array(
+    'taxonomy' => 'destination',
+    'hide_empty' => false,
+    'parent' => 0, // Get only top-level destinations
+    'orderby' => 'name',
+    'order' => 'ASC',
+    'number' => 6 // Limit to 6 destinations
+));
 ?>
  <?php if (!empty($destinations)) :
-?>
+     ?>
 <style>
     .destination-slider .destination-item {
         position: relative;
@@ -51,22 +51,9 @@
                         </div>
                     </a>
                 </div>
-            <?php 
+            <?php
             endif;
         endforeach; ?>
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <a class="destination-item" href="/vietnam-multi-day-tours">
-                <?php 
-                    $vietnam_multi_day_tours_page = get_page_by_path('vietnam-multi-day-tours');
-                    $vietnam_multi_day_tours_image = get_the_post_thumbnail_url($vietnam_multi_day_tours_page->ID, 'full');
-                ?>
-                <img src="<?php echo esc_url($vietnam_multi_day_tours_image); ?>" 
-                    alt="<?php echo esc_attr('Vietnam Multi-Day Cycling Tours'); ?>">
-                <div class="destination-slider-title d-flex align-items-center justify-content-center">
-                    <h3 class="text-primary"><?php echo esc_html('Vietnam Multi-Day Cycling Tours'); ?></h3>
-                </div>
-            </a>
-        </div>
     </div>
 </div>
 <?php endif; ?>
