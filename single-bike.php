@@ -75,26 +75,6 @@ get_header();
                         <?php include(get_template_directory() . '/template-parts/bike/bike-how-to-book.php'); ?>
                         <?php include(get_template_directory() . '/template-parts/bike/bike-review.php'); ?>
                     </div>
-
-                    <!-- Accessories Tab -->
-                    <div class="tab-pane fade" id="accessories" role="tabpanel" aria-labelledby="accessories-tab">
-                        <?php include(get_template_directory() . '/template-parts/bike/bike-accessories.php'); ?>
-                    </div>
-
-                    <!-- Conditions Tab -->
-                    <div class="tab-pane fade" id="conditions" role="tabpanel" aria-labelledby="conditions-tab">
-                        <?php include(get_template_directory() . '/template-parts/bike/bike-conditions.php'); ?>
-                    </div>
-
-                     <!-- How to Book Tab -->
-                     <div class="tab-pane fade" id="how-to-book" role="tabpanel" aria-labelledby="how-to-book-tab">
-                        <?php include(get_template_directory() . '/template-parts/bike/bike-how-to-book.php'); ?>
-                    </div>
-
-                    <!-- Reviews Tab -->
-                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                        <?php include(get_template_directory() . '/template-parts/bike/bike-review.php'); ?>
-                    </div>
                 </div>
 
                 <?php include(get_template_directory() . '/template-parts/bike/bike-contact.php'); ?>
@@ -107,8 +87,9 @@ get_header();
             $(document).ready(function() {
                 $('#tourTab .nav-link').click(function() {
                     var $this = $(this);
+                    var target = $this.attr('data-bs-target');
                     window.scrollTo({
-                        top: $('#tour-detail').offset().top - 150,
+                        top: $(target).offset().top - 100,
                         behavior: 'smooth'
                     });
                 });
