@@ -28,7 +28,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
     <!-- Page Header End -->
 
     <!-- Contact Start -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h1 class="mb-5"><?php echo wp_kses_post(sprintf(__('<span class="text-primary text-uppercase">%s</span> %s', 'bike-theme'), __('Contact', 'bike-theme'), __('For Any Query', 'bike-theme'))); ?></h1>
         </div>

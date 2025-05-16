@@ -40,7 +40,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
     <!-- Page Header End -->
 
     <!-- Booking Start -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Booking', 'bike-theme'); ?></h3>
             <h1 class="mb-5"><?php echo wp_kses_post(__('Amazing <span class="text-primary text-uppercase">Tour</span>', 'bike-theme')); ?></h1>

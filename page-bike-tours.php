@@ -27,8 +27,8 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
             </div>
         </div>
     </div>
-    <div class="container-fluid p-0 my-5">
-        <div class="w-100 pt-5 pb-5">
+    <div class="container-fluid p-0">
+        <div class="w-100">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Choose Your Adventure', 'bike-theme'); ?></h3>

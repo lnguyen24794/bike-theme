@@ -25,6 +25,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
         </div>
     </div>
     <!-- Page Header End -->
+     <?php if (get_the_content()) : ?>
     <div class="container-xxl py-5 pb-0">
         <div class="row">
             <div class="col-md-12">
@@ -32,8 +33,9 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
             </div>
         </div>
     </div>
+    <?php endif; ?>
  <!-- Featured Bikes Start -->
- <div class="container-xxl py-5">
+ <div class="container-xxl">
     <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Bike Rentals', 'bike-theme'); ?></h3>
             <div class="mb-1"><?php echo wp_kses_post(bike_theme_get_option('our_bikes_content')); ?></div>
