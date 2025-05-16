@@ -255,6 +255,7 @@ img {
 
 .tour-item .position-relative {
     overflow: hidden;
+    max-height: 200px !important;
 }
 
 .tour-item img {

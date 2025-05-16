@@ -342,7 +342,7 @@ function bike_theme_send_booking_emails($booking_id, $booking_data) {
                 $customer_message .= sprintf(__("Rider %d: %s\n", 'bike-theme'), $i + 1, $name);
                 $customer_message .= sprintf(__("  Gender: %s\n", 'bike-theme'), $gender_text);
                 if (!empty($height)) {
-                    $customer_message .= sprintf(__("  Height: %s kg\n", 'bike-theme'), $height);
+                    $customer_message .= sprintf(__("  Height: %s\n", 'bike-theme'), $height);
                 }
                 $customer_message .= sprintf(__("  Status: %s\n", 'bike-theme'), 
                     $is_child ? __('Child (50% discount applied)', 'bike-theme') : __('Adult', 'bike-theme')
@@ -447,7 +447,7 @@ function bike_theme_send_booking_emails($booking_id, $booking_data) {
                 $admin_message .= sprintf(__("Rider %d: %s\n", 'bike-theme'), $i + 1, $name);
                 $admin_message .= sprintf(__("  Gender: %s\n", 'bike-theme'), $gender_text);
                 if (!empty($height)) {
-                    $admin_message .= sprintf(__("  Height: %s kg\n", 'bike-theme'), $height);
+                    $admin_message .= sprintf(__("  Height: %s\n", 'bike-theme'), $height);
                 }
                 $admin_message .= sprintf(__("  Status: %s\n", 'bike-theme'), 
                     $is_child ? __('Child (50% discount applied)', 'bike-theme') : __('Adult', 'bike-theme')

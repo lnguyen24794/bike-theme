@@ -520,7 +520,7 @@ function bike_theme_booking_rider_details_meta_box_callback($post)
                             }
                             ?>
                         </td>
-                        <td><?php echo $height ? esc_html($height) . ' kg' : __('Not specified', 'bike-theme'); ?></td>
+                        <td><?php echo $height ? esc_html($height) . '' : __('Not specified', 'bike-theme'); ?></td>
                         <td>
                             <?php if ($is_child) : ?>
                                 <span class="child-status"><?php _e('Child (50% discount applied)', 'bike-theme'); ?></span>
