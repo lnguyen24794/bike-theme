@@ -40,10 +40,10 @@
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center" style="height: 100vh !important;">
                         <div class="p-md-3 hero-content text-shadow">
                             <?php if (!empty($title)) : ?>
-                                <img  src="<?php echo $title ?>"  class="relative mb-2 animated slideInDown" style=" position: static; max-width: 550px; max-height: 130px;" />
+                                <img  src="<?php echo $title ?>"  class="home-hero-image relative mb-2 animated slideInDown"/>
                             <?php endif; ?>
                             <?php if (!empty($subtitle)) : ?>
-                                <p style="margin-bottom: 30px;" class="text-shadow text-white text-size-x-medium mb-3 animated slideInDown"><?php echo esc_html($subtitle); ?></p>
+                                <p style="margin-bottom: 30px;" class="home-hero-subtitle text-shadow text-white text-size-x-medium mb-3 animated slideInDown"><?php echo esc_html($subtitle); ?></p>
                             <?php endif; ?>
                             <div class="w-lg-50 mx-auto">
                                 <?php if (!empty($btn1_text)) : ?>
