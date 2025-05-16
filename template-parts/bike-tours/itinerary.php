@@ -87,7 +87,7 @@
                                                             <i class="fas fa-bicycle"></i>
                                                         </div>
                                                         <div class="detail-content">
-                                                            <h5><?php esc_html_e('Bicycle Distance', 'bike-theme'); ?></h5>
+                                                            <h5><?php esc_html_e('Cycling Distance', 'bike-theme'); ?></h5>
                                                             <p><?php printf(esc_html__('%g km', 'bike-theme'), $day['distance']); ?></p>
                                                         </div>
                                                     </div>

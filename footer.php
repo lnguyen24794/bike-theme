@@ -13,7 +13,7 @@
         <div class="container py-3">
             <div class="row g-3">
                 <div class="col-lg-4 col-md-6">
-                    <h4 class="text-light mb-4"><?php esc_html_e('Our Shop', 'bike-theme'); ?></h4>
+                    <h4 class="text-light mb-4"><?php esc_html_e('Our Shops', 'bike-theme'); ?></h4>
                     <?php foreach (bike_theme_get_option('contact_address', array()) as $branch) : ?>
                         <p class="mb-2">
                             <p class="text-light" ><a href="<?php echo esc_url($branch['link']); ?>" target="_blank">
