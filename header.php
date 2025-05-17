@@ -32,7 +32,7 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
     </div>
     <!-- Spinner End -->
     <div class="container-fluid px-0 home-header animated fadeInDown <?php echo (is_front_page()) ? ' hide-mobile' : 'd-none'; ?>" id="mainHeader">
-        <div class="text-center" style="padding-top: 25px;">
+        <div class="text-center" style="padding-top: 10px;">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                 <?php if (has_custom_logo()) :
                     $custom_logo_id = get_theme_mod('custom_logo');
