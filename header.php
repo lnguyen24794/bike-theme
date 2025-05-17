@@ -73,10 +73,10 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
                     <div class="container-fluid" style="max-width: 400px;">
                         <div class="row">
                             <div class="col-lg-3 pl-2" style="padding-left: 20px; padding-right: 0px;">
-                                <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo">
+                                <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid">
                             </div>
                             <div class="col-lg-9 pl-0" style="padding-left: 0px !important;">
-                                <img src="<?php echo esc_url($secondary_logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid custom-logo">
+                                <img src="<?php echo esc_url($secondary_logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid">
                             </div>
                         </div>
                     </div>
