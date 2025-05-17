@@ -287,13 +287,25 @@ function bike_theme_register_settings()
     );
 
     add_settings_field(
-        'linkedin',
-        __('LinkedIn', 'bike-theme'),
+        'google_link',
+        __('Google Link', 'bike-theme'),
         'bike_theme_text_field_callback',
         'bike-theme-options',
         'bike_theme_social_section',
         array(
-            'id' => 'linkedin',
+            'id' => 'google_link',
+            'default' => ''
+        )
+    );
+
+    add_settings_field(
+        'tripadvisor',
+        __('TripAdvisor', 'bike-theme'),
+        'bike_theme_text_field_callback',
+        'bike-theme-options',
+        'bike_theme_social_section',
+        array(
+            'id' => 'tripadvisor',
             'default' => ''
         )
     );
@@ -725,7 +737,7 @@ function bike_theme_validate_options($input)
                         $gallery_index++;
                     }
                 }
-            } elseif (in_array($key, array('facebook', 'twitter', 'instagram', 'linkedin', 'youtube'))) {
+            } elseif (in_array($key, array('facebook', 'twitter', 'instagram', 'Google Link', 'tripadvisor', 'youtube'))) {
                 // Validate URLs for social media
                 $output[$key] = esc_url_raw($input[$key]);
             } else {

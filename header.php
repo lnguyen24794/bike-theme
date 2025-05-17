@@ -101,8 +101,12 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
                             <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('facebook')); ?>" target="_blank"><i class="fab fa-facebook"></i></a>
                             <?php endif; ?>
                             
-                            <?php if (bike_theme_get_option('address_link')) : ?>
-                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('address_link')); ?>" target="_blank"><i class="fab fa-google"></i></a>
+                            <?php if (bike_theme_get_option('google_link')) : ?>
+                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('google_link')); ?>" target="_blank"><i class="fab fa-google"></i></a>
+                            <?php endif; ?>
+                            
+                            <?php if (bike_theme_get_option('tripadvisor')) : ?>
+                            <a class="me-3" href="<?php echo esc_url(bike_theme_get_option('tripadvisor')); ?>" target="_blank"><i class="fab fa-tripadvisor"></i></a>
                             <?php endif; ?>
                             
                             <?php if (bike_theme_get_option('youtube')) : ?>
