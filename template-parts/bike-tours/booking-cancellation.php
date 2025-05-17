@@ -3,7 +3,7 @@
         <h3 id="booking-cancellation" class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Booking & Cancellation', 'bike-theme'); ?></h3>
     </div>
     <div class="pb-3">
-        <div class="booking-cancellation mt-4">
+        <div class="booking-cancellation mt-4 wp-editor-content">
             <div class="mb-4">
                 <h4><?php esc_html_e('Booking Terms', 'bike-theme'); ?></h4>
                 <div class="booking-terms wp-editor-content">

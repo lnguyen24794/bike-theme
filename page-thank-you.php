@@ -64,7 +64,17 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             <i class="fa fa-phone-alt text-white"></i>
                         </div>
                         <div class="ms-3">
-                            <p class="mb-0"><?php echo esc_html(get_theme_mod('bike_theme_phone', '+84 345 67890')); ?></p>
+                            <p class="mb-0"><?php echo esc_html(get_theme_mod('bike_theme_phone', '+84985455727')); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex mb-3">
+                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
+                            <i class="fa fa-whatsapp text-white"></i>
+                        </div>
+                        <div class="ms-3">
+                            <p class="mb-0"><?php echo esc_html(get_theme_mod('bike_theme_phone', '+84985455727')); ?></p>
                         </div>
                     </div>
                 </div>
@@ -74,7 +84,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             <i class="fa fa-envelope text-white"></i>
                         </div>
                         <div class="ms-3">
-                            <p class="mb-0"><?php echo esc_html(get_theme_mod('bike_theme_email', 'info@vietcycle.com')); ?></p>
+                            <p class="mb-0"><?php echo esc_html(get_theme_mod('bike_theme_email', 'info@beebikehub.com')); ?></p>
                         </div>
                     </div>
                 </div>

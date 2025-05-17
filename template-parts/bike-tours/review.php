@@ -3,7 +3,7 @@
         <h3 id="reviews" class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Reviews', 'bike-theme'); ?></h3>
     </div>
     <div class="pb-3">
-        <div class="tour-media mt-4">
+        <div class="tour-media mt-4 wp-editor-content">
             <?php if (!empty($bike_reviews)) :
                 $review_ids_array = is_array($bike_reviews) ? $bike_reviews : explode(',', $bike_reviews);
                 ?>

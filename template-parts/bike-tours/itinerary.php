@@ -5,7 +5,7 @@
         <h3 id="itinerary" class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Itinerary', 'bike-theme'); ?></h3>
     </div>
     <div class="pb-3">
-        <div class="tour-itinerary mt-4">
+        <div class="tour-itinerary mt-4 wp-editor-content">
             <?php
             $itinerary_data = get_post_meta($post->ID, '_tour_itinerary_data', true);
             if (!empty($itinerary_data) && is_array($itinerary_data)) :

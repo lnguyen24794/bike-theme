@@ -464,7 +464,7 @@ select,
 }
 
 .text-size-medium {
-    font-size: 1.5rem !important;
+    font-size: 1.8rem !important;
 }
 
 @media (max-width: 1200px) {
@@ -494,3 +494,10 @@ select,
         max-height: 70px !important;
     }
 }
+
+.wp-editor-content h1 { font-size: 1.6rem !important; }
+.wp-editor-content h2 { font-size: 1.4rem !important; }
+.wp-editor-content h3 { font-size: 1.2rem !important; }
+.wp-editor-content h4 { font-size: 1.1rem !important; }
+.wp-editor-content h5 { font-size: 1rem !important; }
+.wp-editor-content h6 { font-size: 0.9rem !important; }

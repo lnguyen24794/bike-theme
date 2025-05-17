@@ -326,7 +326,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
     <!-- Tour Detail End -->
  <!-- Booking Form Start -->
  <div  class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable tour-booking-form">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable tour-booking-form">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="bookingModalLabel"><?php esc_html_e('Book This Tour', 'bike-theme'); ?></h1>
@@ -391,7 +391,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                                             <option value="female"><?php esc_html_e('Female', 'bike-theme'); ?></option>
                                                             <option value="other"><?php esc_html_e('Other', 'bike-theme'); ?></option>
                                                         </select>
-                                                        <input type="text" class="form-control" id="rider_height_1" name="rider_height[]" placeholder="<?php esc_attr_e('Height ', 'bike-theme'); ?>" min="1">
+                                                        <input type="text" class="form-control" id="rider_height_1" name="rider_height[]" placeholder="<?php esc_attr_e('Height (cm or inch)', 'bike-theme'); ?>" min="1">
                                                         <div class="form-check kid-checkbox">
                                                             <input class="form-check-input rider-child-checkbox" type="checkbox" id="rider_is_child_1" name="rider_is_child[]" value="1" data-rider="1">
                                                             <label class="form-check-label" for="rider_is_child_1">
@@ -625,7 +625,7 @@ jQuery(document).ready(function($) {
                                         <option value="female">Female</option>
                                         <option value="other">Other</option>
                                     </select>
-                                    <input type="text" class="form-control" id="rider_height_${i}" name="rider_height[]" placeholder="height " min="1">
+                                    <input type="text" class="form-control" id="rider_height_${i}" name="rider_height[]" placeholder="Height (cm or inch)" min="1">
                                     <div class="form-check kid-checkbox">
                                         <input class="form-check-input rider-child-checkbox" type="checkbox" id="rider_is_child_${i}" name="rider_is_child[]" value="1" data-rider="${i}">
                                         <label class="form-check-label" for="rider_is_child_${i}">

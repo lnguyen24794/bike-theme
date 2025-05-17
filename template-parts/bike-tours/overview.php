@@ -4,7 +4,7 @@
         <h3 id="overview" class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Overview', 'bike-theme'); ?></h3>
     </div>
     <div class="pb-3">
-        <div class="tour-overview">
+        <div class="tour-overview wp-editor-content">
             <?php the_content(); ?>
         </div>
     </div>

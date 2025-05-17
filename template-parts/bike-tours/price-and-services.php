@@ -3,7 +3,7 @@
         <h3 id="price-and-services" class="border-bottom text-size-medium mb-0 text-primary text-uppercase"><?php esc_html_e('Price & Services', 'bike-theme'); ?></h3>
     </div>
     <div class="pb-3">
-        <div class="price-details mt-4">
+        <div class="price-details mt-4 wp-editor-content">
             <h4><?php esc_html_e('Price Details', 'bike-theme'); ?></h4>
             <div class="price-info wp-editor-content mb-2">
                 <?php echo wp_kses_post(get_post_meta(get_the_ID(), '_tour_price_info', true)); ?>

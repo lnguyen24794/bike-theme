@@ -89,8 +89,8 @@ function bike_theme_enqueue_contact_scripts() {
         wp_localize_script('bike-theme-contact', 'bikeTheme', array(
             'ajaxurl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('bike_theme_contact_nonce'),
-            'sending' => __('Đang gửi...', 'bike-theme'),
-            'send' => __('Gửi tin nhắn', 'bike-theme')
+            'sending' => __('Sending...', 'bike-theme'),
+            'send' => __('Send Message', 'bike-theme')
         ));
     }
 }
