@@ -14,7 +14,7 @@
                             $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true);
                             if ($full_image_url) :
                                 ?>
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-4 col-md-6 mb-3">
                             <div class="gallery-item" style="aspect-ratio: 1/1; overflow: hidden;">
                                 <a href="<?php echo esc_url($full_image_url); ?>" class="gallery-lightbox">
                                     <?php echo wp_get_attachment_image($image_id, 'large', false, array(
