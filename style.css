@@ -480,7 +480,7 @@ select,
     max-height: 130px !important;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1440px) {
     .home-hero-image {
         max-width: 350px !important;
         max-height: 80px !important;
