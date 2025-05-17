@@ -70,8 +70,8 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
                         $secondary_logo = bike_theme_get_option('secondary_logo');
                     ?>
                     
-                    <div class="container-fluid justify-content-center align-items-center" style="max-width: 400px;">
-                        <div class="row">
+                    <div class="container-fluid" style="max-width: 400px;">
+                        <div class="row align-items-center justify-content-center">
                             <div class="col-lg-3 pl-2" style="padding-left: 20px; padding-right: 0px;">
                                 <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="img-fluid">
                             </div>
