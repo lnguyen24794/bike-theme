@@ -130,7 +130,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                             <div class="col-12">
                                                 <div class="input-group mb-3 align-items-center">
                                                     <span class="bg-dark text-primary rider-start-number">#1</span>
-                                                    <input type="text" class="form-control w-50" id="rider_name_1" name="rider_name[]" placeholder="<?php esc_attr_e('Rider Name', 'bike-theme'); ?>" required>
+                                                    <input type="text" class="form-control w-35" id="rider_name_1" name="rider_name[]" placeholder="<?php esc_attr_e('Rider Name', 'bike-theme'); ?>" required>
                                                     <select class="form-select" id="rider_gender_1" name="rider_gender[]">
                                                         <option value="male"><?php esc_html_e('Male', 'bike-theme'); ?></option>
                                                         <option value="female"><?php esc_html_e('Female', 'bike-theme'); ?></option>
@@ -525,7 +525,7 @@ jQuery(document).ready(function($) {
                             <div class="col-12">
                                 <div class="input-group mb-3 align-items-center">
                                     <span class="bg-dark text-primary rider-start-number">#${i}</span>
-                                    <input type="text" class="form-control w-50" id="rider_name_${i}" name="rider_name[]" placeholder="Rider Name" required>
+                                    <input type="text" class="form-control w-35" id="rider_name_${i}" name="rider_name[]" placeholder="Rider Name" required>
                                     <select class="form-select" id="rider_gender_${i}" name="rider_gender[]">
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
