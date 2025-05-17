@@ -52,7 +52,7 @@ function bike_theme_get_tour_price($tour_id, $participants = 1)
 
     // If no applicable price found, use the first price level
     if ($applicable_price === null && !empty($pricing_data)) {
-        $applicable_price = $pricing_data[0]['price'];
+        $applicable_price = $pricing_data[count($pricing_data) - 1]['price'];
     }
 
     // Fallback to standard price if still no price found
