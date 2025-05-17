@@ -9,7 +9,7 @@
  */
 
 if (! defined('BIKE_THEME_VERSION')) {
-    define('BIKE_THEME_VERSION', '1.0.36');
+    define('BIKE_THEME_VERSION', '1.0.37');
 }
 
 /**
