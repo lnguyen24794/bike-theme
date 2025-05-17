@@ -41,19 +41,19 @@
                     </div>
                     <div class="d-inline-flex align-items-center">
                         <?php if (bike_theme_get_option('facebook')) : ?>
-                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('facebook')); ?>"><i class="fab fa-facebook"></i></a>
+                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('facebook')); ?>" target="_blank"><i class="fab fa-facebook"></i></a>
                         <?php endif; ?>
                         
                         <?php if (bike_theme_get_option('address_link')) : ?>
-                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('address_link')); ?>"><i class="fab fa-google"></i></a>
+                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('address_link')); ?>" target="_blank"><i class="fab fa-google"></i></a>
                         <?php endif; ?>
                         
                         <?php if (bike_theme_get_option('youtube')) : ?>
-                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('youtube')); ?>"><i class="fab fa-youtube"></i></a>
+                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('youtube')); ?>" target="_blank"><i class="fab fa-youtube"></i></a>
                         <?php endif; ?>
                         
                         <?php if (bike_theme_get_option('instagram')) : ?>
-                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('instagram')); ?>"><i class="fab fa-instagram"></i></a>
+                        <a class="me-3 text-light" href="<?php echo esc_url(bike_theme_get_option('instagram')); ?>" target="_blank"><i class="fab fa-instagram"></i></a>
                         <?php endif; ?>
                     </div>
                 </div>
