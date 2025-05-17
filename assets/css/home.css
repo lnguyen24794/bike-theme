@@ -109,7 +109,7 @@
 }
 
 .hero-content {
-    max-width: max(80%, 991px);
+    max-width: max(90%, 1300px);
 }
 
 @media (max-width: 768px) {
