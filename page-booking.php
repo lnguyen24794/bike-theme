@@ -56,7 +56,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                         <!-- Booking Form Start -->
                         <div class="row">
                             <!-- Name start -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="name" name="name" value="<?php echo esc_attr($name); ?>" placeholder="<?php esc_attr_e('Your Name', 'bike-theme'); ?>" required>
                                     <label for="name"><?php esc_html_e('Your Name', 'bike-theme'); ?></label>
@@ -64,7 +64,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             </div>
                             <!-- Name end -->
                             <!-- Email start -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-floating">
                                     <input type="email" class="form-control" id="email" name="email" value="<?php echo esc_attr($email); ?>" placeholder="<?php esc_attr_e('Your Email', 'bike-theme'); ?>" required>
                                     <label for="email"><?php esc_html_e('Your Email', 'bike-theme'); ?></label>
@@ -72,7 +72,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             </div>
                             <!-- Email end -->
                             <!-- Phone start -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-floating">
                                     <input type="tel" class="form-control" id="phone" name="phone" value="<?php echo esc_attr($phone); ?>" placeholder="<?php esc_attr_e('Your Phone', 'bike-theme'); ?>" required>
                                     <label for="phone"><?php esc_html_e('Your Phone', 'bike-theme'); ?></label>
@@ -80,7 +80,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             </div>
                             <!-- Phone end -->
                             <!-- Booking Date start -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-floating">
                                     <input type="date" class="form-control" id="date" name="date" value="<?php echo esc_attr($date); ?>" required>
                                     <label for="date"><?php esc_html_e('Booking Date', 'bike-theme'); ?></label>
@@ -88,7 +88,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             </div>
                             <!-- Booking Date end -->
                             <!-- Tour start -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-floating">
                                     <select class="form-select" id="tour" name="tour">
                                         <option value=""><?php esc_html_e('Select a Tour (Optional)', 'bike-theme'); ?></option>
@@ -110,7 +110,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             </div>
                             <!-- Tour end -->
                             <!-- Participants start -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-floating">
                                     <select class="form-select" id="participants" name="participants">
                                         <?php for ($i = 1; $i <= 10; $i++) : ?>
@@ -121,7 +121,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                 </div>
                             </div>
                             <!-- Rider Details start -->
-                            <div class="col-12 mt-3">
+                            <div class="col-12 mb-3">
                                 <h5><?php esc_html_e('Rider Details', 'bike-theme'); ?></h5>
                                 <div id="rider-details-container">
                                     <!-- Rider details will be dynamically added here based on participant count -->
@@ -130,7 +130,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                                             <div class="col-12">
                                                 <div class="input-group mb-3 align-items-center">
                                                     <span class="bg-dark text-primary rider-start-number">#1</span>
-                                                    <input type="text" class="form-control col-lg-6" id="rider_name_1" name="rider_name[]" placeholder="<?php esc_attr_e('Rider Name', 'bike-theme'); ?>" required>
+                                                    <input type="text" class="form-control w-50" id="rider_name_1" name="rider_name[]" placeholder="<?php esc_attr_e('Rider Name', 'bike-theme'); ?>" required>
                                                     <select class="form-select" id="rider_gender_1" name="rider_gender[]">
                                                         <option value="male"><?php esc_html_e('Male', 'bike-theme'); ?></option>
                                                         <option value="female"><?php esc_html_e('Female', 'bike-theme'); ?></option>
@@ -171,8 +171,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             <!-- Special Request start -->
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="<?php esc_attr_e('Special Request', 'bike-theme'); ?>" id="message" name="message" style="height: 100px"><?php echo esc_textarea($message); ?></textarea>
-                                    <label for="message"><?php esc_html_e('Special Request', 'bike-theme'); ?></label>
+                                    <textarea placeholder="<?php esc_attr_e('Special Request', 'bike-theme'); ?>" id="message" name="message" class="w-100 p-2" rows="3"><?php echo esc_textarea($message); ?></textarea>
                                 </div>
                             </div>
                             <!-- Special Request end -->
@@ -526,7 +525,7 @@ jQuery(document).ready(function($) {
                             <div class="col-12">
                                 <div class="input-group mb-3 align-items-center">
                                     <span class="bg-dark text-primary rider-start-number">#${i}</span>
-                                    <input type="text" class="form-control col-lg-6" id="rider_name_${i}" name="rider_name[]" placeholder="Rider Name" required>
+                                    <input type="text" class="form-control w-50" id="rider_name_${i}" name="rider_name[]" placeholder="Rider Name" required>
                                     <select class="form-select" id="rider_gender_${i}" name="rider_gender[]">
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
