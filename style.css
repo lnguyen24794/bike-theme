@@ -502,6 +502,6 @@ select,
 .wp-editor-content h5 { font-size: 1rem !important; }
 .wp-editor-content h6 { font-size: 0.9rem !important; }
 
-.wp-editor-content iframe {
+iframe {
     max-width: 100% !important;
 }
