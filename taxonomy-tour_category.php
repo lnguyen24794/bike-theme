@@ -144,7 +144,7 @@ if ($tour_query->have_posts()) :
                                         <h5 class="mb-0"><a href="<?php the_permalink(); ?>" class="text-dark"><?php the_title(); ?></a></h5>
                                     </div>
                                     <div class="facts p-0 mb-3">
-                                        <div class="style touring"> <?php echo strtoupper($difficulty); ?></div>
+                                        <div class="style touring" style="text-transform: capitalize;"> <?php echo esc_html($difficulty); ?></div>
                                         <div class="duration"><?php echo esc_html($duration); ?> </div>
                                         <div class="destination"><?php echo esc_html($distance); ?> km</div>
                                         <div class="price">From <?php echo bike_theme_format_price($price); ?></div>
