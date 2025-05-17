@@ -41,7 +41,7 @@ $tour_category = get_query_var('tour_category');
 
     <!-- Destination Information -->
     <div class="container-xxl py-5">
-        <div class="row g-5">
+        <div class="row">
             <div class="col-lg-9">
 
                 <!-- Tours List Start -->
