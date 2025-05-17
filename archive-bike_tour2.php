@@ -38,7 +38,7 @@ get_header();
             <!-- Tour Filter Start -->
             <div class="mb-5 wow fadeInUp" data-wow-delay="0.1s">
                 <form action="/bike-tour" method="get" class="tour-filter">
-                    <div class="row g-3">
+                    <div class="row">
                         <div class="col-md-3">
                             <div class="form-floating">
                                 <select class="form-select" id="filter-difficulty" name="difficulty">

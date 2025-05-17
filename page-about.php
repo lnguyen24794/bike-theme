@@ -36,7 +36,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                     <a class="btn btn-primary py-3 px-5 mt-2" href="/contact"><?php esc_html_e('Contact Us', 'bike-theme'); ?></a>
                 </div>
                 <div class="col-lg-6">
-                        <div class="row g-3">
+                        <div class="row">
                             <?php
                             // Get all about slides from options
                             $options = get_option('bike_theme_options', array());

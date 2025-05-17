@@ -7,7 +7,7 @@
             <?php if (!empty($gallery_ids)) :
                 $gallery_ids_array = is_array($gallery_ids) ? $gallery_ids : explode(',', $gallery_ids);
                 ?>
-                <div class="row g-3 gallery-container">
+                <div class="row gallery-container">
                     <?php foreach ($gallery_ids_array as $image_id) :
                         if (!empty($image_id)) :
                             $full_image_url = wp_get_attachment_image_url($image_id, 'full');

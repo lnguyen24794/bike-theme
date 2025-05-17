@@ -7,7 +7,7 @@
             <?php if (!empty($bike_reviews)) :
                 $review_ids_array = is_array($bike_reviews) ? $bike_reviews : explode(',', $bike_reviews);
                 ?>
-                <div class="row g-3 gallery-container">
+                <div class="row gallery-container">
                     <?php foreach ($review_ids_array as $image_id) :
                         if (!empty($image_id)) :
                             $full_image_url = wp_get_attachment_image_url($image_id, 'full');

@@ -40,7 +40,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                 <div class="wow fadeInUp bg-primary p-3" data-wow-delay="0.2s">
                     <form id="contact-form" action="" method="post">
                         <?php wp_nonce_field('bike_theme_contact_nonce', 'contact_nonce'); ?>
-                        <div class="row g-3">
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="name" name="name" placeholder="<?php esc_attr_e('Your Name', 'bike-theme'); ?>" required>

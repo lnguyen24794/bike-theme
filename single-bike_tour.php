@@ -340,7 +340,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                     <div class="row">
                         <div class="col-lg-7 bg-primary py-3 pl-2">
                             <h5 class=""><?php esc_html_e('Your Information', 'bike-theme'); ?></h5>
-                            <div class="row g-3">
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="name" name="name" placeholder="<?php esc_attr_e('Your Name', 'bike-theme'); ?>" required>
@@ -381,7 +381,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
                                     <div id="rider-details-container">
                                         <!-- Initial rider form -->
                                         <div class="rider-details mb-3 rounded" data-rider="1">
-                                            <div class="row g-2">
+                                            <div class="row">
                                                 <div class="col-12">
                                                     <div class="input-group mb-3 align-items-center">
                                                         <span class="bg-dark text-primary rider-start-number">#1</span>
@@ -615,7 +615,7 @@ jQuery(document).ready(function($) {
             for (var i = currentRiders + 1; i <= participantCount; i++) {
                 var riderHtml = `
                      <div class="rider-details mb-3 rounded" data-rider="${i}">
-                        <div class="row g-2">
+                        <div class="row">
                             <div class="col-12">
                                 <div class="input-group mb-3 align-items-center">
                                     <span class="bg-dark text-primary rider-start-number">#${i}</span>
