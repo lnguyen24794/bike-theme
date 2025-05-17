@@ -135,7 +135,7 @@ if ($tour_query->have_posts()) :
                                         </a>
                                     <?php else : ?>
                                         <a href="<?php the_permalink(); ?>">
-                                            <img class="img-fluid" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/placeholder-tour.jpg" alt="<?php the_title_attribute(); ?>">
+                                            <img class="img-fluid" height="200" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/placeholder-tour.jpg" alt="<?php the_title_attribute(); ?>">
                                         </a>
                                     <?php endif; ?>
                                 </div>
