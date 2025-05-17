@@ -260,6 +260,10 @@ img {
 
 .tour-item img {
     transition: all 0.5s ease;
+    height: 200px !important;
+    min-height: 200px !important;
+    max-height: 200px !important;
+    object-fit: cover !important;
 }
 
 .tour-item:hover img {

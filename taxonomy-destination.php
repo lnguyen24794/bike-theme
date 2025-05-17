@@ -132,7 +132,7 @@ if ($tour_query->have_posts()) :
                                         </a>
                                     <?php else : ?>
                                         <a href="<?php the_permalink(); ?>">
-                                            <img class="img-fluid" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/placeholder-tour.jpg" alt="<?php the_title_attribute(); ?>">
+                                            <img class="img-fluid" height="200" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/placeholder-tour.jpg" alt="<?php the_title_attribute(); ?>">
                                         </a>
                                     <?php endif; ?>
                                 </div>
@@ -141,7 +141,7 @@ if ($tour_query->have_posts()) :
                                         <h5 class="mb-0"><a href="<?php the_permalink(); ?>" class="text-dark"><?php the_title(); ?></a></h5>
                                     </div>
                                     <div class="facts p-0 mb-3">
-                                        <div class="style touring"> <?php echo esc_html($difficulty); ?></div>
+                                        <div class="style touring" style="text-transform: capitalize;"> <?php echo esc_html($difficulty); ?></div>
                                         <div class="duration"><?php echo esc_html($duration); ?> </div>
                                         <div class="destination"><?php echo esc_html($distance); ?> km</div>
                                         <div class="price">From <?php echo bike_theme_format_price($price); ?></div>
@@ -154,10 +154,10 @@ if ($tour_query->have_posts()) :
                                 </div>
                             </div>
                         <?php
-    endwhile;
-wp_reset_postdata();
-else :
-    ?>
+                            endwhile;
+                        wp_reset_postdata();
+                        else :
+                            ?>
                         <div class="col-12 text-center">
                             <h3><?php esc_html_e('No bike tours found.', 'bike-theme'); ?></h3>
                             <p><?php esc_html_e('Please try different filter options or check back later.', 'bike-theme'); ?></p>
@@ -224,33 +224,33 @@ echo paginate_links(array(
                             <div class="destination-categories">
                             <ul class="list-unstyled">
                             <?php
-// Get other destinations
-$other_destinations = get_terms(array(
-    'taxonomy' => 'destination',
-    'hide_empty' => false,
-    'exclude' => array($term->term_id),
-    'number' => 6
-));
+                                // Get other destinations
+                                $other_destinations = get_terms(array(
+                                    'taxonomy' => 'destination',
+                                    'hide_empty' => false,
+                                    'exclude' => array($term->term_id),
+                                    'number' => 6
+                                ));
 
-if (!empty($other_destinations) && !is_wp_error($other_destinations)) :
-    foreach ($other_destinations as $other_destination) :
-        $other_image_id = get_term_meta($other_destination->term_id, 'destination_image', true);
-        $other_image_url = wp_get_attachment_url($other_image_id);
-        if (!$other_image_url) {
-            $other_image_url = get_template_directory_uri() . '/assets/images/bikes/destination-default.jpg';
-        }
-        ?>
-                            
-                                <li>
-                                    <a href="/destination/<?php echo esc_attr($other_destination->slug); ?>">
-                                        <?php echo esc_html($other_destination->name); ?> <span class="badge bg-primary rounded-pill"><?php echo esc_html($other_destination->count); ?></span>
-                                    </a>
-                                </li>
-                            
-                            <?php
-    endforeach;
-endif;
-?>
+                                if (!empty($other_destinations) && !is_wp_error($other_destinations)) :
+                                    foreach ($other_destinations as $other_destination) :
+                                        $other_image_id = get_term_meta($other_destination->term_id, 'destination_image', true);
+                                        $other_image_url = wp_get_attachment_url($other_image_id);
+                                        if (!$other_image_url) {
+                                            $other_image_url = get_template_directory_uri() . '/assets/images/bikes/destination-default.jpg';
+                                        }
+                                        ?>
+                                                            
+                                        <li>
+                                            <a href="/destination/<?php echo esc_attr($other_destination->slug); ?>">
+                                                <?php echo esc_html($other_destination->name); ?> <span class="badge bg-primary rounded-pill"><?php echo esc_html($other_destination->count); ?></span>
+                                            </a>
+                                        </li>
+                                    
+                                    <?php
+                                    endforeach;
+                                endif;
+                                ?>
                             </ul>
                             </div>
                         </div>
