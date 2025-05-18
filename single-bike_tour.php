@@ -109,7 +109,7 @@ $booking_nonce = wp_create_nonce('bike_tour_booking');
                 <div class="tour-basic-info-title">
                     <i class="fas fa-money-bill"></i>
                     <h5 class="mb-0 text-uppercase"><?php esc_html_e('Price from', 'bike-theme'); ?></h5>
-                    <span><?php echo bike_theme_format_price(bike_theme_get_tour_price(get_the_ID())); ?></span>
+                    <span><?php echo bike_theme_format_price(bike_theme_get_tour_price_for_display(get_the_ID())); ?></span>
                 </div>
             </div>
             <div class="col-lg-3 col-12">

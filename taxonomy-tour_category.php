@@ -123,7 +123,7 @@ if ($tour_query->have_posts()) :
         $duration = bike_theme_get_tour_duration(get_the_ID());
         $distance = get_post_meta(get_the_ID(), '_tour_distance', true);
         $difficulty = get_post_meta(get_the_ID(), '_tour_difficulty', true);
-        $price = bike_theme_get_tour_price(get_the_ID());
+        $price = bike_theme_get_tour_price_for_display(get_the_ID());
         $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1';
         ?>
                             <div class="col-xl-4 col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.1s">

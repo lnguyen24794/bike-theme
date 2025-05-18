@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
  * @param int $participants    Number of participants (default: 1)
  * @return int                 Price per person
  */
-function bike_theme_get_tour_price($tour_id, $participants = 1)
+function bike_theme_get_tour_price_for_display($tour_id, $participants = 1)
 {
     // Get flexible pricing status
     $flexible_pricing_enabled = get_post_meta($tour_id, '_tour_flexible_pricing_enabled', true);
@@ -37,6 +37,60 @@ function bike_theme_get_tour_price($tour_id, $participants = 1)
     // Sort pricing data by number of participants (ascending)
     usort($pricing_data, function ($a, $b) {
         return $b['participants'] - $a['participants'];
+    });
+
+    // Find applicable price
+    $applicable_price = null;
+
+    foreach ($pricing_data as $price_item) {
+        if ($participants >= $price_item['participants']) {
+            $applicable_price = $price_item['price'];
+        } else {
+            break; // Stop once we exceed the participant level
+        }
+    }
+
+    // If no applicable price found, use the first price level
+    if ($applicable_price === null && !empty($pricing_data)) {
+        $applicable_price = $pricing_data[0]['price'];
+    }
+
+    // Fallback to standard price if still no price found
+    if ($applicable_price === null) {
+        $applicable_price = (int) get_post_meta($tour_id, '_tour_price', true);
+    }
+
+    return $applicable_price;
+}
+
+/**
+ * Get tour price based on number of participants
+ *
+ * @param int $tour_id         Tour ID
+ * @param int $participants    Number of participants (default: 1)
+ * @return int                 Price per person
+ */
+function bike_theme_get_tour_price($tour_id, $participants = 1)
+{
+    // Get flexible pricing status
+    $flexible_pricing_enabled = get_post_meta($tour_id, '_tour_flexible_pricing_enabled', true);
+
+    // If flexible pricing is not enabled, return standard price
+    if (empty($flexible_pricing_enabled) || $flexible_pricing_enabled !== '1') {
+        return (int) get_post_meta($tour_id, '_tour_price', true);
+    }
+
+    // Get flexible pricing data
+    $pricing_data = get_post_meta($tour_id, '_tour_flexible_pricing', true);
+
+    // If no pricing data, return standard price
+    if (empty($pricing_data) || !is_array($pricing_data)) {
+        return (int) get_post_meta($tour_id, '_tour_price', true);
+    }
+
+    // Sort pricing data by number of participants (ascending)
+    usort($pricing_data, function ($a, $b) {
+        return $a['participants'] - $b['participants'];
     });
 
     // Find applicable price
