@@ -8,7 +8,7 @@ if (count($tour_gallery) > 0) :
     <div class="swiper">
         <div class="swiper-wrapper">
             <?php foreach($tour_gallery as $index => $gallery_item):
-                    $image_url = !empty($gallery_item['image_url']) ? $gallery_item['image_url'] : 'large';
+                    $image_url = !empty($gallery_item['image_url']) ? $gallery_item['image_url'] : 'full';
                     if (!empty($image_url)) :
                         ?>
                     <div class="swiper-slide">

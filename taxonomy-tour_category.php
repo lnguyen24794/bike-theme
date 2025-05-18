@@ -131,7 +131,7 @@ if ($tour_query->have_posts()) :
                                 <div class="position-relative">
                                     <?php if (has_post_thumbnail()) : ?>
                                         <a href="<?php the_permalink(); ?>">
-                                            <?php the_post_thumbnail('large', array('class' => 'img-fluid')); ?>
+                                            <?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?>
                                         </a>
                                     <?php else : ?>
                                         <a href="<?php the_permalink(); ?>">

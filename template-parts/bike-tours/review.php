@@ -15,7 +15,7 @@
                             if ($full_image_url) :
                                 ?>
                          <a href="<?php echo esc_url($full_image_url); ?>" class="gallery-lightbox shadow">
-                            <?php echo wp_get_attachment_image($image_id, 'large', false, array(
+                            <?php echo wp_get_attachment_image($image_id, 'full', false, array(
                                 'class' => 'img-fluid rounded',
                             )); ?>
                             </a>

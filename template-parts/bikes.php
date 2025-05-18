@@ -21,7 +21,7 @@
                 <div class="room-item shadow rounded" style="height: 100%;">
                     <div class="position-relative bike-image">
                         <?php if (has_post_thumbnail()) : ?>
-                            <?php the_post_thumbnail('large', array('class' => 'img-fluid')); ?>
+                            <?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?>
                         <?php else : ?>
                             <img class="img-fluid" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/bikes/bike-default.jpg" alt="<?php the_title_attribute(); ?>">
                         <?php endif; ?>
