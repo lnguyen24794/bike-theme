@@ -37,5 +37,8 @@
                 </div>
             <?php endif; ?>
         </div>
+        <div class="bike-review-info wp-editor-content">
+            <?php echo wp_kses_post($bike_review_info); ?>
+        </div>
     </div>
 </div>

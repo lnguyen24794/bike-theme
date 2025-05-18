@@ -1612,7 +1612,7 @@ function bike_theme_tour_gallery_content_callback($args)
 
     // Output the WordPress editor
     wp_editor(
-        $content,
+        wpautop($content),
         'bike_theme_options_tour_gallery_content',
         array(
             'textarea_name' => 'bike_theme_options[tour_gallery_content]',
@@ -1621,6 +1621,7 @@ function bike_theme_tour_gallery_content_callback($args)
             'editor_class'  => 'widefat',
             'teeny'         => false,
             'quicktags'     => true,
+            'wpautop'       => false
         )
     );
 
@@ -1644,7 +1645,7 @@ function bike_theme_choose_your_adventures_callback($args)
 
     // Output the WordPress editor
     wp_editor(
-        $content,
+        wpautop($content),
         'bike_theme_options_choose_your_adventures',
         array(
             'textarea_name' => 'bike_theme_options[choose_your_adventures_content]',
@@ -1653,6 +1654,7 @@ function bike_theme_choose_your_adventures_callback($args)
             'editor_class'  => 'widefat',
             'teeny'         => false,
             'quicktags'     => true,
+            'wpautop'       => false
         )
     );
 
@@ -1676,7 +1678,7 @@ function bike_theme_our_bikes_callback($args)
 
     // Output the WordPress editor
     wp_editor(
-        $content,
+        wpautop($content),
         'bike_theme_options_our_bikes',
         array(
             'textarea_name' => 'bike_theme_options[our_bikes_content]',
@@ -1685,6 +1687,7 @@ function bike_theme_our_bikes_callback($args)
             'editor_class'  => 'widefat',
             'teeny'         => false,
             'quicktags'     => true,
+            'wpautop'       => false
         )
     );
 
@@ -1708,7 +1711,7 @@ function bike_theme_why_choose_us_callback($args)
 
     // Output the WordPress editor
     wp_editor(
-        $content,
+        wpautop($content),
         'bike_theme_options_why_choose_us',
         array(
             'textarea_name' => 'bike_theme_options[why_choose_us_content]',
@@ -1717,6 +1720,7 @@ function bike_theme_why_choose_us_callback($args)
             'editor_class'  => 'widefat',
             'teeny'         => false,
             'quicktags'     => true,
+            'wpautop'       => false
         )
     );
 

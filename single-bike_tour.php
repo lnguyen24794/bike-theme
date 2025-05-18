@@ -11,6 +11,7 @@ get_header();
 wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), BIKE_THEME_VERSION);
 
 // Enqueue and localize booking script
+wp_enqueue_script('bike-theme-booking', get_template_directory_uri() . '/assets/js/booking.js', array('jquery'), BIKE_THEME_VERSION, true);
 
 // No localization needed, using inline PHP
 
@@ -22,12 +23,18 @@ if ($flexible_pricing_enabled === '1') {
     $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
     if (empty($pricing_data) || !is_array($pricing_data)) {
         $pricing_data = array(
-            array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
+            array('participants' => 1, 'price' => (int)get_post_meta(get_the_ID(), '_tour_price', true))
         );
+    }
+    
+    // Ensure all prices are integers
+    foreach ($pricing_data as $key => $price_level) {
+        $pricing_data[$key]['participants'] = (int)$price_level['participants'];
+        $pricing_data[$key]['price'] = (int)$price_level['price'];
     }
 } else {
     $pricing_data = array(
-        array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
+        array('participants' => 1, 'price' => (int)get_post_meta(get_the_ID(), '_tour_price', true))
     );
 }
 
@@ -62,6 +69,7 @@ $price_info = get_post_meta(get_the_ID(), '_tour_price_info', true);
 $bike_reviews = get_post_meta(get_the_ID(), '_tour_review', true);
 $tour_booking_terms = get_post_meta(get_the_ID(), '_tour_booking_terms', true);
 $tour_cancellation_policy = get_post_meta(get_the_ID(), '_tour_cancellation_policy', true);
+$tour_review_info = get_post_meta(get_the_ID(), '_tour_review_info', true);
 // Format difficulty text and class
 $difficulty_text = '';
 $difficulty_class = '';
@@ -399,25 +407,27 @@ jQuery(document).ready(function($) {
     var getPricePerPerson = function(participants) {
         // Get tour pricing data
         var pricingData = window.bike_booking_pricing_data || [];
-        
-        // Sort pricing data by number of participants (ascending)
+        console.log(pricingData);
+        // Sort pricing data by number of participants (descending)
         pricingData.sort(function(a, b) {
-            return a.participants - b.participants;
+            return b.participants - a.participants;
         });
         
         var applicablePrice = null;
         
-        // Find applicable price level
+        // Find applicable price level by searching from highest to lowest
         for (var i = 0; i < pricingData.length; i++) {
             if (participants >= pricingData[i].participants) {
                 applicablePrice = pricingData[i].price;
-            } else {
                 break;
             }
         }
         
-        // If no applicable price found, use the first price level
+        // If no applicable price found, use the lowest price level
         if (applicablePrice === null && pricingData.length > 0) {
+            pricingData.sort(function(a, b) {
+                return a.participants - b.participants;
+            });
             applicablePrice = pricingData[0].price;
         }
         
@@ -433,6 +443,12 @@ jQuery(document).ready(function($) {
         
         // Calculate tour subtotal with child discounts
         var tourSubtotal = (adultCount * pricePerPerson) + (childCount * pricePerPerson * 0.5);
+        
+        // Ensure tourSubtotal is a valid number
+        if (isNaN(tourSubtotal)) {
+            tourSubtotal = 0;
+        }
+        
         var additionsTotal = 0;
         var additionsList = [];
 
@@ -489,6 +505,11 @@ jQuery(document).ready(function($) {
     // Initial price update
     updatePriceSummary();
 
+    // Ensure we update the price when modal opens
+    $('#bookingModal').on('shown.bs.modal', function() {
+        updatePriceSummary();
+    });
+
     // Handle rider details based on participant count
     var updateRiderDetails = function() {
         var participantCount = parseInt($('#participants').val());
@@ -531,9 +552,7 @@ jQuery(document).ready(function($) {
         }
 
         // Update price calculation with child discounts
-        if (typeof updatePriceSummary === 'function') {
-            updatePriceSummary();
-        }
+        updatePriceSummary();
     }
 
     // Initialize rider details

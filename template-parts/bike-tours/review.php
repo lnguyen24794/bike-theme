@@ -19,7 +19,7 @@
                                 <a href="<?php echo esc_url($full_image_url); ?>" class="gallery-lightbox">
                                     <?php echo wp_get_attachment_image($image_id, 'large', false, array(
                                         'class' => 'img-fluid rounded',
-                                        'style' => 'width: 100%; height: 100%; object-fit: cover;'
+                                        'style' => 'width: 100%; height: 100%; object-fit: fill;'
                                     )); ?>
                                 </a>
                             </div>
@@ -36,6 +36,9 @@
                     <?php esc_html_e('No gallery images or videos are available for this tour.', 'bike-theme'); ?>
                 </div>
             <?php endif; ?>
+        </div>
+        <div class="tour-review-info wp-editor-content">
+            <?php echo wp_kses_post($tour_review_info); ?>
         </div>
     </div>
 </div>

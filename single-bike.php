@@ -19,6 +19,7 @@ get_header();
         $bike_conditions = get_post_meta(get_the_ID(), '_bike_conditions', true);
         $bike_reviews = get_post_meta(get_the_ID(), '_bike_review', true);
         $bike_contact = get_post_meta(get_the_ID(), '_bike_contact', true);
+        $bike_review_info = get_post_meta(get_the_ID(), '_bike_review_info', true);
         ?>
         <!-- Top Section -->
         <?php include(get_template_directory() . '/template-parts/bike/bike-slider.php'); ?>

@@ -332,14 +332,15 @@ function bike_theme_tour_details_meta_box_callback($post)
                                     <label><?php esc_html_e('Description', 'bike-theme'); ?></label>
                                     <?php 
                                     wp_editor(
-                                        $day['description'],
+                                        wpautop($day['description']),
                                         'tour_itinerary_' . $day_index . '_description',
                                         array(
                                             'textarea_name' => 'tour_itinerary[' . $day_index . '][description]',
                                             'media_buttons' => true,
                                             'textarea_rows' => 5,
                                             'editor_class' => 'widefat',
-                                            'teeny' => true
+                                            'teeny' => true,
+                                            'wpautop' => false
                                         )
                                     ); 
                                     ?>
@@ -599,24 +600,26 @@ function bike_theme_tour_details_meta_box_callback($post)
         <p>
             <label for="tour_included"><?php esc_html_e('What\'s Included', 'bike-theme'); ?></label>
             <?php 
-            wp_editor($tour_included, 'tour_included', array(
+            wp_editor(wpautop($tour_included), 'tour_included', array(
                 'textarea_name' => 'tour_included',
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => true
+                'teeny' => true,
+                'wpautop' => false
             )); 
             ?>
         </p>
         <p>
             <label for="tour_not_included"><?php esc_html_e('What\'s Not Included', 'bike-theme'); ?></label>
             <?php 
-            wp_editor($tour_not_included, 'tour_not_included', array(
+            wp_editor(wpautop($tour_not_included), 'tour_not_included', array(
                 'textarea_name' => 'tour_not_included',
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => true
+                'teeny' => true,    
+                'wpautop' => false
             )); 
             ?>
         </p>
@@ -637,12 +640,13 @@ function bike_theme_tour_details_meta_box_callback($post)
         <p>
             <label for="tour_cancellation_policy"><?php esc_html_e('Cancellation Policy', 'bike-theme'); ?></label>
             <?php 
-            wp_editor($tour_cancellation_policy, 'tour_cancellation_policy', array(
+            wp_editor(wpautop($tour_cancellation_policy), 'tour_cancellation_policy', array(
                 'textarea_name' => 'tour_cancellation_policy',
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => true
+                'teeny' => true,
+                'wpautop' => false
             )); 
             ?>
         </p>
@@ -651,12 +655,13 @@ function bike_theme_tour_details_meta_box_callback($post)
         <p>
             <label for="tour_contact_info"><?php esc_html_e('Contact Information for Booking', 'bike-theme'); ?></label>
             <?php 
-            wp_editor($tour_contact_info, 'tour_contact_info', array(
+            wp_editor(wpautop($tour_contact_info), 'tour_contact_info', array(
                 'textarea_name' => 'tour_contact_info',
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => true
+                'teeny' => true,
+                'wpautop' => false
             )); 
             ?>
         </p>
@@ -665,12 +670,13 @@ function bike_theme_tour_details_meta_box_callback($post)
         <p>
             <label for="tour_price_info"><?php esc_html_e('Price Information', 'bike-theme'); ?></label>
             <?php 
-            wp_editor($tour_price_info, 'tour_price_info', array(
+            wp_editor(wpautop($tour_price_info), 'tour_price_info', array(
                 'textarea_name' => 'tour_price_info',
                 'media_buttons' => true,
                 'textarea_rows' => 5,
                 'editor_class' => 'widefat',
-                'teeny' => true
+                'teeny' => true,
+                'wpautop' => false
             )); 
             ?>
         </p>
@@ -821,6 +827,21 @@ function bike_theme_tour_details_meta_box_callback($post)
                 });
             });
         </script>
+
+        <h3><?php esc_html_e('Review Information', 'bike-theme'); ?></h3>
+        <p>
+            <label for="tour_review_info"><?php esc_html_e('Review Information', 'bike-theme'); ?></label>
+            <?php 
+            wp_editor(wpautop($tour_review_info), 'tour_review_info', array(
+                'textarea_name' => 'tour_review_info',
+                'media_buttons' => true,
+                'textarea_rows' => 5,
+                'editor_class' => 'widefat',
+                'teeny' => true,
+                'wpautop' => false
+            )); 
+            ?>
+        </p>
 
         <h3><?php esc_html_e('Media Gallery', 'bike-theme'); ?></h3>
         <div class="tour-gallery-container">
@@ -1409,6 +1430,11 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
     } else {
         delete_post_meta($post_id, '_tour_review');
     }
+
+    if (isset($_POST['tour_review_info'])) {
+        update_post_meta($post_id, '_tour_review_info', wp_kses_post($_POST['tour_review_info']));
+    }
+
     
     // Save pricing data - check for nonce separately as it's from a different metabox
     if (isset($_POST['bike_theme_tour_pricing_nonce']) && wp_verify_nonce($_POST['bike_theme_tour_pricing_nonce'], 'bike_theme_tour_pricing_nonce')) {

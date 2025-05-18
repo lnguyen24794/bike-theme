@@ -47,7 +47,7 @@ $destinations = get_terms(array(
                     <a class="destination-item" href="<?php echo get_term_link($destination); ?>">
                         <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($destination->name); ?>">
                         <div class="destination-slider-title d-flex align-items-center justify-content-center">
-                            <h3 class="text-primary"><?php echo esc_html($destination->name); ?></h3>
+                            <h3 class="text-primary mb-0"><?php echo esc_html($destination->name); ?></h3>
                         </div>
                     </a>
                 </div>
