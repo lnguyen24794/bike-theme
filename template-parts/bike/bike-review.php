@@ -41,7 +41,7 @@
 <script>
    jQuery(document).ready(function($){
     jQuery('#my-reviews').justifiedGallery({
-      rowHeight: 400,
+      rowHeight: 300,
       enablePopup: true,
       margins: 10,
     });
