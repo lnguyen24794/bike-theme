@@ -198,15 +198,6 @@ echo paginate_links(array(
             <div class="col-lg-3">
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body">
-                        <h4 class="mb-3"><?php esc_html_e('Tour Available', 'bike-theme'); ?></h4>
-                        <div class="destination-category-list">
-                            <?php echo bike_theme_display_tour_categories($term->term_id, $term->slug); ?>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-body">
                         <h4 class="mb-3"><?php esc_html_e('Need Assistance?', 'bike-theme'); ?></h4>
                         <p><?php esc_html_e('Contact our tour experts for personalized tour recommendations or special requirements.', 'bike-theme'); ?></p>
                         <div class="d-flex align-items-center mb-2">

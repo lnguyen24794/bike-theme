@@ -174,18 +174,18 @@ endif;
                         <nav aria-label="Page navigation">
                             <?php
                             $big = 999999999; // Need an unlikely integer
-echo paginate_links(array(
-    'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-    'format' => '?paged=%#%',
-    'current' => max(1, get_query_var('paged')),
-    'total' => $tour_query->max_num_pages,
-    'prev_text' => '<i class="fa fa-angle-left"></i>',
-    'next_text' => '<i class="fa fa-angle-right"></i>',
-    'type' => 'list',
-    'end_size' => 4,
-    'mid_size' => 4
-));
-?>
+                            echo paginate_links(array(
+                                'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+                                'format' => '?paged=%#%',
+                                'current' => max(1, get_query_var('paged')),
+                                'total' => $tour_query->max_num_pages,
+                                'prev_text' => '<i class="fa fa-angle-left"></i>',
+                                'next_text' => '<i class="fa fa-angle-right"></i>',
+                                'type' => 'list',
+                                'end_size' => 4,
+                                'mid_size' => 4
+                            ));
+                            ?>
                         </nav>
                     </div>
                 </div>
@@ -193,15 +193,6 @@ echo paginate_links(array(
             
             <!-- Sidebar -->
             <div class="col-lg-3">
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-body">
-                        <h4 class="mb-3"><?php esc_html_e('Tour Available', 'bike-theme'); ?></h4>
-                        <div class="destination-category-list">
-                            <?php echo bike_theme_display_destination_categories($term->term_id, $term->slug); ?>
-                        </div>
-                    </div>
-                </div>
-                
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body">
                         <h4 class="mb-3"><?php esc_html_e('Need Assistance?', 'bike-theme'); ?></h4>
