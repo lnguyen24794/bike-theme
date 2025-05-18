@@ -7,23 +7,18 @@
             <?php if (!empty($gallery_ids)) :
                 $gallery_ids_array = is_array($gallery_ids) ? $gallery_ids : explode(',', $gallery_ids);
                 ?>
-                <div class="row gallery-container">
+                <div class="row gallery-container" id="my-gallery">
                     <?php foreach ($gallery_ids_array as $image_id) :
                         if (!empty($image_id)) :
                             $full_image_url = wp_get_attachment_image_url($image_id, 'full');
                             $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true);
                             if ($full_image_url) :
                                 ?>
-                        <div class="col-lg-4 col-md-6 mb-3">
-                            <div class="gallery-item" style="aspect-ratio: 1/1; overflow: hidden;">
-                                <a href="<?php echo esc_url($full_image_url); ?>" class="gallery-lightbox">
-                                    <?php echo wp_get_attachment_image($image_id, 'large', false, array(
-                                        'class' => 'img-fluid rounded',
-                                        'style' => 'width: 100%; height: 100%; object-fit: fill;'
-                                    )); ?>
-                                </a>
-                            </div>
-                        </div>
+                          <a href="<?php echo esc_url($full_image_url); ?>" class="gallery-lightbox shadow">
+                                <?php echo wp_get_attachment_image($image_id, 'large', false, array(
+                                    'class' => 'img-fluid rounded',
+                                )); ?>
+                            </a>
                     <?php
                             endif;
                         endif;
@@ -31,6 +26,19 @@
                 ?>
                 </div>
             <?php endif; ?>
+
+            <script>
+                jQuery(document).ready(function($){
+                    jQuery('#my-gallery').justifiedGallery({
+                        rowHeight: 300,
+                        maxRowHeight: null,
+                        margins: 10,
+                        lastRow: 'justify',
+                        captions: false,
+                        enablePopup: true,
+                    });
+                });
+            </script>
             
             <?php if (!empty($video_url)) : ?>
                 <div class="tour-video mt-4">
