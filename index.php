@@ -43,9 +43,6 @@ get_header();
                 <div class="container-fluid bg-primary pt-3 pb-3 text-center" style="margin-top: -10px;">
                         <h5>Hop on a bike, slow down, and experience the real Vietnam in the most meaningful way — by cycling!</h5>
                         <?php include(get_template_directory() . '/template-parts/home/destination-slider.php'); ?>
-                        <div class="text-center mt-3">
-                            <a href="/bike-tours" class="btn btn-dark py-3 px-5"><?php esc_html_e('View All Destinations', 'bike-theme'); ?></a>
-                        </div>
                 </div>
             </div>
         </div>
