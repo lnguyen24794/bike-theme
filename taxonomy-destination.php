@@ -123,7 +123,7 @@ if ($tour_query->have_posts()) :
         $price = bike_theme_get_tour_price(get_the_ID());
         $flexible_pricing = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true) === '1';
         ?>
-                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="col-xl-4 col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="tour-item shadow rounded h-100">
                                 <div class="position-relative">
                                     <?php if (has_post_thumbnail()) : ?>
