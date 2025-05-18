@@ -145,11 +145,6 @@
             }
         }
 
-        // Hook into Owl Carousel events
-        $('.owl-carousel').on('initialized.owl.carousel translated.owl.carousel', function() {
-            reinitLazyLoad();
-        });
-
         // Hook into any Ajax complete events
         $(document).ajaxComplete(function() {
             reinitLazyLoad();

@@ -5,11 +5,8 @@ if (count($tour_gallery) > 0) :
     ?>
 
 <div class="container-fluid mt-5 py-5 bg-gray swiper-container">
-   <!-- Slider main container -->
     <div class="swiper">
-        <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
-            <!-- Slides -->
             <?php foreach($tour_gallery as $index => $gallery_item):
                     $image_url = !empty($gallery_item['image_url']) ? $gallery_item['image_url'] : 'large';
                     if (!empty($image_url)) :
@@ -20,7 +17,6 @@ if (count($tour_gallery) > 0) :
                 <?php endif; endforeach; ?>
         </div>
 
-        <!-- If we need navigation buttons -->
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
 
@@ -31,22 +27,27 @@ if (count($tour_gallery) > 0) :
 
 <script>
     jQuery(document).ready(function($){
-        var slidesPerView = 3;
-        if (window.innerWidth < 768) {
-            slidesPerView = 1;
-        }
         const swiper = new Swiper(".swiper", {
             effect: "coverflow",
             rewind: true,
-            slidesPerView: slidesPerView,
             freeMode: true,
             loop: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
             spaceBetween: 30,
             // Navigation arrows
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
+            breakpoints: {
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 20
+                }
+            }
         });
     });
 </script>
