@@ -236,7 +236,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
             <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('How to Book', 'bike-theme'); ?></h3>
             <h1 class="mb-5"><?php esc_html_e('Easy Booking Process', 'bike-theme'); ?></h1>
         </div>
-        <div class="row g-4">
+        <div class="row">
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="booking-process-item rounded pt-3">
                     <div class="p-4 text-center">

@@ -1,4 +1,4 @@
-<div class="row g-4">
+<div class="row">
     <?php
         $args = array(
             'post_type' => 'bike',

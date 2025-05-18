@@ -44,7 +44,7 @@ $tour_category = get_query_var('tour_category');
         <div class="row">
             <div class="col-lg-9">
                 <!-- Tours List Start -->
-                <div class="row g-4">
+                <div class="row">
                     <?php
                     // Set up custom query with filters
                     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;

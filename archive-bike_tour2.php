@@ -106,7 +106,7 @@ get_header();
             </div>
             <!-- Tour Filter End -->
 
-            <div class="row g-4 justify-content-start">
+            <div class="row justify-content-start">
                 <?php
                 // Set up custom query with filters
                 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
