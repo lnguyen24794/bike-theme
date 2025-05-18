@@ -263,7 +263,7 @@ img {
     height: 200px !important;
     min-height: 200px !important;
     max-height: 200px !important;
-    object-fit: cover !important;
+    object-fit: fill !important;
 }
 
 .tour-item:hover img {
