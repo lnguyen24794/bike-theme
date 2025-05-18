@@ -16,30 +16,10 @@ require_once dirname(__FILE__) . '/helpers.php';
  * Process booking Ajax request
  */
 function bike_theme_process_booking() {
-    // Verify CSRF token
-    if (!check_ajax_referer('bike_theme_csrf', 'csrf_token', false)) {
+    // Verify nonce
+    if (!isset($_POST['security']) || !wp_verify_nonce($_POST['security'], 'bike_booking_nonce')) {
         wp_send_json_error(array('message' => __('Invalid security token. Please refresh the page and try again.', 'bike-theme')));
     }
-
-    // Verify nonce
-    if (!isset($_POST['bike_tour_booking_nonce']) ||
-        !wp_verify_nonce($_POST['bike_tour_booking_nonce'], 'bike_tour_booking')) {
-        wp_send_json_error(array('message' => __('Invalid security token.', 'bike-theme')));
-    }
-
-    // Add rate limiting
-    $ip_address = $_SERVER['REMOTE_ADDR'];
-    $transient_key = 'booking_attempt_' . md5($ip_address);
-    $attempt_count = get_transient($transient_key);
-    
-    // if ($attempt_count === false) {
-    //     set_transient($transient_key, 1, HOUR_IN_SECONDS);
-    // } else {
-    //     if ($attempt_count >= 5) { // Limit to 5 attempts per hour
-    //         wp_send_json_error(array('message' => __('Too many booking attempts. Please try again later.', 'bike-theme')));
-    //     }
-    //     set_transient($transient_key, $attempt_count + 1, HOUR_IN_SECONDS);
-    // }
 
     // Sanitize and validate form data
     $name = sanitize_text_field($_POST['name']);
@@ -164,9 +144,13 @@ function bike_theme_process_booking() {
         
         $emails_sent = bike_theme_send_booking_emails($booking_id, $booking_data);
 
+        // Generate new nonce for next request
+        $new_nonce = wp_create_nonce('bike_booking_nonce');
+
         wp_send_json_success(array(
             'message' => __('Your booking has been submitted successfully. We will contact you shortly.', 'bike-theme'),
-            'booking_id' => $booking_id
+            'booking_id' => $booking_id,
+            'new_nonce' => $new_nonce
         ));
     } else {
         wp_send_json_error(array('message' => __('Failed to create booking. Please try again.', 'bike-theme')));

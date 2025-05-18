@@ -10,139 +10,37 @@
 get_header();
 wp_enqueue_style('bike-theme-tour-single', get_template_directory_uri() . '/assets/css/tour-single.css', array(), BIKE_THEME_VERSION);
 
+// Enqueue and localize booking script
+
+// No localization needed, using inline PHP
+
+// Pass tour pricing data using inline script
+$flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
+$pricing_data = array();
+
+if ($flexible_pricing_enabled === '1') {
+    $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
+    if (empty($pricing_data) || !is_array($pricing_data)) {
+        $pricing_data = array(
+            array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
+        );
+    }
+} else {
+    $pricing_data = array(
+        array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
+    );
+}
+
+// Add pricing data as inline script
+$pricing_script = sprintf(
+    'window.bike_booking_pricing_data = %s; window.bike_booking_default_price = %d;',
+    wp_json_encode($pricing_data),
+    (int)get_post_meta(get_the_ID(), '_tour_price', true)
+);
+wp_add_inline_script('bike-theme-booking', $pricing_script);
+
 // Make sure we have access to the helper functions
 require_once get_template_directory() . '/inc/booking/helpers.php';
-
-// Process booking form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bike_tour_booking'])) {
-    // Verify nonce
-    if (!isset($_POST['bike_tour_booking_nonce']) ||
-        !wp_verify_nonce($_POST['bike_tour_booking_nonce'], 'bike_tour_booking')) {
-        wp_die(__('Invalid nonce specified', 'bike-theme'));
-    }
-
-    // Sanitize and validate form data
-    $name = sanitize_text_field($_POST['name']);
-    $email = sanitize_email($_POST['email']);
-    $phone = sanitize_text_field($_POST['phone']);
-    $date = sanitize_text_field($_POST['date']);
-    $participants = intval($_POST['participants']);
-    $message = sanitize_textarea_field($_POST['message']);
-    $tour_id = get_the_ID();
-
-    // Sanitize and validate rider details
-    $rider_names = isset($_POST['rider_name']) ? array_map('sanitize_text_field', $_POST['rider_name']) : array();
-    $rider_genders = isset($_POST['rider_gender']) ? array_map('sanitize_text_field', $_POST['rider_gender']) : array();
-    $rider_heights = isset($_POST['rider_height']) ? array_map('sanitize_text_field', $_POST['rider_height']) : array();
-    $rider_is_children = isset($_POST['rider_is_child']) ? $_POST['rider_is_child'] : array();
-
-    // Validate required fields
-    $errors = array();
-    if (empty($name)) {
-        $errors[] = __('Name is required', 'bike-theme');
-    }
-    if (empty($email)) {
-        $errors[] = __('Email is required', 'bike-theme');
-    }
-    if (empty($phone)) {
-        $errors[] = __('Phone is required', 'bike-theme');
-    }
-    if (empty($date)) {
-        $errors[] = __('Date is required', 'bike-theme');
-    }
-    if ($participants < 1) {
-        $errors[] = __('Number of participants must be at least 1', 'bike-theme');
-    }
-    if (count($rider_names) < $participants) {
-        $errors[] = __('Please provide details for all riders', 'bike-theme');
-    }
-
-    // If no errors, create booking
-    if (empty($errors)) {
-        // Calculate total price
-        $price_per_person = bike_theme_get_tour_price($tour_id, $participants);
-        $total_price = $price_per_person * $participants;
-
-        // Create booking post
-        $booking_data = array(
-            'post_title'    => sprintf(__('Booking for %s - %s', 'bike-theme'), get_the_title($tour_id), $name),
-            'post_type'     => 'bike_booking',
-            'post_status'   => 'publish'
-        );
-
-        $booking_id = wp_insert_post($booking_data);
-
-        if ($booking_id) {
-            // Add booking meta data with correct field names
-            add_post_meta($booking_id, '_booking_tour_id', $tour_id);
-            add_post_meta($booking_id, '_booking_customer_name', $name);
-            add_post_meta($booking_id, '_booking_customer_email', $email);
-            add_post_meta($booking_id, '_booking_customer_phone', $phone);
-            add_post_meta($booking_id, '_booking_date', $date);
-            add_post_meta($booking_id, '_booking_participants', $participants);
-            add_post_meta($booking_id, '_booking_message', $message);
-            add_post_meta($booking_id, '_booking_price_per_person', $price_per_person);
-            add_post_meta($booking_id, '_booking_total_price', $total_price);
-            add_post_meta($booking_id, '_booking_status', 'pending');
-            add_post_meta($booking_id, '_booking_payment_status', 'pending');
-            add_post_meta($booking_id, '_booking_type', 'tour');
-            
-            // Save rider details
-            add_post_meta($booking_id, '_booking_rider_names', $rider_names);
-            add_post_meta($booking_id, '_booking_rider_genders', $rider_genders);
-            add_post_meta($booking_id, '_booking_rider_heights', $rider_heights);
-            add_post_meta($booking_id, '_booking_rider_is_children', $rider_is_children);
-
-            // Set booking status taxonomy
-            wp_set_object_terms($booking_id, 'pending', 'booking_status');
-
-            // Process selected additions if any
-            $selected_additions = isset($_POST['additions']) ? $_POST['additions'] : array();
-            $additions_data = array();
-
-            if (!empty($selected_additions) && is_array($selected_additions)) {
-                $tour_additions = bike_theme_get_tour_additions($tour_id);
-                foreach ($tour_additions as $addition) {
-                    if (in_array($addition['name'], $selected_additions)) {
-                        $additions_data[] = $addition;
-                    }
-                }
-
-                // Save additions data to the booking
-                add_post_meta($booking_id, '_booking_additions', $additions_data);
-
-                // Calculate additions total price
-                $additions_total = bike_theme_calculate_additions_price($tour_id, $selected_additions, $participants);
-
-                // Update total price to include additions
-                $total_price += $additions_total;
-                update_post_meta($booking_id, '_booking_total_price', $total_price);
-            }
-
-            // Send confirmation email to customer and admin
-            $booking_data = array(
-                'name' => $name,
-                'email' => $email,
-                'phone' => $phone,
-                'date' => $date,
-                'participants' => $participants,
-                'message' => $message,
-                'tour_id' => $tour_id,
-                'price_per_person' => $price_per_person,
-                'total_price' => $total_price,
-                'rider_names' => $rider_names,
-                'rider_genders' => $rider_genders,
-                'rider_heights' => $rider_heights,
-                'rider_is_children' => $rider_is_children
-            );
-
-            $emails_sent = bike_theme_send_booking_emails($booking_id, $booking_data);
-
-            // Set success message
-            $booking_success = true;
-        }
-    }
-}
 
 // Enqueue the tour single CSS
 
@@ -184,6 +82,9 @@ switch ($difficulty) {
 
 // Tab active state
 $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overview';
+
+// Add this before the form HTML
+$booking_nonce = wp_create_nonce('bike_tour_booking');
 ?>
 
 <main id="primary" class="site-main">
@@ -334,8 +235,7 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
             </div>
             <div class="modal-body">
                 <div class="booking-response"></div>
-                <form method="post">
-                    <?php wp_nonce_field('bike_tour_booking', 'bike_tour_booking_nonce'); ?>
+                <form method="post" class="ajax-form">
                     <input type="hidden" name="tour_id" value="<?php echo get_the_ID(); ?>">
                     <div class="row">
                         <div class="col-lg-7 bg-primary py-3 pl-2">
@@ -490,31 +390,16 @@ $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'overvie
 
 <script>
 jQuery(document).ready(function($) {
-    // Get tour pricing data
-    var pricingData = <?php
-        $flexible_pricing_enabled = get_post_meta(get_the_ID(), '_tour_flexible_pricing_enabled', true);
-    $pricing_data = array();
-
-    if ($flexible_pricing_enabled === '1') {
-        $pricing_data = get_post_meta(get_the_ID(), '_tour_flexible_pricing', true);
-        if (empty($pricing_data) || !is_array($pricing_data)) {
-            $pricing_data = array(
-                array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
-            );
-        }
-    } else {
-        $pricing_data = array(
-            array('participants' => 1, 'price' => get_post_meta(get_the_ID(), '_tour_price', true))
-        );
-    }
-    echo json_encode($pricing_data);
-    ?>;
-
+    // Format number with commas
     var formatNumber = function(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
+    // Get price per person based on participant count
     var getPricePerPerson = function(participants) {
+        // Get tour pricing data
+        var pricingData = window.bike_booking_pricing_data || [];
+        
         // Sort pricing data by number of participants (ascending)
         pricingData.sort(function(a, b) {
             return a.participants - b.participants;
@@ -536,9 +421,10 @@ jQuery(document).ready(function($) {
             applicablePrice = pricingData[0].price;
         }
         
-        return applicablePrice || <?php echo (int)get_post_meta(get_the_ID(), '_tour_price', true); ?>;
+        return applicablePrice || window.bike_booking_default_price || 0;
     }
 
+    // Update price summary based on selections
     var updatePriceSummary = function() {
         var participants = parseInt($('#participants').val());
         var pricePerPerson = getPricePerPerson(participants);
@@ -603,7 +489,7 @@ jQuery(document).ready(function($) {
     // Initial price update
     updatePriceSummary();
 
-     // Handle rider details based on participant count
+    // Handle rider details based on participant count
     var updateRiderDetails = function() {
         var participantCount = parseInt($('#participants').val());
         var $container = $('#rider-details-container');
@@ -687,7 +573,7 @@ jQuery(document).ready(function($) {
         }
     });
 
-    // Change from form submit to button click
+    // Handle form submission
     $('.submit-button').on('click', function(e) {
         e.preventDefault();
         
@@ -695,23 +581,33 @@ jQuery(document).ready(function($) {
         var $form = $button.closest('form');
         var $responseDiv = $('.booking-response');
 
+        // Check if already processing - prevent double submission
+        if ($button.data('processing') === true) {
+            console.log('Form submission already in progress');
+            return;
+        }
+        
+        // Set processing flag
+        $button.data('processing', true);
+
         // Validate form
         if (!$form[0].checkValidity()) {
             $form[0].reportValidity();
+            $button.data('processing', false);
             return;
         }
 
         // Disable button and show loading state
-        $button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ' + bike_booking.submitting_text);
+        $button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ' + 'Submitting...');
 
         // Get form data
         var formData = new FormData($form[0]);
         formData.append('action', 'bike_theme_process_booking');
-        formData.append('csrf_token', bike_booking.csrf_token);
+        formData.append('security', '<?php echo wp_create_nonce('bike_booking_nonce'); ?>');
 
         // Send Ajax request
         $.ajax({
-            url: bike_booking.ajax_url,
+            url: '<?php echo admin_url('admin-ajax.php'); ?>',
             type: 'POST',
             data: formData,
             processData: false,
@@ -734,8 +630,7 @@ jQuery(document).ready(function($) {
                         updateRiderDetails();
                     }
 
-                    // Refresh CSRF token
-                    bike_booking.csrf_token = response.data.new_csrf_token;
+                    // Refresh security token is handled automatically
 
                     // Scroll to response message
                     $('html, body').animate({
@@ -762,7 +657,7 @@ jQuery(document).ready(function($) {
             },
             error: function() {
                 // Show error message
-                $responseDiv.html('<div class="alert alert-danger">' + bike_booking.error_message + '</div>');
+                $responseDiv.html('<div class="alert alert-danger"><?php echo esc_js(__('An error occurred. Please try again.', 'bike-theme')); ?></div>');
                 
                 // Scroll to error message
                 $('html, body').animate({
@@ -771,19 +666,17 @@ jQuery(document).ready(function($) {
             },
             complete: function() {
                 // Re-enable button
-                $button.prop('disabled', false).text(bike_booking.submit_text);
+                $button.prop('disabled', false).text('<?php echo esc_js(__('Book Now', 'bike-theme')); ?>');
+                // Reset processing flag
+                $button.data('processing', false);
             }
         });
     });
-});
-</script>
-
-<script>
-jQuery(document).ready(function($) {
+    
+    // Tab navigation smooth scroll
     $('#tourTab .nav-link').click(function() {
         var $this = $(this);
         var target = $this.attr('data-bs-target');
-        console.log(target);
         window.scrollTo({
             top: $(target).offset().top - 100,
             behavior: 'smooth'
