@@ -407,7 +407,7 @@ jQuery(document).ready(function($) {
     var getPricePerPerson = function(participants) {
         // Get tour pricing data
         var pricingData = window.bike_booking_pricing_data || [];
-        console.log(pricingData);
+        
         // Sort pricing data by number of participants (descending)
         pricingData.sort(function(a, b) {
             return b.participants - a.participants;
