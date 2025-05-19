@@ -64,17 +64,17 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             <i class="fa fa-phone-alt text-white"></i>
                         </div>
                         <div class="ms-3">
-                            <p class="mb-0"><?php echo esc_html(get_theme_mod('bike_theme_phone', '+84985455727')); ?></p>
+                            <p class="mb-0"><a class="text-white" href="tel:<?php echo esc_attr(bike_theme_get_option('contact_phone', '+849854557270')); ?>"><?php echo esc_html(bike_theme_get_option('contact_phone', '+849854557270')); ?></a></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="d-flex mb-3">
                         <div class="flex-shrink-0 btn-square bg-primary rounded-circle">
-                            <i class="fa fa-whatsapp text-white"></i>
+                            <i class="fab fa-whatsapp text-white"></i>
                         </div>
                         <div class="ms-3">
-                            <p class="mb-0"><?php echo esc_html(get_theme_mod('bike_theme_phone', '+84985455727')); ?></p>
+                            <p class="mb-0"><a class="text-white" href="https://api.whatsapp.com/send/?phone=84985455727&text&type=phone_number&app_absent=0"><?php echo esc_html(bike_theme_get_option('whatsapp_phone', '+84985455727')); ?></a></p>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                             <i class="fa fa-envelope text-white"></i>
                         </div>
                         <div class="ms-3">
-                            <p class="mb-0"><?php echo esc_html(get_theme_mod('bike_theme_email', 'info@beebikehub.com')); ?></p>
+                        <p class="mb-0"><a class="text-white" href="mailto:<?php echo esc_attr(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?>"><?php echo esc_html(bike_theme_get_option('contact_email', 'info@beebikehub.com')); ?></a></p>
                         </div>
                     </div>
                 </div>
