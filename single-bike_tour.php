@@ -655,6 +655,8 @@ jQuery(document).ready(function($) {
                     $('html, body').animate({
                         scrollTop: $responseDiv.offset().top - 100
                     }, 500);
+
+                    window.location.href = '<?php echo home_url(); ?>/thank-you?booking_id=' + response.data.booking_id;
                 } else {
                     // Show error message
                     var errorHtml = '<div class="alert alert-danger"><ul class="mb-0">';
