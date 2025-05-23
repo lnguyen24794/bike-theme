@@ -345,6 +345,68 @@ function bike_theme_tour_details_meta_box_callback($post)
                                     ); 
                                     ?>
                                 </p>
+
+                                <!-- Timeline Items -->
+                                <div class="timeline-items-section">
+                                    <h4><?php esc_html_e('Timeline Items', 'bike-theme'); ?></h4>
+                                    <div class="timeline-items-container" data-day="<?php echo esc_attr($day_index); ?>">
+                                        <?php
+                                        if (!empty($day['timeline_items']) && is_array($day['timeline_items'])) {
+                                            foreach ($day['timeline_items'] as $item_index => $item) {
+                                                ?>
+                                                <div class="timeline-item">
+                                                    <div class="timeline-item-header">
+                                                        <h5><?php esc_html_e('Timeline Item', 'bike-theme'); ?> #<?php echo ($item_index + 1); ?></h5>
+                                                        <button type="button" class="button remove-timeline-item"><?php esc_html_e('Remove Item', 'bike-theme'); ?></button>
+                                                    </div>
+                                                    <div class="timeline-item-content">
+                                                        <p>
+                                                            <label><?php esc_html_e('Time/Title', 'bike-theme'); ?></label>
+                                                            <input type="text" name="tour_itinerary[<?php echo $day_index; ?>][timeline_items][<?php echo $item_index; ?>][title]" 
+                                                                   value="<?php echo esc_attr($item['title']); ?>" class="widefat">
+                                                        </p>
+                                                        <p>
+                                                            <label><?php esc_html_e('Content', 'bike-theme'); ?></label>
+                                                            <?php 
+                                                            wp_editor(
+                                                                $item['content'],
+                                                                'tour_itinerary_' . $day_index . '_timeline_' . $item_index,
+                                                                array(
+                                                                    'textarea_name' => "tour_itinerary[{$day_index}][timeline_items][{$item_index}][content]",
+                                                                    'media_buttons' => true,
+                                                                    'textarea_rows' => 4,
+                                                                    'teeny' => false,
+                                                                    'wpautop' => false,
+                                                                    'tinymce' => array(
+                                                                        'plugins' => 'charmap colorpicker compat3x directionality fullscreen hr image lists media paste tabfocus textcolor wordpress wpautoresize wpdialogs wpeditimage wpemoji wpgallery wplink wptextpattern wpview',
+                                                                        'toolbar1' => 'formatselect bold italic | bullist numlist | blockquote | alignleft aligncenter alignright | link unlink | wp_more | spellchecker'
+                                                                    ),
+                                                                    'quicktags' => true
+                                                                )
+                                                            ); 
+                                                            ?>
+                                                        </p>
+                                                        <p>
+                                                            <label><?php esc_html_e('Icon', 'bike-theme'); ?></label>
+                                                            <select name="tour_itinerary[<?php echo $day_index; ?>][timeline_items][<?php echo $item_index; ?>][icon]" class="widefat">
+                                                                <option value="bicycle" <?php selected($item['icon'], 'bicycle'); ?>><?php esc_html_e('Bicycle', 'bike-theme'); ?></option>
+                                                                <option value="car" <?php selected($item['icon'], 'car'); ?>><?php esc_html_e('Car', 'bike-theme'); ?></option>
+                                                                <option value="hotel" <?php selected($item['icon'], 'hotel'); ?>><?php esc_html_e('Hotel', 'bike-theme'); ?></option>
+                                                                <option value="utensils" <?php selected($item['icon'], 'utensils'); ?>><?php esc_html_e('Restaurant', 'bike-theme'); ?></option>
+                                                                <option value="camera" <?php selected($item['icon'], 'camera'); ?>><?php esc_html_e('Sightseeing', 'bike-theme'); ?></option>
+                                                            </select>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                    <button type="button" class="button add-timeline-item" data-day="<?php echo esc_attr($day_index); ?>">
+                                        <?php esc_html_e('Add Timeline Item', 'bike-theme'); ?>
+                                    </button>
+                                </div>
                                 
                                 <div class="day-details">
                                     <div class="detail-column">
@@ -478,6 +540,35 @@ function bike_theme_tour_details_meta_box_callback($post)
                 margin-left: 5px;
                 color: #666;
             }
+            .timeline-items-section {
+                margin: 20px 0;
+                padding: 15px;
+                background: #f8f8f8;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+            .timeline-item {
+                background: #fff;
+                border: 1px solid #e5e5e5;
+                margin-bottom: 15px;
+                padding: 15px;
+                border-radius: 4px;
+            }
+            .timeline-item-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+            .timeline-item-header h5 {
+                margin: 0;
+            }
+            .timeline-item-content {
+                padding: 10px;
+            }
+            .timeline-items-container {
+                margin-bottom: 15px;
+            }
         </style>
 
         <script>
@@ -590,6 +681,129 @@ function bike_theme_tour_details_meta_box_callback($post)
                             name = name.replace(/tour_itinerary\[\d+\]/, 'tour_itinerary[' + index + ']');
                             $(this).attr('name', name);
                         }
+                    });
+                });
+            }
+
+            // Add new timeline item
+            $(document).on('click', '.add-timeline-item', function() {
+                var dayIndex = $(this).data('day');
+                var container = $(this).siblings('.timeline-items-container');
+                var itemCount = container.children('.timeline-item').length;
+                var editorId = 'tour_itinerary_' + dayIndex + '_timeline_' + itemCount;
+                
+                var template = `
+                    <div class="timeline-item">
+                        <div class="timeline-item-header">
+                            <h5><?php esc_html_e('Timeline Item', 'bike-theme'); ?> #${itemCount + 1}</h5>
+                            <button type="button" class="button remove-timeline-item"><?php esc_html_e('Remove Item', 'bike-theme'); ?></button>
+                        </div>
+                        <div class="timeline-item-content">
+                            <p>
+                                <label><?php esc_html_e('Time/Title', 'bike-theme'); ?></label>
+                                <input type="text" name="tour_itinerary[${dayIndex}][timeline_items][${itemCount}][title]" class="widefat">
+                            </p>
+                            <p>
+                                <label><?php esc_html_e('Content', 'bike-theme'); ?></label>
+                                <div id="${editorId}_container"></div>
+                            </p>
+                            <p>
+                                <label><?php esc_html_e('Icon', 'bike-theme'); ?></label>
+                                <select name="tour_itinerary[${dayIndex}][timeline_items][${itemCount}][icon]" class="widefat">
+                                    <option value="bicycle"><?php esc_html_e('Bicycle', 'bike-theme'); ?></option>
+                                    <option value="car"><?php esc_html_e('Car', 'bike-theme'); ?></option>
+                                    <option value="hotel"><?php esc_html_e('Hotel', 'bike-theme'); ?></option>
+                                    <option value="utensils"><?php esc_html_e('Restaurant', 'bike-theme'); ?></option>
+                                    <option value="camera"><?php esc_html_e('Sightseeing', 'bike-theme'); ?></option>
+                                </select>
+                            </p>
+                        </div>
+                    </div>
+                `;
+                
+                container.append(template);
+
+                // Initialize WP Editor
+                wp.editor.initialize(editorId, {
+                    tinymce: {
+                        wpautop: false,
+                        plugins : 'charmap colorpicker compat3x directionality fullscreen hr image lists media paste tabfocus textcolor wordpress wpautoresize wpdialogs wpeditimage wpemoji wpgallery wplink wptextpattern wpview',
+                        toolbar1: 'formatselect bold italic | bullist numlist | blockquote | alignleft aligncenter alignright | link unlink | wp_more | spellchecker',
+                        setup: function (editor) {
+                            editor.on('change', function () {
+                                editor.save();
+                            });
+                        }
+                    },
+                    quicktags: true,
+                    mediaButtons: true,
+                    textarea_name: `tour_itinerary[${dayIndex}][timeline_items][${itemCount}][content]`
+                });
+            });
+
+            // Remove timeline item with proper cleanup
+            $(document).on('click', '.remove-timeline-item', function() {
+                if (confirm('<?php esc_html_e('Are you sure you want to remove this timeline item?', 'bike-theme'); ?>')) {
+                    var timelineItem = $(this).closest('.timeline-item');
+                    var editor = timelineItem.find('.wp-editor-area');
+                    if (editor.length) {
+                        var editorId = editor.attr('id');
+                        if (editorId) {
+                            wp.editor.remove(editorId);
+                        }
+                    }
+                    timelineItem.remove();
+                    reindexTimelineItems();
+                }
+            });
+
+            // Update reindexTimelineItems function to handle editors
+            function reindexTimelineItems() {
+                $('.timeline-items-container').each(function() {
+                    var dayIndex = $(this).data('day');
+                    $(this).find('.timeline-item').each(function(itemIndex) {
+                        var timelineItem = $(this);
+                        var oldEditorId = timelineItem.find('.wp-editor-area').attr('id');
+                        var newEditorId = 'tour_itinerary_' + dayIndex + '_timeline_' + itemIndex;
+
+                        // Update input names
+                        timelineItem.find('input, select').each(function() {
+                            var name = $(this).attr('name');
+                            if (name) {
+                                name = name.replace(/\[\d+\]\[timeline_items\]\[\d+\]/, '[' + dayIndex + '][timeline_items][' + itemIndex + ']');
+                                $(this).attr('name', name);
+                            }
+                        });
+
+                        // Update editor if exists
+                        if (oldEditorId && oldEditorId !== newEditorId) {
+                            var content = wp.editor.getContent(oldEditorId);
+                            wp.editor.remove(oldEditorId);
+                            
+                            var editorContainer = timelineItem.find('.wp-editor-wrap').parent();
+                            editorContainer.empty().attr('id', newEditorId + '_container');
+                            
+                            wp.editor.initialize(newEditorId, {
+                                tinymce: {
+                                    wpautop: false,
+                                    plugins : 'charmap colorpicker compat3x directionality fullscreen hr image lists media paste tabfocus textcolor wordpress wpautoresize wpdialogs wpeditimage wpemoji wpgallery wplink wptextpattern wpview',
+                                    toolbar1: 'formatselect bold italic | bullist numlist | blockquote | alignleft aligncenter alignright | link unlink | wp_more | spellchecker',
+                                    setup: function (editor) {
+                                        editor.on('change', function () {
+                                            editor.save();
+                                        });
+                                    }
+                                },
+                                quicktags: true,
+                                mediaButtons: true,
+                                textarea_name: `tour_itinerary[${dayIndex}][timeline_items][${itemIndex}][content]`
+                            });
+                            
+                            wp.editor.setContent(newEditorId, content);
+                        }
+
+                        // Update title number
+                        timelineItem.find('h5').text('<?php esc_html_e('Timeline Item', 'bike-theme'); ?> #' + (itemIndex + 1));
                     });
                 });
             }
@@ -1388,6 +1602,21 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
                     'distance' => isset($day_data['distance']) ? sanitize_text_field($day_data['distance']) : '',
                     'meals' => isset($day_data['meals']) ? $day_data['meals'] : array(),
                 );
+                
+                // Handle timeline items
+                if (isset($day_data['timeline_items']) && is_array($day_data['timeline_items'])) {
+                    $timeline_items = array();
+                    foreach ($day_data['timeline_items'] as $item) {
+                        if (!empty($item['title'])) {
+                            $timeline_items[] = array(
+                                'title' => sanitize_text_field($item['title']),
+                                'content' => wp_kses_post($item['content']),
+                                'icon' => sanitize_text_field($item['icon'])
+                            );
+                        }
+                    }
+                    $itinerary_data[$day_index]['timeline_items'] = $timeline_items;
+                }
                 
                 // Handle additional details if present
                 if (isset($day_data['additional_details']) && is_array($day_data['additional_details'])) {

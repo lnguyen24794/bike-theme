@@ -87,7 +87,7 @@
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 </div><!-- /.container-xxl -->
-<script>
+<!-- <script>
     let tourTab = document.getElementById('tourTab');
     if(tourTab){
         const top = $('#tourTab').offset().top - 50;
@@ -176,106 +176,106 @@
         var id = $(e.target).attr('aria-controls');
         window.location.hash = id;
     });
-});
+    });
 
-// Function to check if element or its parents are input/textarea
-function isInputElement(element) {
-    while (element) {
-        if (element.matches('input, textarea')) {
-            return true;
+    // Function to check if element or its parents are input/textarea
+    function isInputElement(element) {
+        while (element) {
+            if (element.matches('input, textarea')) {
+                return true;
+            }
+            element = element.parentElement;
         }
-        element = element.parentElement;
+        return false;
     }
-    return false;
-}
 
-// Add CSS to prevent text selection
-document.head.insertAdjacentHTML('beforeend', `
-    <style>
-        body :not(input):not(textarea) {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+    // Add CSS to prevent text selection
+    document.head.insertAdjacentHTML('beforeend', `
+        <style>
+            body :not(input):not(textarea) {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+        </style>
+    `);
+
+    // Disable right click on non-input elements
+    document.addEventListener('contextmenu', function(e) {
+        if (!isInputElement(e.target)) {
+            e.preventDefault();
+            return false;
         }
-    </style>
-`);
+    });
 
-// Disable right click on non-input elements
-document.addEventListener('contextmenu', function(e) {
-    if (!isInputElement(e.target)) {
-        e.preventDefault();
-        return false;
-    }
-});
+    // Disable copy on non-input elements
+    document.addEventListener('copy', function(e) {
+        if (!isInputElement(e.target)) {
+            e.preventDefault();
+            return false;
+        }
+    });
 
-// Disable copy on non-input elements
-document.addEventListener('copy', function(e) {
-    if (!isInputElement(e.target)) {
-        e.preventDefault();
-        return false;
-    }
-});
+    // Disable cut on non-input elements
+    document.addEventListener('cut', function(e) {
+        if (!isInputElement(e.target)) {
+            e.preventDefault();
+            return false;
+        }
+    });
 
-// Disable cut on non-input elements
-document.addEventListener('cut', function(e) {
-    if (!isInputElement(e.target)) {
-        e.preventDefault();
-        return false;
-    }
-});
+    // Disable paste on non-input elements
+    document.addEventListener('paste', function(e) {
+        if (!isInputElement(e.target)) {
+            e.preventDefault();
+            return false;
+        }
+    });
 
-// Disable paste on non-input elements
-document.addEventListener('paste', function(e) {
-    if (!isInputElement(e.target)) {
-        e.preventDefault();
-        return false;
-    }
-});
+    // Disable text selection on non-input elements
+    document.addEventListener('selectstart', function(e) {
+        if (!isInputElement(e.target)) {
+            e.preventDefault();
+            return false;
+        }
+    });
 
-// Disable text selection on non-input elements
-document.addEventListener('selectstart', function(e) {
-    if (!isInputElement(e.target)) {
-        e.preventDefault();
-        return false;
-    }
-});
+    // Disable drag on non-input elements
+    document.addEventListener('dragstart', function(e) {
+        if (!isInputElement(e.target)) {
+            e.preventDefault();
+            return false;
+        }
+    });
 
-// Disable drag on non-input elements
-document.addEventListener('dragstart', function(e) {
-    if (!isInputElement(e.target)) {
-        e.preventDefault();
-        return false;
-    }
-});
-
-// Disable inspect element
-document.addEventListener('keydown', function(e) {
-    // Disable F12
-    if(e.keyCode == 123) {
-        e.preventDefault();
-        return false;
-    }
-    
-    // Disable Ctrl+Shift+I
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        e.preventDefault();
-        return false;
-    }
-    
-    // Disable Ctrl+Shift+J
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        e.preventDefault();
-        return false;
-    }
-    
-    // Disable Ctrl+U
-    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        e.preventDefault();
-        return false;
-    }
-});
-</script>
+    // Disable inspect element
+    document.addEventListener('keydown', function(e) {
+        // Disable F12
+        if(e.keyCode == 123) {
+            e.preventDefault();
+            return false;
+        }
+        
+        // Disable Ctrl+Shift+I
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            e.preventDefault();
+            return false;
+        }
+        
+        // Disable Ctrl+Shift+J
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            e.preventDefault();
+            return false;
+        }
+        
+        // Disable Ctrl+U
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            e.preventDefault();
+            return false;
+        }
+    });
+</script> -->
 <?php wp_footer(); ?>
 
 </body>

@@ -27,10 +27,36 @@
                                     ); 
                                     ?>
                                 </h3>
-                                
                                 <div class="row">
                                     <div class="col-lg-8 wp-editor-content day-description content-formatted">
-                                        <?php echo wpautop(wp_kses_post($day['description'])); ?>
+                                        <div class="timeline">
+                                            <?php
+                                            if (!empty($day['timeline_items'])) {
+                                                foreach ($day['timeline_items'] as $item) {
+                                                    ?>
+                                                    <div class="timeline-item right">
+                                                        <div class="content shadow">
+                                                            <h2><?php echo esc_html($item['title']); ?></h2>
+                                                            <div class="wp-editor-content"><?php echo wp_kses_post($item['content']); ?></div>
+                                                        </div>
+                                                        <div class="timeline-icon">
+                                                            <i class="fas fa-<?php echo esc_attr($item['icon']); ?>"></i>
+                                                        </div>
+                                                    </div>
+                                                    <?php
+                                                }
+                                            } else {
+                                                // Fallback content if no timeline items
+                                                ?>
+                                                <div class="timeline-item right">
+                                                    <div class="content shadow">
+                                                        <div class="wp-editor-content"><?php echo wp_kses_post($day['description']); ?></div>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
                                     </div>
 
                                     <div class="col-lg-4 border-left">
@@ -123,3 +149,5 @@
         </div>
     </div>
 </div>
+
+
