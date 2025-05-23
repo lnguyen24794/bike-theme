@@ -369,19 +369,14 @@ function bike_theme_tour_details_meta_box_callback($post)
                                                             <label><?php esc_html_e('Content', 'bike-theme'); ?></label>
                                                             <?php 
                                                             wp_editor(
-                                                                $item['content'],
+                                                                wpautop($item['content']),
                                                                 'tour_itinerary_' . $day_index . '_timeline_' . $item_index,
                                                                 array(
                                                                     'textarea_name' => "tour_itinerary[{$day_index}][timeline_items][{$item_index}][content]",
                                                                     'media_buttons' => true,
                                                                     'textarea_rows' => 4,
-                                                                    'teeny' => false,
-                                                                    'wpautop' => false,
-                                                                    'tinymce' => array(
-                                                                        'plugins' => 'charmap colorpicker compat3x directionality fullscreen hr image lists media paste tabfocus textcolor wordpress wpautoresize wpdialogs wpeditimage wpemoji wpgallery wplink wptextpattern wpview',
-                                                                        'toolbar1' => 'formatselect bold italic | bullist numlist | blockquote | alignleft aligncenter alignright | link unlink | wp_more | spellchecker'
-                                                                    ),
-                                                                    'quicktags' => true
+                                                                    'teeny' => true,
+                                                                    'wpautop' => false
                                                                 )
                                                             ); 
                                                             ?>
@@ -690,7 +685,6 @@ function bike_theme_tour_details_meta_box_callback($post)
                 var dayIndex = $(this).data('day');
                 var container = $(this).siblings('.timeline-items-container');
                 var itemCount = container.children('.timeline-item').length;
-                var editorId = 'tour_itinerary_' + dayIndex + '_timeline_' + itemCount;
                 
                 var template = `
                     <div class="timeline-item">
@@ -705,7 +699,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                             </p>
                             <p>
                                 <label><?php esc_html_e('Content', 'bike-theme'); ?></label>
-                                <div id="${editorId}_container"></div>
+                                <textarea name="tour_itinerary[${dayIndex}][timeline_items][${itemCount}][content]" class="widefat" rows="4"></textarea>
                             </p>
                             <p>
                                 <label><?php esc_html_e('Icon', 'bike-theme'); ?></label>
@@ -722,88 +716,29 @@ function bike_theme_tour_details_meta_box_callback($post)
                 `;
                 
                 container.append(template);
-
-                // Initialize WP Editor
-                wp.editor.initialize(editorId, {
-                    tinymce: {
-                        wpautop: false,
-                        plugins : 'charmap colorpicker compat3x directionality fullscreen hr image lists media paste tabfocus textcolor wordpress wpautoresize wpdialogs wpeditimage wpemoji wpgallery wplink wptextpattern wpview',
-                        toolbar1: 'formatselect bold italic | bullist numlist | blockquote | alignleft aligncenter alignright | link unlink | wp_more | spellchecker',
-                        setup: function (editor) {
-                            editor.on('change', function () {
-                                editor.save();
-                            });
-                        }
-                    },
-                    quicktags: true,
-                    mediaButtons: true,
-                    textarea_name: `tour_itinerary[${dayIndex}][timeline_items][${itemCount}][content]`
-                });
             });
 
-            // Remove timeline item with proper cleanup
+            // Remove timeline item
             $(document).on('click', '.remove-timeline-item', function() {
                 if (confirm('<?php esc_html_e('Are you sure you want to remove this timeline item?', 'bike-theme'); ?>')) {
-                    var timelineItem = $(this).closest('.timeline-item');
-                    var editor = timelineItem.find('.wp-editor-area');
-                    if (editor.length) {
-                        var editorId = editor.attr('id');
-                        if (editorId) {
-                            wp.editor.remove(editorId);
-                        }
-                    }
-                    timelineItem.remove();
+                    $(this).closest('.timeline-item').remove();
                     reindexTimelineItems();
                 }
             });
 
-            // Update reindexTimelineItems function to handle editors
+            // Reindex timeline items
             function reindexTimelineItems() {
                 $('.timeline-items-container').each(function() {
                     var dayIndex = $(this).data('day');
                     $(this).find('.timeline-item').each(function(itemIndex) {
-                        var timelineItem = $(this);
-                        var oldEditorId = timelineItem.find('.wp-editor-area').attr('id');
-                        var newEditorId = 'tour_itinerary_' + dayIndex + '_timeline_' + itemIndex;
-
-                        // Update input names
-                        timelineItem.find('input, select').each(function() {
+                        $(this).find('input, textarea, select').each(function() {
                             var name = $(this).attr('name');
                             if (name) {
                                 name = name.replace(/\[\d+\]\[timeline_items\]\[\d+\]/, '[' + dayIndex + '][timeline_items][' + itemIndex + ']');
                                 $(this).attr('name', name);
                             }
                         });
-
-                        // Update editor if exists
-                        if (oldEditorId && oldEditorId !== newEditorId) {
-                            var content = wp.editor.getContent(oldEditorId);
-                            wp.editor.remove(oldEditorId);
-                            
-                            var editorContainer = timelineItem.find('.wp-editor-wrap').parent();
-                            editorContainer.empty().attr('id', newEditorId + '_container');
-                            
-                            wp.editor.initialize(newEditorId, {
-                                tinymce: {
-                                    wpautop: false,
-                                    plugins : 'charmap colorpicker compat3x directionality fullscreen hr image lists media paste tabfocus textcolor wordpress wpautoresize wpdialogs wpeditimage wpemoji wpgallery wplink wptextpattern wpview',
-                                    toolbar1: 'formatselect bold italic | bullist numlist | blockquote | alignleft aligncenter alignright | link unlink | wp_more | spellchecker',
-                                    setup: function (editor) {
-                                        editor.on('change', function () {
-                                            editor.save();
-                                        });
-                                    }
-                                },
-                                quicktags: true,
-                                mediaButtons: true,
-                                textarea_name: `tour_itinerary[${dayIndex}][timeline_items][${itemIndex}][content]`
-                            });
-                            
-                            wp.editor.setContent(newEditorId, content);
-                        }
-
-                        // Update title number
-                        timelineItem.find('h5').text('<?php esc_html_e('Timeline Item', 'bike-theme'); ?> #' + (itemIndex + 1));
+                        $(this).find('h5').text('<?php esc_html_e('Timeline Item', 'bike-theme'); ?> #' + (itemIndex + 1));
                     });
                 });
             }
