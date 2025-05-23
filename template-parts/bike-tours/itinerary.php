@@ -28,7 +28,7 @@
                                     ?>
                                 </h3>
                                 <div class="row">
-                                    <div class="col-lg-8 wp-editor-content day-description content-formatted">
+                                    <div class="col-lg-8 day-description content-formatted">
                                         <div class="timeline">
                                             <?php
                                             if (!empty($day['timeline_items'])) {
