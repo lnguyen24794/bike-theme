@@ -87,7 +87,7 @@
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 </div><!-- /.container-xxl -->
-<!-- <script>
+<script>
     let tourTab = document.getElementById('tourTab');
     if(tourTab){
         const top = $('#tourTab').offset().top - 50;
@@ -275,7 +275,7 @@
             return false;
         }
     });
-</script> -->
+</script>
 <?php wp_footer(); ?>
 
 </body>
