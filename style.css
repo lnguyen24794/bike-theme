@@ -583,7 +583,7 @@ z-index: 1;
 
 .timeline-icon {
     position: absolute;
-    top: 50%;
+    top: 65%;
     left: -20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     z-index: 1;
