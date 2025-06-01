@@ -8,7 +8,7 @@
         <div class="tour-itinerary mt-4 wp-editor-content">
             <?php
             $itinerary_data = get_post_meta($post->ID, '_tour_itinerary_data', true);
-            if (!empty($itinerary_data) && is_array($itinerary_data)) :
+        if (!empty($itinerary_data) && is_array($itinerary_data)) :
             ?>
                 <div class="itinerary-timeline">
                     <?php foreach ($itinerary_data as $day_index => $day) : ?>
@@ -19,43 +19,45 @@
                             
                             <div class="itinerary-day-content">
                                 <h3 class="day-title">
-                                    <?php 
+                                    <?php
                                     printf(
                                         esc_html__('Day %d: %s', 'bike-theme'),
                                         $day_index + 1,
                                         esc_html($day['title'])
-                                    ); 
-                                    ?>
+                                    );
+                        ?>
                                 </h3>
                                 <div class="row">
                                     <div class="col-lg-8 day-description content-formatted">
                                         <div class="timeline">
                                             <?php
-                                            if (!empty($day['timeline_items'])) {
-                                                foreach ($day['timeline_items'] as $item) {
-                                                    ?>
+                                if (!empty($day['timeline_items'])) {
+                                    foreach ($day['timeline_items'] as $key => $item) {
+                                        ?>
                                                     <div class="timeline-item right">
                                                         <div class="content shadow">
                                                             <h2><?php echo esc_html($item['title']); ?></h2>
                                                             <div class="wp-editor-content"><?php echo wp_kses_post($item['content']); ?></div>
                                                         </div>
+                                                        <?php if($key !== count($day['timeline_items']) - 1) : ?>
                                                         <div class="timeline-icon">
                                                             <i class="fas fa-<?php echo esc_attr($item['icon']); ?>"></i>
                                                         </div>
+                                                        <?php endif; ?>
                                                     </div>
                                                     <?php
-                                                }
-                                            } else {
-                                                // Fallback content if no timeline items
-                                                ?>
+                                    }
+                                } else {
+                                    // Fallback content if no timeline items
+                                    ?>
                                                 <div class="timeline-item right">
                                                     <div class="content shadow">
                                                         <div class="wp-editor-content"><?php echo wp_kses_post($day['description']); ?></div>
                                                     </div>
                                                 </div>
                                                 <?php
-                                            }
-                                            ?>
+                                }
+                        ?>
                                         </div>
                                     </div>
 
@@ -83,25 +85,25 @@
                                                             <h5><?php esc_html_e('Meals Provided', 'bike-theme'); ?></h5>
                                                             <div class="meals-included wp-editor-content">
                                                                 <?php
-                                                                $meals_included = array();
-                                                                $meal_icons = array(
-                                                                    'breakfast' => '<i class="fas fa-coffee"></i>',
-                                                                    'lunch' => '<i class="fas fa-hamburger"></i>',
-                                                                    'dinner' => '<i class="fas fa-utensils"></i>'
-                                                                );
-                                                                
-                                                                foreach ($day['meals'] as $meal => $included) {
-                                                                    if ($included) {
-                                                                        $icon = isset($meal_icons[$meal]) ? $meal_icons[$meal] : '';
-                                                                        $meals_included[] = sprintf(
-                                                                            '<span class="meal-item">%s %s</span>',
-                                                                            $icon,
-                                                                            ucfirst($meal)
-                                                                        );
-                                                                    }
-                                                                }
-                                                                echo wp_kses_post(implode(' ', $meals_included));
-                                                                ?>
+                                            $meals_included = array();
+                                                    $meal_icons = array(
+                                                        'breakfast' => '<i class="fas fa-coffee"></i>',
+                                                        'lunch' => '<i class="fas fa-hamburger"></i>',
+                                                        'dinner' => '<i class="fas fa-utensils"></i>'
+                                                    );
+
+                                                    foreach ($day['meals'] as $meal => $included) {
+                                                        if ($included) {
+                                                            $icon = isset($meal_icons[$meal]) ? $meal_icons[$meal] : '';
+                                                            $meals_included[] = sprintf(
+                                                                '<span class="meal-item">%s %s</span>',
+                                                                $icon,
+                                                                ucfirst($meal)
+                                                            );
+                                                        }
+                                                    }
+                                                    echo wp_kses_post(implode(' ', $meals_included));
+                                                    ?>
                                                             </div>
                                                         </div>
                                                     </div>
