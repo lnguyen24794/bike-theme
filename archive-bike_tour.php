@@ -29,7 +29,7 @@ wp_enqueue_style('bike-theme-tour-archive', get_template_directory_uri() . '/ass
     <!-- Page Header End -->
     <div class="container-xxl py-5 pb-0">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 wp-editor-content">
                 <?php the_content(); ?>
             </div>
         </div>

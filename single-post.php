@@ -27,7 +27,7 @@ get_header();
 <!-- Page Header End -->
 <div class="container pb-0">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 wp-editor-content">
             <?php the_content(); ?>
         </div>
     </div>

@@ -20,7 +20,7 @@ if (empty($why_choose_us_content)) {
             <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('Why Choose Us', 'bike-theme'); ?></h3>
         </div>
         
-        <div class="bike-tour-content">
+        <div class="bike-tour-content wp-editor-content">
             <?php echo wp_kses_post($why_choose_us_content); ?>
         </div>
     </div>

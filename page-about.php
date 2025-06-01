@@ -31,7 +31,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h3 class="section-title text-center text-primary text-uppercase"><?php esc_html_e('About Us', 'bike-theme'); ?></h3>
             <h1 class="mb-4"><?php echo wp_kses_post(__('Welcome to <span class="text-primary">BeeBikeHub</span>', 'bike-theme')); ?></h1>
-            <div><?php the_content(); ?></div>
+            <div clas="wp-editor-content"><?php the_content(); ?></div>
             <a class="btn btn-primary py-3 px-5 mt-2" href="/contact"><?php esc_html_e('Contact Us', 'bike-theme'); ?></a>
         </div>
     </div>

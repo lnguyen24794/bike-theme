@@ -25,7 +25,7 @@ get_header();
         <?php include(get_template_directory() . '/template-parts/bike/bike-slider.php'); ?>
         <div class="container-xxl mt-3">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 wp-editor-content">
                    <?php the_content(); ?>
                 </div>
             </div>

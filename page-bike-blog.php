@@ -27,7 +27,7 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
     <div class="container-fluid p-0">
         <div class="container-xxl pb-0">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 wp-editor-content">
                     <?php the_content(); ?>
                 </div>
             </div>
