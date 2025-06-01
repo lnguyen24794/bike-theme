@@ -41,25 +41,25 @@ $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                     <form id="contact-form" action="" method="post">
                         <?php wp_nonce_field('bike_theme_contact_nonce', 'contact_nonce'); ?>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="name" name="name" placeholder="<?php esc_attr_e('Your Name', 'bike-theme'); ?>" required>
                                     <label for="name"><?php esc_html_e('Your Name', 'bike-theme'); ?></label>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-floating">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="<?php esc_attr_e('Your Email', 'bike-theme'); ?>" required>
                                     <label for="email"><?php esc_html_e('Your Email', 'bike-theme'); ?></label>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 mb-3">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="subject" name="subject" placeholder="<?php esc_attr_e('Subject', 'bike-theme'); ?>" required>
                                     <label for="subject"><?php esc_html_e('Subject', 'bike-theme'); ?></label>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 mb-3">
                                 <div class="form-floating">
                                     <textarea class="form-control" placeholder="<?php esc_attr_e('Leave a message here', 'bike-theme'); ?>" id="message" name="message" style="height: 150px" required></textarea>
                                     <label for="message"><?php esc_html_e('Message', 'bike-theme'); ?></label>
