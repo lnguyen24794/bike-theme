@@ -39,7 +39,6 @@
                                                             <h2><?php echo esc_html($item['title']); ?></h2>
                                                             <div class="wp-editor-content"><?php echo wp_kses_post($item['content']); ?></div>
                                                         </div>
-                                                        <?php if($key !== count($day['timeline_items']) - 1) : ?>
                                                         <div class="timeline-icon">
                                                             <i class="fas fa-<?php if($key ===  count($day['timeline_items']) - 1) {
                                                                 echo 'map-marker-alt';
@@ -47,19 +46,18 @@
                                                                 echo esc_attr($item['icon']);
                                                             } ?>"></i>
                                                         </div>
-                                                        <?php endif; ?>
                                                     </div>
                                                     <?php
                                                 }
                                             } else {
                                                 // Fallback content if no timeline items
                                                 ?>
-                                                            <div class="timeline-item right">
-                                                                <div class="content shadow">
-                                                                    <div class="wp-editor-content"><?php echo wp_kses_post($day['description']); ?></div>
-                                                                </div>
-                                                            </div>
-                                                            <?php
+                                                <div class="timeline-item right">
+                                                    <div class="content shadow">
+                                                        <div class="wp-editor-content"><?php echo wp_kses_post($day['description']); ?></div>
+                                                    </div>
+                                                </div>
+                                                <?php
                                             }
                         ?>
                                         </div>
