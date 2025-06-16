@@ -32,22 +32,19 @@
                                         <div class="timeline">
                                             <?php
                                             if (!empty($day['timeline_items'])) {
-                                                foreach ($day['timeline_items'] as $key => $item) {
-                                                    ?>
+                                                foreach ($day['timeline_items'] as $key => $item) { ?>
                                                     <div class="timeline-item right">
                                                         <div class="content shadow">
                                                             <h2><?php echo esc_html($item['title']); ?></h2>
                                                             <div class="wp-editor-content"><?php echo wp_kses_post($item['content']); ?></div>
                                                         </div>
+                                                        <?php if($key !== count($day['timeline_items']) - 1) : ?>
                                                         <div class="timeline-icon">
-                                                            <i class="fas fa-<?php if($key ===  count($day['timeline_items']) - 1) {
-                                                                echo 'map-marker-alt';
-                                                            } else {
-                                                                echo esc_attr($item['icon']);
-                                                            } ?>"></i>
+                                                            <i class="fas fa-<?php echo esc_attr($item['icon']); ?>"></i>
                                                         </div>
+                                                        <?php endif; ?>
                                                     </div>
-                                                    <?php
+                                            <?php
                                                 }
                                             } else {
                                                 // Fallback content if no timeline items
@@ -59,7 +56,7 @@
                                                 </div>
                                                 <?php
                                             }
-                        ?>
+                                            ?>
                                         </div>
                                     </div>
 
@@ -87,7 +84,7 @@
                                                             <h5><?php esc_html_e('Meals Provided', 'bike-theme'); ?></h5>
                                                             <div class="meals-included wp-editor-content">
                                                                 <?php
-                        $meals_included = array();
+                                            $meals_included = array();
                                                     $meal_icons = array(
                                                         'breakfast' => '<i class="fas fa-coffee"></i>',
                                                         'lunch' => '<i class="fas fa-hamburger"></i>',
