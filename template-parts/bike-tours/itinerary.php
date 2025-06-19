@@ -13,10 +13,6 @@
                 <div class="itinerary-timeline">
                     <?php foreach ($itinerary_data as $day_index => $day) : ?>
                         <div class="itinerary-day-container">
-                            <div class="timeline-marker">
-                                <div class="day-number"><?php echo esc_html($day['title'] ? $day['title'] : $day_index + 1); ?></div>
-                            </div>
-                            
                             <div class="itinerary-day-content">
                                 <h3 class="day-title">
                                     <?php
@@ -31,8 +27,8 @@
                                     <div class="col-lg-8 day-description content-formatted">
                                         <div class="timeline">
                                             <?php
-                                            if (!empty($day['timeline_items'])) {
-                                                foreach ($day['timeline_items'] as $key => $item) { ?>
+                                    if (!empty($day['timeline_items'])) {
+                                        foreach ($day['timeline_items'] as $key => $item) { ?>
                                                     <div class="timeline-item right">
                                                         <div class="content shadow">
                                                             <h2><?php echo esc_html($item['title']); ?></h2>
@@ -45,17 +41,17 @@
                                                         <?php endif; ?>
                                                     </div>
                                             <?php
-                                                }
-                                            } else {
-                                                // Fallback content if no timeline items
-                                                ?>
+                                        }
+                                    } else {
+                                        // Fallback content if no timeline items
+                                        ?>
                                                 <div class="timeline-item right">
                                                     <div class="content shadow">
                                                         <div class="wp-editor-content"><?php echo wp_kses_post($day['description']); ?></div>
                                                     </div>
                                                 </div>
                                                 <?php
-                                            }
+                                    }
                         ?>
                                         </div>
                                     </div>
