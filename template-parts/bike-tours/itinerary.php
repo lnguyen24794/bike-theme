@@ -18,7 +18,6 @@
                                     <?php
                                     printf(
                                         esc_html__('Day %d: %s', 'bike-theme'),
-                                        $day_index + 1,
                                         esc_html($day['title'])
                                     );
                         ?>
