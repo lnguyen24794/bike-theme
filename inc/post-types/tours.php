@@ -186,13 +186,11 @@ function bike_theme_tour_details_meta_box_callback($post)
     $tour_duration_days = get_post_meta($post->ID, '_tour_duration_days', true);
     $tour_duration_nights = get_post_meta($post->ID, '_tour_duration_nights', true);
     $tour_duration_hours = get_post_meta($post->ID, '_tour_duration_hours', true);
-    $tour_duration_display = get_post_meta($post->ID, '_tour_duration_display', true);
     $tour_distance = get_post_meta($post->ID, '_tour_distance', true);
     $tour_difficulty = get_post_meta($post->ID, '_tour_difficulty', true);
     $tour_max_participants = get_post_meta($post->ID, '_tour_max_participants', true);
     $tour_start_location = get_post_meta($post->ID, '_tour_start_location', true);
     $tour_end_location = get_post_meta($post->ID, '_tour_end_location', true);
-    $tour_highlights = get_post_meta($post->ID, '_tour_highlights', true);
     $tour_included = get_post_meta($post->ID, '_tour_included', true);
     $tour_not_included = get_post_meta($post->ID, '_tour_not_included', true);
     $tour_itinerary_data = get_post_meta($post->ID, '_tour_itinerary_data', true);
@@ -317,7 +315,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                         ?>
                         <div class="itinerary-day" data-day="<?php echo esc_attr($day_index); ?>">
                             <div class="day-header">
-                                <h4><?php printf(esc_html__('Day %d', 'bike-theme'), $day_index + 1); ?></h4>
+                                <h4 class="day-title-header"><?php echo !empty($day['title']) ? esc_html($day['title']) : sprintf(esc_html__('Day %d', 'bike-theme'), $day_index + 1); ?></h4>
                                 <button type="button" class="button remove-day"><?php esc_html_e('Remove Day', 'bike-theme'); ?></button>
                             </div>
                             
@@ -325,25 +323,26 @@ function bike_theme_tour_details_meta_box_callback($post)
                                 <p>
                                     <label><?php esc_html_e('Day Title', 'bike-theme'); ?></label>
                                     <input type="text" name="tour_itinerary[<?php echo $day_index; ?>][title]" 
-                                           value="<?php echo esc_attr($day['title']); ?>" class="widefat">
+                                           value="<?php echo esc_attr($day['title']); ?>" class="widefat day-title-input" 
+                                           placeholder="<?php printf(esc_attr__('Day %d', 'bike-theme'), $day_index + 1); ?>">
                                 </p>
                                 
                                 <p>
                                     <label><?php esc_html_e('Description', 'bike-theme'); ?></label>
-                                    <?php 
+                                    <?php
                                     wp_editor(
                                         wpautop($day['description']),
                                         'tour_itinerary_' . $day_index . '_description',
                                         array(
-                                            'textarea_name' => 'tour_itinerary[' . $day_index . '][description]',
-                                            'media_buttons' => true,
-                                            'textarea_rows' => 5,
-                                            'editor_class' => 'widefat',
-                                            'teeny' => true,
-                                            'wpautop' => false
-                                        )
-                                    ); 
-                                    ?>
+                                                                                                                                                                    'textarea_name' => 'tour_itinerary[' . $day_index . '][description]',
+                                                                                                                                                                    'media_buttons' => true,
+                                                                                                                                                                    'textarea_rows' => 5,
+                                                                                                                                                                    'editor_class' => 'widefat',
+                                                                                                                                                                    'teeny' => true,
+                                                                                                                                                                    'wpautop' => false
+                                                                                                                                                                )
+                                    );
+                        ?>
                                 </p>
 
                                 <!-- Timeline Items -->
@@ -351,12 +350,12 @@ function bike_theme_tour_details_meta_box_callback($post)
                                     <h4><?php esc_html_e('Timeline Items', 'bike-theme'); ?></h4>
                                     <div class="timeline-items-container" data-day="<?php echo esc_attr($day_index); ?>">
                                         <?php
-                                        if (!empty($day['timeline_items']) && is_array($day['timeline_items'])) {
-                                            foreach ($day['timeline_items'] as $item_index => $item) {
-                                                ?>
+                            if (!empty($day['timeline_items']) && is_array($day['timeline_items'])) {
+                                foreach ($day['timeline_items'] as $item_index => $item) {
+                                    ?>
                                                 <div class="timeline-item">
                                                     <div class="timeline-item-header">
-                                                        <h5><?php esc_html_e('Timeline Item', 'bike-theme'); ?> #<?php echo ($item_index + 1); ?></h5>
+                                                        <h5><?php esc_html_e('Timeline Item', 'bike-theme'); ?> #<?php echo($item_index + 1); ?></h5>
                                                         <button type="button" class="button remove-timeline-item"><?php esc_html_e('Remove Item', 'bike-theme'); ?></button>
                                                     </div>
                                                     <div class="timeline-item-content">
@@ -367,19 +366,19 @@ function bike_theme_tour_details_meta_box_callback($post)
                                                         </p>
                                                         <p>
                                                             <label><?php esc_html_e('Content', 'bike-theme'); ?></label>
-                                                            <?php 
-                                                            wp_editor(
-                                                                wpautop($item['content']),
-                                                                'tour_itinerary_' . $day_index . '_timeline_' . $item_index,
-                                                                array(
-                                                                    'textarea_name' => "tour_itinerary[{$day_index}][timeline_items][{$item_index}][content]",
-                                                                    'media_buttons' => true,
-                                                                    'textarea_rows' => 4,
-                                                                    'teeny' => true,
-                                                                    'wpautop' => false
-                                                                )
-                                                            ); 
-                                                            ?>
+                                                            <?php
+                                                wp_editor(
+                                                    wpautop($item['content']),
+                                                    'tour_itinerary_' . $day_index . '_timeline_' . $item_index,
+                                                    array(
+                                                                                                                                                                                'textarea_name' => "tour_itinerary[{$day_index}][timeline_items][{$item_index}][content]",
+                                                                                                                                                                                'media_buttons' => true,
+                                                                                                                                                                                'textarea_rows' => 4,
+                                                                                                                                                                                'teeny' => true,
+                                                                                                                                                                                'wpautop' => false
+                                                                                                                                                                            )
+                                                );
+                                    ?>
                                                         </p>
                                                         <p>
                                                             <label><?php esc_html_e('Icon', 'bike-theme'); ?></label>
@@ -394,9 +393,9 @@ function bike_theme_tour_details_meta_box_callback($post)
                                                     </div>
                                                 </div>
                                                 <?php
-                                            }
-                                        }
-                                        ?>
+                                }
+                            }
+                        ?>
                                     </div>
                                     <button type="button" class="button add-timeline-item" data-day="<?php echo esc_attr($day_index); ?>">
                                         <?php esc_html_e('Add Timeline Item', 'bike-theme'); ?>
@@ -414,10 +413,10 @@ function bike_theme_tour_details_meta_box_callback($post)
                                         <h5><?php esc_html_e('Meals', 'bike-theme'); ?></h5>
                                         <div class="meals-checkboxes">
                                             <?php
-                                            $meals = array('breakfast', 'lunch', 'dinner');
-                                            foreach ($meals as $meal) {
-                                                $checked = isset($day['meals'][$meal]) ? $day['meals'][$meal] : false;
-                                                ?>
+                            $meals = array('breakfast', 'lunch', 'dinner');
+                        foreach ($meals as $meal) {
+                            $checked = isset($day['meals'][$meal]) ? $day['meals'][$meal] : false;
+                            ?>
                                                 <label>
                                                     <input type="checkbox" 
                                                            name="tour_itinerary[<?php echo $day_index; ?>][meals][<?php echo $meal; ?>]" 
@@ -426,8 +425,8 @@ function bike_theme_tour_details_meta_box_callback($post)
                                                     <?php echo esc_html(ucfirst($meal)); ?>
                                                 </label>
                                                 <?php
-                                            }
-                                            ?>
+                        }
+                        ?>
                                         </div>
                                     </div>
                                     
@@ -457,7 +456,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                                                 <?php
                                             }
                                         }
-                                        ?>
+                        ?>
                                     </div>
                                     <button type="button" class="button add-detail" data-day="<?php echo esc_attr($day_index); ?>">
                                         <?php esc_html_e('Add Detail', 'bike-theme'); ?>
@@ -468,7 +467,7 @@ function bike_theme_tour_details_meta_box_callback($post)
                         <?php
                     }
                 }
-                ?>
+    ?>
             </div>
             
             <p>
@@ -574,14 +573,14 @@ function bike_theme_tour_details_meta_box_callback($post)
                 var template = `
                     <div class="itinerary-day" data-day="${dayCount}">
                         <div class="day-header">
-                            <h4><?php esc_html_e('Day', 'bike-theme'); ?> ${dayCount + 1}</h4>
+                            <h4 class="day-title-header"><?php esc_html_e('Day', 'bike-theme'); ?> ${dayCount + 1}</h4>
                             <button type="button" class="button remove-day"><?php esc_html_e('Remove Day', 'bike-theme'); ?></button>
                         </div>
                         
                         <div class="day-content">
                             <p>
                                 <label><?php esc_html_e('Day Title', 'bike-theme'); ?></label>
-                                <input type="text" name="tour_itinerary[${dayCount}][title]" class="widefat">
+                                <input type="text" name="tour_itinerary[${dayCount}][title]" class="widefat day-title-input" placeholder="<?php esc_html_e('Day', 'bike-theme'); ?> ${dayCount + 1}">
                             </p>
                             
                             <p>
@@ -599,16 +598,16 @@ function bike_theme_tour_details_meta_box_callback($post)
                                     <h5><?php esc_html_e('Meals', 'bike-theme'); ?></h5>
                                     <div class="meals-checkboxes">
                                         <?php
-                                        $meals = array('breakfast', 'lunch', 'dinner');
-                                        foreach ($meals as $meal) {
-                                            ?>
+                            $meals = array('breakfast', 'lunch', 'dinner');
+    foreach ($meals as $meal) {
+        ?>
                                             <label>
                                                 <input type="checkbox" name="tour_itinerary[${dayCount}][meals][<?php echo $meal; ?>]" value="1">
                                                 <?php echo esc_html(ucfirst($meal)); ?>
                                             </label>
                                             <?php
-                                        }
-                                        ?>
+    }
+    ?>
                                     </div>
                                 </div>
                                 
@@ -631,6 +630,9 @@ function bike_theme_tour_details_meta_box_callback($post)
                 `;
                 
                 $('#itinerary-days-container').append(template);
+                
+                // Focus on the title input for the new day
+                $('#itinerary-days-container .itinerary-day:last .day-title-input').focus();
             });
 
             // Remove day
@@ -662,12 +664,33 @@ function bike_theme_tour_details_meta_box_callback($post)
                 $(this).closest('.detail-item').remove();
             });
 
+            // Update day title header when input changes
+            $(document).on('input', '.day-title-input', function() {
+                var title = $(this).val();
+                var dayContainer = $(this).closest('.itinerary-day');
+                var dayIndex = dayContainer.attr('data-day');
+                var header = dayContainer.find('.day-title-header');
+                
+                if (title.trim() !== '') {
+                    header.text(title);
+                } else {
+                    header.text('<?php esc_html_e('Day', 'bike-theme'); ?> ' + (parseInt(dayIndex) + 1));
+                }
+            });
+
             // Reindex days after removal
             function reindexDays() {
                 $('.itinerary-day').each(function(index) {
                     var day = $(this);
                     day.attr('data-day', index);
-                    day.find('h4').text('<?php esc_html_e('Day', 'bike-theme'); ?> ' + (index + 1));
+                    
+                    // Update header if no custom title
+                    var titleInput = day.find('.day-title-input');
+                    var header = day.find('.day-title-header');
+                    if (titleInput.val().trim() === '') {
+                        header.text('<?php esc_html_e('Day', 'bike-theme'); ?> ' + (index + 1));
+                        titleInput.attr('placeholder', '<?php esc_html_e('Day', 'bike-theme'); ?> ' + (index + 1));
+                    }
                     
                     // Update all input names
                     day.find('input, textarea').each(function() {
@@ -748,7 +771,7 @@ function bike_theme_tour_details_meta_box_callback($post)
         <h3><?php esc_html_e('Services', 'bike-theme'); ?></h3>
         <p>
             <label for="tour_included"><?php esc_html_e('What\'s Included', 'bike-theme'); ?></label>
-            <?php 
+            <?php
             wp_editor(wpautop($tour_included), 'tour_included', array(
                 'textarea_name' => 'tour_included',
                 'media_buttons' => true,
@@ -756,78 +779,78 @@ function bike_theme_tour_details_meta_box_callback($post)
                 'editor_class' => 'widefat',
                 'teeny' => true,
                 'wpautop' => false
-            )); 
-            ?>
+            ));
+    ?>
         </p>
         <p>
             <label for="tour_not_included"><?php esc_html_e('What\'s Not Included', 'bike-theme'); ?></label>
-            <?php 
-            wp_editor(wpautop($tour_not_included), 'tour_not_included', array(
-                'textarea_name' => 'tour_not_included',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true,    
-                'wpautop' => false
-            )); 
-            ?>
+            <?php
+    wp_editor(wpautop($tour_not_included), 'tour_not_included', array(
+        'textarea_name' => 'tour_not_included',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true,
+        'wpautop' => false
+    ));
+    ?>
         </p>
         
         <h3><?php esc_html_e('Booking & Cancellation', 'bike-theme'); ?></h3>
         <p>
             <label for="tour_booking_terms"><?php esc_html_e('Booking Terms', 'bike-theme'); ?></label>
-            <?php 
-            wp_editor($tour_booking_terms, 'tour_booking_terms', array(
-                'textarea_name' => 'tour_booking_terms',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true
-            )); 
-            ?>
+            <?php
+    wp_editor($tour_booking_terms, 'tour_booking_terms', array(
+        'textarea_name' => 'tour_booking_terms',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true
+    ));
+    ?>
         </p>
         <p>
             <label for="tour_cancellation_policy"><?php esc_html_e('Cancellation Policy', 'bike-theme'); ?></label>
-            <?php 
-            wp_editor(wpautop($tour_cancellation_policy), 'tour_cancellation_policy', array(
-                'textarea_name' => 'tour_cancellation_policy',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true,
-                'wpautop' => false
-            )); 
-            ?>
+            <?php
+    wp_editor(wpautop($tour_cancellation_policy), 'tour_cancellation_policy', array(
+        'textarea_name' => 'tour_cancellation_policy',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true,
+        'wpautop' => false
+    ));
+    ?>
         </p>
         
         <h3><?php esc_html_e('Contact Information', 'bike-theme'); ?></h3>
         <p>
             <label for="tour_contact_info"><?php esc_html_e('Contact Information for Booking', 'bike-theme'); ?></label>
-            <?php 
-            wp_editor(wpautop($tour_contact_info), 'tour_contact_info', array(
-                'textarea_name' => 'tour_contact_info',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true,
-                'wpautop' => false
-            )); 
-            ?>
+            <?php
+    wp_editor(wpautop($tour_contact_info), 'tour_contact_info', array(
+        'textarea_name' => 'tour_contact_info',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true,
+        'wpautop' => false
+    ));
+    ?>
         </p>
 
         <h3><?php esc_html_e('Price Information', 'bike-theme'); ?></h3>
         <p>
             <label for="tour_price_info"><?php esc_html_e('Price Information', 'bike-theme'); ?></label>
-            <?php 
-            wp_editor(wpautop($tour_price_info), 'tour_price_info', array(
-                'textarea_name' => 'tour_price_info',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true,
-                'wpautop' => false
-            )); 
-            ?>
+            <?php
+    wp_editor(wpautop($tour_price_info), 'tour_price_info', array(
+        'textarea_name' => 'tour_price_info',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true,
+        'wpautop' => false
+    ));
+    ?>
         </p>
 
         <h3><?php esc_html_e('Reviews', 'bike-theme'); ?></h3>
@@ -835,21 +858,21 @@ function bike_theme_tour_details_meta_box_callback($post)
             <input type="hidden" id="tour_review" name="tour_review" value="<?php echo esc_attr(implode(',', (array)get_post_meta($post->ID, '_tour_review', true))); ?>">
             <div id="tour_review_preview" class="tour-review-preview">
                 <?php
-                $review_ids = get_post_meta($post->ID, '_tour_review', true);
-                if (!empty($review_ids) && is_array($review_ids)) {
-                    foreach ($review_ids as $image_id) {
-                        if ($image_id) {
-                            $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
-                            if ($image_url) {
-                                echo '<div class="review-image-item" data-id="' . esc_attr($image_id) . '">';
-                                echo '<img src="' . esc_url($image_url) . '" alt="">';
-                                echo '<button type="button" class="remove-review-image dashicons dashicons-no-alt"></button>';
-                                echo '</div>';
-                            }
-                        }
-                    }
+        $review_ids = get_post_meta($post->ID, '_tour_review', true);
+    if (!empty($review_ids) && is_array($review_ids)) {
+        foreach ($review_ids as $image_id) {
+            if ($image_id) {
+                $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+                if ($image_url) {
+                    echo '<div class="review-image-item" data-id="' . esc_attr($image_id) . '">';
+                    echo '<img src="' . esc_url($image_url) . '" alt="">';
+                    echo '<button type="button" class="remove-review-image dashicons dashicons-no-alt"></button>';
+                    echo '</div>';
                 }
-                ?>
+            }
+        }
+    }
+    ?>
             </div>
             <p>
                 <button type="button" class="button add-review-images"><?php esc_html_e('Add Reviews', 'bike-theme'); ?></button>
@@ -980,16 +1003,16 @@ function bike_theme_tour_details_meta_box_callback($post)
         <h3><?php esc_html_e('Review Information', 'bike-theme'); ?></h3>
         <p>
             <label for="tour_review_info"><?php esc_html_e('Review Information', 'bike-theme'); ?></label>
-            <?php 
+            <?php
             wp_editor(wpautop($tour_review_info), 'tour_review_info', array(
-                'textarea_name' => 'tour_review_info',
-                'media_buttons' => true,
-                'textarea_rows' => 5,
-                'editor_class' => 'widefat',
-                'teeny' => true,
-                'wpautop' => false
-            )); 
-            ?>
+    'textarea_name' => 'tour_review_info',
+    'media_buttons' => true,
+    'textarea_rows' => 5,
+    'editor_class' => 'widefat',
+    'teeny' => true,
+    'wpautop' => false
+            ));
+    ?>
         </p>
 
         <h3><?php esc_html_e('Media Gallery', 'bike-theme'); ?></h3>
@@ -997,21 +1020,21 @@ function bike_theme_tour_details_meta_box_callback($post)
             <input type="hidden" id="tour_gallery" name="tour_gallery" value="<?php echo esc_attr(implode(',', (array)get_post_meta($post->ID, '_tour_gallery', true))); ?>">
             <div id="tour_gallery_preview" class="tour-gallery-preview">
                 <?php
-                $gallery_ids = get_post_meta($post->ID, '_tour_gallery', true);
-                if (!empty($gallery_ids) && is_array($gallery_ids)) {
-                    foreach ($gallery_ids as $image_id) {
-                        if ($image_id) {
-                            $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
-                            if ($image_url) {
-                                echo '<div class="gallery-image-item" data-id="' . esc_attr($image_id) . '">';
-                                echo '<img src="' . esc_url($image_url) . '" alt="">';
-                                echo '<button type="button" class="remove-gallery-image dashicons dashicons-no-alt"></button>';
-                                echo '</div>';
-                            }
-                        }
-                    }
+        $gallery_ids = get_post_meta($post->ID, '_tour_gallery', true);
+    if (!empty($gallery_ids) && is_array($gallery_ids)) {
+        foreach ($gallery_ids as $image_id) {
+            if ($image_id) {
+                $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+                if ($image_url) {
+                    echo '<div class="gallery-image-item" data-id="' . esc_attr($image_id) . '">';
+                    echo '<img src="' . esc_url($image_url) . '" alt="">';
+                    echo '<button type="button" class="remove-gallery-image dashicons dashicons-no-alt"></button>';
+                    echo '</div>';
                 }
-                ?>
+            }
+        }
+    }
+    ?>
             </div>
             <p>
                 <button type="button" class="button add-gallery-images"><?php esc_html_e('Add Gallery Images', 'bike-theme'); ?></button>
@@ -1027,10 +1050,10 @@ function bike_theme_tour_details_meta_box_callback($post)
         <div class="tour-additions-section">
             <?php
             $additions = get_post_meta($post->ID, '_tour_additions', true);
-            if (!is_array($additions)) {
-                $additions = array();
-            }
-            ?>
+    if (!is_array($additions)) {
+        $additions = array();
+    }
+    ?>
             <div class="additions-container">
                 <div class="additions-header">
                     <div class="addition-cell"><?php esc_html_e('Name', 'bike-theme'); ?></div>
@@ -1041,9 +1064,9 @@ function bike_theme_tour_details_meta_box_callback($post)
                 </div>
                 <div id="additions-rows">
                     <?php
-                    if (!empty($additions)) {
-                        foreach ($additions as $key => $addition) {
-                            ?>
+            if (!empty($additions)) {
+                foreach ($additions as $key => $addition) {
+                    ?>
                             <div class="addition-row">
                                 <div class="addition-cell">
                                     <input type="text" name="tour_additions[<?php echo $key; ?>][name]" 
@@ -1069,9 +1092,9 @@ function bike_theme_tour_details_meta_box_callback($post)
                                 </div>
                             </div>
                             <?php
-                        }
-                    }
-                    ?>
+                }
+            }
+    ?>
                 </div>
                 <div class="addition-row">
                     <div class="addition-cell">
@@ -1333,7 +1356,7 @@ function bike_theme_tour_pricing_meta_box_callback($post)
     $tour_group_discount = get_post_meta($post->ID, '_tour_group_discount', true);
     $tour_flexible_pricing_enabled = get_post_meta($post->ID, '_tour_flexible_pricing_enabled', true);
     $tour_flexible_pricing = get_post_meta($post->ID, '_tour_flexible_pricing', true) ?: array();
-    
+
     ?>
     <div class="bike-theme-meta-box">
         <p>
@@ -1397,7 +1420,7 @@ function bike_theme_tour_pricing_meta_box_callback($post)
                     </div>
                     <?php
                 }
-                ?>
+    ?>
             </div>
             <p>
                 <button type="button" class="button" id="add_pricing_tier"><?php _e('Add Pricing Tier', 'bike-theme'); ?></button>
@@ -1465,7 +1488,8 @@ function bike_theme_tour_pricing_meta_box_callback($post)
  * @param int $post_id The post ID.
  * @return void
  */
-function bike_theme_save_tour_meta_boxes_data($post_id) {
+function bike_theme_save_tour_meta_boxes_data($post_id)
+{
     // Check if our nonce is set.
     if (!isset($_POST['bike_theme_tour_details_nonce'])) {
         return;
@@ -1492,15 +1516,15 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
     if (isset($_POST['tour_duration_type'])) {
         update_post_meta($post_id, '_tour_duration_type', sanitize_text_field($_POST['tour_duration_type']));
     }
-    
+
     if (isset($_POST['tour_duration_days'])) {
         update_post_meta($post_id, '_tour_duration_days', absint($_POST['tour_duration_days']));
     }
-    
+
     if (isset($_POST['tour_duration_nights'])) {
         update_post_meta($post_id, '_tour_duration_nights', absint($_POST['tour_duration_nights']));
     }
-    
+
     if (isset($_POST['tour_duration_hours'])) {
         update_post_meta($post_id, '_tour_duration_hours', floatval($_POST['tour_duration_hours']));
     }
@@ -1516,11 +1540,11 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
     if (isset($_POST['tour_max_participants'])) {
         update_post_meta($post_id, '_tour_max_participants', absint($_POST['tour_max_participants']));
     }
-    
+
     if (isset($_POST['tour_start_location'])) {
         update_post_meta($post_id, '_tour_start_location', sanitize_text_field($_POST['tour_start_location']));
     }
-    
+
     if (isset($_POST['tour_end_location'])) {
         update_post_meta($post_id, '_tour_end_location', sanitize_text_field($_POST['tour_end_location']));
     }
@@ -1537,7 +1561,7 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
                     'distance' => isset($day_data['distance']) ? sanitize_text_field($day_data['distance']) : '',
                     'meals' => isset($day_data['meals']) ? $day_data['meals'] : array(),
                 );
-                
+
                 // Handle timeline items
                 if (isset($day_data['timeline_items']) && is_array($day_data['timeline_items'])) {
                     $timeline_items = array();
@@ -1552,7 +1576,7 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
                     }
                     $itinerary_data[$day_index]['timeline_items'] = $timeline_items;
                 }
-                
+
                 // Handle additional details if present
                 if (isset($day_data['additional_details']) && is_array($day_data['additional_details'])) {
                     $itinerary_data[$day_index]['additional_details'] = array_map('sanitize_text_field', $day_data['additional_details']);
@@ -1570,16 +1594,16 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
     if (isset($_POST['tour_not_included'])) {
         update_post_meta($post_id, '_tour_not_included', wp_kses_post($_POST['tour_not_included']));
     }
-    
+
     // Save booking and cancellation details
     if (isset($_POST['tour_booking_terms'])) {
         update_post_meta($post_id, '_tour_booking_terms', wp_kses_post($_POST['tour_booking_terms']));
     }
-    
+
     if (isset($_POST['tour_cancellation_policy'])) {
         update_post_meta($post_id, '_tour_cancellation_policy', wp_kses_post($_POST['tour_cancellation_policy']));
     }
-    
+
     if (isset($_POST['tour_contact_info'])) {
         update_post_meta($post_id, '_tour_contact_info', wp_kses_post($_POST['tour_contact_info']));
     }
@@ -1599,30 +1623,30 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
         update_post_meta($post_id, '_tour_review_info', wp_kses_post($_POST['tour_review_info']));
     }
 
-    
+
     // Save pricing data - check for nonce separately as it's from a different metabox
     if (isset($_POST['bike_theme_tour_pricing_nonce']) && wp_verify_nonce($_POST['bike_theme_tour_pricing_nonce'], 'bike_theme_tour_pricing_nonce')) {
-        
+
         if (isset($_POST['tour_price'])) {
             update_post_meta($post_id, '_tour_price', (float) $_POST['tour_price']);
         }
-        
+
         if (isset($_POST['tour_enable_group_discount'])) {
             update_post_meta($post_id, '_tour_enable_group_discount', $_POST['tour_enable_group_discount']);
         } else {
             update_post_meta($post_id, '_tour_enable_group_discount', 'no');
         }
-        
+
         if (isset($_POST['tour_group_discount'])) {
             update_post_meta($post_id, '_tour_group_discount', (float) $_POST['tour_group_discount']);
         }
-        
+
         if (isset($_POST['tour_flexible_pricing_enabled'])) {
             update_post_meta($post_id, '_tour_flexible_pricing_enabled', '1');
         } else {
             update_post_meta($post_id, '_tour_flexible_pricing_enabled', '');
         }
-        
+
         if (isset($_POST['tour_flexible_pricing']) && is_array($_POST['tour_flexible_pricing'])) {
             $pricing = array();
             foreach ($_POST['tour_flexible_pricing'] as $key => $data) {
@@ -1636,7 +1660,7 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
             update_post_meta($post_id, '_tour_flexible_pricing', $pricing);
         }
     }
-    
+
     // Save gallery images
     if (isset($_POST['tour_gallery'])) {
         $gallery_ids = array_filter(explode(',', sanitize_text_field($_POST['tour_gallery'])));
@@ -1644,12 +1668,12 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
     } else {
         delete_post_meta($post_id, '_tour_gallery');
     }
-    
+
     // Save video URL
     if (isset($_POST['tour_video_url'])) {
         update_post_meta($post_id, '_tour_video_url', esc_url_raw($_POST['tour_video_url']));
     }
-    
+
     // Save tour additions
     if (isset($_POST['tour_additions']) && is_array($_POST['tour_additions'])) {
         $additions = array();
@@ -1668,4 +1692,4 @@ function bike_theme_save_tour_meta_boxes_data($post_id) {
         update_post_meta($post_id, '_tour_additions', array());
     }
 }
-add_action('save_post_bike_tour', 'bike_theme_save_tour_meta_boxes_data'); 
+add_action('save_post_bike_tour', 'bike_theme_save_tour_meta_boxes_data');

@@ -14,7 +14,7 @@
                     <?php foreach ($itinerary_data as $day_index => $day) : ?>
                         <div class="itinerary-day-container">
                             <div class="timeline-marker">
-                                <div class="day-number"><?php echo esc_html($day_index + 1); ?></div>
+                                <div class="day-number"><?php echo esc_html($day['title'] ? $day['title'] : $day_index + 1); ?></div>
                             </div>
                             
                             <div class="itinerary-day-content">
@@ -56,7 +56,7 @@
                                                 </div>
                                                 <?php
                                             }
-                                            ?>
+                        ?>
                                         </div>
                                     </div>
 
@@ -84,7 +84,7 @@
                                                             <h5><?php esc_html_e('Meals Provided', 'bike-theme'); ?></h5>
                                                             <div class="meals-included wp-editor-content">
                                                                 <?php
-                                            $meals_included = array();
+                        $meals_included = array();
                                                     $meal_icons = array(
                                                         'breakfast' => '<i class="fas fa-coffee"></i>',
                                                         'lunch' => '<i class="fas fa-hamburger"></i>',
