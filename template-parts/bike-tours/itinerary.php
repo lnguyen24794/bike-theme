@@ -17,10 +17,10 @@
                                 <h3 class="day-title">
                                     <?php
                                     printf(
-                                        esc_html__('Day %d: %s', 'bike-theme'),
+                                        esc_html__('%s', 'bike-theme'),
                                         esc_html($day['title'])
                                     );
-                        ?>
+                                ?>
                                 </h3>
                                 <div class="row">
                                     <div class="col-lg-8 day-description content-formatted">
