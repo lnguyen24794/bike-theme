@@ -21,6 +21,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.jpg">
     <link rel="icon" type="image/jpg" sizes="192x192" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.jpg">
     <link rel="icon" type="image/jpg" sizes="512x512" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon_512.jpg">
+    <link rel="profile" href="https://gmpg.org/xfn/11">
     
 <?php wp_head();
 wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home.css', array(), BIKE_THEME_VERSION); ?>
@@ -62,7 +63,7 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
                 'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
                 'walker'          => new WP_Bootstrap_Navwalker()
             ));
-?>
+            ?>
         </div>
     </div>
 
@@ -70,11 +71,11 @@ wp_enqueue_style('home-header', get_template_directory_uri() . '/assets/css/home
         <div class="row gx-0">
             <div class="col-lg-3 bg-primary d-none d-lg-block">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                    <?php
-            $custom_logo_id = get_theme_mod('custom_logo');
-$logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-$secondary_logo = bike_theme_get_option('secondary_logo');
-?>
+                    <?php 
+                        $custom_logo_id = get_theme_mod('custom_logo');
+                        $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+                        $secondary_logo = bike_theme_get_option('secondary_logo');
+                    ?>
                     
                     <div class="container-fluid" style="max-width: 400px;">
                         <div class="row align-items-center justify-content-center">
@@ -151,7 +152,7 @@ $secondary_logo = bike_theme_get_option('secondary_logo');
                                 'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
                                 'walker'            => new WP_Bootstrap_Navwalker()
                             ));
-?>
+                        ?>
                     </div>
                 </nav>
             </div>
@@ -190,4 +191,9 @@ $secondary_logo = bike_theme_get_option('secondary_logo');
                 }
             }
         });
-    </script> 
+    </script>
+</div>
+
+<?php wp_footer(); ?>
+</body>
+</html> 
