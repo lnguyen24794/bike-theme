@@ -15,12 +15,8 @@
     <meta content="<?php echo esc_attr(bike_theme_get_option('meta_keywords', 'bikes, cycling, bicycle')); ?>" name="keywords">
     
     <!-- Favicon và Icons -->
-    <link rel="icon" type="image/jpg"" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.jpg">
-    <link rel="icon" type="image/jpg" sizes="16x16" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.jpg">
-    <link rel="icon" type="image/jpg" sizes="32x32" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.jpg">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.jpg">
-    <link rel="icon" type="image/jpg" sizes="192x192" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.jpg">
-    <link rel="icon" type="image/jpg" sizes="512x512" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon_512.jpg">
+    <link rel="icon" type="image/jpg" href="/favicon.jpg">
+    <link rel="apple-touch-icon" href="/favicon.jpg">
     <link rel="profile" href="https://gmpg.org/xfn/11">
     
 <?php wp_head();
