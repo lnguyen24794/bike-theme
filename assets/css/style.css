@@ -1303,3 +1303,9 @@
     border-bottom: 2px solid #000 !important;
     background-color: #f7cf07 !important;
 }
+
+.aligncenter {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
