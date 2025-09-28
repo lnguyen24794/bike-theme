@@ -198,6 +198,7 @@ function bike_theme_tour_details_meta_box_callback($post)
     $tour_cancellation_policy = get_post_meta($post->ID, '_tour_cancellation_policy', true);
     $tour_contact_info = get_post_meta($post->ID, '_tour_contact_info', true);
     $tour_price_info = get_post_meta($post->ID, '_tour_price_info', true);
+    $tour_add_ons = get_post_meta($post->ID, '_tour_add_ons', true);
     $tour_review_info = get_post_meta($post->ID, '_tour_review_info', true);
     if (!is_array($tour_itinerary_data)) {
         $tour_itinerary_data = array();
@@ -844,6 +845,21 @@ function bike_theme_tour_details_meta_box_callback($post)
             <?php
     wp_editor(wpautop($tour_price_info), 'tour_price_info', array(
         'textarea_name' => 'tour_price_info',
+        'media_buttons' => true,
+        'textarea_rows' => 5,
+        'editor_class' => 'widefat',
+        'teeny' => true,
+        'wpautop' => false
+    ));
+    ?>
+        </p>
+
+        <h3><?php esc_html_e('Add-ons', 'bike-theme'); ?></h3>
+        <p>
+            <label for="tour_add_ons"><?php esc_html_e('Tour Add-ons Information', 'bike-theme'); ?></label>
+            <?php
+    wp_editor(wpautop($tour_add_ons), 'tour_add_ons', array(
+        'textarea_name' => 'tour_add_ons',
         'media_buttons' => true,
         'textarea_rows' => 5,
         'editor_class' => 'widefat',
@@ -1610,6 +1626,10 @@ function bike_theme_save_tour_meta_boxes_data($post_id)
 
     if (isset($_POST['tour_price_info'])) {
         update_post_meta($post_id, '_tour_price_info', wp_kses_post($_POST['tour_price_info']));
+    }
+
+    if (isset($_POST['tour_add_ons'])) {
+        update_post_meta($post_id, '_tour_add_ons', wp_kses_post($_POST['tour_add_ons']));
     }
 
     if (isset($_POST['tour_review'])) {

@@ -26,7 +26,7 @@ if ($flexible_pricing_enabled === '1') {
             array('participants' => 1, 'price' => (int)get_post_meta(get_the_ID(), '_tour_price', true))
         );
     }
-    
+
     // Ensure all prices are integers
     foreach ($pricing_data as $key => $price_level) {
         $pricing_data[$key]['participants'] = (int)$price_level['participants'];
@@ -175,6 +175,11 @@ $booking_nonce = wp_create_nonce('bike_tour_booking');
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
+                    <button class="nav-link text-uppercase <?php echo $active_tab === 'add-ons' ? 'active' : ''; ?>" data-bs-toggle="tab" data-bs-target="#add-ons" type="button" role="tab" aria-controls="add-ons" aria-selected="<?php echo $active_tab === 'add-ons' ? 'true' : 'false'; ?>">
+                        <?php esc_html_e('Add-ons', 'bike-theme'); ?>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
                     <button class="nav-link text-uppercase <?php echo $active_tab === 'contact' ? 'active' : ''; ?>" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="<?php echo $active_tab === 'contact' ? 'true' : 'false'; ?>">
                         <?php esc_html_e('Contact', 'bike-theme'); ?>
                     </button>
@@ -211,6 +216,9 @@ $booking_nonce = wp_create_nonce('bike_tour_booking');
                             <!-- Reviews Tab -->
                             <?php include(get_template_directory() . '/template-parts/bike-tours/review.php'); ?>
                             <!-- Reviews Tab End -->
+                            <!-- Add-ons Tab -->
+                            <?php include(get_template_directory() . '/template-parts/bike-tours/add-ons.php'); ?>
+                            <!-- Add-ons Tab End -->
                             <!-- Contact Tab -->
                             <?php include(get_template_directory() . '/template-parts/bike-tours/contact.php'); ?>
                             <!-- Contact Tab End -->
@@ -320,8 +328,8 @@ $booking_nonce = wp_create_nonce('bike_tour_booking');
                                 <!-- Rider Details end -->
                                 <?php
                                 $additions = bike_theme_get_tour_additions(get_the_ID());
-                                if (!empty($additions)) :
-                                    ?>
+if (!empty($additions)) :
+    ?>
                                 <div class="col-12">
                                     <h5 class="mb-3"><?php esc_html_e('Optional Extras', 'bike-theme'); ?></h5>
                                     <div class="additions-options">

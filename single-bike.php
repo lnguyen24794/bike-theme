@@ -52,6 +52,11 @@ get_header();
                             <?php esc_html_e('Reviews', 'bike-theme'); ?>
                         </button>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-uppercase" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                            <?php esc_html_e('Contact', 'bike-theme'); ?>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -75,6 +80,7 @@ get_header();
                         <?php include(get_template_directory() . '/template-parts/bike/bike-conditions.php'); ?>
                         <?php include(get_template_directory() . '/template-parts/bike/bike-how-to-book.php'); ?>
                         <?php include(get_template_directory() . '/template-parts/bike/bike-review.php'); ?>
+                        <?php include(get_template_directory() . '/template-parts/bike/bike-contact.php'); ?>
                     </div>
                 </div>
 
