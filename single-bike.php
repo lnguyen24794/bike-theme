@@ -83,8 +83,6 @@ get_header();
                         <?php include(get_template_directory() . '/template-parts/bike/bike-contact.php'); ?>
                     </div>
                 </div>
-
-                <?php include(get_template_directory() . '/template-parts/bike/bike-contact.php'); ?>
             </div>
         </section>
       
