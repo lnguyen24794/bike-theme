@@ -11,6 +11,14 @@
         <?php else : ?>
             <img class="img-fluid" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/tours/tour-default.jpg" alt="<?php the_title_attribute(); ?>">
         <?php endif; ?>
+        <?php
+        $ebike_available = get_post_meta(get_the_ID(), '_tour_ebike_available', true);
+if ($ebike_available === 'yes') :
+    ?>
+            <span class="position-absolute top-0 start-50 translate-middle-x mt-2 badge" style="background-color: #ffc107; color: #000; padding: 5px 15px; font-size: 12px; font-weight: 600;">
+                E-bike Available
+            </span>
+        <?php endif; ?>
         <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
             <?php echo esc_html(number_format(get_post_meta(get_the_ID(), '_tour_price', true), 2, ',', '.')); ?> $
         </small>
@@ -20,20 +28,20 @@
             <h5 class="mb-0"><?php the_title(); ?></h5>
             <div class="ps-2">
                 <?php
-                $difficulty = get_post_meta(get_the_ID(), '_tour_difficulty', true);
-                $difficulty_class = '';
-                switch ($difficulty) {
-                    case 'easy':
-                        $difficulty_class = 'text-success';
-                        break;
-                    case 'moderate':
-                        $difficulty_class = 'text-warning';
-                        break;
-                    case 'difficult':
-                        $difficulty_class = 'text-danger';
-                        break;
-                }
-                ?>
+            $difficulty = get_post_meta(get_the_ID(), '_tour_difficulty', true);
+$difficulty_class = '';
+switch ($difficulty) {
+    case 'easy':
+        $difficulty_class = 'text-success';
+        break;
+    case 'moderate':
+        $difficulty_class = 'text-warning';
+        break;
+    case 'difficult':
+        $difficulty_class = 'text-danger';
+        break;
+}
+?>
                 <small class="<?php echo esc_attr($difficulty_class); ?>">
                     <?php echo esc_html(ucfirst($difficulty)); ?>
                 </small>

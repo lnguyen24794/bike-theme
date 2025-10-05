@@ -135,6 +135,14 @@ if ($tour_query->have_posts()) :
                                             <img class="img-fluid" height="200" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/placeholder-tour.jpg" alt="<?php the_title_attribute(); ?>">
                                         </a>
                                     <?php endif; ?>
+                                    <?php
+                                    $ebike_available = get_post_meta(get_the_ID(), '_tour_ebike_available', true);
+        if ($ebike_available === 'yes') :
+            ?>
+                                        <span class="position-absolute top-0 start-50 translate-middle-x mt-2 badge" style="background-color: #ffc107; color: #000; padding: 5px 15px; font-size: 12px; font-weight: 600;">
+                                            E-bike Available
+                                        </span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="p-3 mt-2 a pb-0">
                                     <div class="d-flex justify-content-between mb-3">
@@ -154,10 +162,10 @@ if ($tour_query->have_posts()) :
                                 </div>
                             </div>
                         <?php
-                            endwhile;
-                        wp_reset_postdata();
-                        else :
-                            ?>
+    endwhile;
+wp_reset_postdata();
+else :
+    ?>
                         <div class="col-12 text-center">
                             <h3><?php esc_html_e('No bike tours found.', 'bike-theme'); ?></h3>
                             <p><?php esc_html_e('Please try different filter options or check back later.', 'bike-theme'); ?></p>
@@ -174,18 +182,18 @@ endif;
                         <nav aria-label="Page navigation">
                             <?php
                             $big = 999999999; // Need an unlikely integer
-                            echo paginate_links(array(
-                                'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-                                'format' => '?paged=%#%',
-                                'current' => max(1, get_query_var('paged')),
-                                'total' => $tour_query->max_num_pages,
-                                'prev_text' => '<i class="fa fa-angle-left"></i>',
-                                'next_text' => '<i class="fa fa-angle-right"></i>',
-                                'type' => 'list',
-                                'end_size' => 4,
-                                'mid_size' => 4
-                            ));
-                            ?>
+echo paginate_links(array(
+    'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+    'format' => '?paged=%#%',
+    'current' => max(1, get_query_var('paged')),
+    'total' => $tour_query->max_num_pages,
+    'prev_text' => '<i class="fa fa-angle-left"></i>',
+    'next_text' => '<i class="fa fa-angle-right"></i>',
+    'type' => 'list',
+    'end_size' => 4,
+    'mid_size' => 4
+));
+?>
                         </nav>
                     </div>
                 </div>
@@ -215,22 +223,22 @@ endif;
                             <div class="destination-categories">
                             <ul class="list-unstyled">
                             <?php
-                                // Get other destinations
-                                $other_destinations = get_terms(array(
-                                    'taxonomy' => 'destination',
-                                    'hide_empty' => false,
-                                    'exclude' => array($term->term_id),
-                                    'number' => 6
-                                ));
+    // Get other destinations
+    $other_destinations = get_terms(array(
+        'taxonomy' => 'destination',
+        'hide_empty' => false,
+        'exclude' => array($term->term_id),
+        'number' => 6
+    ));
 
-                                if (!empty($other_destinations) && !is_wp_error($other_destinations)) :
-                                    foreach ($other_destinations as $other_destination) :
-                                        $other_image_id = get_term_meta($other_destination->term_id, 'destination_image', true);
-                                        $other_image_url = wp_get_attachment_url($other_image_id);
-                                        if (!$other_image_url) {
-                                            $other_image_url = get_template_directory_uri() . '/assets/images/bikes/destination-default.jpg';
-                                        }
-                                        ?>
+if (!empty($other_destinations) && !is_wp_error($other_destinations)) :
+    foreach ($other_destinations as $other_destination) :
+        $other_image_id = get_term_meta($other_destination->term_id, 'destination_image', true);
+        $other_image_url = wp_get_attachment_url($other_image_id);
+        if (!$other_image_url) {
+            $other_image_url = get_template_directory_uri() . '/assets/images/bikes/destination-default.jpg';
+        }
+        ?>
                                                             
                                         <li>
                                             <a href="/destination/<?php echo esc_attr($other_destination->slug); ?>">
@@ -239,9 +247,9 @@ endif;
                                         </li>
                                     
                                     <?php
-                                    endforeach;
-                                endif;
-                                ?>
+    endforeach;
+endif;
+?>
                             </ul>
                             </div>
                         </div>

@@ -171,6 +171,15 @@ function bike_theme_add_tour_meta_boxes()
         'normal',
         'high'
     );
+
+    add_meta_box(
+        'tour_ebike_available',
+        __('E-bike Availability', 'bike-theme'),
+        'bike_theme_tour_ebike_callback',
+        'bike_tour',
+        'side',
+        'default'
+    );
 }
 add_action('add_meta_boxes', 'bike_theme_add_tour_meta_boxes');
 
@@ -335,13 +344,13 @@ function bike_theme_tour_details_meta_box_callback($post)
                                         wpautop($day['description']),
                                         'tour_itinerary_' . $day_index . '_description',
                                         array(
-                                                                                                                                                                    'textarea_name' => 'tour_itinerary[' . $day_index . '][description]',
-                                                                                                                                                                    'media_buttons' => true,
-                                                                                                                                                                    'textarea_rows' => 5,
-                                                                                                                                                                    'editor_class' => 'widefat',
-                                                                                                                                                                    'teeny' => true,
-                                                                                                                                                                    'wpautop' => false
-                                                                                                                                                                )
+                                                                                                                                                                                                        'textarea_name' => 'tour_itinerary[' . $day_index . '][description]',
+                                                                                                                                                                                                        'media_buttons' => true,
+                                                                                                                                                                                                        'textarea_rows' => 5,
+                                                                                                                                                                                                        'editor_class' => 'widefat',
+                                                                                                                                                                                                        'teeny' => true,
+                                                                                                                                                                                                        'wpautop' => false
+                                                                                                                                                                                                    )
                                     );
                         ?>
                                 </p>
@@ -372,12 +381,12 @@ function bike_theme_tour_details_meta_box_callback($post)
                                                     wpautop($item['content']),
                                                     'tour_itinerary_' . $day_index . '_timeline_' . $item_index,
                                                     array(
-                                                                                                                                                                                'textarea_name' => "tour_itinerary[{$day_index}][timeline_items][{$item_index}][content]",
-                                                                                                                                                                                'media_buttons' => true,
-                                                                                                                                                                                'textarea_rows' => 4,
-                                                                                                                                                                                'teeny' => true,
-                                                                                                                                                                                'wpautop' => false
-                                                                                                                                                                            )
+                                                                                                                                                                                                                    'textarea_name' => "tour_itinerary[{$day_index}][timeline_items][{$item_index}][content]",
+                                                                                                                                                                                                                    'media_buttons' => true,
+                                                                                                                                                                                                                    'textarea_rows' => 4,
+                                                                                                                                                                                                                    'teeny' => true,
+                                                                                                                                                                                                                    'wpautop' => false
+                                                                                                                                                                                                                )
                                                 );
                                     ?>
                                                         </p>
@@ -1499,6 +1508,29 @@ function bike_theme_tour_pricing_meta_box_callback($post)
 }
 
 /**
+ * Tour E-bike availability meta box callback
+ */
+function bike_theme_tour_ebike_callback($post)
+{
+    wp_nonce_field('bike_theme_tour_ebike_nonce', 'bike_theme_tour_ebike_nonce');
+
+    // Get stored value
+    $ebike_available = get_post_meta($post->ID, '_tour_ebike_available', true);
+
+    ?>
+    <p>
+        <label>
+            <input type="checkbox" name="tour_ebike_available" value="yes" <?php checked($ebike_available, 'yes'); ?>>
+            <?php _e('E-bike available for this tour', 'bike-theme'); ?>
+        </label>
+    </p>
+    <p class="description">
+        <?php _e('Check this if E-bikes are available as an option for this tour. A badge will be displayed on the tour listing.', 'bike-theme'); ?>
+    </p>
+    <?php
+}
+
+/**
  * Save tour meta box data.
  *
  * @param int $post_id The post ID.
@@ -1710,6 +1742,12 @@ function bike_theme_save_tour_meta_boxes_data($post_id)
         update_post_meta($post_id, '_tour_additions', $additions);
     } else {
         update_post_meta($post_id, '_tour_additions', array());
+    }
+
+    // Save E-bike availability
+    if (isset($_POST['bike_theme_tour_ebike_nonce']) && wp_verify_nonce($_POST['bike_theme_tour_ebike_nonce'], 'bike_theme_tour_ebike_nonce')) {
+        $ebike_available = isset($_POST['tour_ebike_available']) ? 'yes' : 'no';
+        update_post_meta($post_id, '_tour_ebike_available', $ebike_available);
     }
 }
 add_action('save_post_bike_tour', 'bike_theme_save_tour_meta_boxes_data');

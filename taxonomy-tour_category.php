@@ -138,6 +138,14 @@ if ($tour_query->have_posts()) :
                                             <img class="img-fluid" height="200" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/placeholder-tour.jpg" alt="<?php the_title_attribute(); ?>">
                                         </a>
                                     <?php endif; ?>
+                                    <?php
+                                    $ebike_available = get_post_meta(get_the_ID(), '_tour_ebike_available', true);
+        if ($ebike_available === 'yes') :
+            ?>
+                                        <span class="position-absolute top-0 start-50 translate-middle-x mt-2 badge" style="background-color: #ffc107; color: #000; padding: 5px 15px; font-size: 12px; font-weight: 600;">
+                                            E-bike Available
+                                        </span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="p-3 mt-2 a pb-0">
                                     <div class="d-flex justify-content-between mb-3">
