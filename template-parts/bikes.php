@@ -20,22 +20,24 @@
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="room-item shadow rounded" style="height: 100%;">
                     <div class="position-relative bike-image">
+                        <a href="<?php the_permalink(); ?>">
                         <?php if (has_post_thumbnail()) : ?>
                             <?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?>
                         <?php else : ?>
                             <img class="img-fluid" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/bikes/bike-default.jpg" alt="<?php the_title_attribute(); ?>">
+                          
                         <?php endif; ?>
                         <?php if ($is_available !== 'yes') : ?>
                         <small style="top: 25px !important; left: -10px !important;" class="position-absolute bike-label bg-primary text-white rounded py-1 px-3 ms-4">
                             <?php esc_html_e('Coming Soon', 'bike-theme'); ?>
                         </small>
                         <?php else : ?>
-                              
+                        </a>   
                         <?php endif; ?>
                     </div>
                     <div class="p-3 mt-2 a">
                         <div class="bikes-item mb-2">
-                            <h5 class="mb-0"><?php the_title(); ?></h5>
+                            <h5 class="mb-0"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
                         </div>
                         <div class="d-flex mb-3">
                             <?php if ($bike_brand) : ?>
