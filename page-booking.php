@@ -399,7 +399,7 @@ jQuery(document).ready(function($) {
         if (tourId && tourAdditionsData[tourId]) {
             var additions = tourAdditionsData[tourId];
             additions.forEach(function(addition, index) {
-                var html = '<div class="form-check mb-3">' +
+                var html = '<div class="form-check">' +
                     '<input class="form-check-input addition-checkbox" type="checkbox" ' +
                     'name="additions[]" value="' + addition.name + '" ' +
                     'id="addition_' + index + '" ' +
