@@ -142,7 +142,7 @@ if ($tour_query->have_posts()) :
                                     $ebike_available = get_post_meta(get_the_ID(), '_tour_ebike_available', true);
         if ($ebike_available === 'yes') :
             ?>
-                                        <span class="position-absolute top-0 start-50 translate-middle-x mt-2 badge" style="background-color: #ffc107; color: #000; padding: 5px 15px; font-size: 18px; text-transform: uppercase; font-weight: 600;">
+                                        <span class="position-absolute top-0 start-50 translate-middle-x mt-0 badge" style="background-color: #ffc107; color: #000; padding: 5px 15px; font-size: 18px; text-transform: uppercase; font-weight: 600;">
                                             E-bike Available
                                         </span>
                                     <?php endif; ?>
